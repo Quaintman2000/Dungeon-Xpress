@@ -25,19 +25,21 @@ public class PlayerNavMesh : MonoBehaviour
 
     private void Update()
     {
-        // On right click...
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            // If there is a spawn marker.
-            if (spawnedMarker != null)
-                Destroy(spawnedMarker);
-
-            // Move to clicked position.
-            MoveToClickPoint();
-        }
+       
     }
 
-    public void MoveToClickPoint()
+    public void SetMoveToMarker()
+    {
+        // If there is a spawn marker.
+        if (spawnedMarker != null)
+            Destroy(spawnedMarker);
+        if (currentPathRenderer != null)
+            Destroy(currentPathRenderer.gameObject);
+        // Move to clicked position.
+        MoveToClickPoint();
+    }
+
+    private void MoveToClickPoint()
     {
 
         //Cast a ray from our camera toward the plane, through our mouse cursor
