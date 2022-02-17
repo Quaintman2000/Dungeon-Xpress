@@ -11,6 +11,7 @@ public class PlayerNavMesh : MonoBehaviour
     [SerializeField] GameObject moveToMarker;
     [SerializeField] Text noGoText;
     [SerializeField] LineRenderer navPathLineRend;
+
     LineRenderer currentPathRenderer;
     // NavMeshAgent for pathfind.
     NavMeshAgent navMeshAgent;
@@ -76,19 +77,23 @@ public class PlayerNavMesh : MonoBehaviour
 
     IEnumerator NoGoTextDisplay()
     {
+        // Set the timer for the text fade away.
         float timer = 1.5f;
+        // Set the text to be active.
         noGoText.gameObject.SetActive(true);
+        // Set the aplha to max.
         Color textColor = new Color(noGoText.color.r, noGoText.color.g, noGoText.color.b, 1f);
         noGoText.color = textColor;
-
+        // Timer...
         while(timer > 0)
         {
             timer -= Time.deltaTime;
+            // Reduce the alpha of the text color over time.
             textColor.a -= Time.deltaTime;
             noGoText.color = textColor;
             yield return null;
         }
-
+        // Once the timer is over, deactivate the text.
         noGoText.gameObject.SetActive(false);
     }
 
@@ -98,17 +103,18 @@ public class PlayerNavMesh : MonoBehaviour
         // While we're not at the at the move position...
         while (transform.position != movePosition)
         {
-            currentPathRenderer.SetPosition(0, transform.position);
-
-            if (transform.position == navMeshAgent.path.corners[0])
-            {
-                currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
-                currentPathRenderer.SetPosition(1, navMeshAgent.path.corners[0]);
-            }
+            // Set the position count of the renderer equal to the length of the cornors array.
+            currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
+            // Set the line position points to the corners.
+            currentPathRenderer.SetPositions(navMeshAgent.path.corners);
+          
             // Return null.
             yield return null;
         }
         // Destroy the marker once we've reached the position.
         Destroy(spawnedMarker);
+
+        // Destroy the path once we've reached our position.
+        Destroy(currentPathRenderer.gameObject);
     }
 }
