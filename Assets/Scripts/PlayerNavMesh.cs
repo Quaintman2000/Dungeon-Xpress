@@ -12,6 +12,7 @@ public class PlayerNavMesh : MonoBehaviour
     [SerializeField] Text noGoText;
     [SerializeField] LineRenderer navPathLineRend;
 
+    //LineRender to draw with
     LineRenderer currentPathRenderer;
     // NavMeshAgent for pathfind.
     NavMeshAgent navMeshAgent;
@@ -21,11 +22,6 @@ public class PlayerNavMesh : MonoBehaviour
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-    }
-
-    private void Update()
-    {
-       
     }
 
     public void SetMoveToMarker()
@@ -68,7 +64,7 @@ public class PlayerNavMesh : MonoBehaviour
         currentPathRenderer.positionCount = navMeshAgent.path.corners.Length + 1;
         currentPathRenderer.SetPositions(navMeshAgent.path.corners);
         // Spawn the move to marker at the raycast point.
-        spawnedMarker = Instantiate<GameObject>(moveToMarker, raycastPoint + Vector3.up, moveToMarker.transform.rotation);
+        spawnedMarker = Instantiate<GameObject>(moveToMarker, raycastPoint + moveToMarker.transform.position, moveToMarker.transform.rotation);
 
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = raycastPoint;
