@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class CameraController : MonoBehaviour
 {
     //Get reference to the camera
@@ -11,19 +12,23 @@ public class CameraController : MonoBehaviour
     [SerializeField] Transform player;
 
     //Movement, rotation, and zoom speed
+    [Header("Camera Movement Properties:")]
     [SerializeField, Range(0, 15)] float cameraSpeed = 0.0f;
     [SerializeField, Range(0, 50)] float turnSpeed = 0.0f; 
+
+    [Header("Zoom Properties:")]
     [SerializeField, Range(0, 5)] float zoomSpeed = 0.0f;
 
     //Maximum and minimum zoom distance
     [SerializeField, Range(-10, 0)] float maxZoom = 0.0f;
     [SerializeField, Range(0, 10)] float minZoom = 0.0f;
 
+    //Bool to check if the Follow Player coroutine is running
+    [HideInInspector] public bool IsFollowing = false;
+
     //Keeps track of our current zoom value
     float zoomDistance = 0.0f;
 
-    //Bool to check if the Follow Player coroutine is running
-    public bool IsFollowing = false;
 
     //Move on the x and z axis based on input from the player controller
     public void MoveCamera(float verticalInput, float horizontalInput)
