@@ -109,4 +109,9 @@ public class MainMenuUIManager : MonoBehaviour
         Resolution resolution = resolutions[resolutionDropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
+
+    public void OnMatchMakeButtonClicked()
+    {
+        // TODO: Have the sceneloader load the gameplay scene.
+    }
 }
