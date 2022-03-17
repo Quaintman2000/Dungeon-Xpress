@@ -11,6 +11,7 @@ public class ClassData : ScriptableObject
     public float MovementRange;
     public float PhysicalDamage;
     public float MagicDamage;
+    public float AttackSpeed;
     [PreviewField(75)]
     public GameObject CharacterModel;
 

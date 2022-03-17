@@ -5,11 +5,22 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerNavMesh))]
 public class PlayerController : MonoBehaviour
 {
+
     // AI pathing variable.
     PlayerNavMesh playerNav;
 
+    // Reference to the player state.
+    enum PlayerState { InCombat, FreeRoam};
+    [SerializeField] PlayerState currentState = PlayerState.FreeRoam;
+
+    
+
+    public bool IsTurn;
+
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
+    [SerializeField] CombatController combatController;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +44,16 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
 
         // If we right click...
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1) && currentState == PlayerState.FreeRoam)
         {
             // Set the pathing to start.
             playerNav.SetMoveToMarker();
+        }
+
+        if (currentState == PlayerState.InCombat && IsTurn == true)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+                combatController.StartCoroutine(combatController.Attack());
         }
 
         //If inputs a direction input...

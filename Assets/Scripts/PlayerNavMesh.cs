@@ -54,7 +54,7 @@ public class PlayerNavMesh : MonoBehaviour
         Vector3 raycastPoint = cameraRay.GetPoint(distance);
 
         NavMeshHit navHit;
-        if(!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
+        if (!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
         {
             StartCoroutine(NoGoTextDisplay());
             return;
@@ -72,6 +72,22 @@ public class PlayerNavMesh : MonoBehaviour
         // Start moving courtine to make sure we delete the marker when we're done.
         StartCoroutine(Moving(raycastPoint));
     }
+
+    public void AttackMove(Vector3 position)
+    {
+        currentPathRenderer = Instantiate<LineRenderer>(navPathLineRend);
+        currentPathRenderer.positionCount = navMeshAgent.path.corners.Length + 1;
+        currentPathRenderer.SetPositions(navMeshAgent.path.corners);
+        // Spawn the move to marker at the raycast point.
+        spawnedMarker = Instantiate<GameObject>(moveToMarker, position + moveToMarker.transform.position, moveToMarker.transform.rotation);
+
+        //Tell the NavMesh to go to the raycast point
+        navMeshAgent.destination = position;
+
+        // Start moving courtine to make sure we delete the marker when we're done.
+        StartCoroutine(Moving(position));
+    }
+
 
     IEnumerator NoGoTextDisplay()
     {
@@ -110,9 +126,11 @@ public class PlayerNavMesh : MonoBehaviour
             yield return null;
         }
         // Destroy the marker once we've reached the position.
-        Destroy(spawnedMarker);
+        if(spawnedMarker)
+            Destroy(spawnedMarker);
 
         // Destroy the path once we've reached our position.
-        Destroy(currentPathRenderer.gameObject);
+        if(currentPathRenderer)
+            Destroy(currentPathRenderer.gameObject);
     }
 }
