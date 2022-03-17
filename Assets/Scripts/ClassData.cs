@@ -7,12 +7,20 @@ using Sirenix.OdinInspector;
 public class ClassData : ScriptableObject
 {
     public string ClassName;
-    public float MaxHealth;
-    public float MovementRange;
-    public float PhysicalDamage;
-    public float MagicDamage;
-    [PreviewField(75)]
+
+    [HorizontalGroup("Split")]
+    [BoxGroup("Split/Character Model:")]
+    [PreviewField(150)]
     public GameObject CharacterModel;
+
+    [BoxGroup("Split/ Stats:"),MinValue(0)]
+    public float MaxHealth;
+    [BoxGroup("Split/ Stats:"), MinValue(0)]
+    public float MovementRange;
+    [BoxGroup("Split/ Stats:"), MinValue(0)]
+    public float PhysicalDamage;
+    [BoxGroup("Split/ Stats:"), MinValue(0)]
+    public float MagicDamage;
 
     public string[] Abilities = new string[4];
 
