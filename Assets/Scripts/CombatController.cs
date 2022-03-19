@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
+    [SerializeField] int actionPoints;
     // Reference to the player Nav Mesh.
     [SerializeField] PlayerNavMesh playerNavMesh;
     // The close enough range to hit our target in melee.
@@ -14,6 +15,8 @@ public class CombatController : MonoBehaviour
     // Reference to the player's combat state.
     enum CombatState { Idle, Moving, Attacking };
     [SerializeField] CombatState currentCombatState;
+
+    [SerializeField] AbilityData selectedAbilityData;
 
     // Start is called before the first frame update
     void Start()
@@ -28,59 +31,63 @@ public class CombatController : MonoBehaviour
 
     }
 
-    public IEnumerator Attack()
+    public void UseAbility(Vector3 raycastPoint, CombatController other)
     {
-        Debug.Log("ATTACK!");
-        //Cast a ray from our camera toward the plane, through our mouse cursor
-        float distance;
-        // Hit info from the raycast.
-        RaycastHit hit;
-        // Makes the raycast from our mouseposition to the ground.
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // Sends the raycast of to infinity until hits something.
-        Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
-
-        // Grab the distance of the position we hit to get the point along the ray.
-        distance = hit.distance;
-
-        //Find where that ray hits the plane
-        Vector3 raycastPoint = cameraRay.GetPoint(distance);
-        // If we hit a combatant...
-        if (hit.collider.GetComponent<CombatController>())
+        if (selectedAbilityData.cost <= actionPoints)
         {
-            Debug.Log("Target Locked!");
-            // Set the combatant as other.
-            CombatController other = hit.collider.GetComponent<CombatController>();
-            // If the combatant isnt us...
-            if (other != this)
+            if (selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff || selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff)
             {
-                // If the player is not within close enough range and the player isnt already moving...
-                if (Vector3.Distance(transform.position, raycastPoint) > closeEnough && (currentCombatState == CombatState.Idle || currentCombatState == CombatState.Attacking))
-                {
-                    // Set the player to moving and move the player.
-                    currentCombatState = CombatState.Moving;
-                    playerNavMesh.AttackMove(raycastPoint);
-                    
-                }
-                // While the player is still not within range...
-                while (Vector3.Distance(transform.position, raycastPoint) > closeEnough)
-                {
-                    yield return null;
-                }
-                Debug.Log("Hiya!");
-                // Set them to attacking and deal damage to the other combatant.
-                currentCombatState = CombatState.Attacking;
-                other.TakeDamage(classData.PhysicalDamage);
+                //if(Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range)
+                //{
+                //    other.DebuffOrBuff(selectedAbilityData);
+                //}
+            }
+
+            if (selectedAbilityData.Type == AbilityData.AbilityType.MeleeAttack)
+            {
+
+                StartCoroutine(AttackMove(raycastPoint, other));
+            }
+            else if (selectedAbilityData.Type == AbilityData.AbilityType.Movement)
+            {
+
+            }
+            else if (selectedAbilityData.Type == AbilityData.AbilityType.RangeAttack)
+            {
+
             }
         }
-        // If we didn't hit a combatant.
-        else
+
+
+    }
+
+    public IEnumerator AttackMove(Vector3 raycastPoint, CombatController other)
+    {
+        Debug.Log("ATTACK!");
+
+        // If the player is not within close enough range and the player isnt already moving...
+        if (Vector3.Distance(transform.position, raycastPoint) > selectedAbilityData.Range && (currentCombatState == CombatState.Idle || currentCombatState == CombatState.Attacking))
         {
-            Debug.Log("Not a valid target");
+            // Set the player to moving and move the player.
+            currentCombatState = CombatState.Moving;
+            playerNavMesh.AttackMove(raycastPoint);
+
         }
+        // While the player is still not within range...
+        while (Vector3.Distance(transform.position, raycastPoint) > selectedAbilityData.Range)
+        {
+            yield return null;
+        }
+        playerNavMesh.StopAllCoroutines();
+        Debug.Log("Hiya!");
+        // Set them to attacking and deal damage to the other combatant.
+        currentCombatState = CombatState.Attacking;
+        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : classData.PhysicalDamage);
+
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
     }
+
     /// <summary>
     /// Reduces the player's health based on damage inputted.
     /// </summary>
@@ -90,4 +97,22 @@ public class CombatController : MonoBehaviour
         Debug.Log("Ouch!");
         Health -= damage;
     }
+
+    private void DebuffOrBuff(AbilityData abilityData)
+    {
+        
+    }
+
+    void RangeAttack(CombatController other)
+    {
+
+    }
+
+    void Movement(CombatController other)
+    {
+
+    }
+
 }
+
+

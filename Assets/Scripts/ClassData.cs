@@ -22,8 +22,8 @@ public class ClassData : ScriptableObject
     [BoxGroup("Split/ Stats:"), MinValue(0)]
     public float MagicDamage;
 
-    public string[] Abilities = new string[4];
+    public AbilityData[] Abilities = new AbilityData[4];
 
-
+    
 
 }

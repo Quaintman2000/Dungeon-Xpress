@@ -1043,6 +1043,10 @@ PrefabInstance:
       propertyPath: closeEnough
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3059280784193617559, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
+      propertyPath: selectedAbilityData
+      value: 
+      objectReference: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
     - target: {fileID: 8244661646356814120, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: IsTurn
       value: 1
@@ -1053,7 +1057,7 @@ PrefabInstance:
       objectReference: {fileID: 1057454755}
     - target: {fileID: 8244661646356814120, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: currentState
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8244661646356814120, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: combatController
@@ -1065,7 +1069,7 @@ PrefabInstance:
       objectReference: {fileID: 890663437}
     - target: {fileID: 8244661646356834002, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: m_StoppingDistance
-      value: 0.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8244661646356834003, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: m_Name

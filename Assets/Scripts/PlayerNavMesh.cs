@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerNavMesh : MonoBehaviour
 {
+    public List<Vector3> corners;
     // Marker gameobject to represent where we are moving to.
     [SerializeField] GameObject moveToMarker;
     [SerializeField] Text noGoText;
@@ -19,12 +20,14 @@ public class PlayerNavMesh : MonoBehaviour
     // Keeps track of the current spawnMarker.
     GameObject spawnedMarker;
 
+    public float distance;
+
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    public void SetMoveToMarker()
+    public void SetMoveToMarker(Vector3 raycastPoint)
     {
         // If there is a spawn marker.
         if (spawnedMarker != null)
@@ -32,26 +35,11 @@ public class PlayerNavMesh : MonoBehaviour
         if (currentPathRenderer != null)
             Destroy(currentPathRenderer.gameObject);
         // Move to clicked position.
-        MoveToClickPoint();
+        MoveToClickPoint(raycastPoint);
     }
 
-    private void MoveToClickPoint()
+    private void MoveToClickPoint(Vector3 raycastPoint)
     {
-
-        //Cast a ray from our camera toward the plane, through our mouse cursor
-        float distance;
-        // Hit info from the raycast.
-        RaycastHit hit;
-        // Makes the raycast from our mouseposition to the ground.
-        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // Sends the raycast of to infinity until hits something.
-        Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
-
-        // Grab the distance of the position we hit to get the point along the ray.
-        distance = hit.distance;
-
-        //Find where that ray hits the plane
-        Vector3 raycastPoint = cameraRay.GetPoint(distance);
 
         NavMeshHit navHit;
         if (!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
@@ -69,12 +57,32 @@ public class PlayerNavMesh : MonoBehaviour
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = raycastPoint;
 
-        // Start moving courtine to make sure we delete the marker when we're done.
-        StartCoroutine(Moving(raycastPoint));
+        NavMeshPath path = new NavMeshPath();
+        navMeshAgent.CalculatePath(raycastPoint, path);
+        
+
+            distance = 0;
+            corners.Clear();
+            for (int i = 1; i < path.corners.Length; i++)
+            {
+                corners.Add(path.corners[i]);
+                float displacement = (Vector3.Distance(path.corners[i], path.corners[i - 1]));
+                distance += displacement;
+
+            }
+        
+            // Start moving courtine to make sure we delete the marker when we're done.
+            StartCoroutine(Moving(raycastPoint));
     }
 
     public void AttackMove(Vector3 position)
     {
+        // If there is a spawn marker.
+        if (spawnedMarker != null)
+            Destroy(spawnedMarker);
+        if (currentPathRenderer != null)
+            Destroy(currentPathRenderer.gameObject);
+
         currentPathRenderer = Instantiate<LineRenderer>(navPathLineRend);
         currentPathRenderer.positionCount = navMeshAgent.path.corners.Length + 1;
         currentPathRenderer.SetPositions(navMeshAgent.path.corners);
@@ -99,7 +107,7 @@ public class PlayerNavMesh : MonoBehaviour
         Color textColor = new Color(noGoText.color.r, noGoText.color.g, noGoText.color.b, 1f);
         noGoText.color = textColor;
         // Timer...
-        while(timer > 0)
+        while (timer > 0)
         {
             timer -= Time.deltaTime;
             // Reduce the alpha of the text color over time.
@@ -113,7 +121,6 @@ public class PlayerNavMesh : MonoBehaviour
 
     IEnumerator Moving(Vector3 movePosition)
     {
-
         // While we're not at the at the move position...
         while (transform.position != movePosition)
         {
@@ -121,16 +128,16 @@ public class PlayerNavMesh : MonoBehaviour
             currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
             // Set the line position points to the corners.
             currentPathRenderer.SetPositions(navMeshAgent.path.corners);
-          
+
             // Return null.
             yield return null;
         }
         // Destroy the marker once we've reached the position.
-        if(spawnedMarker)
+        if (spawnedMarker)
             Destroy(spawnedMarker);
 
         // Destroy the path once we've reached our position.
-        if(currentPathRenderer)
+        if (currentPathRenderer)
             Destroy(currentPathRenderer.gameObject);
     }
 }

@@ -43,18 +43,45 @@ public class PlayerController : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        // If we right click...
-        if (Input.GetKeyDown(KeyCode.Mouse1) && currentState == PlayerState.FreeRoam)
+        if(Input.GetKeyDown(KeyCode.Mouse1))
         {
-            // Set the pathing to start.
-            playerNav.SetMoveToMarker();
+            //Cast a ray from our camera toward the plane, through our mouse cursor
+            float distance;
+            // Hit info from the raycast.
+            RaycastHit hit;
+            // Makes the raycast from our mouseposition to the ground.
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // Sends the raycast of to infinity until hits something.
+            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
+
+            // Grab the distance of the position we hit to get the point along the ray.
+            distance = hit.distance;
+
+            //Find where that ray hits the plane
+            Vector3 raycastPoint = cameraRay.GetPoint(distance);
+
+            // If we right click...
+            if (currentState == PlayerState.FreeRoam)
+            {
+                // Set the pathing to start.
+                playerNav.SetMoveToMarker(raycastPoint);
+            }
+
+            if (currentState == PlayerState.InCombat && IsTurn == true)
+            {
+                // If we hit a combatant...
+                if (hit.collider.GetComponent<CombatController>())
+                {
+                    Debug.Log("Target Locked!");
+                    // Set the combatant as other.
+                    CombatController other = hit.collider.GetComponent<CombatController>();
+                    // If the combatant isnt us...
+                    
+                        combatController.StartCoroutine(combatController.AttackMove(raycastPoint,other));
+                }
+            }
         }
 
-        if (currentState == PlayerState.InCombat && IsTurn == true)
-        {
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-                combatController.StartCoroutine(combatController.Attack());
-        }
 
         //If inputs a direction input...
         if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
