@@ -65,6 +65,10 @@ public class PlayerController : CharacterController
                     
                         combatController.UseAbility(raycastPoint,other);
                 }
+                else
+                {
+                    combatController.MoveToPoint(raycastPoint);
+                }
             }
         }
 

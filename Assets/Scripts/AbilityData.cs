@@ -6,7 +6,7 @@ using UnityEngine;
 public class AbilityData : ScriptableObject
 {
     public string AbilityName;
-    public enum AbilityType { MeleeAttack, RangeAttack, Movement };
+    public enum AbilityType { MeleeAttack, RangeAttack, Movement, Neither };
     public AbilityType Type = AbilityType.MeleeAttack;
     public enum BuffOrDebuff { Buff, Debuff, None}
     public BuffOrDebuff BuffType = BuffOrDebuff.Buff;
@@ -19,7 +19,32 @@ public class AbilityData : ScriptableObject
     public int Cooldown;
     public int cost;
 
+    public StatusEffect statusEffect = new StatusEffect(2, 2);
+
     public float MovementModifier;
 
     public Projectile Projectile;
+}
+
+[System.Serializable]
+public struct StatusEffect
+{
+    public int EffectTime;
+    public float Multiplier;
+    public StatusEffect(int effectTime, float multiplier)
+    {
+        EffectTime = effectTime;
+        Multiplier = multiplier;
+    }
+
+    public void ReduceDuration()
+    {
+        EffectTime -= 1;
+    }
+
+    public void ReduceDuration(int reduceValue)
+    {
+        EffectTime -= reduceValue;
+    }
+
 }
