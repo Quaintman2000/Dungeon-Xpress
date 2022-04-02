@@ -22,6 +22,8 @@ public class CombatController : MonoBehaviour
 
     CharacterController controller;
 
+    [SerializeField] List<StatusEffect> statusEffects;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,12 @@ public class CombatController : MonoBehaviour
         
         int movementCost = Mathf.RoundToInt(distance - selectedAbilityData.Range);
         movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
+
+        if (statusEffects.Count > 0)
+        {
+            distance *= statusEffects[0].Multiplier;
+        }
+
         Debug.Log("Movement Cost:" + movementCost);
 
         if (selectedAbilityData.cost <= actionPoints)
@@ -48,10 +56,16 @@ public class CombatController : MonoBehaviour
             
             if (selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff || selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff)
             {
-                //if(Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range)
-                //{
-                //    other.DebuffOrBuff(selectedAbilityData);
-                //}
+                if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Self ||
+                     selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) &&
+                     other == this)
+                {
+                    DebuffOrBuff(selectedAbilityData);
+                }
+                else if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Others || selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) && Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range && other != this)
+                {
+                    other.DebuffOrBuff(selectedAbilityData);
+                }
             }
 
             if (selectedAbilityData.Type == AbilityData.AbilityType.MeleeAttack)
@@ -86,11 +100,7 @@ public class CombatController : MonoBehaviour
             }
         }
 
-        if(actionPoints <= 0)
-        {
-            IsTurn = false;
-            BattleManager.instance.ChangeTurn();
-        }
+        CheckEndTurn();
 
     }
 
@@ -143,7 +153,10 @@ public class CombatController : MonoBehaviour
 
     void RangeAttack(CombatController other)
     {
-        Projectile newProjectile = Instantiate<Projectile>(selectedAbilityData.Projectile, firePoint.position, Quaternion.identity);
+
+        Vector3 targetDirection = other.transform.position - transform.position;
+        transform.rotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
+        Projectile newProjectile = Instantiate<Projectile>(selectedAbilityData.Projectile, firePoint.position, Quaternion.LookRotation(targetDirection));
         newProjectile.Target = other;
         newProjectile.Damage = selectedAbilityData.MagicDamage;
     }
@@ -163,6 +176,37 @@ public class CombatController : MonoBehaviour
         IsTurn = true;
 
         actionPoints = classData.StartingActionPoints;
+    }
+    private void CheckEndTurn()
+    {
+        if (actionPoints <= 0)
+        {
+            IsTurn = false;
+
+            for (int i = 0; i < statusEffects.Count; i++)
+            {
+                statusEffects[i].ReduceDuration();
+                if (statusEffects[i].EffectTime <= 0)
+                    statusEffects.RemoveAt(i);
+            }
+
+        }
+    }
+    public void MoveToPoint(Vector3 raycastPoint)
+    {
+
+        float distance = playerNavMesh.GetDistance(raycastPoint);
+
+        int movementCost = Mathf.RoundToInt(distance - selectedAbilityData.Range);
+        movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
+        if (movementCost <= actionPoints)
+        {
+            actionPoints -= movementCost;
+
+            playerNavMesh.SetMoveToMarker(raycastPoint);
+        }
+
+        CheckEndTurn();
     }
 }
 
