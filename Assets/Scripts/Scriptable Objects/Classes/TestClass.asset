@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: TestClass
   m_EditorClassIdentifier: 
   ClassName: 
+  CharacterModel: {fileID: 0}
   MaxHealth: 100
   MovementRange: 0
   PhysicalDamage: 10
   MagicDamage: 0
-  AttackSpeed: 0
-  CharacterModel: {fileID: 0}
+  AttackSpeed: 6
+  StartingActionPoints: 6
   Abilities:
-  - 
-  - 
-  - 
-  - 
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

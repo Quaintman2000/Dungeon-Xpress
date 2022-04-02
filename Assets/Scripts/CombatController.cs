@@ -11,8 +11,9 @@ public class CombatController : MonoBehaviour
     // The close enough range to hit our target in melee.
     [SerializeField] float closeEnough = 0.1f;
     // Reference to the class data.
-    [SerializeField] ClassData classData;
+    public ClassData classData;
     public float Health;
+    public bool IsTurn;
     // Reference to the player's combat state.
     enum CombatState { Idle, Moving, Attacking };
     [SerializeField] CombatState currentCombatState;
@@ -87,7 +88,8 @@ public class CombatController : MonoBehaviour
 
         if(actionPoints <= 0)
         {
-            controller.IsTurn = false;
+            IsTurn = false;
+            BattleManager.instance.ChangeTurn();
         }
 
     }
@@ -154,6 +156,13 @@ public class CombatController : MonoBehaviour
     void Die()
     {
         Debug.Log("Dead!");
+    }
+
+    public void StartTurn()
+    {
+        IsTurn = true;
+
+        actionPoints = classData.StartingActionPoints;
     }
 }
 
