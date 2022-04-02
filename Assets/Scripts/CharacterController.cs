@@ -14,7 +14,7 @@ public class CharacterController : MonoBehaviour
 
 
 
-    public bool IsTurn;
+    
     [SerializeField] 
     protected CombatController combatController;
     // Start is called before the first frame update

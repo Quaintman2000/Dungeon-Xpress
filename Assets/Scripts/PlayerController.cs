@@ -7,7 +7,12 @@ public class PlayerController : CharacterController
 {
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-   
+
+    private void Awake()
+    {
+        combatController = GetComponent<CombatController>();
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +58,7 @@ public class PlayerController : CharacterController
                 playerNav.SetMoveToMarker(raycastPoint);
             }
 
-            if (currentState == PlayerState.InCombat && IsTurn == true)
+            if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
             {
                 // If we hit a combatant...
                 if (hit.collider.GetComponent<CombatController>())

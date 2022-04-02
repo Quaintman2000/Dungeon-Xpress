@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: Fighter
   m_EditorClassIdentifier: 
   ClassName: Fighter
-  MaxHealth: 0
-  MovementRange: 0
-  PhysicalDamage: 0
-  MagicDamage: 0
   CharacterModel: {fileID: 0}
+  MaxHealth: 100
+  MovementRange: 0
+  PhysicalDamage: 6
+  MagicDamage: 0
+  AttackSpeed: 3
+  StartingActionPoints: 5
   Abilities:
-  - 
-  - 
-  - 
-  - 
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
