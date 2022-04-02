@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8244661646017422460}
   - component: {fileID: 8244661646017422461}
   - component: {fileID: 8244661646017422458}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 8244661646356814121}
   - component: {fileID: 8244661646356814120}
   - component: {fileID: 3059280784193617559}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae11269e32896c4f9d6a9387aed644c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  corners: []
   moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
   noGoText: {fileID: 0}
   navPathLineRend: {fileID: 4304462862110777249, guid: 6522e412f901d234fb275d4a7102ac81, type: 3}
@@ -246,9 +247,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 1
-  IsTurn: 0
+  IsTurn: 1
+  combatController: {fileID: 3059280784193617559}
   camControl: {fileID: 0}
-  combatController: {fileID: 0}
 --- !u!114 &3059280784193617559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,8 +262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fbbb8cc22f2fc439da8a28deada630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePoint: {fileID: 0}
+  actionPoints: 5
   playerNavMesh: {fileID: 8244661646356814121}
-  closeEnough: 0.1
-  classData: {fileID: 0}
+  closeEnough: 1
+  classData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
   currentCombatState: 0
+  selectedAbilityData: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}

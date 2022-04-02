@@ -20,4 +20,6 @@ public class AbilityData : ScriptableObject
     public int cost;
 
     public float MovementModifier;
+
+    public Projectile Projectile;
 }

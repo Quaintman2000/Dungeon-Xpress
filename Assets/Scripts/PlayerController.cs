@@ -3,30 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerNavMesh))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterController
 {
-
-    // AI pathing variable.
-    PlayerNavMesh playerNav;
-
-    // Reference to the player state.
-    enum PlayerState { InCombat, FreeRoam};
-    [SerializeField] PlayerState currentState = PlayerState.FreeRoam;
-
-    
-
-    public bool IsTurn;
-
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-    [SerializeField] CombatController combatController;
    
 
     // Start is called before the first frame update
     void Start()
     {
-        // Grab our pathing component.
-        playerNav = GetComponent<PlayerNavMesh>();
+       
     }
 
     // Update is called once per frame
@@ -77,7 +63,7 @@ public class PlayerController : MonoBehaviour
                     CombatController other = hit.collider.GetComponent<CombatController>();
                     // If the combatant isnt us...
                     
-                        combatController.StartCoroutine(combatController.AttackMove(raycastPoint,other));
+                        combatController.UseAbility(raycastPoint,other);
                 }
             }
         }

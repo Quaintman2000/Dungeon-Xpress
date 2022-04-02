@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5af7d037f9440664995a69cabfb37aa9, type: 3}
-  m_Name: Punch
+  m_Name: FireBall
   m_EditorClassIdentifier: 
-  AbilityName: Punch
-  Type: 0
+  AbilityName: 
+  Type: 1
   BuffType: 2
   TargetStyle: 3
   Icon: {fileID: 0}
-  PhysDamage: 15
-  MagicDamage: 100
-  Range: 1
+  PhysDamage: 0
+  MagicDamage: 5
+  Range: 5
   Cooldown: 0
   cost: 1
   MovementModifier: 0
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 5802261587828784822, guid: 9e0be99f658395242ab666c0822bbe52, type: 3}

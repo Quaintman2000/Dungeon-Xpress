@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
+    [SerializeField] Transform firePoint;
     [SerializeField] int actionPoints;
     // Reference to the player Nav Mesh.
     [SerializeField] PlayerNavMesh playerNavMesh;
@@ -17,6 +18,8 @@ public class CombatController : MonoBehaviour
     [SerializeField] CombatState currentCombatState;
 
     [SerializeField] AbilityData selectedAbilityData;
+
+    CharacterController controller;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +36,15 @@ public class CombatController : MonoBehaviour
 
     public void UseAbility(Vector3 raycastPoint, CombatController other)
     {
+        float distance = playerNavMesh.GetDistance(raycastPoint);
+        
+        int movementCost = Mathf.RoundToInt(distance - selectedAbilityData.Range);
+        movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
+        Debug.Log("Movement Cost:" + movementCost);
+
         if (selectedAbilityData.cost <= actionPoints)
         {
+            
             if (selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff || selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff)
             {
                 //if(Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range)
@@ -45,8 +55,11 @@ public class CombatController : MonoBehaviour
 
             if (selectedAbilityData.Type == AbilityData.AbilityType.MeleeAttack)
             {
-
-                StartCoroutine(AttackMove(raycastPoint, other));
+                if (selectedAbilityData.cost + movementCost <= actionPoints)
+                {
+                    actionPoints -= selectedAbilityData.cost + movementCost;
+                    StartCoroutine(AttackMove(raycastPoint, other));
+                }
             }
             else if (selectedAbilityData.Type == AbilityData.AbilityType.Movement)
             {
@@ -55,9 +68,27 @@ public class CombatController : MonoBehaviour
             else if (selectedAbilityData.Type == AbilityData.AbilityType.RangeAttack)
             {
 
+                RaycastHit hit;
+                Vector3 targetDirection = other.transform.position - transform.position;
+                if(Physics.Raycast(transform.position, targetDirection,out hit))
+                {
+                    Debug.DrawRay(transform.position, other.transform.position, Color.green);
+                    Debug.Log("Fireball!");
+                    RangeAttack(other);
+                }
+                else
+                {
+                    Debug.Log("miss fire");
+                    Debug.DrawRay(transform.position,targetDirection, Color.red);
+                }
+                Debug.Log("sizzle.");
             }
         }
 
+        if(actionPoints <= 0)
+        {
+            controller.IsTurn = false;
+        }
 
     }
 
@@ -70,7 +101,7 @@ public class CombatController : MonoBehaviour
         {
             // Set the player to moving and move the player.
             currentCombatState = CombatState.Moving;
-            playerNavMesh.AttackMove(raycastPoint);
+            playerNavMesh.AttackMove(raycastPoint, selectedAbilityData.Range);
 
         }
         // While the player is still not within range...
@@ -96,6 +127,11 @@ public class CombatController : MonoBehaviour
     {
         Debug.Log("Ouch!");
         Health -= damage;
+
+        if(Health <= 0)
+        {
+            Die();
+        }
     }
 
     private void DebuffOrBuff(AbilityData abilityData)
@@ -105,7 +141,9 @@ public class CombatController : MonoBehaviour
 
     void RangeAttack(CombatController other)
     {
-
+        Projectile newProjectile = Instantiate<Projectile>(selectedAbilityData.Projectile, firePoint.position, Quaternion.identity);
+        newProjectile.Target = other;
+        newProjectile.Damage = selectedAbilityData.MagicDamage;
     }
 
     void Movement(CombatController other)
@@ -113,6 +151,10 @@ public class CombatController : MonoBehaviour
 
     }
 
+    void Die()
+    {
+        Debug.Log("Dead!");
+    }
 }
 
 
