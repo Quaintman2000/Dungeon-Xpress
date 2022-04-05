@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
     public int combatantsIndex;
     public int currentTurn;
 
+    
+
     //Create an instance of the BattleManager so that it will be a singleton
     private void Awake()
     {
@@ -30,6 +32,10 @@ public class BattleManager : MonoBehaviour
     {
         //Sort the list of combatants and have the first one start their turn
         SortByAttackSpeed();
+        foreach(CombatController combatController in combatants)
+        {
+            combatController.OnCombatantDeath += OnCombatantDeath;
+        }
         combatants[0].StartTurn();
     }
 
@@ -37,6 +43,23 @@ public class BattleManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnCombatantDeath(CombatController combatController)
+    {
+        combatants.Remove(combatController);
+        if (combatants.Count < 2)
+        {
+            combatants[0].IsTurn = false;
+            combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
+            Destroy(this.gameObject);
+        }
+        combatController.OnCombatantDeath -= OnCombatantDeath;
+    }
+    
+    private void CheckForEndBattle()
+    {
+       
     }
 
     //Move through the list to determine the next combatant's turn

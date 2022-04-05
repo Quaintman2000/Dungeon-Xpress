@@ -52,10 +52,17 @@ public class PlayerController : CharacterController
             Vector3 raycastPoint = cameraRay.GetPoint(distance);
 
             // If we right click...
-            if (currentState == PlayerState.FreeRoam)
+            if (currentState == PlayerState.FreeRoam )
             {
-                // Set the pathing to start.
-                playerNav.SetMoveToMarker(raycastPoint);
+                if (!hit.collider.GetComponent<CombatController>())
+                {
+                    // Set the pathing to start.
+                    playerNav.SetMoveToMarker(raycastPoint);
+                }
+                else
+                {
+                    MatchManager.instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+                }
             }
 
             if (currentState == PlayerState.InCombat && combatController.IsTurn == true)

@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class MatchManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] BattleManager battleManagerPrefab;
+
+    public static MatchManager instance;
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(instance.gameObject);
+            instance = this;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartCombat(CharacterController initiator, CharacterController other)
     {
-        
+        BattleManager newBattleManager = Instantiate<BattleManager>(battleManagerPrefab);
+        initiator.ChangeState(CharacterController.PlayerState.InCombat);
+        newBattleManager.combatants.Add(initiator.combatController);
+        other.ChangeState(CharacterController.PlayerState.InCombat);
+        newBattleManager.combatants.Add(other.combatController);
     }
 }

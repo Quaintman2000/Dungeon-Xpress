@@ -24,6 +24,9 @@ public class CombatController : MonoBehaviour
 
     [SerializeField] List<StatusEffect> statusEffects;
 
+    public delegate void CombatantDeath( CombatController combatController);
+    public event CombatantDeath OnCombatantDeath;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -72,7 +75,7 @@ public class CombatController : MonoBehaviour
             {
                 if (selectedAbilityData.cost + movementCost <= actionPoints)
                 {
-                    actionPoints -= selectedAbilityData.cost + movementCost;
+                    actionPoints -= movementCost;
                     StartCoroutine(AttackMove(raycastPoint, other));
                 }
             }
@@ -100,6 +103,7 @@ public class CombatController : MonoBehaviour
             }
         }
 
+        actionPoints -= selectedAbilityData.cost;
         CheckEndTurn();
 
     }
@@ -142,6 +146,7 @@ public class CombatController : MonoBehaviour
 
         if(Health <= 0)
         {
+            OnCombatantDeath(this);
             Die();
         }
     }
@@ -166,9 +171,12 @@ public class CombatController : MonoBehaviour
 
     }
 
+    [ContextMenu("Die")]
     void Die()
     {
         Debug.Log("Dead!");
+        if (OnCombatantDeath != null)
+            OnCombatantDeath.Invoke(this);
     }
 
     public void StartTurn()
@@ -190,6 +198,7 @@ public class CombatController : MonoBehaviour
                     statusEffects.RemoveAt(i);
             }
 
+            BattleManager.instance.ChangeTurn();
         }
     }
     public void MoveToPoint(Vector3 raycastPoint)

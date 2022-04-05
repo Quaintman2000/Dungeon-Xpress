@@ -5,28 +5,27 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // AI pathing variable.
+    [SerializeField]
     protected PlayerNavMesh playerNav;
 
     // Reference to the player state.
-    protected enum PlayerState { InCombat, FreeRoam };
+    public enum PlayerState { InCombat, FreeRoam };
     [SerializeField] 
     protected PlayerState currentState = PlayerState.FreeRoam;
 
 
 
     
-    [SerializeField] 
-    protected CombatController combatController;
+    public CombatController combatController;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // Grab our pathing component.
-        playerNav = GetComponent<PlayerNavMesh>();
+        playerNav = gameObject.GetComponent<PlayerNavMesh>();
     }
 
-    // Update is called once per frame
-    void Update()
+   public void ChangeState(PlayerState newState)
     {
-        
+        currentState = newState;
     }
 }
