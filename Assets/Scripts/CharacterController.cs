@@ -13,9 +13,6 @@ public class CharacterController : MonoBehaviour
     [SerializeField] 
     protected PlayerState currentState = PlayerState.FreeRoam;
 
-
-
-    
     public CombatController combatController;
     // Start is called before the first frame update
     void Awake()
@@ -23,7 +20,7 @@ public class CharacterController : MonoBehaviour
         // Grab our pathing component.
         playerNav = gameObject.GetComponent<PlayerNavMesh>();
     }
-
+    //get the current state of the player and then switch it to either combat or freeroam.
    public void ChangeState(PlayerState newState)
     {
         currentState = newState;
