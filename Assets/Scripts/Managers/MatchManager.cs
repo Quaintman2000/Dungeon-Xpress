@@ -4,28 +4,42 @@ using UnityEngine;
 
 public class MatchManager : MonoBehaviour
 {
+    //Reference to the BattleManager prefab
     [SerializeField] BattleManager battleManagerPrefab;
 
-    public static MatchManager instance;
+    //Instance of the MatchManager
+    public static MatchManager Instance;
+
+    //Ensure there is only one instance of the Match Manager
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
-            Destroy(instance.gameObject);
-            instance = this;
+            Destroy(Instance.gameObject);
+            Instance = this;
         }
     }
 
+    /// <summary>
+    /// Called when combat begins
+    /// </summary>
+    /// <param name="initiator">The combatant who causes combat to begin</param>
+    /// <param name="other">Victim of the initiator</param>
     public void StartCombat(CharacterController initiator, CharacterController other)
     {
+        //Create an instance of the BattleManager so combat can begin
         BattleManager newBattleManager = Instantiate<BattleManager>(battleManagerPrefab);
+
+        //Set the initiator to the InCombat state and add them to the list of Combatants
         initiator.ChangeState(CharacterController.PlayerState.InCombat);
-        newBattleManager.combatants.Add(initiator.combatController);
+        newBattleManager.Combatants.Add(initiator.combatController);
+
+        //Set the other combatant to the InCombat state and add them to the list of Combatants
         other.ChangeState(CharacterController.PlayerState.InCombat);
-        newBattleManager.combatants.Add(other.combatController);
+        newBattleManager.Combatants.Add(other.combatController);
     }
 }

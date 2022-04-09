@@ -5,18 +5,12 @@ using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
 {
-    public Text turnText;
+    //Reference to the current turn text object
+    [SerializeField] Text turnText;
 
-    // Start is called before the first frame update
-    void Start()
+    //Update the current turn text
+    public void SetTurnText()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Update the current turn text
-        turnText.text = "Turn: " + BattleManager.instance.combatants[BattleManager.instance.combatantsIndex].gameObject.name;
+        turnText.text = "Turn: " + BattleManager.Instance.Combatants[BattleManager.Instance.CombatantsIndex].gameObject.name;
     }
 }

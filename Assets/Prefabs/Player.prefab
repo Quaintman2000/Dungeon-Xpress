@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5399845223619987531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5290708126023731408}
+  m_Layer: 3
+  m_Name: Firepoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5290708126023731408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5399845223619987531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.381, z: 1.012}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8244661646356834006}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8244661646017422456
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +41,6 @@ GameObject:
   - component: {fileID: 8244661646017422459}
   - component: {fileID: 8244661646017422460}
   - component: {fileID: 8244661646017422461}
-  - component: {fileID: 8244661646017422458}
   m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
@@ -82,19 +111,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8244661646017422458
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8244661646017422456}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8244661646356834003
 GameObject:
   m_ObjectHideFlags: 0
@@ -130,6 +146,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8244661646017422459}
+  - {fileID: 5290708126023731408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -246,8 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNav: {fileID: 8244661646356814121}
   currentState: 1
-  IsTurn: 1
   combatController: {fileID: 3059280784193617559}
   camControl: {fileID: 0}
 --- !u!114 &3059280784193617559
@@ -262,11 +279,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fbbb8cc22f2fc439da8a28deada630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 5290708126023731408}
   actionPoints: 5
   playerNavMesh: {fileID: 8244661646356814121}
   closeEnough: 1
   classData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
+  IsTurn: 0
   currentCombatState: 0
   selectedAbilityData: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
+  statusEffects: []

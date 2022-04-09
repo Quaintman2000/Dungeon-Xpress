@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9766d279d094b4e45a4e4a17f574ba4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combatants: []
-  combatantsIndex: 0
+  battleUIManager: {fileID: 2915208304436903959}
+  Combatants: []
+  CombatantsIndex: 0
   currentTurn: 0
 --- !u!1 &2915208304436903962
 GameObject:
