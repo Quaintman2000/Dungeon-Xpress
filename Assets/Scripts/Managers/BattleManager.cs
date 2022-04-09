@@ -41,6 +41,8 @@ public class BattleManager : MonoBehaviour
             combatController.OnCombatantDeath += OnCombatantDeath;
         }
 
+        battleUIManager.SetTurnText();
+
         //Tell the first combatant to start their turn
         Combatants[0].StartTurn();
     }

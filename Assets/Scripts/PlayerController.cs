@@ -75,7 +75,7 @@ public class PlayerController : CharacterController
                     CombatController other = hit.collider.GetComponent<CombatController>();
                     // If the combatant isnt us...
                     
-                        combatController.UseAbility(raycastPoint,other);
+                        combatController.UseAbility(other);
                 }
                 else
                 {
