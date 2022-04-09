@@ -61,7 +61,7 @@ public class PlayerController : CharacterController
                 }
                 else
                 {
-                    MatchManager.instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+                    MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
                 }
             }
 

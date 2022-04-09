@@ -198,7 +198,7 @@ public class CombatController : MonoBehaviour
                     statusEffects.RemoveAt(i);
             }
 
-            BattleManager.instance.ChangeTurn();
+            BattleManager.Instance.ChangeTurn();
         }
     }
     public void MoveToPoint(Vector3 raycastPoint)

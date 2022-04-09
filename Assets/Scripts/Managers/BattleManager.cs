@@ -4,54 +4,59 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    public static BattleManager instance;
+    //Create an Instance of the BattleManager so that it will be a singleton
+    public static BattleManager Instance;
 
-    public List<CombatController> combatants;
-    public int combatantsIndex;
-    public int currentTurn;
+    //Reference to the BattleUIManager
+    [SerializeField] BattleUIManager battleUIManager;
 
-    
+    //Create a list to hold of the combatants
+    public List<CombatController> Combatants;
+    public int CombatantsIndex;
+    [SerializeField] int currentTurn;
 
-    //Create an instance of the BattleManager so that it will be a singleton
     private void Awake()
     {
         //Make sure there is only one instance
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
-            Destroy(instance);
-            instance = this;
+            Destroy(Instance);
+            Instance = this;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //Sort the list of combatants and have the first one start their turn
+        //Sort the list of combatants
         SortByAttackSpeed();
-        foreach(CombatController combatController in combatants)
+
+        //Tell the BattleManager to listen for each combatant's death event
+        foreach(CombatController combatController in Combatants)
         {
             combatController.OnCombatantDeath += OnCombatantDeath;
         }
-        combatants[0].StartTurn();
+
+        //Tell the first combatant to start their turn
+        Combatants[0].StartTurn();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //When a combatant dies...
     private void OnCombatantDeath(CombatController combatController)
     {
-        combatants.Remove(combatController);
-        if (combatants.Count < 2)
+        //remove them from the list
+        Combatants.Remove(combatController);
+
+        //If there is only one combatant left...
+        if (Combatants.Count < 2)
         {
-            combatants[0].IsTurn = false;
-            combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
+            //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance
+            Combatants[0].IsTurn = false;
+            Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
             Destroy(this.gameObject);
         }
         combatController.OnCombatantDeath -= OnCombatantDeath;
@@ -65,29 +70,37 @@ public class BattleManager : MonoBehaviour
     //Move through the list to determine the next combatant's turn
     public void ChangeTurn()
     {
-        combatantsIndex++;
+        CombatantsIndex++;
 
-        currentTurn = combatantsIndex;
+        currentTurn = CombatantsIndex;
+
+        //Update the turn text UI
+        battleUIManager.SetTurnText();
 
         //Call the start turn function to set isTurn true and reset action points
-        combatants[combatantsIndex].StartTurn();
+        Combatants[CombatantsIndex].StartTurn();
     }
 
-    //Swap combatants in the list to organize them
+    /// <summary>
+    /// Swap Combatants in the list to organize them
+    /// </summary>
+    /// <param name="index1">First value to swap with</param>
+    /// <param name="index2">Second value to swap with</param>
     void swap(int index1, int index2)
     {
-        CombatController temp = combatants[index1];
-        combatants[index1] = combatants[index2];
-        combatants[index2] = temp;
+        CombatController temp = Combatants[index1];
+        Combatants[index1] = Combatants[index2];
+        Combatants[index2] = temp;
     }
 
-    //Sort the combatants list by using swap()
+    //Sort the Combatants list by using the swap function
     void SortByAttackSpeed()
     {
         int i;
-        for (i = 0; i < combatants.Count - 1; i++)
+        for (i = 0; i < Combatants.Count - 1; i++)
         {
-            if (combatants[i].classData.AttackSpeed < combatants[i + 1].classData.AttackSpeed)
+            //If the current combatant's attack speed is less than the next one in the list, swap them
+            if (Combatants[i].classData.AttackSpeed < Combatants[i + 1].classData.AttackSpeed)
             {
                 swap(i, (i + 1));
             }
