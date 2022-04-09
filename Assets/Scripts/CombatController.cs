@@ -54,6 +54,21 @@ public class CombatController : MonoBehaviour
 
 
         Debug.Log("Movement Cost:" + movementCost);
+        CheckCanUseAbility(other, movementCost);
+        // Subtract ability cost from our action points.
+        actionPoints -= selectedAbilityData.cost;
+        // Check if we ran out of action points.
+        CheckEndTurn();
+
+    }
+
+    /// <summary>
+    /// Checks to see if we can use the ability.
+    /// </summary>
+    /// <param name="other">The target.</param>
+    /// <param name="movementCost"> The cost to move for the ability. </param>
+    private void CheckCanUseAbility(CombatController other, int movementCost)
+    {
         // If we have enough action points for the ability...
         if (selectedAbilityData.cost <= actionPoints)
         {
@@ -87,7 +102,7 @@ public class CombatController : MonoBehaviour
                         // Subtract the movement cost from action points.
                         actionPoints -= movementCost;
                         // Start the attack move couroutine.
-                        StartCoroutine(AttackMove( other));
+                        StartCoroutine(AttackMove(other));
                     }
                 }
                 // Else, if the ability was a movement type.
@@ -125,12 +140,8 @@ public class CombatController : MonoBehaviour
                 }
             }
         }
-        // Subtract ability cost from our action points.
-        actionPoints -= selectedAbilityData.cost;
-        // Check if we ran out of action points.
-        CheckEndTurn();
-
     }
+
     /// <summary>
     /// Moves the player into range of the target and deals damage to the target.
     /// </summary>
