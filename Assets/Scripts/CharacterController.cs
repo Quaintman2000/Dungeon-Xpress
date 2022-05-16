@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
     // Reference to the player state.
     public enum PlayerState { InCombat, FreeRoam };
     [SerializeField] 
-    protected PlayerState currentState = PlayerState.FreeRoam;
+    public PlayerState currentState = PlayerState.FreeRoam;
 
     public CombatController combatController;
     // Start is called before the first frame update
