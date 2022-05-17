@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4462afd8978b64447a681789c80464e3, type: 3}
   m_Name: TestClass
   m_EditorClassIdentifier: 
-  ClassName: 
-  CharacterModel: {fileID: 0}
+  ClassName: Test
+  CharacterModel: {fileID: 100000, guid: 1f3ab9073fa6aed4bbec9d3a54b89a27, type: 3}
   MaxHealth: 100
   MovementRange: 0
   PhysicalDamage: 10
@@ -25,3 +25,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ClassAnimatorOverride: {fileID: 22100000, guid: 334b82e411b8e0348a71eabc3a3f5bf2, type: 2}

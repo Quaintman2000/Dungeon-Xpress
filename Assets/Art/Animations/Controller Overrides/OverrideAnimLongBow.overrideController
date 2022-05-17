@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: OverrideAnimLongBow
+  m_Controller: {fileID: 9100000, guid: 800dddfba3ea0744a917e689e8466a1b, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -6998457127780096000, guid: a87cc4f0c91ba6848893aaa2cfe693b6, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: b7c17741dfc077749a6e53aaa8c304f8, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 3a98f43012a929641b0843060b1c9797, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 2fb5af86d94ed334986b57d9fa46ae29, type: 3}
