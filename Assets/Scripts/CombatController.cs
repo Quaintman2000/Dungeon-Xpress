@@ -185,6 +185,8 @@ public class CombatController : MonoBehaviour
         Debug.Log("Ouch!");
         // Subtract health by damage.
         Health -= damage;
+        //updates the health bar
+        UiManager.Instance.AssignHealthBar();
         // If health is less than or equal to 0...
         if(Health <= 0)
         {
