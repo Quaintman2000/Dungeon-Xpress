@@ -27,7 +27,6 @@ public class UiManager : MonoBehaviour
     void Start ()
     {
         AssignHealthBar();
-        AssignManaBar();
     }
 
     //assign health bar of the player to its maximum value
@@ -36,17 +35,8 @@ public class UiManager : MonoBehaviour
         healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
     }
 
-    public void AssignManaBar()
-    {
-        //manaBar.fillAmount = GameManager.Instance.playerData.Mana?
-    }
-
     void Update ()
     {
-        //damage test
-        if(Input.GetKeyDown("space"))
-        {
-            GameManager.Instance.playerData.TakeDamage(10f);
-        }
+
     }
 }
