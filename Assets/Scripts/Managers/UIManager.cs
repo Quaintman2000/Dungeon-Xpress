@@ -35,6 +35,14 @@ public class UIManager : MonoBehaviour
         skillBar.SetActive (false);
     }
 
+    void Start()
+    {
+        skill1_Ability = combatCtrl.classData.Abilities[0];
+        skill2_Ability = combatCtrl.classData.Abilities[1];
+        skill3_Ability = combatCtrl.classData.Abilities[2];
+        skill4_Ability = combatCtrl.classData.Abilities[3];
+    }
+
     void Update()
     {
         //if player enters combat mode then show it
@@ -56,6 +64,7 @@ public class UIManager : MonoBehaviour
         if(combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill1_Ability;
+            //abilities could be displayed in images on the buttons and their titles here
         }
     }
     public void Skill2()

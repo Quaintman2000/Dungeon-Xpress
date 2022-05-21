@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5af7d037f9440664995a69cabfb37aa9, type: 3}
-  m_Name: FireBall
+  m_Name: Rock
   m_EditorClassIdentifier: 
-  AbilityName: Fireball
+  AbilityName: Rock
   Type: 1
   BuffType: 2
   TargetStyle: 3
   Icon: {fileID: 0}
-  PhysDamage: 0
-  MagicDamage: 5
-  Range: 5
+  PhysDamage: 5
+  MagicDamage: 0
+  Range: 15
   Cooldown: 0
   cost: 1
   statusEffect:

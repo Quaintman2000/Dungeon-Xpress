@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af7d037f9440664995a69cabfb37aa9, type: 3}
   m_Name: FlaskThrow
   m_EditorClassIdentifier: 
-  AbilityName: 
-  Type: 0
-  BuffType: 0
+  AbilityName: Flask Throw
+  Type: 1
+  BuffType: 1
   TargetStyle: 3
   Icon: {fileID: 0}
   PhysDamage: 0
-  MagicDamage: 0
-  Range: 0
+  MagicDamage: 15
+  Range: 5
   Cooldown: 0
-  cost: 0
+  cost: 1
   statusEffect:
     EffectTime: 2
     Multiplier: 2
   MovementModifier: 0
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 5802261587828784822, guid: 9e0be99f658395242ab666c0822bbe52, type: 3}

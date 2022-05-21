@@ -4930,7 +4930,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-5020
+  m_Name: pb_Mesh20484
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5301,6 +5301,26 @@ PrefabInstance:
       propertyPath: playerCtrl
       value: 
       objectReference: {fileID: 659099456908468156}
+    - target: {fileID: 5459505694305035059, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: skill1_Ability
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459505694305035059, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: skill2_Ability
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459505694305035059, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: skill3_Ability
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459505694305035059, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: skill4_Ability
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459505694305035059, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5459505694305035060, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -18017,6 +18037,14 @@ PrefabInstance:
       propertyPath: m_Height
       value: 1.8
       objectReference: {fileID: 0}
+    - target: {fileID: 4030111598625168897, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.106
+      objectReference: {fileID: 0}
+    - target: {fileID: 4030111598625168897, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.622
+      objectReference: {fileID: 0}
     - target: {fileID: 6137635376044328978, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: noGoText
       value: 
@@ -18045,6 +18073,14 @@ PrefabInstance:
       propertyPath: actionPoints
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: playerNavMesh
+      value: 
+      objectReference: {fileID: 883526779794904223}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: selectedAbilityData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a59c8d1e3905442b47113427407742, type: 3}
 --- !u!1 &659099456908468154 stripped

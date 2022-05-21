@@ -123,10 +123,17 @@ public class CombatController : MonoBehaviour
                         // If the collider we hit is the target's...
                         if (hit.collider == other.GetComponent<Collider>())
                         {
-                            Debug.DrawRay(transform.position, other.transform.position, Color.green);
-                            Debug.Log("Fireball!");
-                            // Do range attack on target.
-                            RangeAttack(other);
+                            //check if target is within range of the attack
+                            if(targetDirection.magnitude <= selectedAbilityData.Range)
+                            {
+                                Debug.DrawRay(transform.position, other.transform.position, Color.green);
+                                Debug.Log("Fireball!");
+                                // Do range attack on target
+                                RangeAttack(other);
+                            }else
+                            {
+                                Debug.Log("Not in range!");
+                            }
                         }
                     }
                     // Else, if we hit nothing.
@@ -205,7 +212,7 @@ public class CombatController : MonoBehaviour
     /// Shoots the projectile towards the target.
     /// </summary>
     /// <param name="other">The target</param>
-    void RangeAttack(CombatController other)
+    public void RangeAttack(CombatController other)
     {
         // Need the direction from the player's position to the target position.
         Vector3 targetDirection = other.transform.position - transform.position;
