@@ -220,34 +220,108 @@ public class MapGenerator : MonoBehaviour
                             // If our current door is the north one...
                             if (currentDoorDirection == Door.Direction.North)
                             {
-                                // If there is south door.
-                                if (hasSouth == true)
+                               // If it has all 4 doors...
+                               if(hasNorth == true && hasSouth == true && hasEast == true && hasWest == true)
                                 {
-                                    // Do nothing.
+                                    // Rotate the room in a random way.
+                                    newRoom.RotateRoom(Random.Range(-4, 4));
                                 }
-                                // If the new room doesn't have a south door but has a East or West door...
-                                else if (hasSouth == false && (hasEast == true || hasWest == true))
+                               // Else if we have the north door...
+                               else if(hasNorth == true)
                                 {
-                                    // If it has the east door...
-                                    if (hasEast == true)
+                                    // If we have the east and west door as well...
+                                    if(hasEast == true && hasWest == true)
                                     {
-                                        newRoom.RotateRoom(1);
+                                        // Rotate the room in a random way between 1 - 3 rotations.
+                                        newRoom.RotateRoom(Random.Range(1, 3));
                                     }
-                                    // If it has the west door...
+                                    // If we have the east and south door as well...
+                                    else if (hasEast == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 2));
+                                    }
+                                    // If we have the south and west door as well...
+                                    else if (hasWest == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - -2 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, -2));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if(hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between 1 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(1, 2));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if(hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - -2 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, -2));
+                                    }
+                                    // If we just have the north door...
                                     else
                                     {
-                                        newRoom.RotateRoom(-1);
+                                        // Rotate to connect to the room.
+                                        newRoom.RotateRoom(2);
                                     }
                                 }
-                                // If it doesn't have a East, South, or West door, then it must have a North door...
-                                else if (hasNorth == true)
+                                // Else if we have the south door...
+                                else if (hasSouth == true)
                                 {
-                                    newRoom.RotateRoom(2);
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, 1));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 1));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 1));
+                                    }
+                                    // If we just have the south door...
+                                    else
+                                    {
+                                        // Rotate to connect to the room.
+                                        newRoom.RotateRoom(0);
+                                    }
                                 }
-                                // If it doesn't have any door, then it's a invalid room.
+                               // Else if have the East door...
+                               else if(hasEast == true)
+                                {
+                                    int[] possibleRotations = new int[2] { -1 , 1};
+                                    // If we have the west door as well...
+                                    if(hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 or 1 rotations.
+                                        newRoom.RotateRoom(possibleRotations[Random.Range(0,possibleRotations.Length)]);
+                                    }
+                                    // If not, then it's just the east door, so...
+                                    else
+                                    {
+                                        // Rotate the room to match the door to connect to.
+                                        newRoom.RotateRoom(1);
+                                    }
+                                }
+                               // Else if we have a West door...
+                               else if(hasWest == true)
+                                {
+                                    // Rotate the room to match the door to connect to.
+                                    newRoom.RotateRoom(-1);
+                                }
+                                // If we're at this point, we have no doors...
                                 else
                                 {
-                                    Debug.LogError("Error: " + roomToSpawn.name + " has no doors listed to connect to!");
+                                    Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
+                                    break;
                                 }
                                 Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity);
                                 currentDoor.isConnectToAnotherRoom = true;
@@ -256,33 +330,108 @@ public class MapGenerator : MonoBehaviour
                             // If our current door is the East one...
                             else if (currentDoorDirection == Door.Direction.East)
                             {
-                                if (hasWest == true)
+                                // If it has all 4 doors...
+                                if (hasNorth == true && hasSouth == true && hasEast == true && hasWest == true)
                                 {
-                                    // Do nothing.
+                                    // Rotate the room in a random way.
+                                    newRoom.RotateRoom(Random.Range(-4, 4));
                                 }
-                                // If the new room doesn't have a south door but has a North or South door...
-                                else if (hasWest == false && (hasNorth == true || hasSouth == true))
+                                // Else if we have the north door...
+                                else if (hasNorth == true)
                                 {
-                                    // If it has the south door...
-                                    if (hasSouth == true)
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
                                     {
-                                        newRoom.RotateRoom(1);
+                                        // Rotate the room in a random way between -2 - 0 rotations.
+                                        newRoom.RotateRoom(Random.Range(-2,0));
                                     }
-                                    // If it has the north door...
+                                    // If we have the east and south door as well...
+                                    else if (hasEast == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 3 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 3));
+                                    }
+                                    // If we have the south and west door as well...
+                                    else if (hasWest == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, 1));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between -2 - -1 rotations.
+                                        newRoom.RotateRoom(Random.Range(-2 , -1));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - 0 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, 0));
+                                    }
+                                    // If we just have the south door...
                                     else
                                     {
+                                        // Rotate to connect to the room.
                                         newRoom.RotateRoom(-1);
                                     }
                                 }
-                                // If it doesn't have a North, South, or West door, then it must have a East door...
+                                // Else if we have the south door...
+                                else if (hasSouth == true)
+                                {
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 2));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between 1 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(1, 2));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(0,1));
+                                    }
+                                    // If we just have the south door...
+                                    else
+                                    {
+                                        // Rotate to connect to the room.
+                                        newRoom.RotateRoom(1);
+                                    }
+                                }
+                                // Else if have the East door...
                                 else if (hasEast == true)
                                 {
-                                    newRoom.RotateRoom(2);
+                                    int[] possibleRotations = new int[2] { 0, 2 };
+                                    // If we have the west door as well...
+                                    if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 or 1 rotations.
+                                        newRoom.RotateRoom(possibleRotations[Random.Range(0, possibleRotations.Length)]);
+                                    }
+                                    // If not, then it's just the east door, so...
+                                    else
+                                    {
+                                        // Rotate the room to match the door to connect to.
+                                        newRoom.RotateRoom(2);
+                                    }
                                 }
-                                // If it doesn't have any door, then it's a invalid room.
+                                // Else if we have a West door...
+                                else if (hasWest == true)
+                                {
+                                    // Rotate the room to match the door to connect to.
+                                    newRoom.RotateRoom(0);
+                                }
+                                // If we're at this point, we have no doors...
                                 else
                                 {
-                                    Debug.LogError("Error: " + roomToSpawn.name + " has no doors listed to connect to!");
+                                    Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
+                                    break;
                                 }
                                 Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0));
                                 currentDoor.isConnectToAnotherRoom = true;
@@ -291,33 +440,108 @@ public class MapGenerator : MonoBehaviour
                             // If our current door is the south one...
                             else if (currentDoorDirection == Door.Direction.South)
                             {
-                                if (hasNorth == true)
+                                // If it has all 4 doors...
+                                if (hasNorth == true && hasSouth == true && hasEast == true && hasWest == true)
                                 {
-                                    // Do nothing.
+                                    // Rotate the room in a random way.
+                                    newRoom.RotateRoom(Random.Range(-4, 4));
                                 }
-                                // If the new room doesn't have a North door but has a East or West door...
-                                if (hasNorth == false && (hasEast == true || hasWest == true))
+                                // Else if we have the north door...
+                                else if (hasNorth == true)
                                 {
-                                    // If it has the west door...
-                                    if (hasWest == true)
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
                                     {
-                                        newRoom.RotateRoom(1);
+                                        // Rotate the room in a random way between -1 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, 1));
                                     }
-                                    // If it has the east door...
+                                    // If we have the east and south door as well...
+                                    else if (hasEast == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between -2 - 0 rotations.
+                                        newRoom.RotateRoom(Random.Range(-2,0));
+                                    }
+                                    // If we have the south and west door as well...
+                                    else if (hasWest == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 2));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(0 , 1));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - 0 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, -0));
+                                    }
+                                    // If we just have the north door...
                                     else
                                     {
+                                        // Rotate to connect to the room.
+                                        newRoom.RotateRoom(0);
+                                    }
+                                }
+                                // Else if we have the south door...
+                                else if (hasSouth == true)
+                                {
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 1 - 3 rotations.
+                                        newRoom.RotateRoom(Random.Range(1, 3));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between -2 - -1 rotations.
+                                        newRoom.RotateRoom(Random.Range(-2, -1));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 1 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(1,2));
+                                    }
+                                    // If we just have the south door...
+                                    else
+                                    {
+                                        // Rotate to connect to the room.
+                                        newRoom.RotateRoom(2);
+                                    }
+                                }
+                                // Else if have the East door...
+                                else if (hasEast == true)
+                                {
+                                    int[] possibleRotations = new int[2] { -1, 1 };
+                                    // If we have the west door as well...
+                                    if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 or 1 rotations.
+                                        newRoom.RotateRoom(possibleRotations[Random.Range(0, possibleRotations.Length)]);
+                                    }
+                                    // If not, then it's just the east door, so...
+                                    else
+                                    {
+                                        // Rotate the room to match the door to connect to.
                                         newRoom.RotateRoom(-1);
                                     }
                                 }
-                                // If it doesn't have a East, North, or West door, then it must have a south door...
-                                else if (hasSouth == true)
+                                // Else if we have a West door...
+                                else if (hasWest == true)
                                 {
-                                    newRoom.RotateRoom(2);
+                                    // Rotate the room to match the door to connect to.
+                                    newRoom.RotateRoom(1);
                                 }
-                                // If it doesn't have any door, then it's a invalid room.
+                                // If we're at this point, we have no doors...
                                 else
                                 {
-                                    Debug.LogError("Error: " + roomToSpawn.name + " has no doors listed to connect to!");
+                                    Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
+                                    break;
                                 }
                                 Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity);
                                 currentDoor.isConnectToAnotherRoom = true;
@@ -326,33 +550,108 @@ public class MapGenerator : MonoBehaviour
                             // If our current door is the west one...
                             else if (currentDoorDirection == Door.Direction.West)
                             {
-                                if (hasEast == true)
+                                // If it has all 4 doors...
+                                if (hasNorth == true && hasSouth == true && hasEast == true && hasWest == true)
                                 {
-                                    // Do nothing.
+                                    // Rotate the room in a random way.
+                                    newRoom.RotateRoom(Random.Range(-4, 4));
                                 }
-                                // If the new room doesn't have a east door but has a north or south door...
-                                else if (hasEast == false && (hasNorth == true || hasSouth == true))
+                                // Else if we have the north door...
+                                else if (hasNorth == true)
                                 {
-                                    // If it has the north door...
-                                    if (hasNorth == true)
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
                                     {
-                                        newRoom.RotateRoom(1);
+                                        // Rotate the room in a random way between 0 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(0,2));
                                     }
-                                    // If it has the south door...
+                                    // If we have the east and south door as well...
+                                    else if (hasEast == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, 1));
+                                    }
+                                    // If we have the south and west door as well...
+                                    else if (hasWest == true && hasSouth == true)
+                                    {
+                                        // Rotate the room in a random way between 1 - 3 rotations.
+                                        newRoom.RotateRoom(Random.Range(1, 3));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between 0 - 1 rotations.
+                                        newRoom.RotateRoom(Random.Range(0, 1));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 1 - 2 rotations.
+                                        newRoom.RotateRoom(Random.Range(1, 2));
+                                    }
+                                    // If we just have the north door...
                                     else
                                     {
+                                        // Rotate to connect to the room.
+                                        newRoom.RotateRoom(1);
+                                    }
+                                }
+                                // Else if we have the south door...
+                                else if (hasSouth == true)
+                                {
+                                    // If we have the east and west door as well...
+                                    if (hasEast == true && hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -2 - 0 rotations.
+                                        newRoom.RotateRoom(Random.Range(-2, 0));
+                                    }
+                                    // If we just have the east door as well...
+                                    else if (hasEast == true)
+                                    {
+                                        // Rotate the room in a random way between -1 - 0 rotations.
+                                        newRoom.RotateRoom(Random.Range(-1, 0));
+                                    }
+                                    // If we just have the west door as well...
+                                    else if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between 1 -2 rotations.
+                                        newRoom.RotateRoom(Random.Range(1,2));
+                                    }
+                                    // If we just have the south door...
+                                    else
+                                    {
+                                        // Rotate to connect to the room.
                                         newRoom.RotateRoom(-1);
                                     }
                                 }
-                                // If it doesn't have a East, South, or North door, then it must have a west door...
+                                // Else if have the East door...
+                                else if (hasEast == true)
+                                {
+                                    int[] possibleRotations = new int[2] { 0,2 };
+                                    // If we have the west door as well...
+                                    if (hasWest == true)
+                                    {
+                                        // Rotate the room in a random way between -1 or 1 rotations.
+                                        newRoom.RotateRoom(possibleRotations[Random.Range(0, possibleRotations.Length)]);
+                                    }
+                                    // If not, then it's just the east door, so...
+                                    else
+                                    {
+                                        // Rotate the room to match the door to connect to.
+                                        newRoom.RotateRoom(0);
+                                    }
+                                }
+                                // Else if we have a West door...
                                 else if (hasWest == true)
                                 {
+                                    // Rotate the room to match the door to connect to.
                                     newRoom.RotateRoom(2);
                                 }
-                                // If it doesn't have any door, then it's a invalid room.
+                                // If we're at this point, we have no doors...
                                 else
                                 {
-                                    Debug.LogError("Error: " + roomToSpawn.name + " has no doors listed to connect to!");
+                                    Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
+                                    break;
                                 }
                                 Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0));
                                 currentDoor.isConnectToAnotherRoom = true;
@@ -366,7 +665,7 @@ public class MapGenerator : MonoBehaviour
 
             }
             Debug.Log("Room " + i + " setup and made!");
-            yield return new WaitForSeconds(0);
+            yield return new WaitForSeconds(1f);
         }
 
     }
