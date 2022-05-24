@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5af7d037f9440664995a69cabfb37aa9, type: 3}
-  m_Name: Punch
+  m_Name: Slap
   m_EditorClassIdentifier: 
-  AbilityName: Punch
+  AbilityName: Slap
   Type: 0
   BuffType: 2
   TargetStyle: 3
   Icon: {fileID: 0}
-  PhysDamage: 15
-  MagicDamage: 100
+  PhysDamage: 25
+  MagicDamage: 60
   Range: 1.5
   Cooldown: 0
   cost: 1
