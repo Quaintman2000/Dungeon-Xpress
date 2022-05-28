@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: Rogue
   m_EditorClassIdentifier: 
   ClassName: Rogue
+  CharacterModel: {fileID: 0}
   MaxHealth: 0
   MovementRange: 0
   PhysicalDamage: 0
   MagicDamage: 0
-  CharacterModel: {fileID: 0}
+  AttackSpeed: 0
+  StartingActionPoints: 0
   Abilities:
-  - 
-  - 
-  - 
-  - 
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ClassAnimatorOverride: {fileID: 0}

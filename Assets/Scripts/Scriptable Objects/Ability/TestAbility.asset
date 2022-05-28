@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: TestAbility
   m_EditorClassIdentifier: 
   AbilityName: Zap
-  Type: 1
+  Type: 0
   BuffType: 1
   TargetStyle: 1
   Icon: {fileID: 0}
   PhysDamage: 5
   MagicDamage: 0
-  Range: 10
+  Range: 1.6
   Cooldown: 0
-  cost: 0
+  cost: 2
   statusEffect:
     EffectTime: 2
     Multiplier: 2

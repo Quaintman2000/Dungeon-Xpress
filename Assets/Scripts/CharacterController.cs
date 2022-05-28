@@ -9,7 +9,7 @@ public class CharacterController : MonoBehaviour
     protected PlayerNavMesh playerNav;
 
     // Reference to the player state.
-    public enum PlayerState { InCombat, FreeRoam };
+    public enum PlayerState { InCombat, FreeRoam, Dead };
     [SerializeField] 
     public PlayerState currentState = PlayerState.FreeRoam;
 

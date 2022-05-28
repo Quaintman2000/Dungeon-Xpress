@@ -80,7 +80,7 @@ public class BattleManager : MonoBehaviour
         battleUIManager.SetTurnText();
 
         //Call the start turn function to set isTurn true and reset action points
-        Combatants[CombatantsIndex].StartTurn();
+        Combatants[CombatantsIndex % Combatants.Count].StartTurn();
     }
 
     /// <summary>
