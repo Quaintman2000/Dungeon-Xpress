@@ -18,7 +18,7 @@ public class CombatController : MonoBehaviour
     enum CombatState { Idle, Moving, Attacking };
     [SerializeField] CombatState currentCombatState;
 
-    [SerializeField] AbilityData selectedAbilityData;
+    [SerializeField] public AbilityData selectedAbilityData;
 
     [SerializeField] List<StatusEffect> statusEffects;
 
