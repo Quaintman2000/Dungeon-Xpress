@@ -747,10 +747,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd555284d29ae047b983c6f308df579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 0}
+  healthBar: {fileID: 3928911332843550958}
   playerCtrl: {fileID: 0}
   combatCtrl: {fileID: 0}
-  skillBar: {fileID: 0}
+  skillBar: {fileID: 5117021577683650030}
   skill1_Ability: {fileID: 0}
   skill2_Ability: {fileID: 0}
   skill3_Ability: {fileID: 0}
