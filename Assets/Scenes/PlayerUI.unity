@@ -15261,6 +15261,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 522926820628845222, guid: 2f3f7d4927009b84583c02fcbc509217, type: 3}
   m_PrefabInstance: {fileID: 1799540833}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1804468687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3689875196876255333, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+  m_PrefabInstance: {fileID: 5117021578825897428}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bd555284d29ae047b983c6f308df579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1807884138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17989,6 +18000,10 @@ PrefabInstance:
       propertyPath: actionPoints
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: playerNavMesh
+      value: 
+      objectReference: {fileID: 883526779794904223}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a59c8d1e3905442b47113427407742, type: 3}
 --- !u!1 &659099456908468154 stripped
@@ -18070,17 +18085,45 @@ PrefabInstance:
       propertyPath: playerCtrl
       value: 
       objectReference: {fileID: 659099456908468157}
+    - target: {fileID: 3928911332843550958, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5117021577729496219, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1804468687}
+    - target: {fileID: 5117021577729496219, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Skill3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021577729496219, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5117021577795596729, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1804468687}
+    - target: {fileID: 5117021577795596729, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Skill4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021577795596729, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578239819625, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1804468687}
+    - target: {fileID: 5117021578239819625, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Skill2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021578239819625, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578344232566, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: m_Name
@@ -18173,6 +18216,14 @@ PrefabInstance:
     - target: {fileID: 5117021578359728339, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 1804468687}
+    - target: {fileID: 5117021578359728339, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Skill1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021578359728339, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UiManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8321903896745792868, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: m_SizeDelta.x

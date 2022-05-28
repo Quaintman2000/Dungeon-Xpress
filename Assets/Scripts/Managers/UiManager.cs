@@ -24,6 +24,11 @@ public class UiManager : MonoBehaviour
     void Start ()
     {
         AssignHealthBar();
+
+        skill1_Ability = combatCtrl.classData.Abilities[0];
+        skill2_Ability = combatCtrl.classData.Abilities[1];
+        skill3_Ability = combatCtrl.classData.Abilities[2];
+        skill4_Ability = combatCtrl.classData.Abilities[3];
     }
 
     void Update()
