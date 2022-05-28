@@ -292,8 +292,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986533566}
-  m_LocalRotation: {x: -0.47182947, y: 0.07833969, z: -0.042186204, w: -0.87718874}
-  m_LocalPosition: {x: 12.818003, y: 106.13562, z: -36.482864}
+  m_LocalRotation: {x: -0.68576854, y: 0.01964139, z: -0.018508181, w: -0.72731924}
+  m_LocalPosition: {x: -21.89633, y: 163.58328, z: 7.8427052}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -355,8 +355,20 @@ PrefabInstance:
       value: MapGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: endRoom
+      value: 
+      objectReference: {fileID: 3372612735793007527, guid: aabdda609302fac4d8896dcd009432df, type: 3}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: maxNumRooms
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: roomSpacing
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.size
@@ -364,7 +376,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: dungeonRooms.Array.size
-      value: 0
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: dungeonRooms.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: dungeonRooms.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[0].room
