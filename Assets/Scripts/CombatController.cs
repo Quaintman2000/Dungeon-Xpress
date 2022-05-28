@@ -15,10 +15,10 @@ public class CombatController : MonoBehaviour
     public float Health;
     public bool IsTurn;
     // Reference to the player's combat state.
-    public enum CombatState { Idle, Moving, Attacking };
-    public CombatState currentCombatState;
+    enum CombatState { Idle, Moving, Attacking };
+    [SerializeField] CombatState currentCombatState;
 
-    public AbilityData selectedAbilityData;
+    [SerializeField] public AbilityData selectedAbilityData;
 
     [SerializeField] List<StatusEffect> statusEffects;
 

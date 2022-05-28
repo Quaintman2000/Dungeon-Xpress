@@ -1,10 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scenes/PlayerUI.unity.meta
 guid: 3f7762cd436a8d34ca328a7d7d55ed1a
-========
-guid: 86d5e3f1a93146748a15d4aae3b2b75b
-folderAsset: yes
->>>>>>>> EnemyEditorTool/EnemyData:Assets/Scripts/Scriptable Objects/Enemies.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
