@@ -2,16 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class UiManager : MonoBehaviour
 {
+
+    //standard variables and references
+    public static UiManager UIInstance;
+    [SerializeField] private PlayerController playerCtrl;
+    [SerializeField] private CombatController combatCtrl;
+    [SerializeField] private GameObject skillBar;
+
     public static UiManager Instance;
     //References for Bars
     [SerializeField] private Image healthBar;
 
-    [SerializeField] private PlayerController playerCtrl;
-    [SerializeField] private CombatController combatCtrl;
-    [SerializeField] private GameObject skillBar;
+    
 
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
@@ -21,7 +27,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private AbilityData skill4_Ability;
 
     //assign the bars to player accordingly
-    void Start ()
+    void Start()
     {
         AssignHealthBar();
 
@@ -34,43 +40,43 @@ public class UiManager : MonoBehaviour
     void Update()
     {
         //if player enters combat mode then show it
-        if(playerCtrl.currentState == CharacterController.PlayerState.InCombat)
+        if (playerCtrl.currentState == CharacterController.PlayerState.InCombat)
         {
-            skillBar.SetActive (true);
+            skillBar.SetActive(true);
         }
         //if player is not in combat mode then hide it
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
-            skillBar.SetActive (false);
-            
+            skillBar.SetActive(false);
+
         }
     }
 
     /// Skills button and what they do each
     public void Skill1()
     {
-        if(combatCtrl)
+        if (combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill1_Ability;
         }
     }
     public void Skill2()
     {
-        if(combatCtrl)
+        if (combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill2_Ability;
         }
     }
     public void Skill3()
     {
-        if(combatCtrl)
+        if (combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill3_Ability;
         }
     }
     public void Skill4()
     {
-        if(combatCtrl)
+        if (combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill4_Ability;
         }
@@ -78,20 +84,28 @@ public class UiManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null)
+        if (UIInstance == null)
         {
-            Instance = this;
+            UIInstance = this;
         }
         else
         {
-            Destroy(Instance.gameObject);
-            Instance = this;
+            Destroy(UIInstance.gameObject);
+            UIInstance = this;
         }
+
+        //set the bar unactive at start
+        skillBar.SetActive(false);
     }
 
     //assign health bar of the player to its maximum value
     public void AssignHealthBar()
+
     {
-        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
+        if (combatCtrl)
+        {
+            combatCtrl.selectedAbilityData = skill2_Ability;
+        }
     }
 }
+
