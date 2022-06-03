@@ -10,9 +10,14 @@ public class BattleManager : MonoBehaviour
     //Reference to the BattleUIManager
     [SerializeField] BattleUIManager battleUIManager;
 
-    //Create a list to hold of the combatants
+    //Create a list to hold all of the combatants
     public List<CombatController> Combatants;
     public int CombatantsIndex;
+
+    //Create a list of all the combatant's character images
+    public List<Sprite> combatantsSprites;
+
+    //Variable to keep track of the current turn
     [SerializeField] int currentTurn;
 
     private void Awake()
@@ -41,6 +46,7 @@ public class BattleManager : MonoBehaviour
             combatController.OnCombatantDeath += OnCombatantDeath;
         }
 
+        //Set the turn text to the first combatant
         battleUIManager.SetTurnText();
 
         //Tell the first combatant to start their turn

@@ -220,6 +220,7 @@ MonoBehaviour:
   moveToMarker: {fileID: 0}
   noGoText: {fileID: 0}
   navPathLineRend: {fileID: 0}
+  navMeshAgent: {fileID: 0}
 --- !u!114 &979230311791587864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +237,7 @@ MonoBehaviour:
   currentState: 1
   combatController: {fileID: 0}
   camControl: {fileID: 0}
+  charAnimator: {fileID: 0}
 --- !u!114 &8693437862511915635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,6 +252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
   actionPoints: 0
+  characterImage: {fileID: 21300000, guid: 4d8d4462218014349bc3d5a95d63c813, type: 3}
   playerNavMesh: {fileID: 0}
   closeEnough: 0.1
   classData: {fileID: 0}

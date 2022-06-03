@@ -20,7 +20,7 @@ public class PlayerNavMesh : MonoBehaviour
     // Keeps track of the current spawnMarker.
     GameObject spawnedMarker;
 
-
+    
 
     private void Awake()
     {

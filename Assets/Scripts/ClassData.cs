@@ -26,6 +26,8 @@ public class ClassData : ScriptableObject
     [BoxGroup("Split/ Stats:"), MinValue(0)]
     public int StartingActionPoints;
 
+    public Sprite characterImage;
+
     public AbilityData[] Abilities = new AbilityData[4];
 
     public AnimatorOverrideController ClassAnimatorOverride;
