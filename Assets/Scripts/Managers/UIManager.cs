@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
-public class UIManager : MonoBehaviour
+public class UiManager : MonoBehaviour
 {
-    //standard variables and references
-    public static UIManager UIInstance;
+    public static UiManager Instance;
+    //References for Bars
+    [SerializeField] private Image healthBar;
+
     [SerializeField] private PlayerController playerCtrl;
     [SerializeField] private CombatController combatCtrl;
     [SerializeField] private GameObject skillBar;
@@ -18,21 +19,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AbilityData skill2_Ability;
     [SerializeField] private AbilityData skill3_Ability;
     [SerializeField] private AbilityData skill4_Ability;
-    
-    void Awake()
-    {
-        if(UIInstance == null)
-        {
-            UIInstance = this;
-        }
-        else
-        {
-            Destroy(UIInstance.gameObject);
-            UIInstance = this;
-        }
 
-        //set the bar unactive at start
-        skillBar.SetActive (false);
+    //assign the bars to player accordingly
+    void Start ()
+    {
+        AssignHealthBar();
+
+        skill1_Ability = combatCtrl.classData.Abilities[0];
+        skill2_Ability = combatCtrl.classData.Abilities[1];
+        skill3_Ability = combatCtrl.classData.Abilities[2];
+        skill4_Ability = combatCtrl.classData.Abilities[3];
     }
 
     void Update()
@@ -78,5 +74,24 @@ public class UIManager : MonoBehaviour
         {
             combatCtrl.selectedAbilityData = skill4_Ability;
         }
+    }
+
+    void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+    }
+
+    //assign health bar of the player to its maximum value
+    public void AssignHealthBar()
+    {
+        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
     }
 }
