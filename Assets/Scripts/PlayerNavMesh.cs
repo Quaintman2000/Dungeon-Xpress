@@ -134,10 +134,16 @@ public class PlayerNavMesh : MonoBehaviour
         // While we're not at the at the move position...
         while (transform.position != movePosition)
         {
-            // Set the position count of the renderer equal to the length of the cornors array.
-            currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
-            // Set the line position points to the corners.
-            currentPathRenderer.SetPositions(navMeshAgent.path.corners);
+
+            //make sure that there is a current path renderer before using it
+            if(currentPathRenderer)
+            {
+               // Set the position count of the renderer equal to the length of the cornors array.
+                currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
+                // Set the line position points to the corners.
+                currentPathRenderer.SetPositions(navMeshAgent.path.corners); 
+            }
+            
 
             // Return null.
             yield return null;

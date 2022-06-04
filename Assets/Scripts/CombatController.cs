@@ -292,6 +292,17 @@ public class CombatController : MonoBehaviour
         // Check for end turn.
         CheckEndTurn();
     }
+
+
+    //range visualization
+    void OnDrawGizmosSelected()
+    {
+        if(selectedAbilityData)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, selectedAbilityData.Range);
+        } 
+    }
 }
 
 
