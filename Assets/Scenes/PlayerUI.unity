@@ -13300,7 +13300,6 @@ MonoBehaviour:
   currentState: 1
   combatController: {fileID: 1577923138}
   camControl: {fileID: 1057454755}
-  charAnimator: {fileID: 0}
 --- !u!114 &1577923136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13317,7 +13316,6 @@ MonoBehaviour:
   moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
   noGoText: {fileID: 890663437}
   navPathLineRend: {fileID: 4304462862110777249, guid: 6522e412f901d234fb275d4a7102ac81, type: 3}
-  navMeshAgent: {fileID: 0}
 --- !u!195 &1577923137
 NavMeshAgent:
   m_ObjectHideFlags: 0
