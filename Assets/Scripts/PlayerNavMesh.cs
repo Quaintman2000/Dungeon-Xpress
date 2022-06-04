@@ -131,8 +131,9 @@ public class PlayerNavMesh : MonoBehaviour
 
     IEnumerator Moving(Vector3 movePosition)
     {
+        Debug.Log("GottaGo");
         // While we're not at the at the move position...
-        while (transform.position != movePosition)
+        while (GetDistance(movePosition) > 0.2f)
         {
             // Set the position count of the renderer equal to the length of the cornors array.
             currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
@@ -153,6 +154,7 @@ public class PlayerNavMesh : MonoBehaviour
 
     IEnumerator Moving(Vector3 movePosition, float closeEnough)
     {
+        Debug.Log("Moving");
         // While we're not at the at the move position...
         while (GetDistance(movePosition) > closeEnough)
         {
@@ -171,7 +173,5 @@ public class PlayerNavMesh : MonoBehaviour
         // Destroy the path once we've reached our position.
         if (currentPathRenderer)
             Destroy(currentPathRenderer.gameObject);
-
-        navMeshAgent.isStopped = true;
     }
 }

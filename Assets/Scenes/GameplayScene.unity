@@ -5030,7 +5030,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18164
+  m_Name: pb_Mesh17204
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10061,6 +10061,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3726740952248020482, guid: 5fbfbee0f9885764383291c4c5e18668, type: 3}
   m_PrefabInstance: {fileID: 1077523542}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1115273646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1115273647}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1115273647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1115273646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1577923140}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1122547877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13230,15 +13260,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.25
+      value: 7.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.77
+      value: 3.91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13447,23 +13477,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
   m_PrefabInstance: {fileID: 1577923133}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1577923135
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1577923134}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNav: {fileID: 1577923136}
-  currentState: 1
-  combatController: {fileID: 1577923138}
-  camControl: {fileID: 1057454755}
-  charAnimator: {fileID: 0}
 --- !u!114 &1577923136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13515,15 +13528,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fbbb8cc22f2fc439da8a28deada630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 1115273647}
   actionPoints: 0
   playerNavMesh: {fileID: 1577923136}
   closeEnough: 0.1
-  classData: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
+  classData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
-  selectedAbilityData: {fileID: 0}
+  selectedAbilityData: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
   statusEffects: []
 --- !u!136 &1577923139
 CapsuleCollider:
@@ -13539,6 +13552,29 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!4 &1577923140 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
+  m_PrefabInstance: {fileID: 1577923133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1577923141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1577923134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92c840c793a894478702183f1fa9707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNav: {fileID: 0}
+  currentState: 1
+  combatController: {fileID: 0}
+  charAnimator: {fileID: 0}
+  idleRadius: 5
+  idleWait: 6
 --- !u!1001 &1582432887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18101,7 +18137,7 @@ PrefabInstance:
     - target: {fileID: 6398631978322316261, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 800dddfba3ea0744a917e689e8466a1b, type: 2}
+      objectReference: {fileID: 9100000, guid: a18aeb8cb16304e4ca0211a15840d618, type: 2}
     - target: {fileID: 6398631978322316261, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -18122,6 +18158,10 @@ PrefabInstance:
       propertyPath: actionPoints
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: playerNavMesh
+      value: 
+      objectReference: {fileID: 883526779794904223}
     - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: currentCombatState
       value: 0
