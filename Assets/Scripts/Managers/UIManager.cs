@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class UiManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
 
     //standard variables and references
-    public static UiManager UIInstance;
+    public static UIManager UIInstance;
     [SerializeField] private PlayerController playerCtrl;
     [SerializeField] private CombatController combatCtrl;
     [SerializeField] private GameObject skillBar;
 
-    public static UiManager Instance;
+    public static UIManager Instance;
     //References for Bars
     [SerializeField] private Image healthBar;
 
