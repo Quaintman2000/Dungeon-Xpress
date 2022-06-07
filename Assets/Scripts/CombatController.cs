@@ -128,6 +128,7 @@ public class CombatController : MonoBehaviour
                             {
                                 Debug.DrawRay(transform.position, other.transform.position, Color.green);
                                 Debug.Log("Fireball!");
+                                Debug.Log("Fireball Attack");
                                 // Do range attack on target
                                 RangeAttack(other);
                             }else
@@ -177,6 +178,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
+        Debug.Log("Took Damage");
         other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : classData.PhysicalDamage);
 
         // Set the combat state back to idle.

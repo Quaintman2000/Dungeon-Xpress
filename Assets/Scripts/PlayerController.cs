@@ -24,6 +24,7 @@ public class PlayerController : CharacterController
     {
         //set override animator controller to the class' one
        charAnimator.runtimeAnimatorController = combatController.classData.ClassAnimatorOverride;
+      
     }
 
     // Update is called once per frame

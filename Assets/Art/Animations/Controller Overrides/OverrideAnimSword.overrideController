@@ -9,13 +9,15 @@ AnimatorOverrideController:
   m_Name: OverrideAnimSword
   m_Controller: {fileID: 9100000, guid: a18aeb8cb16304e4ca0211a15840d618, type: 2}
   m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: b7c17741dfc077749a6e53aaa8c304f8, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: b7c17741dfc077749a6e53aaa8c304f8, type: 3}
   - m_OriginalClip: {fileID: -203655887218126122, guid: 3a98f43012a929641b0843060b1c9797, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 3b2a11ce679187b4db6d1e300853315e, type: 3}
-  - m_OriginalClip: {fileID: -203655887218126122, guid: 9063975ca6461044ab821c19f063722a, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 844ffe414195bdd46992f667e0b1a7c4, type: 3}
-  - m_OriginalClip: {fileID: -203655887218126122, guid: 6c10c2382cfbbea4ebf49c6056bf838c, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 7bd4fc550017e5c44b1ac24ce23348aa, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 3a98f43012a929641b0843060b1c9797, type: 3}
   - m_OriginalClip: {fileID: -203655887218126122, guid: 3b2a11ce679187b4db6d1e300853315e, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 7e904efe72225e94fb029600b2e7c636, type: 3}
-  - m_OriginalClip: {fileID: -203655887218126122, guid: 7bd4fc550017e5c44b1ac24ce23348aa, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 6c10c2382cfbbea4ebf49c6056bf838c, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 9063975ca6461044ab821c19f063722a, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 9063975ca6461044ab821c19f063722a, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 6c10c2382cfbbea4ebf49c6056bf838c, type: 3}
     m_OverrideClip: {fileID: -203655887218126122, guid: 3b2a11ce679187b4db6d1e300853315e, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 7bd4fc550017e5c44b1ac24ce23348aa, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 7bd4fc550017e5c44b1ac24ce23348aa, type: 3}
