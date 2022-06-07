@@ -18,7 +18,7 @@ MonoBehaviour:
   TargetStyle: 1
   Icon: {fileID: 0}
   PhysDamage: 5
-  MagicDamage: 0
+  MagicDamage: 5
   Range: 1.6
   Cooldown: 0
   cost: 2

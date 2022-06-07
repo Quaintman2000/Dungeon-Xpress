@@ -25,4 +25,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
   - {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
   - {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
-  ClassAnimatorOverride: {fileID: 22100000, guid: 334b82e411b8e0348a71eabc3a3f5bf2, type: 2}
+  ClassAnimatorOverride: {fileID: 22100000, guid: af3f0d90b1653b24f87be4f5e0e11a3a, type: 2}

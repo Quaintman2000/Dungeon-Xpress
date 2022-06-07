@@ -44,7 +44,10 @@ public class PlayerNavMesh : MonoBehaviour
         NavMeshHit navHit;
         if (!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
         {
-            StartCoroutine(NoGoTextDisplay());
+            if (noGoText != null)
+            {
+                StartCoroutine(NoGoTextDisplay());
+            }
             return;
         }
 
@@ -111,6 +114,7 @@ public class PlayerNavMesh : MonoBehaviour
     {
         // Set the timer for the text fade away.
         float timer = 1.5f;
+        
         // Set the text to be active.
         noGoText.gameObject.SetActive(true);
         // Set the aplha to max.

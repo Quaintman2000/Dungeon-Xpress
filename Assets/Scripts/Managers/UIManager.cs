@@ -35,6 +35,8 @@ public class UiManager : MonoBehaviour
         skill2_Ability = combatCtrl.classData.Abilities[1];
         skill3_Ability = combatCtrl.classData.Abilities[2];
         skill4_Ability = combatCtrl.classData.Abilities[3];
+
+        combatCtrl.OnHealthChange += OnHealthChange;
     }
 
     void Update()
@@ -49,11 +51,6 @@ public class UiManager : MonoBehaviour
         {
             skillBar.SetActive(false);
 
-        }
-        //damage test
-        if (Input.GetKeyDown("space"))
-        {
-            GameManager.Instance.playerData.TakeDamage(10f);
         }
     }
 
@@ -112,6 +109,12 @@ public class UiManager : MonoBehaviour
         {
             combatCtrl.selectedAbilityData = skill2_Ability;
         }
+    }
+    //create event, when take damage is called it will then update the health bar in the uimanager
+
+    private void OnHealthChange(float health)
+    {
+        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
     }
 }
 

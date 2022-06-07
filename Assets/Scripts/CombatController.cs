@@ -22,8 +22,10 @@ public class CombatController : MonoBehaviour
 
     [SerializeField] List<StatusEffect> statusEffects;
 
-    public delegate void CombatantDeath( CombatController combatController);
+    public delegate void CombatantDeath(CombatController combatController);
     public event CombatantDeath OnCombatantDeath;
+    public delegate void HealthChange(float health);
+    public event HealthChange OnHealthChange;
 
     // Start is called before the first frame update
     void Awake()
@@ -32,7 +34,7 @@ public class CombatController : MonoBehaviour
         Health = classData.MaxHealth;
     }
 
-  
+
     /// <summary>
     /// Uses the selected ability data and applies its functionality onto the target
     /// </summary>
@@ -124,14 +126,15 @@ public class CombatController : MonoBehaviour
                         if (hit.collider == other.GetComponent<Collider>())
                         {
                             //check if target is within range of the attack
-                            if(targetDirection.magnitude <= selectedAbilityData.Range)
+                            if (targetDirection.magnitude <= selectedAbilityData.Range)
                             {
                                 Debug.DrawRay(transform.position, other.transform.position, Color.green);
                                 Debug.Log("Fireball!");
                                 Debug.Log("Fireball Attack");
                                 // Do range attack on target
                                 RangeAttack(other);
-                            }else
+                            }
+                            else
                             {
                                 Debug.Log("Not in range!");
                             }
@@ -194,10 +197,14 @@ public class CombatController : MonoBehaviour
         Debug.Log("Ouch!");
         // Subtract health by damage.
         Health -= damage;
-        //updates the health bar
-        UiManager.Instance.AssignHealthBar();
+        if (OnHealthChange != null)
+        {
+            //updates the health bar
+            OnHealthChange.Invoke(Health);
+        }
+
         // If health is less than or equal to 0...
-        if(Health <= 0)
+        if (Health <= 0)
         {
             // Commit die.
             Die();
@@ -210,7 +217,7 @@ public class CombatController : MonoBehaviour
     /// <param name="abilityData"> The ability to apply.</param>
     private void DebuffOrBuff(AbilityData abilityData)
     {
-        
+
     }
     /// <summary>
     /// Shoots the projectile towards the target.
