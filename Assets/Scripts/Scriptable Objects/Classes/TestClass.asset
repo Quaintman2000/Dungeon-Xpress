@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxHealth: 100
   MovementRange: 0
   PhysicalDamage: 10
-  MagicDamage: 0
+  MagicDamage: 10
   AttackSpeed: 6
   StartingActionPoints: 6
   Abilities:

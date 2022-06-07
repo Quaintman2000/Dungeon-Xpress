@@ -14,8 +14,6 @@ public class PlayerController : CharacterController
     {
         combatController = GetComponent<CombatController>();
         charAnimator = GetComponent<Animator>();
-
-        
     }
 
 

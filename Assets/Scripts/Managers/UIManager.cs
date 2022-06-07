@@ -50,6 +50,11 @@ public class UiManager : MonoBehaviour
             skillBar.SetActive(false);
 
         }
+        //damage test
+        if (Input.GetKeyDown("space"))
+        {
+            GameManager.Instance.playerData.TakeDamage(10f);
+        }
     }
 
     /// Skills button and what they do each
@@ -102,6 +107,7 @@ public class UiManager : MonoBehaviour
     public void AssignHealthBar()
 
     {
+        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
         if (combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill2_Ability;
