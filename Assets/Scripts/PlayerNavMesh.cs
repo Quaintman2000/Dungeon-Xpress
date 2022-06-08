@@ -16,7 +16,7 @@ public class PlayerNavMesh : MonoBehaviour
     //LineRender to draw with
     LineRenderer currentPathRenderer;
     // NavMeshAgent for pathfind.
-    NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
     // Keeps track of the current spawnMarker.
     GameObject spawnedMarker;
 
