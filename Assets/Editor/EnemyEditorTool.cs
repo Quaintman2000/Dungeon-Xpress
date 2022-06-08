@@ -70,7 +70,7 @@ public class EnemyEditorTool : OdinMenuEditorWindow
         public CreateNewEnemyData()
         {
             enemyData = ScriptableObject.CreateInstance<EnemyData>();
-            enemyData.EnemyName = "New Enemy Data";
+            enemyData.CharacterName = "New Enemy Data";
         }
         [InlineEditor(objectFieldMode: InlineEditorObjectFieldModes.Hidden)]
         public EnemyData enemyData;
@@ -78,11 +78,11 @@ public class EnemyEditorTool : OdinMenuEditorWindow
         [Button("Add New Enemy")]
         void CreateNewData()
         {
-            AssetDatabase.CreateAsset(enemyData, "Assets/Scripts/Scriptable Objects/Enemies/" + enemyData.EnemyName +".asset");
+            AssetDatabase.CreateAsset(enemyData, "Assets/Scripts/Scriptable Objects/Enemies/" + enemyData.CharacterName +".asset");
             AssetDatabase.SaveAssets();
 
             enemyData = ScriptableObject.CreateInstance<EnemyData>();
-            enemyData.EnemyName = "New Enemy Data";
+            enemyData.CharacterName = "New Enemy Data";
         }
     }
 }

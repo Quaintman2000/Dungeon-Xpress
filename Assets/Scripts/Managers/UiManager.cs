@@ -25,10 +25,10 @@ public class UiManager : MonoBehaviour
     {
         AssignHealthBar();
 
-        skill1_Ability = combatCtrl.classData.Abilities[0];
-        skill2_Ability = combatCtrl.classData.Abilities[1];
-        skill3_Ability = combatCtrl.classData.Abilities[2];
-        skill4_Ability = combatCtrl.classData.Abilities[3];
+        skill1_Ability = combatCtrl.CharacterData.Abilities[0];
+        skill2_Ability = combatCtrl.CharacterData.Abilities[1];
+        skill3_Ability = combatCtrl.CharacterData.Abilities[2];
+        skill4_Ability = combatCtrl.CharacterData.Abilities[3];
     }
 
     void Update()
@@ -92,6 +92,6 @@ public class UiManager : MonoBehaviour
     //assign health bar of the player to its maximum value
     public void AssignHealthBar()
     {
-        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
+        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.CharacterData.MaxHealth;
     }
 }

@@ -11,7 +11,7 @@ public class CombatController : MonoBehaviour
     // The close enough range to hit our target in melee.
     [SerializeField] float closeEnough = 0.1f;
     // Reference to the class data.
-    public ClassData classData;
+    public CharacterData CharacterData;
     public float Health;
     public bool IsTurn;
     // Reference to the player's combat state.
@@ -29,7 +29,7 @@ public class CombatController : MonoBehaviour
     void Awake()
     {
         // Set the player's starting health to the max.
-        Health = classData.MaxHealth;
+        Health = CharacterData.MaxHealth;
     }
 
   
@@ -170,7 +170,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
-        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : classData.PhysicalDamage);
+        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
 
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
@@ -245,7 +245,7 @@ public class CombatController : MonoBehaviour
         // Sets the isTurn to true.
         IsTurn = true;
         // Sets the action points to this class's starting action points.
-        actionPoints = classData.StartingActionPoints;
+        actionPoints = CharacterData.StartingActionPoints;
     }
     // Checks if our turn is over.
     private void CheckEndTurn()
