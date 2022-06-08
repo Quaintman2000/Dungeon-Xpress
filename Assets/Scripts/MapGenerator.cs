@@ -1,20 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
 using UnityEngine.AI;
-=======
->>>>>>> Develop
 
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField]
-<<<<<<< HEAD
     private NavMeshSurface surface;
 
     [SerializeField]
-=======
->>>>>>> Develop
     float roomSpacing;
     [SerializeField]
     int maxNumRooms;
@@ -27,7 +21,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     Room[] dungeonRooms;
 
-<<<<<<< HEAD
     [SerializeField]
     Room endRoom;
 
@@ -37,20 +30,13 @@ public class MapGenerator : MonoBehaviour
 
     bool dungeonMade = false;
 
-=======
-    int roomsMade = 0;
-
->>>>>>> Develop
     Coroutine mapGenCoroutine;
 
     private void Awake()
     {
         SortRoomsByWeight();
         dungeonRooms = new Room[maxNumRooms];
-<<<<<<< HEAD
         hallways = new List<GameObject>();
-=======
->>>>>>> Develop
     }
 
     private void OnValidate()
@@ -76,7 +62,6 @@ public class MapGenerator : MonoBehaviour
     [ContextMenu("Generate Dungeon")]
     public void Generate()
     {
-<<<<<<< HEAD
         if (mapGenCoroutine != null)
             StopCoroutine(mapGenCoroutine);
 
@@ -84,15 +69,12 @@ public class MapGenerator : MonoBehaviour
         {
             DestroyDungeon();
         }
-=======
->>>>>>> Develop
         // Spawn in the start room.
         Room start = Instantiate<Room>(startRoom, Vector3.zero, Quaternion.identity);
         dungeonRooms[0] = start;
         start.roomPosition = Vector3.zero;
         roomsMade = 1;
         // Start the map generating coroutine.
-<<<<<<< HEAD
         
         mapGenCoroutine = StartCoroutine(GenerateDungeon());
         dungeonMade = true;
@@ -113,13 +95,6 @@ public class MapGenerator : MonoBehaviour
 
         dungeonMade = false;
     }
-=======
-        if (mapGenCoroutine != null)
-            StopCoroutine(mapGenCoroutine);
-        mapGenCoroutine = StartCoroutine(GenerateDungeon());
-    }
-
->>>>>>> Develop
     
     /// <summary>
     /// Generates the dungeon.
@@ -137,11 +112,7 @@ public class MapGenerator : MonoBehaviour
         {
             Debug.Log("Making room: :" + i);
             // For each of the room's doors while we haven't made the max number of rooms...
-<<<<<<< HEAD
             for (int j = 0; j < dungeonRooms[i].RoomDoors.Length && roomsMade < maxNumRooms; j++)
-=======
-            for (int j = 0; j < dungeonRooms[i].RoomDoors.Count && roomsMade < maxNumRooms; j++)
->>>>>>> Develop
             {
                 // Save the current door.
                 Door currentDoor = dungeonRooms[i].RoomDoors[j];
@@ -192,11 +163,7 @@ public class MapGenerator : MonoBehaviour
                                 Door doorToConnect = roomToConnect.GetDoor(Door.Direction.South);
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
-<<<<<<< HEAD
                                     hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 0, 0)));
-=======
-                                    Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 0, 0));
->>>>>>> Develop
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -209,17 +176,10 @@ public class MapGenerator : MonoBehaviour
                             if (roomToConnect.GetDoor(Door.Direction.West) != null)
                             {
                                 // Set up the hallway and connect the doors if we can.
-<<<<<<< HEAD
                                 Door doorToConnect = roomToConnect.GetDoor(Door.Direction.West);
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
                                     hallways.Add(Instantiate(hallwayPrefab,hallwayPosition, Quaternion.Euler(0, 90, 0)));
-=======
-                                Door doorToConnect = roomToConnect.GetDoor(Door.Direction.East);
-                                if (doorToConnect.isConnectToAnotherRoom == false)
-                                {
-                                    Instantiate(hallwayPrefab,hallwayPosition, Quaternion.Euler(0, 90, 0));
->>>>>>> Develop
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -235,11 +195,7 @@ public class MapGenerator : MonoBehaviour
                                 Door doorToConnect = roomToConnect.GetDoor(Door.Direction.East);
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
-<<<<<<< HEAD
                                     hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0)));
-=======
-                                    Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0));
->>>>>>> Develop
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -256,11 +212,7 @@ public class MapGenerator : MonoBehaviour
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
 
-<<<<<<< HEAD
                                     hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 0, 0)));
-=======
-                                    Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 0, 0));
->>>>>>> Develop
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -277,21 +229,13 @@ public class MapGenerator : MonoBehaviour
 
 
                             // Determine the room to spawn via weighted random.
-<<<<<<< HEAD
                             Room roomToSpawn = (roomsMade == (maxNumRooms -1))? endRoom : WeightedRandomRoom(totalWeight);
-=======
-                            
-                            Room roomToSpawn = WeightedRandomRoom(totalWeight);
->>>>>>> Develop
 
                             // Spawn in the selected room at the new position and add it to the list.
                             Room newRoom = Instantiate(roomToSpawn, new Vector3(newPosition.x, 0, newPosition.y) * roomSpacing * 2, Quaternion.identity);
                             dungeonRooms[roomsMade] = newRoom;
                             newRoom.roomPosition = newPosition;
-<<<<<<< HEAD
                             newRoom.gameObject.name += "# " + roomsMade;
-=======
->>>>>>> Develop
 
                             // Determine what doors the new room has.
                             bool hasNorth = false, hasSouth = false, hasWest = false, hasEast = false;
@@ -413,11 +357,7 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-<<<<<<< HEAD
                                 hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity));
-=======
-                                Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity);
->>>>>>> Develop
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.South).isConnectToAnotherRoom = true;
                             }
@@ -527,11 +467,7 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-<<<<<<< HEAD
                                 hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0)));
-=======
-                                Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0));
->>>>>>> Develop
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.West).isConnectToAnotherRoom = true;
                             }
@@ -641,11 +577,7 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-<<<<<<< HEAD
                                 hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity));
-=======
-                                Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity);
->>>>>>> Develop
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.North).isConnectToAnotherRoom = true;
                             }
@@ -755,11 +687,7 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-<<<<<<< HEAD
                                 hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0)));
-=======
-                                Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0));
->>>>>>> Develop
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.East).isConnectToAnotherRoom = true;
                             }
@@ -771,7 +699,6 @@ public class MapGenerator : MonoBehaviour
 
             }
             Debug.Log("Room " + i + " setup and made!");
-<<<<<<< HEAD
             yield return new WaitForSeconds(0);
         }
 
@@ -789,11 +716,6 @@ public class MapGenerator : MonoBehaviour
             }
         }
         surface.BuildNavMesh();
-=======
-            yield return new WaitForSeconds(1f);
-        }
-
->>>>>>> Develop
     }
 
     /// <summary>

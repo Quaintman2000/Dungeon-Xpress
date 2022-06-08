@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4462afd8978b64447a681789c80464e3, type: 3}
   m_Name: TestClass
   m_EditorClassIdentifier: 
-  ClassName: Test
-  CharacterModel: {fileID: 100000, guid: 1f3ab9073fa6aed4bbec9d3a54b89a27, type: 3}
+  ClassName: 
+  CharacterModel: {fileID: 0}
   MaxHealth: 100
   MovementRange: 0
   PhysicalDamage: 10
@@ -21,8 +21,7 @@ MonoBehaviour:
   AttackSpeed: 6
   StartingActionPoints: 6
   Abilities:
-  - {fileID: 11400000, guid: 47ddcb140b19795449693c75f6a2f298, type: 2}
-  - {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
-  - {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
-  - {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
-  ClassAnimatorOverride: {fileID: 22100000, guid: 334b82e411b8e0348a71eabc3a3f5bf2, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

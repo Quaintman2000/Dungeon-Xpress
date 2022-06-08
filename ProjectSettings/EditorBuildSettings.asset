@@ -6,13 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-<<<<<<< HEAD
     path: Assets/Scenes/GameplayScene.unity
-=======
-    path: Assets/Scenes/PlayerUI.unity
-    guid: 3f7762cd436a8d34ca328a7d7d55ed1a
-  - enabled: 1
-    path: Assets/Scenes/PathFindingTestScene.unity
->>>>>>> Develop
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

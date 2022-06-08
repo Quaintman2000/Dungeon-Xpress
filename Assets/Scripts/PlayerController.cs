@@ -7,23 +7,17 @@ public class PlayerController : CharacterController
 {
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-    //Reference the player animator
-    [SerializeField] Animator charAnimator;
 
     private void Awake()
     {
         combatController = GetComponent<CombatController>();
-        charAnimator = GetComponent<Animator>();
-
-        
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //set override animator controller to the class' one
-       charAnimator.runtimeAnimatorController = combatController.classData.ClassAnimatorOverride;
+       
     }
 
     // Update is called once per frame
@@ -31,36 +25,6 @@ public class PlayerController : CharacterController
     {
         //Call the inputs every frame
         GetInputs();
-
-        //if player is moving then walk
-        if(playerNav.navMeshAgent.remainingDistance > 0.1f)
-        {
-            charAnimator.SetInteger("Walking", 1);
-        }
-
-        //if player is not moving then idle
-        else if(playerNav.navMeshAgent.remainingDistance <= 0)
-        {
-            charAnimator.SetInteger("Walking", 0);
-
-            //if player attacks and its a melee attack then play swing animation
-            if(combatController.currentCombatState == CombatController.CombatState.Attacking && combatController.selectedAbilityData.Type == AbilityData.AbilityType.MeleeAttack)
-            {
-                charAnimator.SetInteger("Melee", 1);
-            }else
-            {
-                charAnimator.SetInteger("Melee", 0);
-            }
-
-            //if player attacks and its a ranged attack then play cast animation
-            if(combatController.currentCombatState == CombatController.CombatState.Attacking && combatController.selectedAbilityData.Type == AbilityData.AbilityType.RangeAttack)
-            {
-                charAnimator.SetInteger("Ranged", 1);
-            }else
-            {
-                charAnimator.SetInteger("Ranged", 0);
-            }
-        }
     }
 
     //Keep track of all the different input options of the player

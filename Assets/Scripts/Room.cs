@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-<<<<<<< HEAD
 [SelectionBase]
 public class Room : MonoBehaviour
 {
 
     public Door[] RoomDoors;
-=======
-public class Room : MonoBehaviour
-{
-
-    public List<Door> RoomDoors;
->>>>>>> Develop
 
     public Vector2 roomPosition;
 
@@ -117,8 +110,5 @@ public class Door
     public enum Direction { North, South, East, West};
     public Direction faceDirection;
     public bool isConnectToAnotherRoom;
-<<<<<<< HEAD
     public GameObject doorBlockOff;
-=======
->>>>>>> Develop
 }
