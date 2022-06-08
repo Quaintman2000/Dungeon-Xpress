@@ -28,6 +28,6 @@ public class ClassData : ScriptableObject
 
     public AbilityData[] Abilities = new AbilityData[4];
 
-    
+    public AnimatorOverrideController ClassAnimatorOverride;
 
 }
