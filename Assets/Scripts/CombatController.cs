@@ -11,7 +11,7 @@ public class CombatController : MonoBehaviour
     // The close enough range to hit our target in melee.
     [SerializeField] float closeEnough = 0.1f;
     // Reference to the class data.
-    public ClassData classData;
+    public CharacterData CharacterData;
     public float Health;
     public bool IsTurn;
     // Reference to the player's combat state.
@@ -22,19 +22,17 @@ public class CombatController : MonoBehaviour
 
     [SerializeField] List<StatusEffect> statusEffects;
 
-    public delegate void CombatantDeath(CombatController combatController);
+    public delegate void CombatantDeath( CombatController combatController);
     public event CombatantDeath OnCombatantDeath;
-    public delegate void HealthChange(float health);
-    public event HealthChange OnHealthChange;
 
     // Start is called before the first frame update
     void Awake()
     {
         // Set the player's starting health to the max.
-        Health = classData.MaxHealth;
+        Health = CharacterData.MaxHealth;
     }
 
-
+  
     /// <summary>
     /// Uses the selected ability data and applies its functionality onto the target
     /// </summary>
@@ -125,19 +123,10 @@ public class CombatController : MonoBehaviour
                         // If the collider we hit is the target's...
                         if (hit.collider == other.GetComponent<Collider>())
                         {
-                            //check if target is within range of the attack
-                            if (targetDirection.magnitude <= selectedAbilityData.Range)
-                            {
-                                Debug.DrawRay(transform.position, other.transform.position, Color.green);
-                                Debug.Log("Fireball!");
-                                Debug.Log("Fireball Attack");
-                                // Do range attack on target
-                                RangeAttack(other);
-                            }
-                            else
-                            {
-                                Debug.Log("Not in range!");
-                            }
+                            Debug.DrawRay(transform.position, other.transform.position, Color.green);
+                            Debug.Log("Fireball!");
+                            // Do range attack on target.
+                            RangeAttack(other);
                         }
                     }
                     // Else, if we hit nothing.
@@ -181,8 +170,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
-        Debug.Log("Took Damage");
-        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : classData.PhysicalDamage);
+        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
 
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
@@ -197,14 +185,10 @@ public class CombatController : MonoBehaviour
         Debug.Log("Ouch!");
         // Subtract health by damage.
         Health -= damage;
-        if (OnHealthChange != null)
-        {
-            //updates the health bar
-            OnHealthChange.Invoke(Health);
-        }
-
+        //updates the health bar
+        UiManager.Instance.AssignHealthBar();
         // If health is less than or equal to 0...
-        if (Health <= 0)
+        if(Health <= 0)
         {
             // Commit die.
             Die();
@@ -217,13 +201,13 @@ public class CombatController : MonoBehaviour
     /// <param name="abilityData"> The ability to apply.</param>
     private void DebuffOrBuff(AbilityData abilityData)
     {
-
+        
     }
     /// <summary>
     /// Shoots the projectile towards the target.
     /// </summary>
     /// <param name="other">The target</param>
-    public void RangeAttack(CombatController other)
+    void RangeAttack(CombatController other)
     {
         // Need the direction from the player's position to the target position.
         Vector3 targetDirection = other.transform.position - transform.position;
@@ -261,7 +245,7 @@ public class CombatController : MonoBehaviour
         // Sets the isTurn to true.
         IsTurn = true;
         // Sets the action points to this class's starting action points.
-        actionPoints = classData.StartingActionPoints;
+        actionPoints = CharacterData.StartingActionPoints;
     }
     // Checks if our turn is over.
     private void CheckEndTurn()

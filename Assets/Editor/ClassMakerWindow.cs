@@ -76,7 +76,7 @@ public class ClassMakerWindow : OdinMenuEditorWindow
         public CreateNewClassData()
         {
             classData = ScriptableObject.CreateInstance<ClassData>();
-            classData.ClassName = "New Class Data";
+            classData.CharacterName = "New Class Data";
         }
         [InlineEditor(objectFieldMode: InlineEditorObjectFieldModes.Hidden)]
         public ClassData classData;
@@ -84,11 +84,11 @@ public class ClassMakerWindow : OdinMenuEditorWindow
         [Button("Add New Class")]
         void CreateNewData()
         {
-            AssetDatabase.CreateAsset(classData, "Assets/Scripts/Scriptable Objects/Classes/" + classData.ClassName +".asset");
+            AssetDatabase.CreateAsset(classData, "Assets/Scripts/Scriptable Objects/Classes/" + classData.CharacterName +".asset");
             AssetDatabase.SaveAssets();
 
             classData = ScriptableObject.CreateInstance<ClassData>();
-            classData.ClassName = "New Class Data";
+            classData.CharacterName = "New Class Data";
         }
     }
 }

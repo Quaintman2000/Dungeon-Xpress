@@ -16,7 +16,7 @@ public class HealthBar : MonoBehaviour
         if(healthToTrack)
         {
             //keep the bar updated and in the offset that was set
-            barFill.fillAmount = healthToTrack.Health / healthToTrack.classData.MaxHealth;
+            barFill.fillAmount = healthToTrack.Health / healthToTrack.CharacterData.MaxHealth;
             gameObject.transform.position = healthToTrack.gameObject.transform.position + trackingOffset;
             //if the health is depleted then delete this object
             if(healthToTrack.Health <= 0)
