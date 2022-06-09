@@ -334,10 +334,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7627991373300920912}
   - component: {fileID: 7950727735929017797}
-  - component: {fileID: 7950727735929017785}
   - component: {fileID: 7950727735929017798}
   - component: {fileID: 7950727735929017799}
   - component: {fileID: 7950727735929017796}
+  - component: {fileID: -1992880566794851244}
   m_Layer: 0
   m_Name: Skeleton-PrisonGuard
   m_TagString: Untagged
@@ -379,23 +379,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7950727735929017785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104359218675198186}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNav: {fileID: 7950727735929017798}
-  currentState: 1
-  combatController: {fileID: 7950727735929017796}
-  camControl: {fileID: 0}
-  charAnimator: {fileID: 0}
 --- !u!114 &7950727735929017798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,12 +434,30 @@ MonoBehaviour:
   actionPoints: 0
   playerNavMesh: {fileID: 7950727735929017798}
   closeEnough: 0.1
-  CharacterData: {fileID: 0}
+  CharacterData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
-  selectedAbilityData: {fileID: 0}
+  selectedAbilityData: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
   statusEffects: []
+--- !u!114 &-1992880566794851244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7104359218675198186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92c840c793a894478702183f1fa9707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNav: {fileID: 7950727735929017798}
+  currentState: 1
+  combatController: {fileID: 7950727735929017796}
+  charAnimator: {fileID: 0}
+  idleRadius: 3
+  idleWait: 3
 --- !u!1 &7308910307828075041
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     //References for Bars
     [SerializeField] private Image healthBar;
 
-    
+
 
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
@@ -31,10 +31,10 @@ public class UIManager : MonoBehaviour
     {
         AssignHealthBar();
 
-        skill1_Ability = combatCtrl.classData.Abilities[0];
-        skill2_Ability = combatCtrl.classData.Abilities[1];
-        skill3_Ability = combatCtrl.classData.Abilities[2];
-        skill4_Ability = combatCtrl.classData.Abilities[3];
+        skill1_Ability = combatCtrl.CharacterData.Abilities[0];
+        skill2_Ability = combatCtrl.CharacterData.Abilities[1];
+        skill3_Ability = combatCtrl.CharacterData.Abilities[2];
+        skill4_Ability = combatCtrl.CharacterData.Abilities[3];
 
         combatCtrl.OnHealthChange += OnHealthChange;
     }
@@ -59,6 +59,7 @@ public class UIManager : MonoBehaviour
     {
         if (combatCtrl)
         {
+            Debug.Log("Click");
             combatCtrl.selectedAbilityData = skill1_Ability;
         }
     }
@@ -104,7 +105,7 @@ public class UIManager : MonoBehaviour
     public void AssignHealthBar()
 
     {
-        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
+        //healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.CharacterData.MaxHealth;
         if (combatCtrl)
         {
             combatCtrl.selectedAbilityData = skill2_Ability;
@@ -114,7 +115,6 @@ public class UIManager : MonoBehaviour
 
     private void OnHealthChange(float health)
     {
-        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
+        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.CharacterData.MaxHealth;
     }
 }
-

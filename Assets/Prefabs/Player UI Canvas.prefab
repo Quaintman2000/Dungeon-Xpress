@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0063476562, y: 0}
+  m_AnchoredPosition: {x: -0.0078125, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1015422055699762929
@@ -275,8 +275,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 3689875196876255333}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: Skill3
         m_Mode: 1
         m_Arguments:
@@ -408,8 +408,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 3689875196876255333}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: Skill4
         m_Mode: 1
         m_Arguments:
@@ -541,8 +541,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 3689875196876255333}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: Skill2
         m_Mode: 1
         m_Arguments:
@@ -747,14 +747,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd555284d29ae047b983c6f308df579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBar: {fileID: 3928911332843550958}
   playerCtrl: {fileID: 0}
   combatCtrl: {fileID: 0}
   skillBar: {fileID: 5117021577683650030}
-  skill1_Ability: {fileID: 0}
-  skill2_Ability: {fileID: 0}
-  skill3_Ability: {fileID: 0}
-  skill4_Ability: {fileID: 0}
+  healthBar: {fileID: 3928911332843550958}
+  skill1_Ability: {fileID: 11400000, guid: 03bc82353010b1548b0abdf397c28f3a, type: 2}
+  skill2_Ability: {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
+  skill3_Ability: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
+  skill4_Ability: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
 --- !u!1 &5117021578359728337
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,8 +876,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+      - m_Target: {fileID: 3689875196876255333}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: Skill1
         m_Mode: 1
         m_Arguments:
@@ -1229,8 +1229,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8915099314998731775}
-  m_LocalRotation: {x: 0.3285864, y: -0, z: -0, w: 0.9444739}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0002}
   m_LocalScale: {x: 0.00248, y: 0.0024800003, z: 0.0024800003}
   m_Children:
   - {fileID: 2066229644217459695}
@@ -1239,8 +1239,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: 5000, y: 5000}
+  m_AnchoredPosition: {x: 0, y: -0.00024414062}
+  m_SizeDelta: {x: 115557.26, y: 40140.62}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &693928243833443039
 CanvasRenderer:

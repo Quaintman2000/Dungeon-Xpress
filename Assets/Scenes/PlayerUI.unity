@@ -13523,7 +13523,7 @@ MonoBehaviour:
   actionPoints: 6
   playerNavMesh: {fileID: 1577923136}
   closeEnough: 0.1
-  classData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
+  CharacterData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
@@ -13557,7 +13557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNav: {fileID: 0}
   currentState: 1
-  combatController: {fileID: 0}
+  combatController: {fileID: 1577923138}
   charAnimator: {fileID: 0}
   idleRadius: 5
   idleWait: 2
@@ -14849,6 +14849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleManagerPrefab: {fileID: 2915208303775919558, guid: 80170b84528dacf4a8d2d17a92ce31ca, type: 3}
+  mapGenerator: {fileID: 0}
 --- !u!4 &1722945631
 Transform:
   m_ObjectHideFlags: 0

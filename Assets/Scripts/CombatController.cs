@@ -25,6 +25,9 @@ public class CombatController : MonoBehaviour
     public delegate void CombatantDeath( CombatController combatController);
     public event CombatantDeath OnCombatantDeath;
 
+    public delegate void HealthChange(float health);
+    public event HealthChange OnHealthChange;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -185,10 +188,13 @@ public class CombatController : MonoBehaviour
         Debug.Log("Ouch!");
         // Subtract health by damage.
         Health -= damage;
-        //updates the health bar
-        UiManager.Instance.AssignHealthBar();
+        if (OnHealthChange != null)
+        {
+            //updates the health bar
+            OnHealthChange.Invoke(Health);
+        }
         // If health is less than or equal to 0...
-        if(Health <= 0)
+        if (Health <= 0)
         {
             // Commit die.
             Die();

@@ -173,10 +173,10 @@ Animator:
   m_GameObject: {fileID: 389417993632140069}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9103595bc4915b84fa91f29fb126befc, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a18aeb8cb16304e4ca0211a15840d618, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -217,9 +217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   corners: []
-  moveToMarker: {fileID: 0}
+  moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
   noGoText: {fileID: 0}
-  navPathLineRend: {fileID: 0}
+  navPathLineRend: {fileID: 4304462862110777249, guid: 6522e412f901d234fb275d4a7102ac81, type: 3}
+  navMeshAgent: {fileID: 2252353096307804703}
 --- !u!114 &979230311791587864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,10 +233,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNav: {fileID: 0}
+  playerNav: {fileID: 6137635376044328978}
   currentState: 1
-  combatController: {fileID: 0}
+  combatController: {fileID: 8693437862511915635}
   camControl: {fileID: 0}
+  charAnimator: {fileID: 6398631978322316261}
 --- !u!114 &8693437862511915635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,11 +250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fbbb8cc22f2fc439da8a28deada630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 4030111598625168897}
   actionPoints: 0
-  playerNavMesh: {fileID: 0}
+  playerNavMesh: {fileID: 6137635376044328978}
   closeEnough: 0.1
-  classData: {fileID: 0}
+  CharacterData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
