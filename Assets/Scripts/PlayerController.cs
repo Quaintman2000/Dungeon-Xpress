@@ -10,12 +10,13 @@ public class PlayerController : CharacterController
     //Reference the player animator
     [SerializeField] Animator charAnimator;
 
+
     private void Awake()
     {
         combatController = GetComponent<CombatController>();
         charAnimator = GetComponent<Animator>();
 
-        
+        inventoryController = GetComponent<InventoryController>();
     }
 
 
@@ -24,6 +25,9 @@ public class PlayerController : CharacterController
     {
         //set override animator controller to the class' one
        charAnimator.runtimeAnimatorController = combatController.classData.ClassAnimatorOverride;
+
+        //sets instance ui inventory to this players inventory[not set up for multiple players]
+        InventoryManager.Instance.playerInventory = inventoryController;
     }
 
     // Update is called once per frame
@@ -90,7 +94,7 @@ public class PlayerController : CharacterController
             // If we right click...
             if (currentState == PlayerState.FreeRoam )
             {
-                if (!hit.collider.GetComponent<CombatController>())
+                if (!hit.collider.GetComponent<CombatController>() && hit.transform.gameObject != this.gameObject)
                 {
                     // Set the pathing to start.
                     playerNav.SetMoveToMarker(raycastPoint);
@@ -142,7 +146,10 @@ public class PlayerController : CharacterController
         if (Input.GetKey(KeyCode.E))
         {
             //Rotate on the y axis counter-clockwise
-            camControl.RotateCamera(-1.0f, 0.0f);
+            //camControl.RotateCamera(-1.0f, 0.0f);
+
+            //Attempts to pickup an item if there is one on the floor
+            InventoryManager.Instance.PickUpItem();
         }
 
         //If pressing R...
@@ -183,6 +190,28 @@ public class PlayerController : CharacterController
 
             //Look at the player's position
             camControl.transform.LookAt(transform.position);
+        }
+
+        //Used for items when held down drops the item in the slot instead of using them
+        bool shiftDown = Input.GetKey(KeyCode.LeftShift);
+
+        //If Pressing 5 at top of keyboard or numpad
+        if(Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(0); }
+            else { InventoryManager.Instance.UsePlayerItem(0); }
+        }
+        //If Pressing 6 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(1); }
+            else { InventoryManager.Instance.UsePlayerItem(1); }
+        }
+        //If Pressing 6 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(2); }
+            else { InventoryManager.Instance.UsePlayerItem(2); }
         }
     }
 }

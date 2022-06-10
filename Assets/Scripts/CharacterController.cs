@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour
     public PlayerState currentState = PlayerState.FreeRoam;
 
     public CombatController combatController;
+    public InventoryController inventoryController;
     // Start is called before the first frame update
     void Awake()
     {
