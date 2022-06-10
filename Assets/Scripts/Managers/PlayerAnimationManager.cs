@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerAnimationManager : AnimationManager
 {
+    ClassData classData;
 
     protected override void Start()
     {
         base.Start();
-        animator.runtimeAnimatorController = combatController.classData.ClassAnimatorOverride;
+        classData = (ClassData)combatController.CharacterData;
+        animator.runtimeAnimatorController = classData.ClassAnimatorOverride;
     }
 
     // Update is called once per frame

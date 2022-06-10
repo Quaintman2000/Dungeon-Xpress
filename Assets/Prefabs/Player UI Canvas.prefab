@@ -276,13 +276,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3689875196876255333}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: Skill3
-        m_Mode: 1
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SelectAbility
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -409,13 +409,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3689875196876255333}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: Skill4
-        m_Mode: 1
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SelectAbility
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -542,13 +542,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3689875196876255333}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: Skill2
-        m_Mode: 1
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SelectAbility
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -747,14 +747,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bd555284d29ae047b983c6f308df579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBar: {fileID: 3928911332843550958}
   playerCtrl: {fileID: 0}
   combatCtrl: {fileID: 0}
   skillBar: {fileID: 5117021577683650030}
-  healthBar: {fileID: 3928911332843550958}
-  skill1_Ability: {fileID: 11400000, guid: 03bc82353010b1548b0abdf397c28f3a, type: 2}
-  skill2_Ability: {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
-  skill3_Ability: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
-  skill4_Ability: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
+  abilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &5117021578359728337
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,9 +878,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3689875196876255333}
-        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: Skill1
-        m_Mode: 1
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: SelectAbility
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

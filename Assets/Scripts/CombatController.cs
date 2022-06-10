@@ -18,6 +18,7 @@ public class CombatController : MonoBehaviour
     public enum CombatState { Idle, Moving, Attacking };
     [SerializeField] public CombatState currentCombatState;
 
+    public int abilityIndex;
     [SerializeField] public AbilityData selectedAbilityData;
 
     [SerializeField] List<StatusEffect> statusEffects;
@@ -28,11 +29,14 @@ public class CombatController : MonoBehaviour
     public delegate void HealthChange(float health);
     public event HealthChange OnHealthChange;
 
+    [SerializeField] PlayerAnimationManager animationManager;
+
     // Start is called before the first frame update
     void Awake()
     {
         // Set the player's starting health to the max.
         Health = CharacterData.MaxHealth;
+        animationManager = GetComponent<PlayerAnimationManager>();
     }
 
   
@@ -57,9 +61,9 @@ public class CombatController : MonoBehaviour
 
 
         Debug.Log("Movement Cost:" + movementCost);
-        CheckCanUseAbility(other, movementCost);
-        // Subtract ability cost from our action points.
-        actionPoints -= selectedAbilityData.cost;
+        if(movementCost < actionPoints)
+            CheckCanUseAbility(other, movementCost);
+        
         // Check if we ran out of action points.
         CheckEndTurn();
 
@@ -130,6 +134,8 @@ public class CombatController : MonoBehaviour
                             Debug.Log("Fireball!");
                             // Do range attack on target.
                             RangeAttack(other);
+                            if (animationManager != null)
+                                animationManager.SetAbilityTrigger(abilityIndex);
                         }
                     }
                     // Else, if we hit nothing.
@@ -142,6 +148,9 @@ public class CombatController : MonoBehaviour
                     Debug.Log("sizzle.");
                 }
             }
+            // Subtract ability cost from our action points.
+            actionPoints -= selectedAbilityData.cost;
+            
         }
     }
 
@@ -174,7 +183,8 @@ public class CombatController : MonoBehaviour
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
         other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
-
+        if (animationManager != null)
+            animationManager.SetAbilityTrigger(abilityIndex);
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
     }

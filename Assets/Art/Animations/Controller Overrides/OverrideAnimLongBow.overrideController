@@ -7,5 +7,5 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: OverrideAnimLongBow
-  m_Controller: {fileID: 9100000, guid: 199ac5c797a3e01469dcd6a9a8abb8ad, type: 2}
+  m_Controller: {fileID: 9100000, guid: a18aeb8cb16304e4ca0211a15840d618, type: 2}
   m_Clips: []

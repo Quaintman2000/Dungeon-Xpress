@@ -138,6 +138,8 @@ GameObject:
   - component: {fileID: 6137635376044328978}
   - component: {fileID: 979230311791587864}
   - component: {fileID: 8693437862511915635}
+  - component: {fileID: 659099456908468155}
+  - component: {fileID: 659099456908468156}
   m_Layer: 0
   m_Name: paladin_j_nordstrom
   m_TagString: Untagged
@@ -200,7 +202,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -237,7 +239,7 @@ MonoBehaviour:
   currentState: 1
   combatController: {fileID: 8693437862511915635}
   camControl: {fileID: 0}
-  charAnimator: {fileID: 6398631978322316261}
+  uIManager: {fileID: 0}
 --- !u!114 &8693437862511915635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,15 +253,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 4030111598625168897}
-  actionPoints: 0
+  actionPoints: 6
   playerNavMesh: {fileID: 6137635376044328978}
   closeEnough: 0.1
   CharacterData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
-  Health: 0
+  Health: 5
   IsTurn: 0
   currentCombatState: 0
-  selectedAbilityData: {fileID: 0}
+  abilityIndex: 0
+  selectedAbilityData: {fileID: 11400000, guid: 47ddcb140b19795449693c75f6a2f298, type: 2}
   statusEffects: []
+  animationManager: {fileID: 659099456908468156}
+--- !u!136 &659099456908468155
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &659099456908468156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1140dabf7499e7f49b8dff0b9501e186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &486038521762490326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1191,7 +1221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3260065852955234835}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.249, z: 1.291}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1021381665112887711}

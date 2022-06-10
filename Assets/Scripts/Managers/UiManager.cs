@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager: MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
     //References for Bars
@@ -16,31 +16,33 @@ public class UIManager: MonoBehaviour
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
     [SerializeField] private AbilityData[] abilities = new AbilityData[4];
-   
+
 
     //assign the bars to player accordingly
-    void Start ()
+    void Start()
     {
         AssignHealthBar();
 
-        abilities[0] = combatCtrl.classData.Abilities[0];
-        abilities[1] = combatCtrl.classData.Abilities[1];
-        abilities[2] = combatCtrl.classData.Abilities[2];
-        abilities[3] = combatCtrl.classData.Abilities[3];
+        combatCtrl.OnHealthChange += OnHealthChange;
+
+        abilities[0] = combatCtrl.CharacterData.Abilities[0];
+        abilities[1] = combatCtrl.CharacterData.Abilities[1];
+        abilities[2] = combatCtrl.CharacterData.Abilities[2];
+        abilities[3] = combatCtrl.CharacterData.Abilities[3];
     }
 
     void Update()
     {
         //if player enters combat mode then show it
-        if(playerCtrl.currentState == CharacterController.PlayerState.InCombat)
+        if (playerCtrl.currentState == CharacterController.PlayerState.InCombat)
         {
-            skillBar.SetActive (true);
+            skillBar.SetActive(true);
         }
         //if player is not in combat mode then hide it
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
-            skillBar.SetActive (false);
-            
+            skillBar.SetActive(false);
+
         }
     }
 
@@ -56,17 +58,17 @@ public class UIManager: MonoBehaviour
     /// <param name="index"></param>
     public void SelectAbility(int index)
     {
-        if(combatCtrl)
+        if (combatCtrl)
         {
             combatCtrl.abilityIndex = index + 1;
             combatCtrl.selectedAbilityData = abilities[index];
         }
     }
-   
+
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -80,6 +82,12 @@ public class UIManager: MonoBehaviour
     //assign health bar of the player to its maximum value
     public void AssignHealthBar()
     {
-        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
+        healthBar.fillAmount = combatCtrl.Health / combatCtrl.CharacterData.MaxHealth;
+    }
+
+
+    private void OnHealthChange(float health)
+    {
+        healthBar.fillAmount = health / combatCtrl.CharacterData.MaxHealth;
     }
 }
