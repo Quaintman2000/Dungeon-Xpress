@@ -18,9 +18,12 @@ public class CombatController : MonoBehaviour
     public enum CombatState { Idle, Moving, Attacking };
     [SerializeField] public CombatState currentCombatState;
 
+    public int abilityIndex = 0;
     [SerializeField] public AbilityData selectedAbilityData;
 
     [SerializeField] List<StatusEffect> statusEffects;
+
+    [SerializeField] PlayerAnimationManager animationManager;
 
     public delegate void CombatantDeath( CombatController combatController);
     public event CombatantDeath OnCombatantDeath;
@@ -30,6 +33,8 @@ public class CombatController : MonoBehaviour
     {
         // Set the player's starting health to the max.
         Health = classData.MaxHealth;
+
+        animationManager = GetComponent<PlayerAnimationManager>();
     }
 
   
@@ -125,6 +130,7 @@ public class CombatController : MonoBehaviour
                         {
                             Debug.DrawRay(transform.position, other.transform.position, Color.green);
                             Debug.Log("Fireball!");
+                            
                             // Do range attack on target.
                             RangeAttack(other);
                         }
@@ -139,7 +145,9 @@ public class CombatController : MonoBehaviour
                     Debug.Log("sizzle.");
                 }
             }
+            animationManager.SetAbilityTrigger(abilityIndex);
         }
+
     }
 
     /// <summary>
@@ -186,7 +194,7 @@ public class CombatController : MonoBehaviour
         // Subtract health by damage.
         Health -= damage;
         //updates the health bar
-        UiManager.Instance.AssignHealthBar();
+        UIManager.Instance.AssignHealthBar();
         // If health is less than or equal to 0...
         if(Health <= 0)
         {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour
+public class UIManager: MonoBehaviour
 {
-    public static UiManager Instance;
+    public static UIManager Instance;
     //References for Bars
     [SerializeField] private Image healthBar;
 
@@ -15,20 +15,18 @@ public class UiManager : MonoBehaviour
 
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
-    [SerializeField] private AbilityData skill1_Ability;
-    [SerializeField] private AbilityData skill2_Ability;
-    [SerializeField] private AbilityData skill3_Ability;
-    [SerializeField] private AbilityData skill4_Ability;
+    [SerializeField] private AbilityData[] abilities = new AbilityData[4];
+   
 
     //assign the bars to player accordingly
     void Start ()
     {
         AssignHealthBar();
 
-        skill1_Ability = combatCtrl.classData.Abilities[0];
-        skill2_Ability = combatCtrl.classData.Abilities[1];
-        skill3_Ability = combatCtrl.classData.Abilities[2];
-        skill4_Ability = combatCtrl.classData.Abilities[3];
+        abilities[0] = combatCtrl.classData.Abilities[0];
+        abilities[1] = combatCtrl.classData.Abilities[1];
+        abilities[2] = combatCtrl.classData.Abilities[2];
+        abilities[3] = combatCtrl.classData.Abilities[3];
     }
 
     void Update()
@@ -46,35 +44,25 @@ public class UiManager : MonoBehaviour
         }
     }
 
-    /// Skills button and what they do each
-    public void Skill1()
+    // Toggles the skill bar off and on.
+    public void ToggleSkillBar(bool setActive)
+    {
+
+    }
+
+    /// <summary>
+    /// Let's the combatcontroller know which ability was selected.
+    /// </summary>
+    /// <param name="index"></param>
+    public void SelectAbility(int index)
     {
         if(combatCtrl)
         {
-            combatCtrl.selectedAbilityData = skill1_Ability;
+            combatCtrl.abilityIndex = index + 1;
+            combatCtrl.selectedAbilityData = abilities[index];
         }
     }
-    public void Skill2()
-    {
-        if(combatCtrl)
-        {
-            combatCtrl.selectedAbilityData = skill2_Ability;
-        }
-    }
-    public void Skill3()
-    {
-        if(combatCtrl)
-        {
-            combatCtrl.selectedAbilityData = skill3_Ability;
-        }
-    }
-    public void Skill4()
-    {
-        if(combatCtrl)
-        {
-            combatCtrl.selectedAbilityData = skill4_Ability;
-        }
-    }
+   
 
     void Awake()
     {
