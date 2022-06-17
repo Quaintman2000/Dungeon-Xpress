@@ -40,6 +40,9 @@ public class BattleManager : MonoBehaviour
         //Sort the list of combatants
         SortByAttackSpeed();
 
+        //Call the function to fill out the turn order image wheel
+        battleUIManager.CreateTurnImages();
+
         //Tell the BattleManager to listen for each combatant's death event
         foreach(CombatController combatController in Combatants)
         {
@@ -84,6 +87,9 @@ public class BattleManager : MonoBehaviour
 
         //Update the turn text UI
         battleUIManager.SetTurnText();
+
+        //Update the turn order image in the wheel
+        battleUIManager.UpdateTurnImages();
 
         //Call the start turn function to set isTurn true and reset action points
         Combatants[CombatantsIndex].StartTurn();
