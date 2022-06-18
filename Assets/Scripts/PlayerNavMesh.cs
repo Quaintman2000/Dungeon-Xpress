@@ -7,6 +7,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class PlayerNavMesh : MonoBehaviour
 {
+    public bool isMoving;
+
     public List<Vector3> corners;
     // Marker gameobject to represent where we are moving to.
     [SerializeField] GameObject moveToMarker;
@@ -131,6 +133,8 @@ public class PlayerNavMesh : MonoBehaviour
 
     IEnumerator Moving(Vector3 movePosition)
     {
+        isMoving = true;
+
         // While we're not at the at the move position...
         while (transform.position != movePosition)
         {
@@ -142,17 +146,20 @@ public class PlayerNavMesh : MonoBehaviour
             // Return null.
             yield return null;
         }
+        isMoving = false;
+
         // Destroy the marker once we've reached the position.
-        if (spawnedMarker)
+        if (spawnedMarker != null)
             Destroy(spawnedMarker);
 
         // Destroy the path once we've reached our position.
-        if (currentPathRenderer)
+        if (currentPathRenderer != null)
             Destroy(currentPathRenderer.gameObject);
     }
 
     IEnumerator Moving(Vector3 movePosition, float closeEnough)
     {
+        isMoving = true;
         // While we're not at the at the move position...
         while (GetDistance(movePosition) > closeEnough)
         {
@@ -164,6 +171,7 @@ public class PlayerNavMesh : MonoBehaviour
             // Return null.
             yield return null;
         }
+        isMoving = false;
         // Destroy the marker once we've reached the position.
         if (spawnedMarker)
             Destroy(spawnedMarker);

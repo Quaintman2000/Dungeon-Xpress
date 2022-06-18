@@ -12,10 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d44e2af437d294409ee29921c4cf234, type: 3}
   m_Name: HealthPotion
   m_EditorClassIdentifier: 
+  AbilityName: Health Potion
+  Type: 3
+  BuffType: 2
+  TargetStyle: 0
   Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  PhysDamage: 50
+  MagicDamage: 0
+  Range: 0
+  Cooldown: 0
+  cost: 0
+  statusEffect:
+    EffectTime: 2
+    Multiplier: 2
+  MovementModifier: 0
+  Projectile: {fileID: 0}
   ItemGameObject: {fileID: 5004529500017223917, guid: 7c71cb12da192f44aa4b9a1c5e3f3c79, type: 3}
-  ItemName: Health Potion
-  Type: 0
-  Cost: 2
-  ItemValue: 75
-  Duration: 0
+  ItemValue: 5

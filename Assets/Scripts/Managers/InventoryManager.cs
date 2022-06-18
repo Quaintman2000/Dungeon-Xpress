@@ -11,7 +11,7 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance;
 
     //Keeps track of what inventory is being used by ui buttons
-    public InventoryController playerInventory;
+    public PlayerController player;
 
     //Item that is within range on the floor for the player to pick up
     public GameObject FloorItem;
@@ -43,14 +43,14 @@ public class InventoryManager : MonoBehaviour
     //Uses the players item then refreshes the ui
     public void UsePlayerItem(int position)
     {
-        playerInventory.Use(position); 
+        player.inventoryController.Use(position,player.combatController); 
         
         RefreshItemUI();
     }
     //Drops the players item on the ground
     public void DropPlayerItem(int position)
     {
-        playerInventory.DropItem(position);
+        player.inventoryController.DropItem(position);
 
         RefreshItemUI();
     }
@@ -82,7 +82,7 @@ public class InventoryManager : MonoBehaviour
         //If no floor item then stop
         if(FloorItem == null) return;
 
-        int itemPosition = playerInventory.AddItem(FloorItem);
+        int itemPosition = player.inventoryController.AddItem(FloorItem);
 
         //if the item was set to a position then it deletes it from the floor
         if (itemPosition >= 0)
@@ -103,9 +103,9 @@ public class InventoryManager : MonoBehaviour
     {
         for(int i = 0; i < IInventorySpots.Length; i++)
         {
-            if (playerInventory.GetItem(i) != null)
+            if (player.inventoryController.GetItem(i) != null)
             {
-                IInventorySpots[i].sprite = playerInventory.GetItem(i).Icon;
+                IInventorySpots[i].sprite = player.inventoryController.GetItem(i).Icon;
             } else
             {
                 IInventorySpots[i].sprite = null;

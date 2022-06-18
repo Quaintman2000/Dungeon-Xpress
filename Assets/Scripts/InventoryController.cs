@@ -13,12 +13,16 @@ public class InventoryController : MonoBehaviour
     void Start()
     {
         //Holds three items
+
         itemInventory = new ItemData[3]; 
     }
-    public void Use(int position)
+    public void Use(int position, CombatController target)
     {
-        Debug.Log("Used the Item");
-        
+        //Uses current item on self [Combat controller use ability needs update to use this efficently]
+        target.selectedAbilityData = itemInventory[position];
+        target.UseAbility(target);
+
+
         itemInventory[position] = null;
     }
     public ItemData GetItem(int position)

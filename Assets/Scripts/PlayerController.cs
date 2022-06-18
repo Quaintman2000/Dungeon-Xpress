@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerNavMesh))]
 public class PlayerController : CharacterController
 {
+    // AI pathing variable.
+    [SerializeField]
+    protected PlayerNavMesh playerNav;
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     //Reference the player animator
@@ -13,6 +16,8 @@ public class PlayerController : CharacterController
 
     private void Awake()
     {
+        // Grab our pathing component.
+        playerNav = GetComponent<PlayerNavMesh>();
         combatController = GetComponent<CombatController>();
         charAnimator = GetComponent<Animator>();
 
@@ -27,7 +32,7 @@ public class PlayerController : CharacterController
        charAnimator.runtimeAnimatorController = combatController.classData.ClassAnimatorOverride;
 
         //sets instance ui inventory to this players inventory[not set up for multiple players]
-        InventoryManager.Instance.playerInventory = inventoryController;
+        InventoryManager.Instance.player = this;
     }
 
     // Update is called once per frame
@@ -97,7 +102,7 @@ public class PlayerController : CharacterController
                 if (!hit.collider.GetComponent<CombatController>() && hit.transform.gameObject != this.gameObject)
                 {
                     // Set the pathing to start.
-                    playerNav.SetMoveToMarker(raycastPoint);
+                    playerNav.MoveToClickPoint(raycastPoint);
                 }
                 else
                 {
@@ -105,7 +110,7 @@ public class PlayerController : CharacterController
                 }
             }
 
-            if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
+            if (currentState == PlayerState.InCombat && combatController.IsTurn && !playerNav.isMoving)
             {
                 // If we hit a combatant...
                 if (hit.collider.GetComponent<CombatController>())
