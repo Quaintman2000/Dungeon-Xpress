@@ -28,8 +28,6 @@ public class AIController : CharacterController
 
     //How far the ai will wander in a bubble radius
     [SerializeField] float idleRadius;
-    //How long the ai waits before making another action again
-    [SerializeField] float idleWait;
 
     private void Awake()
     {
@@ -112,9 +110,6 @@ public class AIController : CharacterController
         if(NavMesh.SamplePosition(randomPoint, out hit, idleRadius, 1)) // Checks if it finds a point or not and stops if it doesn't
         {
             aiNav.Move(hit.position + transform.position);
-
-            //stops the ai from moving in multiple directions each update
-            StartCoroutine(QuickBreak());
         }
     }
     void CombatCheck()
@@ -130,15 +125,4 @@ public class AIController : CharacterController
             }
         }
     }
-    //Slows the Enemy from performing actions right after another
-    IEnumerator QuickBreak()
-    {
-        performingAction = true;
-
-        //waits a set time to allow ample time to finish this current action before beginning a new one
-        yield return new WaitForSeconds(idleWait);
-        performingAction = false;
-    }
-    //hardening
-    //check if a task has finish in corutine then at end of, try and find a new task
 }

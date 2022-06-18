@@ -19,9 +19,11 @@ public class InventoryController : MonoBehaviour
     public void Use(int position, CombatController target)
     {
         //Uses current item on self [Combat controller use ability needs update to use this efficently]
-        target.selectedAbilityData = itemInventory[position];
-        target.UseAbility(target);
-
+        if (itemInventory[position] != null)
+        {
+            target.selectedAbilityData = itemInventory[position];
+            target.UseAbility(target);
+        }
 
         itemInventory[position] = null;
     }

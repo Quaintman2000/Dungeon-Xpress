@@ -3035,7 +3035,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 468404872}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -3854,7 +3854,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 569105339}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4163,7 +4163,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 594736185}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -11487,7 +11487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be911c2714218cf4bacf5da7a4389646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 0}
+  player: {fileID: 0}
   FloorItem: {fileID: 0}
   IPickupNotification: {fileID: 1465134125}
   IInventorySpots: []
@@ -14422,13 +14422,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92c840c793a894478702183f1fa9707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNav: {fileID: 0}
   currentState: 1
   combatController: {fileID: 0}
   inventoryController: {fileID: 0}
+  aiNav: {fileID: 0}
   charAnimator: {fileID: 0}
+  movementType: 0
+  goToPoint1: 0
+  PatrolPoint1: {x: 0, y: 0, z: 0}
+  PatrolPoint2: {x: 0, y: 0, z: 0}
   idleRadius: 5
-  idleWait: 6
 --- !u!114 &1577923136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14438,13 +14441,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1577923134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae11269e32896c4f9d6a9387aed644c, type: 3}
+  m_Script: {fileID: 11500000, guid: c26c45619c949064bb5368f7f706cfb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  corners: []
-  moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
-  noGoText: {fileID: 890663437}
-  navPathLineRend: {fileID: 4304462862110777249, guid: 6522e412f901d234fb275d4a7102ac81, type: 3}
+  isMoving: 0
   navMeshAgent: {fileID: 0}
 --- !u!195 &1577923137
 NavMeshAgent:
@@ -14482,7 +14482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
   actionPoints: 0
-  playerNavMesh: {fileID: 1577923136}
+  navMesh: {fileID: 0}
   closeEnough: 0.1
   classData: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
   Health: 0
