@@ -36,7 +36,7 @@ public class BattleUIManager : MonoBehaviour
         for (int i = 0; i < combatantsImages.Count; i++)
         {
             //Instantiate the prefab template for the images
-            Instantiate(combatantImagePrefab);
+            GameObject newImage = Instantiate(combatantImagePrefab);
 
             //Set the image sprites to the correct image
             currentCombatantImage.sprite = classData.CharacterImage;
@@ -45,7 +45,7 @@ public class BattleUIManager : MonoBehaviour
             currentCombatantImage.SetNativeSize();
 
             //Set images as children of turn order images object
-            combatantImagePrefab.transform.SetParent(turnOrderImagesParent);
+            newImage.transform.SetParent(turnOrderImagesParent);
         }
     }
 
