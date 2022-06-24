@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public CombatController playerData;
 
+    public DoorTrigger CurrentDoor;
+    private List<DoorTrigger> doors;
+    private int TotalDoors;
     void Awake()
     {
         if(Instance == null)
@@ -25,15 +29,24 @@ public class GameManager : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 
     public void StartMatch()
     {
 
+    }
+    public int AddDoor(DoorTrigger door)
+    {
+        doors.Add(door);
+
+        TotalDoors++;
+        return TotalDoors;
+    }
+    public void OpenDoor(PlayerController player)
+    {
+        if (CurrentDoor != null)
+        {
+            CurrentDoor.OnDoorEnter(player);
+        }
     }
 }

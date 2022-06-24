@@ -45,6 +45,9 @@ public class PlayerAnimationManager : AnimationManager
                 animator.SetTrigger("UseSkillFour");
                 break;
         }
-
+    }
+    public void DoorEnter()
+    {
+        //Player Opens a door 
     }
 }

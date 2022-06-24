@@ -13,7 +13,6 @@ public class PlayerController : CharacterController
     private void Awake()
     {
         combatController = GetComponent<CombatController>();
-        
     }
 
 
@@ -112,7 +111,13 @@ public class PlayerController : CharacterController
             //Rotate on the y axis counter-clockwise
             camControl.RotateCamera(-1.0f, 0.0f);
         }
-
+        //If E is pressed down on this frame
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //Checks if player is near door and enters if they do
+            GameManager.Instance.OpenDoor(this);
+            playerNav.navMeshAgent.destination = this.transform.position;
+        }
         //If pressing R...
         if (Input.GetKey(KeyCode.R))
         {
@@ -122,7 +127,7 @@ public class PlayerController : CharacterController
             //Pitch forward
             camControl.RotateCamera(0.0f, -1.0f);
         }
-
+        
         //If pressing F...
         if (Input.GetKey(KeyCode.F))
         {
