@@ -17942,6 +17942,14 @@ PrefabInstance:
       propertyPath: actionPoints
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: playerNavMesh
+      value: 
+      objectReference: {fileID: 883526779794904223}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: selectedAbilityData
+      value: 
+      objectReference: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a59c8d1e3905442b47113427407742, type: 3}
 --- !u!1 &659099456908468154 stripped
@@ -18003,6 +18011,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3107897476469536614, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459505693472268463, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -210
+      objectReference: {fileID: 0}
     - target: {fileID: 5459505694305035059, guid: 14182ffaea2cd044481a2c7b811e64aa, type: 3}
       propertyPath: combatCtrl
       value: 

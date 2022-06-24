@@ -44,7 +44,7 @@ public class BattleManager : MonoBehaviour
         battleUIManager.CreateTurnImages();
 
         //Tell the BattleManager to listen for each combatant's death event
-        foreach(CombatController combatController in Combatants)
+        foreach (CombatController combatController in Combatants)
         {
             combatController.OnCombatantDeath += OnCombatantDeath;
         }

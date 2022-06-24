@@ -121,7 +121,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5459505694305035059}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: Skill2
         m_Mode: 1
@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5459505694305035059}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: Skill3
         m_Mode: 1
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5459505694305035059}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: Skill4
         m_Mode: 1
@@ -678,7 +678,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5459505694305035059}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
         m_MethodName: Skill1
         m_Mode: 1
@@ -781,7 +781,7 @@ GameObject:
   - component: {fileID: 5459505694305035061}
   - component: {fileID: 5459505694305035062}
   - component: {fileID: 5459505694305035063}
-  - component: {fileID: 5459505694305035059}
+  - component: {fileID: 3107897476469536614}
   m_Layer: 5
   m_Name: Player UI Canvas
   m_TagString: Untagged
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 63
---- !u!114 &5459505694305035059
+--- !u!114 &3107897476469536614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -880,16 +880,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5459505694305035080}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d955da1fe6842934eaa57d0dfc1b2002, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bd555284d29ae047b983c6f308df579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCtrl: {fileID: 0}
-  combatCtrl: {fileID: 0}
-  skillBar: {fileID: 5459505693472268448}
-  skill1_Ability: {fileID: 11400000, guid: 47ddcb140b19795449693c75f6a2f298, type: 2}
-  skill2_Ability: {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
-  skill3_Ability: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
-  skill4_Ability: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
+  healthBar: {fileID: 0}
+  manaBar: {fileID: 0}
 --- !u!1 &5459505694372039328
 GameObject:
   m_ObjectHideFlags: 0

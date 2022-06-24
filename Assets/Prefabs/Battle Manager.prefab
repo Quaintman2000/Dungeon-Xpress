@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 435.94}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8126295276734256450
@@ -227,10 +227,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnText: {fileID: 2915208304680438066}
   turnOrderImagesParent: {fileID: 6882067229841313884}
-  combatantsImages: []
   combatantImagePrefab: {fileID: 5361696467840746879, guid: 11a074384e6646a4bbd890bb033e4746, type: 3}
   currentCombatantImage: {fileID: 0}
-  classData: {fileID: 0}
 --- !u!1 &2915208304680438068
 GameObject:
   m_ObjectHideFlags: 0

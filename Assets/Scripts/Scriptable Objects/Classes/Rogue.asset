@@ -20,8 +20,10 @@ MonoBehaviour:
   MagicDamage: 0
   AttackSpeed: 0
   StartingActionPoints: 0
+  CharacterImage: {fileID: 21300000, guid: dfbc08cb16c85ae4c8a8ca247ce0d703, type: 3}
   Abilities:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ClassAnimatorOverride: {fileID: 0}

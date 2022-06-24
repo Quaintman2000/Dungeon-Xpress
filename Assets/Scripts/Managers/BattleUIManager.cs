@@ -12,16 +12,11 @@ public class BattleUIManager : MonoBehaviour
     //Referecne to the turn order images parent object
     public Transform turnOrderImagesParent;
 
-    //Create a list to hold all of combatants images
-    public List<Image> combatantsImages;
-
     //Prefab reference to the combatant images
     public GameObject combatantImagePrefab;
 
     //Reference to the current combatant's turn image
     public Image currentCombatantImage;
-
-    public ClassData classData;
 
     //Update the current turn text
     public void SetTurnText()
@@ -33,19 +28,15 @@ public class BattleUIManager : MonoBehaviour
     public void CreateTurnImages()
     {
         //For loop to iterate through the list of combatant images
-        for (int i = 0; i < combatantsImages.Count; i++)
+        for (int i = 0; i < BattleManager.Instance.Combatants.Count; i++)
         {
-            //Instantiate the prefab template for the images
-            GameObject newImage = Instantiate(combatantImagePrefab);
+            Debug.Log("Begin Image For Loop.");
+            //Instantiate the prefab template for the images and set the parent
+            Image newImage = Instantiate(combatantImagePrefab.GetComponent<Image>(), turnOrderImagesParent);
+            Debug.Log("Image Instantiated and Parent Set.");
 
             //Set the image sprites to the correct image
-            currentCombatantImage.sprite = classData.CharacterImage;
-
-            //Set the native size of the image to make sure it is within the desired size
-            currentCombatantImage.SetNativeSize();
-
-            //Set images as children of turn order images object
-            newImage.transform.SetParent(turnOrderImagesParent);
+            newImage.GetComponent<Image>().sprite = BattleManager.Instance.Combatants[i].classData.CharacterImage;
         }
     }
 
@@ -54,6 +45,6 @@ public class BattleUIManager : MonoBehaviour
     {
         //Set the current combatant image to the the last sibling to move it to the end of the list.
         //The images are in a horizontal layout group, and will auto adjust.
-        currentCombatantImage.transform.SetAsLastSibling();
+        turnOrderImagesParent.GetChild(0).SetAsLastSibling();
     }
 }
