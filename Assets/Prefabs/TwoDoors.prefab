@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7456355470925273975}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 16.07, y: 1.5, z: 0.41}
   m_LocalScale: {x: 0.5, y: 3, z: 2.3}
   m_Children:
   - {fileID: 7456355471736048363}
@@ -97,7 +97,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.5, y: 1, z: 1.6}
-  m_Center: {x: -1.35, y: 0, z: 0}
+  m_Center: {x: -3.5, y: 0, z: 0}
 --- !u!114 &7456355470925273973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7456355471361789975}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.8, y: -0.5, z: 0}
+  m_LocalPosition: {x: -4, y: -0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7456355472441526318}
@@ -214,7 +214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7456355471736048362}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.8, y: -0.5, z: 0}
+  m_LocalPosition: {x: -4, y: -0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7456355470925273972}
@@ -249,7 +249,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7456355472441526314}
   m_LocalRotation: {x: 0, y: 0.9993662, z: -0, w: -0.035597235}
-  m_LocalPosition: {x: 0.917, y: 1.5, z: 0}
+  m_LocalPosition: {x: -13.92, y: 1.5, z: -0.07}
   m_LocalScale: {x: 0.5, y: 3, z: 2.3}
   m_Children:
   - {fileID: 7456355471361789972}
@@ -317,7 +317,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.5, y: 1, z: 1.6}
-  m_Center: {x: -1.35, y: 0, z: 0}
+  m_Center: {x: -3.5, y: 0, z: 0}
 --- !u!114 &7456355472441526319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPoint: {fileID: 7456355471736048363}
-  doorType: 0
+  doorType: 1
 --- !u!54 &7456355472441526317
 Rigidbody:
   m_ObjectHideFlags: 0

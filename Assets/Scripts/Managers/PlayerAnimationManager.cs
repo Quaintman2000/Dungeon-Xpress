@@ -48,6 +48,22 @@ public class PlayerAnimationManager : AnimationManager
     }
     public void DoorEnter()
     {
-        //Player Opens a door 
+        AnimationStart();
+        animator.SetTrigger("OpenDoor");
+        AnimationEnd();
+    }
+    //When certain animations start it should stop them in place
+    private void AnimationStart()
+    {
+        PlayerController player = this.gameObject.GetComponent<PlayerController>();
+        player.playerNav.navMeshAgent.isStopped = true;
+        player.isBusy = true;
+    }
+    //When the animation finishes it lets them move again
+    public void AnimationEnd()
+    {
+        PlayerController player = this.gameObject.GetComponent<PlayerController>();
+        player.playerNav.navMeshAgent.isStopped = false;
+        player.isBusy = false;
     }
 }

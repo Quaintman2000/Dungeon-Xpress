@@ -8,8 +8,9 @@ public class PlayerController : CharacterController
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
-    
 
+    //Prevents player input during certain actions
+    public bool isBusy;
     private void Awake()
     {
         combatController = GetComponent<CombatController>();
@@ -24,9 +25,11 @@ public class PlayerController : CharacterController
     // Update is called once per frame
     void Update()
     {
-        //Call the inputs every frame
-        GetInputs();
-
+        if (!isBusy)
+        {
+            //Call the inputs every frame
+            GetInputs();
+        }
     }
 
     //Keep track of all the different input options of the player

@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public CombatController playerData;
 
     public DoorTrigger CurrentDoor;
-    private List<DoorTrigger> doors;
+    private List<DoorTrigger> doors = new List<DoorTrigger>();
     private int TotalDoors;
     void Awake()
     {
@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         if (CurrentDoor != null)
         {
             CurrentDoor.OnDoorEnter(player);
+            
         }
     }
 }

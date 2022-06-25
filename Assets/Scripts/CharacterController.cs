@@ -5,8 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // AI pathing variable.
-    [SerializeField]
-    protected PlayerNavMesh playerNav;
+    public PlayerNavMesh playerNav;
 
     // Reference to the player state.
     public enum PlayerState { InCombat, FreeRoam, Dead };
