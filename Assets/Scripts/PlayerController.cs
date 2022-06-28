@@ -8,7 +8,7 @@ public class PlayerController : CharacterController
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
-    
+    [SerializeField] CharacterController selectedCharacter;
 
     private void Awake()
     {
@@ -37,10 +37,59 @@ public class PlayerController : CharacterController
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        //if(Input.GetKeyDown(KeyCode.Mouse1))
+        //{
+        //    //Cast a ray from our camera toward the plane, through our mouse cursor
+        //    float distance;
+        //    // Hit info from the raycast.
+        //    RaycastHit hit;
+        //    // Makes the raycast from our mouseposition to the ground.
+        //    Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    // Sends the raycast of to infinity until hits something.
+        //    Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
+
+        //    // Grab the distance of the position we hit to get the point along the ray.
+        //    distance = hit.distance;
+
+        //    //Find where that ray hits the plane
+        //    Vector3 raycastPoint = cameraRay.GetPoint(distance);
+
+        //    // If we right click...
+        //    if (currentState == PlayerState.FreeRoam )
+        //    {
+        //        if (!hit.collider.GetComponent<CombatController>())
+        //        {
+        //            // Set the pathing to start.
+        //            playerNav.SetMoveToMarker(raycastPoint);
+        //        }
+        //        else
+        //        {
+        //            MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+        //            uIManager.ToggleSkillBar(true);
+        //        }
+        //    }
+
+        //    if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
+        //    {
+        //        // If we hit a combatant...
+        //        if (hit.collider.GetComponent<CombatController>())
+        //        {
+        //            Debug.Log("Target Locked!");
+        //            // Set the combatant as other.
+        //            CombatController other = hit.collider.GetComponent<CombatController>();
+        //            // If the combatant isnt us...
+                    
+        //                combatController.UseAbility(other);
+        //        }
+        //        else
+        //        {
+        //            combatController.MoveToPoint(raycastPoint);
+        //        }
+        //    }
+        //}
+
+        if(Input.GetMouseButtonDown(0))
         {
-            //Cast a ray from our camera toward the plane, through our mouse cursor
-            float distance;
             // Hit info from the raycast.
             RaycastHit hit;
             // Makes the raycast from our mouseposition to the ground.
@@ -48,91 +97,80 @@ public class PlayerController : CharacterController
             // Sends the raycast of to infinity until hits something.
             Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            // Grab the distance of the position we hit to get the point along the ray.
-            distance = hit.distance;
+            // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
+            if (hit.collider.GetComponent<CharacterController>())
+                SelectCharacter(hit.collider.GetComponent<CharacterController>());
+            else
+                SelectCharacter(null);
+        }
 
-            //Find where that ray hits the plane
-            Vector3 raycastPoint = cameraRay.GetPoint(distance);
+        if(Input.GetMouseButtonDown(1))
+        {
+            // Hit info from the raycast.
+            RaycastHit hit;
+            // Makes the raycast from our mouseposition to the ground.
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // Sends the raycast of to infinity until hits something.
+            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            // If we right click...
-            if (currentState == PlayerState.FreeRoam )
+            camControl.rotateStartPosition = Input.mousePosition;
+
+            if(selectedCharacter == this)
             {
-                if (!hit.collider.GetComponent<CombatController>())
+                //Cast a ray from our camera toward the plane, through our mouse cursor
+                float distance;
+                // Grab the distance of the position we hit to get the point along the ray.
+                distance = hit.distance;
+
+                //Find where that ray hits the plane
+                Vector3 raycastPoint = cameraRay.GetPoint(distance);
+
+                // If we right click...
+                if (currentState == PlayerState.FreeRoam)
                 {
-                    // Set the pathing to start.
-                    playerNav.SetMoveToMarker(raycastPoint);
-                }
-                else
-                {
-                    MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
-                    uIManager.ToggleSkillBar(true);
+                    if (!hit.collider.GetComponent<CombatController>())
+                    {
+                        // Set the pathing to start.
+                        playerNav.SetMoveToMarker(raycastPoint);
+                    }
+                    else
+                    {
+
+                        if (hit.collider.GetComponent<CombatController>() != this.combatController)
+                        {
+                            MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+                            uIManager.ToggleSkillBar(true);
+                        }
+                    }
                 }
             }
+        }
+        if(Input.GetMouseButton(1))
+        {
+            // Rotate the camera
+            camControl.RotateCamera(Input.mousePosition);
+        }
 
-            if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
+        if(camControl.cameraStyle == CameraController.CameraStyle.Freeform || camControl.cameraStyle == CameraController.CameraStyle.RoomLocked)
+        {
+           
+            //If inputs a direction input...
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
-                // If we hit a combatant...
-                if (hit.collider.GetComponent<CombatController>())
-                {
-                    Debug.Log("Target Locked!");
-                    // Set the combatant as other.
-                    CombatController other = hit.collider.GetComponent<CombatController>();
-                    // If the combatant isnt us...
-                    
-                        combatController.UseAbility(other);
-                }
-                else
-                {
-                    combatController.MoveToPoint(raycastPoint);
-                }
+                //Move on the desired input
+                camControl.MoveCamera(verticalInput, horizontalInput);
             }
+
         }
-
-
-        //If inputs a direction input...
-        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-        {
-            //Set the camera to stop following the player
-            camControl.IsFollowing = false;
-
-            //Move on the desired input
-            camControl.MoveCamera(verticalInput, horizontalInput);
-        }
-
-        //If pressing Q...
-        if (Input.GetKey(KeyCode.Q))
-        {
-            //Rotate on the y axis clockwise
-            camControl.RotateCamera(1.0f, 0.0f);
-        }
-
-        //If pressing E...
-        if (Input.GetKey(KeyCode.E))
-        {
-            //Rotate on the y axis counter-clockwise
-            camControl.RotateCamera(-1.0f, 0.0f);
-        }
-
-        //If pressing R...
-        if (Input.GetKey(KeyCode.R))
-        {
-            //Set IsFollowing to false
-            camControl.IsFollowing = false;
-
-            //Pitch forward
-            camControl.RotateCamera(0.0f, -1.0f);
-        }
-
-        //If pressing F...
-        if (Input.GetKey(KeyCode.F))
-        {
-            //Set IsFollowing to false
-            camControl.IsFollowing = false;
-
-            //Pitch backward
-            camControl.RotateCamera(.0f, 1.0f);
-        }
-
+            if (Input.GetKey(KeyCode.E))
+            {
+                camControl.RotateCamera(-1, 0);
+            }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                camControl.RotateCamera(1, 0);
+            }
+       
         //When scrolling the mouse wheel...
         if (Input.mouseScrollDelta != Vector2.zero)
         {
@@ -140,17 +178,33 @@ public class PlayerController : CharacterController
             camControl.Zoom(Input.mouseScrollDelta.y);
         }
 
-        //If pressing C...
-        if (Input.GetKeyDown(KeyCode.C))
+        //If pressed 1...
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //Set IsFollowing to true
-            camControl.IsFollowing = true;
-
-            //Start the Follow Player coroutine
-            StartCoroutine(camControl.FollowPlayer());
-
-            //Look at the player's position
-            camControl.transform.LookAt(transform.position);
+            //Set camera style to player focused.
+            camControl.SwitchCameraStyle(CameraController.CameraStyle.PlayerFocused);
         }
+        // If pressed 2...
+        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            //Set camera style to free form.
+            camControl.SwitchCameraStyle(CameraController.CameraStyle.Freeform);
+        }
+        // If pressed 3...
+        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //Set camera style to room locked.
+            camControl.SwitchCameraStyle(CameraController.CameraStyle.RoomLocked);
+        }
+    }
+
+    void SelectCharacter(CharacterController character)
+    {
+        if (selectedCharacter != null)
+            selectedCharacter.SelectionToggle(false);
+
+        if(character != null)
+            character.SelectionToggle(true);
+        selectedCharacter = character;
     }
 }
