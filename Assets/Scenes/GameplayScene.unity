@@ -4930,7 +4930,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18164
+  m_Name: pb_Mesh77334
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10773,6 +10773,22 @@ PrefabInstance:
       propertyPath: playerCtrl
       value: 
       objectReference: {fileID: 659099456908468160}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 47ddcb140b19795449693c75f6a2f298, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
     - target: {fileID: 5117021578344232566, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_Name
       value: Player UI Canvas
@@ -15716,6 +15732,87 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806, type: 3}
   m_PrefabInstance: {fileID: 1875120636}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1877566840
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 682508287}
+    m_Modifications:
+    - target: {fileID: 5181613315100173272, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_Name
+      value: FogCamera (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.55302143
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.8375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173273, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173274, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 682508287}
+    - target: {fileID: 5181613315100173274, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: fogOfWarPlane
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173274, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
+      propertyPath: fogOfWarLayer.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
 --- !u!1001 &1878741535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17759,7 +17856,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8244661646356834006, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.75
+      value: -7.76
       objectReference: {fileID: 0}
     - target: {fileID: 8244661646356834006, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
       propertyPath: m_LocalPosition.y

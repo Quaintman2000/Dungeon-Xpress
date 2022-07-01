@@ -8,7 +8,7 @@ public class PlayerController : CharacterController
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
-    
+    [SerializeField] FogOfWar fogOfWar;
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class PlayerController : CharacterController
     {
         //Call the inputs every frame
         GetInputs();
-
+        
     }
 
     //Keep track of all the different input options of the player
@@ -61,6 +61,7 @@ public class PlayerController : CharacterController
                 {
                     // Set the pathing to start.
                     playerNav.SetMoveToMarker(raycastPoint);
+                   // fogOfWar.UpdateFog();
                 }
                 else
                 {
