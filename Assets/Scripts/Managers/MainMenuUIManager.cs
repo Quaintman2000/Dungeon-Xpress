@@ -29,6 +29,8 @@ public class MainMenuUIManager : MonoBehaviour
     int resolutionIndex;
 
     Resolution[] resolutions;
+
+    [SerializeField] SceneLoader sceneLoader;
     
 
     private void Start()
@@ -112,6 +114,7 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void OnMatchMakeButtonClicked()
     {
-        // TODO: Have the sceneloader load the gameplay scene.
+        // Have the sceneloader load the gameplay scene.
+        sceneLoader.LoadScene("GameplayScene");
     }
 }

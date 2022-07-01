@@ -27,7 +27,7 @@ public class MatchManager : MonoBehaviour
 
     private void Start()
     {
-        mapGenerator.Generate();
+        //mapGenerator.Generate();
     }
 
     /// <summary>

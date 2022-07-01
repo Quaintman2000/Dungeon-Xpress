@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1746,7 +1746,7 @@ GameObject:
   - component: {fileID: 497890027}
   - component: {fileID: 497890026}
   m_Layer: 5
-  m_Name: Options Button
+  m_Name: Match Making Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3702,7 +3702,7 @@ GameObject:
   - component: {fileID: 855546270}
   - component: {fileID: 855546269}
   m_Layer: 5
-  m_Name: Shop Button
+  m_Name: Account Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6744,6 +6744,7 @@ MonoBehaviour:
   graphicsDropdown: {fileID: 1822693607}
   brightnessSlider: {fileID: 1158212632}
   resolutionDropdown: {fileID: 505643946}
+  sceneLoader: {fileID: 11400000, guid: 03a2b0ef9428a194e930ad889d2629a7, type: 2}
 --- !u!1 &1635244782
 GameObject:
   m_ObjectHideFlags: 0
@@ -8521,7 +8522,7 @@ GameObject:
   - component: {fileID: 2032573631}
   - component: {fileID: 2032573630}
   m_Layer: 5
-  m_Name: Account Button
+  m_Name: Options Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9090,7 +9091,7 @@ GameObject:
   - component: {fileID: 2126687762}
   - component: {fileID: 2126687761}
   m_Layer: 5
-  m_Name: MatchMake Button
+  m_Name: Shop Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
