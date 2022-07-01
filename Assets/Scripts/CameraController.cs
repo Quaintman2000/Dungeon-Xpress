@@ -6,11 +6,12 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     //Get reference to the camera
-    [SerializeField] Camera camera;
+    [SerializeField] Transform cameraTransform;
 
     //Reference to the player's transform
     [SerializeField] Transform playerTransform;
-
+    [SerializeField, Range(0f, 90f)] float cameraAngle = 65f;
+    [SerializeField] float startingDistance = 5f;
     //Movement, rotation, and zoom speed
     [Header("Camera Movement Properties:")]
     [SerializeField, Range(0, 50)] float cameraSpeed = 0.0f;
@@ -31,8 +32,8 @@ public class CameraController : MonoBehaviour
     //Keeps track of our current zoom value
     float zoomDistance = 0.0f;
 
-    public enum CameraStyle { Freeform, PlayerFocused, RoomLocked };
-    public CameraStyle cameraStyle = CameraStyle.Freeform;
+    public enum CameraStyle { PlayerFocused, RoomLocked };
+    public CameraStyle cameraStyle = CameraStyle.PlayerFocused;
     private CameraStyle previousCameraStyle;
 
     private Coroutine followPlayerCoroutine;
@@ -45,10 +46,28 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        SetCamera(startingDistance, cameraAngle);
+
         if (cameraStyle == CameraStyle.PlayerFocused)
             ToggleCameraFollow(true);
         else if (cameraStyle == CameraStyle.RoomLocked)
             ToggleRoomLocked();
+    }
+
+    private void OnValidate()
+    {
+        SetCamera(startingDistance, cameraAngle);
+    }
+    // Sets the camera position based on set distance and set pitch
+    void SetCamera(float setDistance, float setPitchAngle)
+    {
+        float AngleInRad = Mathf.Deg2Rad * setPitchAngle;
+        // Find the Y and Z values of the camera with the given set distance and angle. Equation: y = setDistance * sin(-angle)
+        float yPos = setDistance * Mathf.Sin(AngleInRad);
+        float zPos = setDistance * Mathf.Cos(AngleInRad);
+
+        cameraTransform.localPosition = new Vector3(0f, yPos, -zPos);
+        cameraTransform.rotation = Quaternion.Euler(setPitchAngle, 0, 0);
     }
 
     //Move on the x and z axis based on input from the player controller
@@ -59,7 +78,6 @@ public class CameraController : MonoBehaviour
             ReturnToPreviousCameraStyle();
 
         Vector3 newPosition = transform.position + (transform.forward * verticalInput * cameraSpeed * Time.deltaTime) + (transform.right * horizontalInput * cameraSpeed * Time.deltaTime);
-        Vector3 cameraPositon = camera.transform.position;
         // If the camera style is not room locked or not going to exceeding the room's parameters.
         if (cameraStyle != CameraStyle.RoomLocked || ((newPosition.x > roomLockMinValue.x && newPosition.x < roomLockMaxValue.x) && (newPosition.z > roomLockMinValue.y && newPosition.z < roomLockMaxValue.y)))
         {
@@ -71,7 +89,7 @@ public class CameraController : MonoBehaviour
     public void RotateCamera(float pivotDirection, float pitchDirection)
     {
         transform.Rotate((Vector3.up * pivotDirection * turnSpeed * Time.deltaTime), Space.Self);
-        camera.transform.Rotate((Vector3.right * pitchDirection * turnSpeed * Time.deltaTime), Space.Self);
+        cameraTransform.Rotate((Vector3.right * pitchDirection * turnSpeed * Time.deltaTime), Space.Self);
     }
 
     public void RotateCamera(Vector3 mousePosition)
@@ -99,7 +117,7 @@ public class CameraController : MonoBehaviour
         if (zoomDistance != maxZoom && zoomDistance != minZoom)
         {
             //Zoom in or out
-            camera.transform.position += camera.transform.forward * zoomSpeed * direction * Time.deltaTime;
+            cameraTransform.position += cameraTransform.forward * zoomSpeed * direction * Time.deltaTime;
         }
     }
     /// <summary>
@@ -126,7 +144,7 @@ public class CameraController : MonoBehaviour
             // Start following the player.
             followPlayerCoroutine = StartCoroutine(FollowPlayer());
             // Set the camera to look at the player.
-            camera.transform.LookAt(playerTransform);
+            cameraTransform.LookAt(playerTransform);
         }
     }
     public void ToggleRoomLocked()
@@ -156,7 +174,7 @@ public class CameraController : MonoBehaviour
 
             // Divide the room size by two to get the radius.
             roomSize /= 2;
-            roomSize -= (Vector3.one * Mathf.Abs(camera.transform.localPosition.z));
+            roomSize -= (Vector3.one * Mathf.Abs(cameraTransform.localPosition.z));
             // Set the min and max vector 2 values that our camera can travel within.
             roomLockMinValue = new Vector2(roomParent.position.x - roomSize.x, roomParent.position.z - roomSize.z);
             Debug.Log("Room Min Size: " + roomLockMinValue);
@@ -164,6 +182,7 @@ public class CameraController : MonoBehaviour
             roomLockMaxValue = new Vector2(roomParent.position.x + roomSize.x, roomParent.position.z + roomSize.z);
             Debug.Log("Room Max Size: " + roomLockMaxValue);
 
+            transform.position = roomParent.position;
 
         }
     }
@@ -200,9 +219,6 @@ public class CameraController : MonoBehaviour
         {
             ToggleRoomLocked();
         }
-        else if (cameraStyle == CameraStyle.Freeform)
-        {
-            ToggleCameraFollow(false);
-        }
+       
     }
 }
