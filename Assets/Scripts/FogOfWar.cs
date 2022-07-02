@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FogOfWar : MonoBehaviour
 {
-    public Transform SpawnFog;
+   // public Transform SpawnFog;
     public GameObject fogOfWarPlane;
     public Transform playerOne;
     public LayerMask fogOfWarLayer;
@@ -16,7 +16,7 @@ public class FogOfWar : MonoBehaviour
 
     public void Start()
     {
-        fogOfWarPlane = GameObject.Find("Fog(Clone)").GetComponent<GameObject>();
+        //fogOfWarPlane = GameObject.Find("Fog(Clone)").GetComponent<GameObject>();
         InitializeFog();
        
 

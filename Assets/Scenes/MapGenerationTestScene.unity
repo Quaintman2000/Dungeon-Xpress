@@ -421,7 +421,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-12366
+  m_Name: pb_Mesh26278
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -936,7 +936,7 @@ PrefabInstance:
     - target: {fileID: 5181613315100173274, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
       propertyPath: fogOfWarPlane
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1786197451}
     - target: {fileID: 5181613315100173274, guid: d9d4c4136fe585548bda06f21b511df1, type: 3}
       propertyPath: fogOfWarPlane2
       value: 
