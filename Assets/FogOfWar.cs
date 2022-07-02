@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FogOfWar : MonoBehaviour
 {
+    public Transform SpawnFog;
     public GameObject fogOfWarPlane;
-    public Transform player;
+    public Transform playerOne;
     public LayerMask fogOfWarLayer;
     public float exposedRadius = 5f;
     private float exposedRadiusSqr { get { return exposedRadius * exposedRadius; } }
@@ -15,7 +16,9 @@ public class FogOfWar : MonoBehaviour
 
     public void Start()
     {
+        fogOfWarPlane = GameObject.Find("Fog(Clone)").GetComponent<GameObject>();
         InitializeFog();
+       
 
     }
     public void Update()
@@ -23,10 +26,11 @@ public class FogOfWar : MonoBehaviour
         
         UpdateFog();    
     }
-    
+
     public void UpdateFog()
     {
-        Ray r = new Ray(transform.position, player.position - transform.position);
+        Ray r = new Ray(transform.position, playerOne.position - transform.position);
+     
         RaycastHit hit;
         if (Physics.Raycast(r, out hit, 1000, fogOfWarLayer, QueryTriggerInteraction.Collide))
         {
@@ -34,7 +38,7 @@ public class FogOfWar : MonoBehaviour
             {
                 Vector3 v = fogOfWarPlane.transform.TransformPoint(vertices[i]);
                 //vertices[i] = fogOfWarPlane.transform.TransformPoint(vertices[i]);
-               // Vector3 v = vertices[i];
+                // Vector3 v = vertices[i];
                 float dist = Vector3.SqrMagnitude(v - hit.point);
                 if (dist < exposedRadiusSqr)
                 {
