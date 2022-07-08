@@ -5,8 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // AI pathing variable.
-    [SerializeField]
-    protected PlayerNavMesh playerNav;
+    [SerializeField] public PlayerNavMesh playerNav;
     [SerializeField] GameObject selectionCircle;
 
     // Reference to the player state.

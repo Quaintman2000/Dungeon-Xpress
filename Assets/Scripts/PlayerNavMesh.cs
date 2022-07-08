@@ -45,6 +45,17 @@ public class PlayerNavMesh : NavMeshMovement
         currentPathRenderer.gameObject.SetActive(true);
         spawnedMarker.gameObject.SetActive(true);
     }
+    public void SetMoveToMarker(Vector3 raycastPoint)
+    {
+        // If there is a spawn marker.
+        if (spawnedMarker != null)
+            Destroy(spawnedMarker);
+        if (currentPathRenderer != null)
+            Destroy(currentPathRenderer.gameObject);
+        // Move to clicked position.
+        MoveToClickPoint(raycastPoint);
+    }
+
     public void MoveToClickPoint(Vector3 raycastPoint)
     {
         NavMeshHit navHit;

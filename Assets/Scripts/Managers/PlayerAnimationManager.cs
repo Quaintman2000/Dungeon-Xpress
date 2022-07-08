@@ -64,6 +64,7 @@ public class PlayerAnimationManager : AnimationManager
     {
         PlayerController player = this.gameObject.GetComponent<PlayerController>();
         player.playerNav.navMeshAgent.isStopped = false;
+        
         player.isBusy = false;
     }
 }

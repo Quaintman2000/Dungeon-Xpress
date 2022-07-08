@@ -5,25 +5,39 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerNavMesh))]
 public class PlayerController : CharacterController
 {
+    //[SerializeField] PlayerNavMesh playerNav;
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
     [SerializeField] CharacterController selectedCharacter;
 
+    [SerializeField] public InventoryController inventoryController;
+
     const float rightClickHoldGap = 0.15f;
     float rightClickHoldTime;
-
+    //Prevents player input during certain actions
+    public bool isBusy;
     private void Awake()
     {
+        // Grab our pathing component.
+       // playerNav = GetComponent<PlayerNavMesh>();
         combatController = GetComponent<CombatController>();
-
+        inventoryController = GetComponent<InventoryController>();
     }
-
+    private void Start()
+    {
+        //sets instance ui inventory to this players inventory[not set up for multiple players]
+        InventoryManager.Instance.player = this;
+    }
     // Update is called once per frame
     void Update()
     {
-        //Call the inputs every frame
-        GetInputs();
+        if (!isBusy)
+        {
+            //Call the inputs every frame
+            GetInputs();
+        }
+            
 
     }
 
@@ -51,9 +65,6 @@ public class PlayerController : CharacterController
             else
                 SelectCharacter(null);
         }
-
-
-
         if (Input.GetMouseButtonDown(1))
         {
             // Sets the start position for the rotate start position.
@@ -128,7 +139,12 @@ public class PlayerController : CharacterController
         }
         if (Input.GetKey(KeyCode.E))
         {
-            camControl.RotateCamera(-1, 0);
+            //camControl.RotateCamera(-1, 0);
+            //Attempts to pickup an item if there is one on the floor
+            InventoryManager.Instance.PickUpItem();
+            //Checks if player is near door and enters if they do
+            GameManager.Instance.OpenDoor(this);
+            playerNav.navMeshAgent.destination = this.transform.position;
         }
         else if (Input.GetKey(KeyCode.Q))
         {
@@ -155,6 +171,28 @@ public class PlayerController : CharacterController
             //Set camera style to room locked.
             camControl.SwitchCameraStyle(CameraController.CameraStyle.RoomLocked);
         }
+        //Used for items when held down drops the item in the slot instead of using them
+        bool shiftDown = Input.GetKey(KeyCode.LeftShift);
+
+        //If Pressing 5 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(0); }
+            else { InventoryManager.Instance.UsePlayerItem(0); }
+        }
+        //If Pressing 6 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(1); }
+            else { InventoryManager.Instance.UsePlayerItem(1); }
+        }
+        //If Pressing 6 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(2); }
+            else { InventoryManager.Instance.UsePlayerItem(2); }
+        }
+
     }
 
     void SelectCharacter(CharacterController character)

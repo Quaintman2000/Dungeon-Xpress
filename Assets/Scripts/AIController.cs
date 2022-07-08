@@ -120,7 +120,7 @@ public class AIController : CharacterController
             if (BattleManager.Instance.Combatants.Count > 1)
             {
                 //Should go after the second combatant
-                if(aiNav.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.classData.StartingActionPoints)
+                if(aiNav.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.CharacterData.StartingActionPoints)
                 combatController.UseAbility(BattleManager.Instance.Combatants[0]);
             }
         }
