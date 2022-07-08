@@ -31,12 +31,15 @@ public class CombatController : MonoBehaviour
 
     [SerializeField] PlayerAnimationManager animationManager;
 
+    CreatureAudioController audioControl;
+
     // Start is called before the first frame update
     void Awake()
     {
         // Set the player's starting health to the max.
         Health = CharacterData.MaxHealth;
         animationManager = GetComponent<PlayerAnimationManager>();
+        audioControl = GetComponent<CreatureAudioController>();
     }
 
   
@@ -185,6 +188,9 @@ public class CombatController : MonoBehaviour
         other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
         if (animationManager != null)
             animationManager.SetAbilityTrigger(abilityIndex);
+
+        AudioManager.instance.PlaySound(selectedAbilityData.AbilitySound,transform.position);
+
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
     }
@@ -195,7 +201,7 @@ public class CombatController : MonoBehaviour
     /// <param name="damage"> The amount of damage to be dealt.</param>
     public void TakeDamage(float damage)
     {
-        Debug.Log("Ouch!");
+        audioControl.HurtSound();
         // Subtract health by damage.
         Health -= damage;
         if (OnHealthChange != null)
@@ -250,6 +256,8 @@ public class CombatController : MonoBehaviour
     void Die()
     {
         Debug.Log("Dead!");
+        //Plays the death sound
+        audioControl.DeathSound();
         // If there's someone listening to this event...
         if (OnCombatantDeath != null)
             // Call the death event with this.

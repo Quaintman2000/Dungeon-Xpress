@@ -8,18 +8,19 @@ public class PlayerController : CharacterController
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
-    
+    [SerializeField] PlayerAudioController audioControl;
 
     private void Awake()
     {
         combatController = GetComponent<CombatController>();
-        
+        audioControl = GetComponent<PlayerAudioController>();
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -27,9 +28,7 @@ public class PlayerController : CharacterController
     {
         //Call the inputs every frame
         GetInputs();
-
     }
-
     //Keep track of all the different input options of the player
     private void GetInputs()
     {
@@ -61,6 +60,7 @@ public class PlayerController : CharacterController
                 {
                     // Set the pathing to start.
                     playerNav.SetMoveToMarker(raycastPoint);
+                    audioControl.WalkSound();
                 }
                 else
                 {
@@ -78,16 +78,18 @@ public class PlayerController : CharacterController
                     // Set the combatant as other.
                     CombatController other = hit.collider.GetComponent<CombatController>();
                     // If the combatant isnt us...
-                    
-                        combatController.UseAbility(other);
+                    audioControl.AbilityCastlineSound();
+                    combatController.UseAbility(other);
                 }
                 else
                 {
+                    audioControl.WalkLineSound();
                     combatController.MoveToPoint(raycastPoint);
+                    audioControl.WalkSound();
                 }
             }
         }
-
+        
 
         //If inputs a direction input...
         if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
