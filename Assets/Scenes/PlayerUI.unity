@@ -826,6 +826,22 @@ PrefabInstance:
       propertyPath: skill4_Ability
       value: 
       objectReference: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 03bc82353010b1548b0abdf397c28f3a, type: 2}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: abilities.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 17c8757ff74bf9e4e87c1c898ae4093c, type: 2}
     - target: {fileID: 5117021577729496219, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4762,11 +4778,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1565784314003400054, guid: 9d96437b1954fd74c84a5e1999bb2cb1, type: 3}
   m_PrefabInstance: {fileID: 671062770}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &682508287 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8244661646356834006, guid: 4af32bc4aec36a4428274aac029909d2, type: 3}
-  m_PrefabInstance: {fileID: 8244661647034865961}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &692189359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7612,14 +7623,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16e99d2822cfe0246a6242fd24531bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 963194227}
-  player: {fileID: 682508287}
+  cameraTransform: {fileID: 0}
+  playerTransform: {fileID: 0}
+  cameraAngle: 65
+  startingDistance: 5
   cameraSpeed: 10
   turnSpeed: 50
   zoomSpeed: 5
   maxZoom: -5
   minZoom: 3
-  IsFollowing: 0
+  cameraFollowSpeed: 5
+  cameraStyle: 0
+  rotateStartPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1057454756
 Transform:
   m_ObjectHideFlags: 0
@@ -13480,11 +13495,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae11269e32896c4f9d6a9387aed644c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
+  navMeshAgent: {fileID: 0}
   corners: []
   moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
   noGoText: {fileID: 0}
   navPathLineRend: {fileID: 4304462862110777249, guid: 6522e412f901d234fb275d4a7102ac81, type: 3}
-  navMeshAgent: {fileID: 0}
 --- !u!195 &1577923137
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -13521,14 +13537,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 0}
   actionPoints: 6
-  playerNavMesh: {fileID: 1577923136}
+  navMesh: {fileID: 0}
   closeEnough: 0.1
   CharacterData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
+  abilityIndex: 0
   selectedAbilityData: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
   statusEffects: []
+  animationManager: {fileID: 0}
 --- !u!136 &1577923139
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13556,11 +13574,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNav: {fileID: 0}
+  selectionCircle: {fileID: 0}
   currentState: 1
   combatController: {fileID: 1577923138}
+  aiNav: {fileID: 0}
   charAnimator: {fileID: 0}
+  movementType: 0
+  goToPoint1: 0
+  PatrolPoint1: {x: 0, y: 0, z: 0}
+  PatrolPoint2: {x: 0, y: 0, z: 0}
   idleRadius: 5
-  idleWait: 2
 --- !u!1001 &1582432887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15994,6 +16017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 883526779794904221}
+  CurrentDoor: {fileID: 0}
 --- !u!4 &1834490252
 Transform:
   m_ObjectHideFlags: 0
