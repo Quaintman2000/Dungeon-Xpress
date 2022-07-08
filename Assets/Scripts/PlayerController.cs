@@ -82,8 +82,6 @@ public class PlayerController : CharacterController
             // Sends the raycast of to infinity until hits something.
             Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            
-
             if (selectedCharacter == this)
             {
                 //Cast a ray from our camera toward the plane, through our mouse cursor
@@ -112,6 +110,24 @@ public class PlayerController : CharacterController
                         }
                     }
                 }
+               else if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
+                {
+                    // If we hit a combatant...
+                    if (hit.collider.GetComponent<CombatController>())
+                    {
+                        Debug.Log("Target Locked!");
+                        // Set the combatant as other.
+                        CombatController other = hit.collider.GetComponent<CombatController>();
+                        // If the combatant isnt us...
+
+                        combatController.UseAbility(other);
+                    }
+                    else
+                    {
+                        combatController.MoveToPoint(raycastPoint);
+                    }
+                }
+
             }
         }
 
