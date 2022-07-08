@@ -5,17 +5,35 @@ using UnityEngine.AI;
 
 public class AIController : CharacterController
 {
+    [SerializeField] NavMeshMovement aiNav;
     //Reference the creature animator
     [SerializeField] Animator charAnimator;
 
     //Used to stop from running multiple actions
     bool performingAction;
 
+    //Different movements for the ai to use when navigating the map
+    public enum MovementType
+    {
+        Stationary,
+        Patrol,
+        Random
+    }
+    //How the enemy navigates the map
+    public MovementType movementType;
+
+    //Determines if it is going to point 1 or 2 for patrol
+    [SerializeField] bool goToPoint1;
+    [SerializeField] Vector3 PatrolPoint1, PatrolPoint2;
+
     //How far the ai will wander in a bubble radius
     [SerializeField] float idleRadius;
-    //How long the ai waits before making another action again
-    [SerializeField] float idleWait;
 
+    private void Awake()
+    {
+        // Grab our pathing component.
+        aiNav = gameObject.GetComponent<NavMeshMovement>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -24,40 +42,62 @@ public class AIController : CharacterController
         performingAction = false;
         //Impliment when the AI has a Animator
         //charAnimator = GetComponent<Animator>();
+
+        //If there aren't any patrol points on the map then the ai makes its own patrol points
+
+
+        Vector3 randomPoint = Random.insideUnitSphere * 15f;
+
+        //Creates a random point on the map and sets it as the second movement point
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomPoint, out hit, 15f, 1);
+
+        PatrolPoint1 = gameObject.transform.position;
+        PatrolPoint2 = hit.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!performingAction)
+        if (!aiNav.isMoving)
         {
-            Idle();
-            CombatCheck();
+            AIState();
         }
-
-        ///Problem in battlemanager setturn with combantantindex going over. Recommend % Combantants.Count
-
-        ///Attack move never reaches actual damage because never fully in range
-        ///They never reach range because they are trying to go exactly where the other enemy is which is impossible
-        ///due to colliders preventing from going inside each other
-        ///current fix is setting ability distance to 1.6 or higher
-        ///Gave test ability and buff both a range of 1.6 to avoid softlock of not reaching other 
-
-        ///Changed test ability to melee to test since no projectile currently throws exception
-        ///will test ranged attacks after projectiles are fully implemented and made a full scriptableobject
-
-        ///line:navMeshAgent.isStopped in PlayerNavMesh.Moving(Vector3 movePosition, float closeEnough) stops moving no matter what and doesnt move after
-
-        ///Needed some kind of buffer to allow only one action for all characters etc movement,attack
-        ///implemented QuickBreak for use in idle but recommend a check during combat that prevents any type of action until the current ability/action finishes happening
+    }
+    void AIState()
+    {
+        switch (currentState)
+        {
+            case PlayerState.FreeRoam:
+                Idle();
+                break;
+            case PlayerState.InCombat:
+                CombatCheck();
+                break;
+        }
     }
     //When the enemy isn't in combat they wander the area
     void Idle()
     {
-        if(currentState == PlayerState.FreeRoam && !performingAction)
+        switch(movementType)
         {
-            RandomMovement();
+            case MovementType.Stationary:
+                break;
+            case MovementType.Patrol:
+                Patrol();
+                break;
+            case MovementType.Random:
+            default:
+                RandomMovement();
+                break;
+
         }
+    }
+    void Patrol()
+    {
+        Vector3 point = goToPoint1 ? PatrolPoint1 : PatrolPoint2;
+        aiNav.Move(point);
+        goToPoint1 = !goToPoint1;
     }
     //Gets a random direction for the enemy to move
     void RandomMovement()
@@ -67,13 +107,10 @@ public class AIController : CharacterController
 
         //Makes the navmesh hit and then 
         NavMeshHit hit;
-        NavMesh.SamplePosition(randomPoint, out hit, idleRadius, 1);
-
-
-        playerNav.SetMoveToMarker(hit.position + transform.position);
-
-        //stops the ai from moving in multiple directions each update
-        StartCoroutine(QuickBreak());
+        if(NavMesh.SamplePosition(randomPoint, out hit, idleRadius, 1)) // Checks if it finds a point or not and stops if it doesn't
+        {
+            aiNav.Move(hit.position + transform.position);
+        }
     }
     void CombatCheck()
     {
@@ -83,22 +120,9 @@ public class AIController : CharacterController
             if (BattleManager.Instance.Combatants.Count > 1)
             {
                 //Should go after the second combatant
-                StartCoroutine(QuickBreak());
+                if(aiNav.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.classData.StartingActionPoints)
                 combatController.UseAbility(BattleManager.Instance.Combatants[0]);
             }
         }
     }
-    //Slows the Enemy from performing actions right after another
-    IEnumerator QuickBreak()
-    {
-        
-        Debug.Log("Doing Action");
-        performingAction = true;
-
-        //waits a set time to allow ample time to finish this current action before beginning a new one
-        yield return new WaitForSeconds(idleWait);
-        Debug.Log("Finished Action");
-        performingAction = false;
-    }
-    
 }

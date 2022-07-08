@@ -6,7 +6,7 @@ using UnityEngine;
 public class AbilityData : ScriptableObject
 {
     public string AbilityName;
-    public enum AbilityType { MeleeAttack, RangeAttack, Movement, Neither };
+    public enum AbilityType { MeleeAttack, RangeAttack, Movement, Healing, ActionPoints , Neither };
     public AbilityType Type = AbilityType.MeleeAttack;
     public enum BuffOrDebuff { Buff, Debuff, None}
     public BuffOrDebuff BuffType = BuffOrDebuff.Buff;
