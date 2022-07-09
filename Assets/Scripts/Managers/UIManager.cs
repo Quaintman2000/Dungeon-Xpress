@@ -21,7 +21,6 @@ public class UIManager : MonoBehaviour
     //assign the bars to player accordingly
     void Start()
     {
-        AssignHealthBar();
 
         combatCtrl.OnHealthChange += OnHealthChange;
 
@@ -80,12 +79,6 @@ public class UIManager : MonoBehaviour
     }
 
     //assign health bar of the player to its maximum value
-    public void AssignHealthBar()
-    {
-        healthBar.fillAmount = combatCtrl.Health / combatCtrl.CharacterData.MaxHealth;
-    }
-
-
     private void OnHealthChange(float health)
     {
         healthBar.fillAmount = health / combatCtrl.CharacterData.MaxHealth;

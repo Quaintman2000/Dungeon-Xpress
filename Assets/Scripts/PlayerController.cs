@@ -93,8 +93,6 @@ public class PlayerController : CharacterController
             // Sends the raycast of to infinity until hits something.
             Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            
-
             if (selectedCharacter == this)
             {
                 //Cast a ray from our camera toward the plane, through our mouse cursor
@@ -196,6 +194,7 @@ public class PlayerController : CharacterController
         {
             if (shiftDown) { InventoryManager.Instance.DropPlayerItem(0); }
             else { InventoryManager.Instance.UsePlayerItem(0); }
+            Debug.Log("Used Item");
         }
         //If Pressing 6 at top of keyboard or numpad
         if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
@@ -211,7 +210,6 @@ public class PlayerController : CharacterController
         }
 
     }
-
     void SelectCharacter(CharacterController character)
     {
         if (selectedCharacter != null)

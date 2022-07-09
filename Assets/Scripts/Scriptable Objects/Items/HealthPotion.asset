@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityName: Health Potion
   Type: 3
-  BuffType: 2
+  BuffType: 0
   TargetStyle: 0
   Icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   PhysDamage: 50
