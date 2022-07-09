@@ -19,8 +19,11 @@ MonoBehaviour:
   Icon: {fileID: 0}
   PhysDamage: 0
   MagicDamage: 0
-  Range: 0
+  Range: 1.6
   Cooldown: 0
   cost: 0
+  statusEffect:
+    EffectTime: 2
+    Multiplier: 2
   MovementModifier: 0
   Projectile: {fileID: 0}

@@ -7,17 +7,18 @@ public class CombatController : MonoBehaviour
     [SerializeField] Transform firePoint;
     [SerializeField] int actionPoints;
     // Reference to the player Nav Mesh.
-    [SerializeField] PlayerNavMesh playerNavMesh;
+    [SerializeField] NavMeshMovement navMesh;
     // The close enough range to hit our target in melee.
     [SerializeField] float closeEnough = 0.1f;
     // Reference to the class data.
-    public ClassData classData;
+    public CharacterData CharacterData;
     public float Health;
     public bool IsTurn;
     // Reference to the player's combat state.
     public enum CombatState { Idle, Moving, Attacking };
     [SerializeField] public CombatState currentCombatState;
 
+    public int abilityIndex;
     [SerializeField] public AbilityData selectedAbilityData;
 
     [SerializeField] List<StatusEffect> statusEffects;
@@ -25,11 +26,19 @@ public class CombatController : MonoBehaviour
     public delegate void CombatantDeath( CombatController combatController);
     public event CombatantDeath OnCombatantDeath;
 
+    public delegate void HealthChange(float health);
+    public event HealthChange OnHealthChange;
+
+    [SerializeField] PlayerAnimationManager animationManager;
+
     // Start is called before the first frame update
     void Awake()
     {
+        navMesh = this.GetComponent<NavMeshMovement>();
+
         // Set the player's starting health to the max.
-        Health = classData.MaxHealth;
+        Health = CharacterData.MaxHealth;
+        animationManager = GetComponent<PlayerAnimationManager>();
     }
 
   
@@ -40,7 +49,7 @@ public class CombatController : MonoBehaviour
     public void UseAbility(CombatController other)
     {
         // The total length of the path from the player to the target.
-        float distance = playerNavMesh.GetDistance(other.transform.position);
+        float distance = navMesh.GetDistance(other.transform.position);
         // If we have any status effects...
         if (statusEffects.Count > 0)
         {
@@ -54,9 +63,9 @@ public class CombatController : MonoBehaviour
 
 
         Debug.Log("Movement Cost:" + movementCost);
-        CheckCanUseAbility(other, movementCost);
-        // Subtract ability cost from our action points.
-        actionPoints -= selectedAbilityData.cost;
+        if(movementCost < actionPoints)
+            CheckCanUseAbility(other, movementCost);
+        
         // Check if we ran out of action points.
         CheckEndTurn();
 
@@ -127,6 +136,8 @@ public class CombatController : MonoBehaviour
                             Debug.Log("Fireball!");
                             // Do range attack on target.
                             RangeAttack(other);
+                            if (animationManager != null)
+                                animationManager.SetAbilityTrigger(abilityIndex);
                         }
                     }
                     // Else, if we hit nothing.
@@ -139,6 +150,9 @@ public class CombatController : MonoBehaviour
                     Debug.Log("sizzle.");
                 }
             }
+            // Subtract ability cost from our action points.
+            actionPoints -= selectedAbilityData.cost;
+            
         }
     }
 
@@ -156,7 +170,7 @@ public class CombatController : MonoBehaviour
         {
             // Set the player to moving and move the player.
             currentCombatState = CombatState.Moving;
-            playerNavMesh.AttackMove(other.transform.position, selectedAbilityData.Range);
+            navMesh.AttackMove(other.transform.position, selectedAbilityData.Range);
 
         }
         // While the player is still not within range...
@@ -166,12 +180,13 @@ public class CombatController : MonoBehaviour
             yield return null;
         }
         // Once we are in range of the target. Stop moving.
-        playerNavMesh.StopAllCoroutines();
+        navMesh.StopAllCoroutines();
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
-        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : classData.PhysicalDamage);
-
+        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
+        if (animationManager != null)
+            animationManager.SetAbilityTrigger(abilityIndex);
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
     }
@@ -185,10 +200,13 @@ public class CombatController : MonoBehaviour
         Debug.Log("Ouch!");
         // Subtract health by damage.
         Health -= damage;
-        //updates the health bar
-        UiManager.Instance.AssignHealthBar();
+        if (OnHealthChange != null)
+        {
+            //updates the health bar
+            OnHealthChange.Invoke(Health);
+        }
         // If health is less than or equal to 0...
-        if(Health <= 0)
+        if (Health <= 0)
         {
             // Commit die.
             Die();
@@ -199,7 +217,7 @@ public class CombatController : MonoBehaviour
     /// Applies the buff or debuff effects on self.
     /// </summary>
     /// <param name="abilityData"> The ability to apply.</param>
-    private void DebuffOrBuff(AbilityData abilityData)
+    public void DebuffOrBuff(AbilityData abilityData)
     {
         
     }
@@ -245,7 +263,7 @@ public class CombatController : MonoBehaviour
         // Sets the isTurn to true.
         IsTurn = true;
         // Sets the action points to this class's starting action points.
-        actionPoints = classData.StartingActionPoints;
+        actionPoints = CharacterData.StartingActionPoints;
     }
     // Checks if our turn is over.
     private void CheckEndTurn()
@@ -276,18 +294,19 @@ public class CombatController : MonoBehaviour
     public void MoveToPoint(Vector3 raycastPoint)
     {
         // Calculate length of the path.
-        float distance = playerNavMesh.GetDistance(raycastPoint);
+        float distance = navMesh.GetDistance(raycastPoint);
         // Calculate the movement cost.
         int movementCost = Mathf.RoundToInt(distance);
         // Clamp it so we get no logic errors.
         movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
         // If we have enough action points to cover the cost...
+
         if (movementCost <= actionPoints)
         {
             // Subtract the points.
             actionPoints -= movementCost;
             // Move to the position.
-            playerNavMesh.SetMoveToMarker(raycastPoint);
+            navMesh.AttackMove(raycastPoint,1f);
         }
         // Check for end turn.
         CheckEndTurn();

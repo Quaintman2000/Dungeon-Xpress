@@ -5,11 +5,11 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // AI pathing variable.
-    [SerializeField]
-    protected PlayerNavMesh playerNav;
+    [SerializeField] public PlayerNavMesh playerNav;
+    [SerializeField] GameObject selectionCircle;
 
     // Reference to the player state.
-    public enum PlayerState { InCombat, FreeRoam };
+    public enum PlayerState { InCombat, FreeRoam, Dead };
     [SerializeField] 
     public PlayerState currentState = PlayerState.FreeRoam;
 
@@ -25,4 +25,10 @@ public class CharacterController : MonoBehaviour
     {
         currentState = newState;
     }
+
+    public void SelectionToggle(bool isSelected)
+    {
+        selectionCircle.SetActive(isSelected);
+    }
+
 }

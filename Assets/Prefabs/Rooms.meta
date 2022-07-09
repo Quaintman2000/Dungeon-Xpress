@@ -1,12 +1,7 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefabs/Rooms.meta
-guid: 41864bff758eeeb4599e1af833e22e64
+guid: 84d1f6e6f1afaaa44a6717d37ef7efab
 folderAsset: yes
 DefaultImporter:
-========
-guid: 4d677e02d936ae74cb79c455cfee35d2
-PrefabImporter:
->>>>>>>> origin/Health/ManaUI:Assets/Prefabs/HealthBar.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

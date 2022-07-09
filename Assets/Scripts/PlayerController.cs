@@ -5,62 +5,40 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerNavMesh))]
 public class PlayerController : CharacterController
 {
+    //[SerializeField] PlayerNavMesh playerNav;
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-    //Reference the player animator
-    [SerializeField] Animator charAnimator;
+    [SerializeField] UIManager uIManager;
+    [SerializeField] CharacterController selectedCharacter;
 
+    [SerializeField] public InventoryController inventoryController;
+
+    const float rightClickHoldGap = 0.15f;
+    float rightClickHoldTime;
+    //Prevents player input during certain actions
+    public bool isBusy;
     private void Awake()
     {
+        // Grab our pathing component.
+       // playerNav = GetComponent<PlayerNavMesh>();
         combatController = GetComponent<CombatController>();
-        charAnimator = GetComponent<Animator>();
-
-        
+        inventoryController = GetComponent<InventoryController>();
     }
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        //set override animator controller to the class' one
-       charAnimator.runtimeAnimatorController = combatController.classData.ClassAnimatorOverride;
+        //sets instance ui inventory to this players inventory[not set up for multiple players]
+        InventoryManager.Instance.player = this;
     }
-
     // Update is called once per frame
     void Update()
     {
-        //Call the inputs every frame
-        GetInputs();
-
-        //if player is moving then walk
-        if(playerNav.navMeshAgent.remainingDistance > 0.1f)
+        if (!isBusy)
         {
-            charAnimator.SetInteger("Walking", 1);
+            //Call the inputs every frame
+            GetInputs();
         }
+            
 
-        //if player is not moving then idle
-        else if(playerNav.navMeshAgent.remainingDistance <= 0)
-        {
-            charAnimator.SetInteger("Walking", 0);
-
-            //if player attacks and its a melee attack then play swing animation
-            if(combatController.currentCombatState == CombatController.CombatState.Attacking && combatController.selectedAbilityData.Type == AbilityData.AbilityType.MeleeAttack)
-            {
-                charAnimator.SetInteger("Melee", 1);
-            }else
-            {
-                charAnimator.SetInteger("Melee", 0);
-            }
-
-            //if player attacks and its a ranged attack then play cast animation
-            if(combatController.currentCombatState == CombatController.CombatState.Attacking && combatController.selectedAbilityData.Type == AbilityData.AbilityType.RangeAttack)
-            {
-                charAnimator.SetInteger("Ranged", 1);
-            }else
-            {
-                charAnimator.SetInteger("Ranged", 0);
-            }
-        }
     }
 
     //Keep track of all the different input options of the player
@@ -70,10 +48,10 @@ public class PlayerController : CharacterController
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+
+
+        if (Input.GetMouseButtonDown(0))
         {
-            //Cast a ray from our camera toward the plane, through our mouse cursor
-            float distance;
             // Hit info from the raycast.
             RaycastHit hit;
             // Makes the raycast from our mouseposition to the ground.
@@ -81,88 +59,96 @@ public class PlayerController : CharacterController
             // Sends the raycast of to infinity until hits something.
             Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            // Grab the distance of the position we hit to get the point along the ray.
-            distance = hit.distance;
-
-            //Find where that ray hits the plane
-            Vector3 raycastPoint = cameraRay.GetPoint(distance);
-
-            // If we right click...
-            if (currentState == PlayerState.FreeRoam )
+            // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
+            if (hit.collider.GetComponent<CharacterController>())
+                SelectCharacter(hit.collider.GetComponent<CharacterController>());
+            else
+                SelectCharacter(null);
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            // Sets the start position for the rotate start position.
+            camControl.rotateStartPosition = Input.mousePosition;
+            // Set the right click hold time to zero.
+            rightClickHoldTime = 0;
+        }
+        if (Input.GetMouseButton(1))
+        {
+            // As we're holding right click, add onto the time hold.
+            rightClickHoldTime += Time.deltaTime;
+            // If we're holding it longer the hold gap time...
+            if (rightClickHoldTime > rightClickHoldGap)
             {
-                if (!hit.collider.GetComponent<CombatController>())
-                {
-                    // Set the pathing to start.
-                    playerNav.SetMoveToMarker(raycastPoint);
-                }
-                else
-                {
-                    MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
-                }
-            }
-
-            if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
-            {
-                // If we hit a combatant...
-                if (hit.collider.GetComponent<CombatController>())
-                {
-                    Debug.Log("Target Locked!");
-                    // Set the combatant as other.
-                    CombatController other = hit.collider.GetComponent<CombatController>();
-                    // If the combatant isnt us...
-                    
-                        combatController.UseAbility(other);
-                }
-                else
-                {
-                    combatController.MoveToPoint(raycastPoint);
-                }
+                // Rotate the camera
+                camControl.RotateCamera(Input.mousePosition);
             }
         }
 
-
-        //If inputs a direction input...
-        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+        if (Input.GetMouseButtonUp(1) && rightClickHoldTime < rightClickHoldGap)
         {
-            //Set the camera to stop following the player
-            camControl.IsFollowing = false;
+            // Hit info from the raycast.
+            RaycastHit hit;
+            // Makes the raycast from our mouseposition to the ground.
+            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // Sends the raycast of to infinity until hits something.
+            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            //Move on the desired input
-            camControl.MoveCamera(verticalInput, horizontalInput);
+            
+
+            if (selectedCharacter == this)
+            {
+                //Cast a ray from our camera toward the plane, through our mouse cursor
+                float distance;
+                // Grab the distance of the position we hit to get the point along the ray.
+                distance = hit.distance;
+
+                //Find where that ray hits the plane
+                Vector3 raycastPoint = cameraRay.GetPoint(distance);
+
+                // If we right click...
+                if (currentState == PlayerState.FreeRoam)
+                {
+                    if (!hit.collider.GetComponent<CombatController>())
+                    {
+                        // Set the pathing to start.
+                        playerNav.SetMoveToMarker(raycastPoint);
+                    }
+                    else
+                    {
+
+                        if (hit.collider.GetComponent<CombatController>() != this.combatController)
+                        {
+                            MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+                            uIManager.ToggleSkillBar(true);
+                        }
+                    }
+                }
+            }
         }
 
-        //If pressing Q...
-        if (Input.GetKey(KeyCode.Q))
+        if (camControl.cameraStyle == CameraController.CameraStyle.RoomLocked)
         {
-            //Rotate on the y axis clockwise
-            camControl.RotateCamera(1.0f, 0.0f);
-        }
 
-        //If pressing E...
+            //If inputs a direction input...
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+            {
+                //Move on the desired input
+                camControl.MoveCamera(verticalInput, horizontalInput);
+            }
+
+        }
         if (Input.GetKey(KeyCode.E))
         {
-            //Rotate on the y axis counter-clockwise
-            camControl.RotateCamera(-1.0f, 0.0f);
+            //camControl.RotateCamera(-1, 0);
+            //Attempts to pickup an item if there is one on the floor
+            InventoryManager.Instance.PickUpItem();
+            //Checks if player is near door and enters if they do
+            GameManager.Instance.OpenDoor(this);
+            playerNav.navMeshAgent.destination = this.transform.position;
         }
-
-        //If pressing R...
-        if (Input.GetKey(KeyCode.R))
+        else if (Input.GetKey(KeyCode.Q))
         {
-            //Set IsFollowing to false
-            camControl.IsFollowing = false;
-
-            //Pitch forward
-            camControl.RotateCamera(0.0f, -1.0f);
-        }
-
-        //If pressing F...
-        if (Input.GetKey(KeyCode.F))
-        {
-            //Set IsFollowing to false
-            camControl.IsFollowing = false;
-
-            //Pitch backward
-            camControl.RotateCamera(.0f, 1.0f);
+            camControl.RotateCamera(1, 0);
         }
 
         //When scrolling the mouse wheel...
@@ -172,17 +158,50 @@ public class PlayerController : CharacterController
             camControl.Zoom(Input.mouseScrollDelta.y);
         }
 
-        //If pressing C...
-        if (Input.GetKeyDown(KeyCode.C))
+        //If pressed 1...
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //Set IsFollowing to true
-            camControl.IsFollowing = true;
-
-            //Start the Follow Player coroutine
-            StartCoroutine(camControl.FollowPlayer());
-
-            //Look at the player's position
-            camControl.transform.LookAt(transform.position);
+            //Set camera style to player focused.
+            camControl.SwitchCameraStyle(CameraController.CameraStyle.PlayerFocused);
         }
+
+        // If pressed 3...
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //Set camera style to room locked.
+            camControl.SwitchCameraStyle(CameraController.CameraStyle.RoomLocked);
+        }
+        //Used for items when held down drops the item in the slot instead of using them
+        bool shiftDown = Input.GetKey(KeyCode.LeftShift);
+
+        //If Pressing 5 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(0); }
+            else { InventoryManager.Instance.UsePlayerItem(0); }
+        }
+        //If Pressing 6 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(1); }
+            else { InventoryManager.Instance.UsePlayerItem(1); }
+        }
+        //If Pressing 6 at top of keyboard or numpad
+        if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+        {
+            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(2); }
+            else { InventoryManager.Instance.UsePlayerItem(2); }
+        }
+
+    }
+
+    void SelectCharacter(CharacterController character)
+    {
+        if (selectedCharacter != null)
+            selectedCharacter.SelectionToggle(false);
+
+        if (character != null)
+            character.SelectionToggle(true);
+        selectedCharacter = character;
     }
 }

@@ -80,7 +80,7 @@ public class BattleManager : MonoBehaviour
         battleUIManager.SetTurnText();
 
         //Call the start turn function to set isTurn true and reset action points
-        Combatants[CombatantsIndex].StartTurn();
+        Combatants[CombatantsIndex % Combatants.Count].StartTurn();
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ public class BattleManager : MonoBehaviour
         for (i = 0; i < Combatants.Count - 1; i++)
         {
             //If the current combatant's attack speed is less than the next one in the list, swap them
-            if (Combatants[i].classData.AttackSpeed < Combatants[i + 1].classData.AttackSpeed)
+            if (Combatants[i].CharacterData.AttackSpeed < Combatants[i + 1].CharacterData.AttackSpeed)
             {
                 swap(i, (i + 1));
             }

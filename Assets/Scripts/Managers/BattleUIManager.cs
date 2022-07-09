@@ -11,6 +11,6 @@ public class BattleUIManager : MonoBehaviour
     //Update the current turn text
     public void SetTurnText()
     {
-        turnText.text = "Turn: " + BattleManager.Instance.Combatants[BattleManager.Instance.CombatantsIndex].gameObject.name;
+        turnText.text = "Turn: " + BattleManager.Instance.Combatants[BattleManager.Instance.CombatantsIndex % BattleManager.Instance.Combatants.Count].gameObject.name;
     }
 }

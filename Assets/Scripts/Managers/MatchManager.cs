@@ -6,6 +6,7 @@ public class MatchManager : MonoBehaviour
 {
     //Reference to the BattleManager prefab
     [SerializeField] BattleManager battleManagerPrefab;
+    [SerializeField] MapGenerator mapGenerator;
 
     //Instance of the MatchManager
     public static MatchManager Instance;
@@ -22,6 +23,12 @@ public class MatchManager : MonoBehaviour
             Destroy(Instance.gameObject);
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        if(mapGenerator != null)
+            mapGenerator.Generate();
     }
 
     /// <summary>

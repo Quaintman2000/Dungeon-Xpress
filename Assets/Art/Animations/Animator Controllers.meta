@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/Animations/Animator Controllers.meta
+guid: 8ce6c4ac680db9d44b19ef3f82165f6c
+folderAsset: yes
+========
+<<<<<<<< HEAD:Assets/Scenes/MapGenerationTestScene.unity.meta
+guid: 8da7e0363c260ab488c9e988387f0d86
+========
+guid: 3f7762cd436a8d34ca328a7d7d55ed1a
+>>>>>>>> Develop:Assets/Scenes/PlayerUI.unity.meta
+>>>>>>>> origin/Map-Generation:Assets/Scenes/PlayerUI.unity.meta
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

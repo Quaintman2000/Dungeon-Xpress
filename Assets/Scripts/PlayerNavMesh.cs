@@ -5,9 +5,10 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class PlayerNavMesh : MonoBehaviour
+public class PlayerNavMesh : NavMeshMovement
 {
     public List<Vector3> corners;
+
     // Marker gameobject to represent where we are moving to.
     [SerializeField] GameObject moveToMarker;
     [SerializeField] Text noGoText;
@@ -16,17 +17,34 @@ public class PlayerNavMesh : MonoBehaviour
     //LineRender to draw with
     LineRenderer currentPathRenderer;
     // NavMeshAgent for pathfind.
-    public NavMeshAgent navMeshAgent;
-    // Keeps track of the current spawnMarker.
     GameObject spawnedMarker;
-
-
-
-    private void Awake()
+    public void Start()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-    }
+        currentPathRenderer = Instantiate(navPathLineRend);
+        spawnedMarker = Instantiate(moveToMarker);
 
+        currentPathRenderer.gameObject.SetActive(true);
+        spawnedMarker.gameObject.SetActive(true);
+    }
+    //Draws the line renderer path and sets the position of the marker to the destination
+    private void DrawPath(Vector3 target)
+    {
+        NavMeshPath path = new NavMeshPath();
+        navMeshAgent.CalculatePath(target, path);
+
+        //Sets how many positions there are in the path rendering and sets the positions of the vertices
+        currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
+        currentPathRenderer.SetPositions(navMeshAgent.path.corners);
+
+
+        //Sets the spawned marker at the position of the target
+        spawnedMarker.transform.position = target + moveToMarker.transform.position;
+        spawnedMarker.transform.rotation = moveToMarker.transform.rotation;
+
+        
+        currentPathRenderer.gameObject.SetActive(true);
+        spawnedMarker.gameObject.SetActive(true);
+    }
     public void SetMoveToMarker(Vector3 raycastPoint)
     {
         // If there is a spawn marker.
@@ -38,37 +56,33 @@ public class PlayerNavMesh : MonoBehaviour
         MoveToClickPoint(raycastPoint);
     }
 
-    private void MoveToClickPoint(Vector3 raycastPoint)
+    public void MoveToClickPoint(Vector3 raycastPoint)
     {
-
         NavMeshHit navHit;
         if (!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
         {
             StartCoroutine(NoGoTextDisplay());
             return;
         }
-
-        currentPathRenderer = Instantiate<LineRenderer>(navPathLineRend);
-        currentPathRenderer.positionCount = navMeshAgent.path.corners.Length + 1;
-        currentPathRenderer.SetPositions(navMeshAgent.path.corners);
-        // Spawn the move to marker at the raycast point.
-        spawnedMarker = Instantiate<GameObject>(moveToMarker, raycastPoint + moveToMarker.transform.position, moveToMarker.transform.rotation);
-
+        //Draws a path for the character
+        DrawPath(navHit.position);
+        
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = raycastPoint;
 
-
-
-
-
-
+        if (movingCoroutine != null)
+        {
+            StopCoroutine(movingCoroutine);
+        }
         // Start moving courtine to make sure we delete the marker when we're done.
-        StartCoroutine(Moving(raycastPoint));
+        movingCoroutine = StartCoroutine(Moving(raycastPoint));
     }
 
-    public float GetDistance(Vector3 raycastPoint)
+    //We make a new path because most times the navMeshAgent has no path yet
+    public override float GetDistance(Vector3 raycastPoint)
     {
         float distance;
+
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(raycastPoint, path);
 
@@ -79,31 +93,22 @@ public class PlayerNavMesh : MonoBehaviour
             corners.Add(path.corners[i]);
             float displacement = (Vector3.Distance(path.corners[i], path.corners[i - 1]));
             distance += displacement;
-
         }
-
         return distance;
     }
 
-    public void AttackMove(Vector3 position, float closeEnough)
+    public override void AttackMove(Vector3 position, float closeEnough)
     {
-        // If there is a spawn marker.
-        if (spawnedMarker != null)
-            Destroy(spawnedMarker);
-        if (currentPathRenderer != null)
-            Destroy(currentPathRenderer.gameObject);
-
-        currentPathRenderer = Instantiate<LineRenderer>(navPathLineRend);
-        currentPathRenderer.positionCount = navMeshAgent.path.corners.Length + 1;
-        currentPathRenderer.SetPositions(navMeshAgent.path.corners);
-        // Spawn the move to marker at the raycast point.
-        spawnedMarker = Instantiate<GameObject>(moveToMarker, position + moveToMarker.transform.position, moveToMarker.transform.rotation);
-
+        DrawPath(position);
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = position;
 
-        // Start moving courtine to make sure we delete the marker when we're done.
-        StartCoroutine(Moving(position, closeEnough));
+        if(movingCoroutine != null)
+        {
+            StopCoroutine(movingCoroutine);
+        }
+        // Start moving coroutine to make sure we delete the marker when we're done.
+        movingCoroutine = StartCoroutine(Moving(position, closeEnough));
     }
 
 
@@ -131,8 +136,10 @@ public class PlayerNavMesh : MonoBehaviour
 
     IEnumerator Moving(Vector3 movePosition)
     {
+        isMoving = true;
+
         // While we're not at the at the move position...
-        while (transform.position != movePosition)
+        while (GetDistance(movePosition) > 0.2f)
         {
             // Set the position count of the renderer equal to the length of the cornors array.
             currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
@@ -142,17 +149,12 @@ public class PlayerNavMesh : MonoBehaviour
             // Return null.
             yield return null;
         }
-        // Destroy the marker once we've reached the position.
-        if (spawnedMarker)
-            Destroy(spawnedMarker);
-
-        // Destroy the path once we've reached our position.
-        if (currentPathRenderer)
-            Destroy(currentPathRenderer.gameObject);
+        Stop();
     }
 
     IEnumerator Moving(Vector3 movePosition, float closeEnough)
     {
+        isMoving = true;
         // While we're not at the at the move position...
         while (GetDistance(movePosition) > closeEnough)
         {
@@ -164,14 +166,13 @@ public class PlayerNavMesh : MonoBehaviour
             // Return null.
             yield return null;
         }
-        // Destroy the marker once we've reached the position.
-        if (spawnedMarker)
-            Destroy(spawnedMarker);
+        Stop();
+    }
+    public override void Stop()
+    {
+        base.Stop();
 
-        // Destroy the path once we've reached our position.
-        if (currentPathRenderer)
-            Destroy(currentPathRenderer.gameObject);
-
-        navMeshAgent.isStopped = true;
+        currentPathRenderer.gameObject.SetActive(false);
+        spawnedMarker.gameObject.SetActive(false);
     }
 }

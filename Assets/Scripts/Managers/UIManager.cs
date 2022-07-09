@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
-    public static UiManager Instance;
+    public static UIManager Instance;
     //References for Bars
     [SerializeField] private Image healthBar;
 
@@ -15,70 +15,60 @@ public class UiManager : MonoBehaviour
 
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
-    [SerializeField] private AbilityData skill1_Ability;
-    [SerializeField] private AbilityData skill2_Ability;
-    [SerializeField] private AbilityData skill3_Ability;
-    [SerializeField] private AbilityData skill4_Ability;
+    [SerializeField] private AbilityData[] abilities = new AbilityData[4];
+
 
     //assign the bars to player accordingly
-    void Start ()
+    void Start()
     {
         AssignHealthBar();
 
-        skill1_Ability = combatCtrl.classData.Abilities[0];
-        skill2_Ability = combatCtrl.classData.Abilities[1];
-        skill3_Ability = combatCtrl.classData.Abilities[2];
-        skill4_Ability = combatCtrl.classData.Abilities[3];
+        combatCtrl.OnHealthChange += OnHealthChange;
+
+        abilities[0] = combatCtrl.CharacterData.Abilities[0];
+        abilities[1] = combatCtrl.CharacterData.Abilities[1];
+        abilities[2] = combatCtrl.CharacterData.Abilities[2];
+        abilities[3] = combatCtrl.CharacterData.Abilities[3];
     }
 
     void Update()
     {
         //if player enters combat mode then show it
-        if(playerCtrl.currentState == CharacterController.PlayerState.InCombat)
+        if (playerCtrl.currentState == CharacterController.PlayerState.InCombat)
         {
-            skillBar.SetActive (true);
+            skillBar.SetActive(true);
         }
         //if player is not in combat mode then hide it
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
-            skillBar.SetActive (false);
-            
+            skillBar.SetActive(false);
+
         }
     }
 
-    /// Skills button and what they do each
-    public void Skill1()
+    // Toggles the skill bar off and on.
+    public void ToggleSkillBar(bool setActive)
     {
-        if(combatCtrl)
+
+    }
+
+    /// <summary>
+    /// Let's the combatcontroller know which ability was selected.
+    /// </summary>
+    /// <param name="index"></param>
+    public void SelectAbility(int index)
+    {
+        if (combatCtrl)
         {
-            combatCtrl.selectedAbilityData = skill1_Ability;
+            combatCtrl.abilityIndex = index + 1;
+            combatCtrl.selectedAbilityData = abilities[index];
         }
     }
-    public void Skill2()
-    {
-        if(combatCtrl)
-        {
-            combatCtrl.selectedAbilityData = skill2_Ability;
-        }
-    }
-    public void Skill3()
-    {
-        if(combatCtrl)
-        {
-            combatCtrl.selectedAbilityData = skill3_Ability;
-        }
-    }
-    public void Skill4()
-    {
-        if(combatCtrl)
-        {
-            combatCtrl.selectedAbilityData = skill4_Ability;
-        }
-    }
+
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -92,6 +82,12 @@ public class UiManager : MonoBehaviour
     //assign health bar of the player to its maximum value
     public void AssignHealthBar()
     {
-        healthBar.fillAmount = GameManager.Instance.playerData.Health / GameManager.Instance.playerData.classData.MaxHealth;
+        healthBar.fillAmount = combatCtrl.Health / combatCtrl.CharacterData.MaxHealth;
+    }
+
+
+    private void OnHealthChange(float health)
+    {
+        healthBar.fillAmount = health / combatCtrl.CharacterData.MaxHealth;
     }
 }
