@@ -843,16 +843,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 17c8757ff74bf9e4e87c1c898ae4093c, type: 2}
     - target: {fileID: 5117021577729496219, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021577729496219, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 124792247}
     - target: {fileID: 5117021577729496219, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Skill3
+      value: SelectAbility
       objectReference: {fileID: 0}
     - target: {fileID: 5117021577729496219, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UiManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021577729496219, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021577795596729, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5117021577795596729, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -860,11 +872,19 @@ PrefabInstance:
       objectReference: {fileID: 124792247}
     - target: {fileID: 5117021577795596729, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Skill4
+      value: SelectAbility
       objectReference: {fileID: 0}
     - target: {fileID: 5117021577795596729, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UiManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021577795596729, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021578239819625, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578239819625, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -872,11 +892,15 @@ PrefabInstance:
       objectReference: {fileID: 124792247}
     - target: {fileID: 5117021578239819625, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Skill2
+      value: SelectAbility
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578239819625, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UiManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021578239819625, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578344232566, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_Name
@@ -967,24 +991,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578359728339, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5117021578359728339, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 124792247}
     - target: {fileID: 5117021578359728339, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Skill1
+      value: SelectAbility
       objectReference: {fileID: 0}
     - target: {fileID: 5117021578359728339, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UiManager, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8321903896745792868, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 115557.26
+      value: 247.6593
       objectReference: {fileID: 0}
     - target: {fileID: 8321903896745792868, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40140.62
+      value: 114.9265
       objectReference: {fileID: 0}
     - target: {fileID: 8321903896745792868, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -992,7 +1020,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8321903896745792868, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00024414062
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
@@ -13579,7 +13607,7 @@ MonoBehaviour:
   combatController: {fileID: 1577923138}
   aiNav: {fileID: 0}
   charAnimator: {fileID: 0}
-  movementType: 0
+  movementType: 1
   goToPoint1: 0
   PatrolPoint1: {x: 0, y: 0, z: 0}
   PatrolPoint2: {x: 0, y: 0, z: 0}
