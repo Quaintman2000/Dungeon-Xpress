@@ -18,14 +18,6 @@ public class PlayerNavMesh : NavMeshMovement
     LineRenderer currentPathRenderer;
     // NavMeshAgent for pathfind.
     GameObject spawnedMarker;
-    public void Start()
-    {
-        currentPathRenderer = Instantiate(navPathLineRend);
-        spawnedMarker = Instantiate(moveToMarker);
-
-        currentPathRenderer.gameObject.SetActive(true);
-        spawnedMarker.gameObject.SetActive(true);
-    }
     //Draws the line renderer path and sets the position of the marker to the destination
     private void DrawPath(Vector3 target)
     {
@@ -52,6 +44,8 @@ public class PlayerNavMesh : NavMeshMovement
             Destroy(spawnedMarker);
         if (currentPathRenderer != null)
             Destroy(currentPathRenderer.gameObject);
+        currentPathRenderer = Instantiate(navPathLineRend);
+        spawnedMarker = Instantiate(moveToMarker);
         // Move to clicked position.
         MoveToClickPoint(raycastPoint);
     }

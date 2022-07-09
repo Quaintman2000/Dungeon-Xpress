@@ -123,6 +123,23 @@ public class PlayerController : CharacterController
                         }
                     }
                 }
+                else if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
+                {
+                    // If we hit a combatant...
+                    if (hit.collider.GetComponent<CombatController>())
+                    {
+                        Debug.Log("Target Locked!");
+                        // Set the combatant as other.
+                        CombatController other = hit.collider.GetComponent<CombatController>();
+                        // If the combatant isnt us...
+
+                        combatController.UseAbility(other);
+                    }
+                    else
+                    {
+                        combatController.MoveToPoint(raycastPoint);
+                    }
+                }
             }
         }
 
@@ -139,7 +156,7 @@ public class PlayerController : CharacterController
         }
         if (Input.GetKey(KeyCode.E))
         {
-            //camControl.RotateCamera(-1, 0);
+            camControl.RotateCamera(-1, 0);
             //Attempts to pickup an item if there is one on the floor
             InventoryManager.Instance.PickUpItem();
             //Checks if player is near door and enters if they do
