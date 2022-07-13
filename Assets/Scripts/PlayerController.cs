@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerNavMesh))]
 public class PlayerController : CharacterController
 {
-    //[SerializeField] PlayerNavMesh playerNav;
+    [SerializeField] PlayerNavMesh playerNav;
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
@@ -21,7 +21,7 @@ public class PlayerController : CharacterController
     private void Awake()
     {
         // Grab our pathing component.
-       // playerNav = GetComponent<PlayerNavMesh>();
+        playerNav = GetComponent<PlayerNavMesh>();
         combatController = GetComponent<CombatController>();
         inventoryController = GetComponent<InventoryController>();
         audioControl = GetComponent<PlayerAudioController>();
@@ -82,10 +82,12 @@ public class PlayerController : CharacterController
             {
                 // Rotate the camera
                 camControl.RotateCamera(Input.mousePosition);
+                
                 if (!hit.collider.GetComponent<CombatController>())
                 {
                     // Set the pathing to start.
                     playerNav.SetMoveToMarker(raycastPoint);
+
                     audioControl.WalkSound();
                 }
                 else
@@ -154,30 +156,31 @@ public class PlayerController : CharacterController
         }
 
         if (camControl.cameraStyle == CameraController.CameraStyle.RoomLocked)
-        {            Debug.Log("Target Locked!");
-                    // Set the combatant as other.
-                    CombatController other = hit.collider.GetComponent<CombatController>();
-                    // If the combatant isnt us...
-                    audioControl.AbilityCastlineSound();
-                    combatController.UseAbility(other);
-                }
-                else
-                {
-                    audioControl.WalkLineSound();
-                    combatController.MoveToPoint(raycastPoint);
-                    audioControl.WalkSound();
-                }
-            }
-        
-
-            //If inputs a direction input...
-            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-            {
-                //Move on the desired input
-                camControl.MoveCamera(verticalInput, horizontalInput);
-            }
-
+        {
+            Debug.Log("Target Locked!");
+            // Set the combatant as other.
+            CombatController other = hit.collider.GetComponent<CombatController>();
+            // If the combatant isnt us...
+            audioControl.AbilityCastlineSound();
+            combatController.UseAbility(other);
         }
+        else
+        {
+            audioControl.WalkLineSound();
+            combatController.MoveToPoint(raycastPoint);
+            audioControl.WalkSound();
+        }
+
+
+
+        //If inputs a direction input...
+        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+        {
+            //Move on the desired input
+            camControl.MoveCamera(verticalInput, horizontalInput);
+        }
+    
+
         if (Input.GetKey(KeyCode.E))
         {
             camControl.RotateCamera(-1, 0);
@@ -246,3 +249,4 @@ public class PlayerController : CharacterController
         selectedCharacter = character;
     }
 }
+
