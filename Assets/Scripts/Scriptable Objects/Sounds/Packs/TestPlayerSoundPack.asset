@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922f7e39d7b94c5409ad03376bd577e3, type: 3}
+  m_Name: TestPlayerSoundPack
+  m_EditorClassIdentifier: 
+  Walking: {fileID: 11400000, guid: 08fc3fe3cfcc5fa4fb702e4b4a0d361d, type: 2}
+  Attack: {fileID: 11400000, guid: 1e7140b81ba5d544ba10dbceb0aabe6f, type: 2}
+  Hurt: {fileID: 11400000, guid: ccb6dccea10ce6c4cb23faccd0597164, type: 2}
+  Death: {fileID: 11400000, guid: 1355effa6a744654f855fb35a1e956c3, type: 2}
+  movementLines:
+  - {fileID: 11400000, guid: bf7995f5cf8efed48bbcd1c6d5ade766, type: 2}
+  abilityCastLines:
+  - {fileID: 11400000, guid: 42d0c0252a9d7084b81dc9969d08af4f, type: 2}
+  - {fileID: 11400000, guid: ee645c2615716df42b652083116e0b91, type: 2}

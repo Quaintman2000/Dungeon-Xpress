@@ -24,6 +24,8 @@ public class AbilityData : ScriptableObject
     public float MovementModifier;
 
     public Projectile Projectile;
+
+    public SoundData AbilitySound;
 }
 
 [System.Serializable]

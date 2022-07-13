@@ -10,6 +10,7 @@ public class PlayerController : CharacterController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
     [SerializeField] CharacterController selectedCharacter;
+    [SerializeField] PlayerAudioController audioControl;
 
     [SerializeField] public InventoryController inventoryController;
 
@@ -23,6 +24,7 @@ public class PlayerController : CharacterController
        // playerNav = GetComponent<PlayerNavMesh>();
         combatController = GetComponent<CombatController>();
         inventoryController = GetComponent<InventoryController>();
+        audioControl = GetComponent<PlayerAudioController>();
     }
     private void Start()
     {
@@ -40,7 +42,6 @@ public class PlayerController : CharacterController
             
 
     }
-
     //Keep track of all the different input options of the player
     private void GetInputs()
     {
@@ -81,6 +82,17 @@ public class PlayerController : CharacterController
             {
                 // Rotate the camera
                 camControl.RotateCamera(Input.mousePosition);
+                if (!hit.collider.GetComponent<CombatController>())
+                {
+                    // Set the pathing to start.
+                    playerNav.SetMoveToMarker(raycastPoint);
+                    audioControl.WalkSound();
+                }
+                else
+                {
+                    MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+                    uIManager.ToggleSkillBar(true);
+                }
             }
         }
 
@@ -142,7 +154,21 @@ public class PlayerController : CharacterController
         }
 
         if (camControl.cameraStyle == CameraController.CameraStyle.RoomLocked)
-        {
+        {            Debug.Log("Target Locked!");
+                    // Set the combatant as other.
+                    CombatController other = hit.collider.GetComponent<CombatController>();
+                    // If the combatant isnt us...
+                    audioControl.AbilityCastlineSound();
+                    combatController.UseAbility(other);
+                }
+                else
+                {
+                    audioControl.WalkLineSound();
+                    combatController.MoveToPoint(raycastPoint);
+                    audioControl.WalkSound();
+                }
+            }
+        
 
             //If inputs a direction input...
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
