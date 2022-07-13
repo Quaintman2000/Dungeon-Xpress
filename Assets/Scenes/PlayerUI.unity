@@ -13658,13 +13658,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92c840c793a894478702183f1fa9707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNav: {fileID: 0}
+  playerNav: {fileID: 1577923136}
   selectionCircle: {fileID: 0}
   currentState: 1
   combatController: {fileID: 1577923138}
   aiNav: {fileID: 0}
   charAnimator: {fileID: 0}
-  movementType: 2
+  movementType: 0
   goToPoint1: 0
   PatrolPoint1: {x: 0, y: 0, z: 0}
   PatrolPoint2: {x: 0, y: 0, z: 0}

@@ -19,21 +19,8 @@ MonoBehaviour:
   PhysicalDamage: 0
   MagicDamage: 0
   AttackSpeed: 0
-  StartingActionPoints: 0
+  StartingActionPoints: 6
   CharacterImage: {fileID: 21300000, guid: 77741afdf6780e5489c310ba280bd8a5, type: 3}
-  Abilities:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ClassName: Rogue
-  CharacterModel: {fileID: 0}
-  MaxHealth: 100
-  MovementRange: 0
-  PhysicalDamage: 0
-  MagicDamage: 0
-  AttackSpeed: 0
-  StartingActionPoints: 0
   Abilities:
   - {fileID: 0}
   - {fileID: 0}
