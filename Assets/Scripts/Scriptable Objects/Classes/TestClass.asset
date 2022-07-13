@@ -20,6 +20,7 @@ MonoBehaviour:
   MagicDamage: 0
   AttackSpeed: 6
   StartingActionPoints: 6
+  CharacterImage: {fileID: 21300000, guid: 4d8d4462218014349bc3d5a95d63c813, type: 3}
   Abilities:
   - {fileID: 11400000, guid: 47ddcb140b19795449693c75f6a2f298, type: 2}
   - {fileID: 11400000, guid: 9ac641856f6a6934cbef467a15972630, type: 2}

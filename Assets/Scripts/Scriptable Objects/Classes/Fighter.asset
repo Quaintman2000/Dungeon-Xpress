@@ -20,6 +20,7 @@ MonoBehaviour:
   MagicDamage: 0
   AttackSpeed: 3
   StartingActionPoints: 5
+  CharacterImage: {fileID: 0}
   Abilities:
   - {fileID: 0}
   - {fileID: 0}
