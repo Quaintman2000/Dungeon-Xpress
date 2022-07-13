@@ -36,7 +36,7 @@ public class BattleUIManager : MonoBehaviour
             Debug.Log("Image Instantiated and Parent Set.");
 
             //Set the image sprites to the correct image
-            newImage.GetComponent<Image>().sprite = BattleManager.Instance.Combatants[i].classData.CharacterImage;
+            newImage.GetComponent<Image>().sprite = BattleManager.Instance.Combatants[i].CharacterData.CharacterImage; //.classData.CharacterImage
         }
     }
 

@@ -292,6 +292,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 276e7153fd120364689b38a32186c088, type: 3}
+--- !u!4 &157245835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7336554476424701594, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+  m_PrefabInstance: {fileID: 957710265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &164868430 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3928911332843550958, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
@@ -409,6 +414,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7336554476424701594, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.063078
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336554476424701594, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.2261825
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336554476424701594, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8433914
+      objectReference: {fileID: 0}
+    - target: {fileID: 7336554476424701594, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.53729963
+      objectReference: {fileID: 0}
     - target: {fileID: 7336554476464435530, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -461,6 +482,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1943498075}
+    - target: {fileID: 7336554476464435533, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 157245835}
+    - target: {fileID: 7336554476464435533, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 1943498075}
+    - target: {fileID: 7336554476464435533, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: startingDistance
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
 --- !u!1001 &1158763066

@@ -227,7 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnText: {fileID: 2915208304680438066}
   turnOrderImagesParent: {fileID: 6882067229841313884}
-  combatantImagePrefab: {fileID: 5361696467840746879, guid: 11a074384e6646a4bbd890bb033e4746, type: 3}
+  combatantImagePrefab: {fileID: 5361696467840746879, guid: 1c7dcdc59d3394a4685d8d9b4c1e8b02, type: 3}
   currentCombatantImage: {fileID: 0}
 --- !u!1 &2915208304680438068
 GameObject:

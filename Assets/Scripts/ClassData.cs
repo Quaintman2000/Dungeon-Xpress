@@ -4,7 +4,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "NewClassData", menuName ="Classes/ClassData")]
-public class ClassData : ScriptableObject
+public class ClassData : CharacterData
 {
     public string ClassName;
 
@@ -25,8 +25,6 @@ public class ClassData : ScriptableObject
     public float AttackSpeed;
     [BoxGroup("Split/ Stats:"), MinValue(0)]
     public int StartingActionPoints;
-
-    public Sprite CharacterImage;
 
     public AbilityData[] Abilities = new AbilityData[4];
 

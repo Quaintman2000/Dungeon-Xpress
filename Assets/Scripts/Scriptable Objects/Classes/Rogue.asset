@@ -12,6 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4462afd8978b64447a681789c80464e3, type: 3}
   m_Name: Rogue
   m_EditorClassIdentifier: 
+  CharacterName: 
+  CharacterModel: {fileID: 0}
+  MaxHealth: 100
+  MovementRange: 0
+  PhysicalDamage: 0
+  MagicDamage: 0
+  AttackSpeed: 0
+  StartingActionPoints: 0
+  CharacterImage: {fileID: 21300000, guid: 77741afdf6780e5489c310ba280bd8a5, type: 3}
+  Abilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   ClassName: Rogue
   CharacterModel: {fileID: 0}
   MaxHealth: 100
@@ -20,7 +34,6 @@ MonoBehaviour:
   MagicDamage: 0
   AttackSpeed: 0
   StartingActionPoints: 0
-  CharacterImage: {fileID: 21300000, guid: dfbc08cb16c85ae4c8a8ca247ce0d703, type: 3}
   Abilities:
   - {fileID: 0}
   - {fileID: 0}

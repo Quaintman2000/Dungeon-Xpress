@@ -13624,7 +13624,7 @@ MonoBehaviour:
   actionPoints: 6
   navMesh: {fileID: 0}
   closeEnough: 0.1
-  CharacterData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
+  CharacterData: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
@@ -13664,7 +13664,7 @@ MonoBehaviour:
   combatController: {fileID: 1577923138}
   aiNav: {fileID: 0}
   charAnimator: {fileID: 0}
-  movementType: 0
+  movementType: 2
   goToPoint1: 0
   PatrolPoint1: {x: 0, y: 0, z: 0}
   PatrolPoint2: {x: 0, y: 0, z: 0}

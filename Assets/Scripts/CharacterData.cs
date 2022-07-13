@@ -25,5 +25,7 @@ public class CharacterData : ScriptableObject
     [BoxGroup("Split/ Stats:"), MinValue(0)]
     public int StartingActionPoints;
 
+    public Sprite CharacterImage;
+
     public AbilityData[] Abilities = new AbilityData[4];
 }
