@@ -59,7 +59,8 @@ public class AIController : CharacterController
     // Update is called once per frame
     void Update()
     {
-        if (!aiNav.isMoving)
+        if (!performingAction)
+            if (!aiNav.isMoving)
         {
             AIState();
         }
@@ -107,7 +108,8 @@ public class AIController : CharacterController
 
         //Makes the navmesh hit and then 
         NavMeshHit hit;
-        if(NavMesh.SamplePosition(randomPoint, out hit, idleRadius, 1)) // Checks if it finds a point or not and stops if it doesn't
+        StartCoroutine(QuickBreak());
+        if (NavMesh.SamplePosition(randomPoint, out hit, idleRadius, 1)) // Checks if it finds a point or not and stops if it doesn't
         {
             aiNav.Move(hit.position + transform.position);
         }
@@ -120,9 +122,28 @@ public class AIController : CharacterController
             if (BattleManager.Instance.Combatants.Count > 1)
             {
                 //Should go after the second combatant
-                if(aiNav.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.CharacterData.StartingActionPoints)
+                StartCoroutine(QuickBreak());
+                //Should go after the second combatant
+                if (aiNav.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.CharacterData.StartingActionPoints)
                 combatController.UseAbility(BattleManager.Instance.Combatants[0]);
             }
         }
     }
+
+    //Slows the Enemy from performing actions right after another
+    //How long the ai waits before making another action again
+    [SerializeField] float idleWait;
+    IEnumerator QuickBreak()
+    {
+
+        Debug.Log("Doing Action");
+        performingAction = true;
+
+        //waits a set time to allow ample time to finish this current action before beginning a new one
+        yield return new WaitForSeconds(idleWait);
+        Debug.Log("Finished Action");
+        performingAction = false;
+    }
+
+
 }

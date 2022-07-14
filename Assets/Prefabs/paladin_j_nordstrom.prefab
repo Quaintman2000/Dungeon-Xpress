@@ -140,6 +140,10 @@ GameObject:
   - component: {fileID: 8693437862511915635}
   - component: {fileID: 659099456908468155}
   - component: {fileID: 659099456908468156}
+  - component: {fileID: 5766508941544558256}
+  - component: {fileID: 659099456908468158}
+  - component: {fileID: 659099456908468161}
+  - component: {fileID: 659099456908468163}
   m_Layer: 0
   m_Name: paladin_j_nordstrom
   m_TagString: Untagged
@@ -177,7 +181,7 @@ Animator:
   m_GameObject: {fileID: 389417993632140069}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9103595bc4915b84fa91f29fb126befc, type: 3}
-  m_Controller: {fileID: 9100000, guid: a18aeb8cb16304e4ca0211a15840d618, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -298,6 +302,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1140dabf7499e7f49b8dff0b9501e186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &5766508941544558256
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &659099456908468158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffd7d400e4820c3448d97370987645fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthToTrack: {fileID: 8693437862511915635}
+  barFill: {fileID: 0}
+  trackingOffset: {x: 0, y: 0, z: 0}
+--- !u!114 &659099456908468161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5213cbfb81a18854c99582bec353edf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds: []
+  audioData: {fileID: 11400000, guid: d4d0fcb6fd34f6a4bb32fa609bfef45d, type: 2}
+  playerAudio: {fileID: 11400000, guid: 94000e9cba0ed6545bbcc29b66603aff, type: 2}
+--- !u!114 &659099456908468163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 026df29816c28f9479726e9f543b052c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInventory: []
 --- !u!1 &486038521762490326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,6 +2643,14 @@ PrefabInstance:
       propertyPath: playerOne
       value: 
       objectReference: {fileID: 1021381665112887711}
+    - target: {fileID: 5181613315100173274, guid: 18ddfdd811e3fd042b557501285523f0, type: 3}
+      propertyPath: fogOfWarPlane
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173274, guid: 18ddfdd811e3fd042b557501285523f0, type: 3}
+      propertyPath: fogOfWarLayer.m_Bits
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddfdd811e3fd042b557501285523f0, type: 3}
 --- !u!4 &7779888732958187670 stripped
