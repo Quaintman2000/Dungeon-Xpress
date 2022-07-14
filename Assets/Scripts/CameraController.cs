@@ -167,7 +167,7 @@ public class CameraController : MonoBehaviour
 
             // Get the upmost parent object so we can get the position of the room.
             Transform roomParent = hit.collider.transform.parent;
-            while (roomParent.GetComponent<Room>() != null)
+            while (roomParent.GetComponent<Room>() == null)
             {
                 roomParent = roomParent.parent;
             }
