@@ -7,6 +7,7 @@ public class DoorTrigger : MonoBehaviour
     private int id;
     //Spot that the player should exit out of from
     public Transform ExitPoint;
+
     public enum DoorType
     {
         Normal, //Teleports player but doesn't do anything special
@@ -17,12 +18,15 @@ public class DoorTrigger : MonoBehaviour
     private void Start()
     {
         id = GameManager.Instance.AddDoor(this);
+        
     }
     //Sets the players position to the exit point
     void Teleport(PlayerController player) 
     {
+
         player.gameObject.transform.position = ExitPoint.position;
         player.gameObject.transform.rotation = ExitPoint.rotation;
+        Debug.Log("Ignore wall");
     }
     //When the player presses E to enter
     public void OnDoorEnter(PlayerController player)
@@ -37,9 +41,12 @@ public class DoorTrigger : MonoBehaviour
                 PlayerAnimationManager playerAnimator = player.GetComponent<PlayerAnimationManager>();
                 if (playerAnimator != null)
                 {
+              
                     playerAnimator.DoorEnter();
+                   
                 }
                 goto case DoorType.Normal;
+               
         }
     }
     public int GetID()
@@ -51,6 +58,7 @@ public class DoorTrigger : MonoBehaviour
         if(other.GetComponent<PlayerController>())
         {
             GameManager.Instance.CurrentDoor = this;
+            
         }
     }
     private void OnTriggerExit(Collider other)
@@ -58,6 +66,7 @@ public class DoorTrigger : MonoBehaviour
         if (other.GetComponent<PlayerController>())
         {
             GameManager.Instance.CurrentDoor = null;
+            
         }
     }
 }

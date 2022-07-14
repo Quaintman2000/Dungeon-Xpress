@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPoint: {fileID: 7456355471361789972}
+  player: {fileID: 979230311791587864, guid: 91a59c8d1e3905442b47113427407742, type: 3}
   doorType: 0
 --- !u!54 &7456355470925273982
 Rigidbody:
@@ -331,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExitPoint: {fileID: 7456355471736048363}
+  player: {fileID: 979230311791587864, guid: 91a59c8d1e3905442b47113427407742, type: 3}
   doorType: 1
 --- !u!54 &7456355472441526317
 Rigidbody:

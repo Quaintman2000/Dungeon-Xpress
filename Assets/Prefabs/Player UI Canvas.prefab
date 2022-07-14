@@ -716,7 +716,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press E to pickup item
+  m_Text: Press F to pickup item
 --- !u!1 &1308652149
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,10 +1625,11 @@ MonoBehaviour:
   playerCtrl: {fileID: 0}
   combatCtrl: {fileID: 0}
   skillBar: {fileID: 5117021577683650030}
-  skill1_Ability: {fileID: 0}
-  skill2_Ability: {fileID: 0}
-  skill3_Ability: {fileID: 0}
-  skill4_Ability: {fileID: 0}
+  abilities:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1245059245
 MonoBehaviour:
   m_ObjectHideFlags: 0

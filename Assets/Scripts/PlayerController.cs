@@ -159,16 +159,23 @@ public class PlayerController : CharacterController
             if (Input.GetKey(KeyCode.E))
             {
                 camControl.RotateCamera(-1, 0);
-                //Attempts to pickup an item if there is one on the floor
-                InventoryManager.Instance.PickUpItem();
-                //Checks if player is near door and enters if they do
-                GameManager.Instance.OpenDoor(this);
-                playerNav.navMeshAgent.destination = this.transform.position;
             }
             else if (Input.GetKey(KeyCode.Q))
             {
                 camControl.RotateCamera(1, 0);
             }
+        if (Input.GetKey(KeyCode.F))
+        {
+            //Attempts to pickup an item if there is one on the floor
+            InventoryManager.Instance.PickUpItem();
+        }
+        else if (Input.GetKey(KeyCode.R))
+        {
+            
+            //Checks if player is near door and enters if they do
+            GameManager.Instance.OpenDoor(this);
+            playerNav.navMeshAgent.destination = this.transform.position;
+        }
 
             //When scrolling the mouse wheel...
             if (Input.mouseScrollDelta != Vector2.zero)

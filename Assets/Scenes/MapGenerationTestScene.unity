@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 659099456908468158, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: barFill
+      value: 
+      objectReference: {fileID: 164868430}
     - target: {fileID: 979230311791587864, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: uIManager
       value: 
@@ -415,7 +419,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh41352
+  m_Name: pb_Mesh96144
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -573,6 +577,51 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &523233434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 523233436}
+  - component: {fileID: 523233435}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &523233435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523233434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e6e1aa931de26b4b81dab2ede94f63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 1902037883}
+  CurrentDoor: {fileID: 0}
+--- !u!4 &523233436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523233434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.899855, y: 1.7096335, z: 1.2686739}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &607576762 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5117021579682473945, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
@@ -721,6 +770,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424433, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: ambientScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5214959952129424434, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}

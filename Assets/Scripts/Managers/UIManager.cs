@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PlayerController playerCtrl;
     [SerializeField] private CombatController combatCtrl;
     [SerializeField] private GameObject skillBar;
+   
 
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
@@ -21,7 +22,6 @@ public class UIManager : MonoBehaviour
     //assign the bars to player accordingly
     void Start()
     {
-
         combatCtrl.OnHealthChange += OnHealthChange;
 
         abilities[0] = combatCtrl.CharacterData.Abilities[0];
