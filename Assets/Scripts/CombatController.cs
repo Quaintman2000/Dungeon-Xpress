@@ -117,6 +117,7 @@ public class CombatController : MonoBehaviour
                         actionPoints -= movementCost;
                         // Start the attack move couroutine.
                         StartCoroutine(AttackMove(other));
+                        
                     }
                 }
                 // Else, if the ability was a movement type.
@@ -210,6 +211,7 @@ public class CombatController : MonoBehaviour
         Health -= damage;
         if (OnHealthChange != null)
         {
+            Debug.Log("Took Damage");
             //updates the health bar
             OnHealthChange.Invoke(Health);
         }

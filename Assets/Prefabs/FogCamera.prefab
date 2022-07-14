@@ -96,8 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15399b78d840f774393410c224cc5823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fogOfWarPlane: {fileID: 0}
-  player: {fileID: 0}
+  fogOfWarPlane: {fileID: 473106632857378270, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
+  playerOne: {fileID: 0}
   fogOfWarLayer:
     serializedVersion: 2
     m_Bits: 69

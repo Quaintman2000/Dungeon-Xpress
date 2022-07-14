@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerNavMesh))]
 public class PlayerController : CharacterController
 {
-    [SerializeField] PlayerNavMesh playerNav;
+   // [SerializeField] PlayerNavMesh playerNav;
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager uIManager;
@@ -21,7 +21,7 @@ public class PlayerController : CharacterController
     private void Awake()
     {
         // Grab our pathing component.
-        playerNav = GetComponent<PlayerNavMesh>();
+       // playerNav = GetComponent<PlayerNavMesh>();
         combatController = GetComponent<CombatController>();
         inventoryController = GetComponent<InventoryController>();
         audioControl = GetComponent<PlayerAudioController>();
@@ -74,7 +74,7 @@ public class PlayerController : CharacterController
             rightClickHoldTime = 0;
         }
         if (Input.GetMouseButton(1))
-        {
+        { 
             // As we're holding right click, add onto the time hold.
             rightClickHoldTime += Time.deltaTime;
             // If we're holding it longer the hold gap time...
@@ -83,18 +83,7 @@ public class PlayerController : CharacterController
                 // Rotate the camera
                 camControl.RotateCamera(Input.mousePosition);
                 
-                if (!hit.collider.GetComponent<CombatController>())
-                {
-                    // Set the pathing to start.
-                    playerNav.SetMoveToMarker(raycastPoint);
-
                     audioControl.WalkSound();
-                }
-                else
-                {
-                    MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
-                    uIManager.ToggleSkillBar(true);
-                }
             }
         }
 
@@ -124,6 +113,8 @@ public class PlayerController : CharacterController
                     {
                         // Set the pathing to start.
                         playerNav.SetMoveToMarker(raycastPoint);
+                        audioControl.WalkLineSound();
+                        audioControl.WalkSound();
                     }
                     else
                     {
@@ -146,98 +137,82 @@ public class PlayerController : CharacterController
                         // If the combatant isnt us...
 
                         combatController.UseAbility(other);
+                        audioControl.AbilityCastlineSound();
                     }
                     else
                     {
                         combatController.MoveToPoint(raycastPoint);
+                        audioControl.WalkLineSound();
+                        audioControl.WalkSound();
                     }
                 }
             }
         }
 
-        if (camControl.cameraStyle == CameraController.CameraStyle.RoomLocked)
-        {
-            Debug.Log("Target Locked!");
-            // Set the combatant as other.
-            CombatController other = hit.collider.GetComponent<CombatController>();
-            // If the combatant isnt us...
-            audioControl.AbilityCastlineSound();
-            combatController.UseAbility(other);
-        }
-        else
-        {
-            audioControl.WalkLineSound();
-            combatController.MoveToPoint(raycastPoint);
-            audioControl.WalkSound();
-        }
+            //If inputs a direction input...
+            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+            {
+                //Move on the desired input
+                camControl.MoveCamera(verticalInput, horizontalInput);
+            }
 
 
+            if (Input.GetKey(KeyCode.E))
+            {
+                camControl.RotateCamera(-1, 0);
+                //Attempts to pickup an item if there is one on the floor
+                InventoryManager.Instance.PickUpItem();
+                //Checks if player is near door and enters if they do
+                GameManager.Instance.OpenDoor(this);
+                playerNav.navMeshAgent.destination = this.transform.position;
+            }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                camControl.RotateCamera(1, 0);
+            }
 
-        //If inputs a direction input...
-        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-        {
-            //Move on the desired input
-            camControl.MoveCamera(verticalInput, horizontalInput);
-        }
-    
+            //When scrolling the mouse wheel...
+            if (Input.mouseScrollDelta != Vector2.zero)
+            {
+                //Zoom in or out based on input
+                camControl.Zoom(Input.mouseScrollDelta.y);
+            }
 
-        if (Input.GetKey(KeyCode.E))
-        {
-            camControl.RotateCamera(-1, 0);
-            //Attempts to pickup an item if there is one on the floor
-            InventoryManager.Instance.PickUpItem();
-            //Checks if player is near door and enters if they do
-            GameManager.Instance.OpenDoor(this);
-            playerNav.navMeshAgent.destination = this.transform.position;
-        }
-        else if (Input.GetKey(KeyCode.Q))
-        {
-            camControl.RotateCamera(1, 0);
-        }
+            //If pressed 1...
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //Set camera style to player focused.
+                camControl.SwitchCameraStyle(CameraController.CameraStyle.PlayerFocused);
+            }
 
-        //When scrolling the mouse wheel...
-        if (Input.mouseScrollDelta != Vector2.zero)
-        {
-            //Zoom in or out based on input
-            camControl.Zoom(Input.mouseScrollDelta.y);
-        }
+            // If pressed 3...
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                //Set camera style to room locked.
+                camControl.SwitchCameraStyle(CameraController.CameraStyle.RoomLocked);
+            }
+            //Used for items when held down drops the item in the slot instead of using them
+            bool shiftDown = Input.GetKey(KeyCode.LeftShift);
 
-        //If pressed 1...
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //Set camera style to player focused.
-            camControl.SwitchCameraStyle(CameraController.CameraStyle.PlayerFocused);
-        }
-
-        // If pressed 3...
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //Set camera style to room locked.
-            camControl.SwitchCameraStyle(CameraController.CameraStyle.RoomLocked);
-        }
-        //Used for items when held down drops the item in the slot instead of using them
-        bool shiftDown = Input.GetKey(KeyCode.LeftShift);
-
-        //If Pressing 5 at top of keyboard or numpad
-        if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
-        {
-            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(0); }
-            else { InventoryManager.Instance.UsePlayerItem(0); }
-            Debug.Log("Used Item");
-        }
-        //If Pressing 6 at top of keyboard or numpad
-        if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
-        {
-            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(1); }
-            else { InventoryManager.Instance.UsePlayerItem(1); }
-        }
-        //If Pressing 6 at top of keyboard or numpad
-        if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
-        {
-            if (shiftDown) { InventoryManager.Instance.DropPlayerItem(2); }
-            else { InventoryManager.Instance.UsePlayerItem(2); }
-        }
-
+            //If Pressing 5 at top of keyboard or numpad
+            if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+            {
+                if (shiftDown) { InventoryManager.Instance.DropPlayerItem(0); }
+                else { InventoryManager.Instance.UsePlayerItem(0); }
+                Debug.Log("Used Item");
+            }
+            //If Pressing 6 at top of keyboard or numpad
+            if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+            {
+                if (shiftDown) { InventoryManager.Instance.DropPlayerItem(1); }
+                else { InventoryManager.Instance.UsePlayerItem(1); }
+            }
+            //If Pressing 6 at top of keyboard or numpad
+            if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+            {
+                if (shiftDown) { InventoryManager.Instance.DropPlayerItem(2); }
+                else { InventoryManager.Instance.UsePlayerItem(2); }
+            }
     }
     void SelectCharacter(CharacterController character)
     {

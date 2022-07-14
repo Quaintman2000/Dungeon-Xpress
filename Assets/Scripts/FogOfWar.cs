@@ -48,7 +48,7 @@ public class FogOfWar : MonoBehaviour
                 }
                 if (dist > exposedRadiusSqr)
                 {
-                    color[i] = Color.black;
+                    //color[i] = Color.black;
                 }
             }
             UpdateColor();
