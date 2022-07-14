@@ -74,8 +74,7 @@ public class CameraController : MonoBehaviour
     public void MoveCamera(float verticalInput, float horizontalInput)
     {
         if (isFollowing == true)
-            //Set the camera to stop following the player
-            ReturnToPreviousCameraStyle();
+            return;
 
         Vector3 newPosition = transform.position + (transform.forward * verticalInput * cameraSpeed * Time.deltaTime) + (transform.right * horizontalInput * cameraSpeed * Time.deltaTime);
         // If the camera style is not room locked or not going to exceeding the room's parameters.
