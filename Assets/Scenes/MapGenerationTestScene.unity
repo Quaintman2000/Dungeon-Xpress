@@ -419,7 +419,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh96144
+  m_Name: pb_Mesh65726
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 523233436}
   - component: {fileID: 523233435}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -773,8 +773,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5214959952129424433, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: enemyScale
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424433, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
       propertyPath: ambientScale
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424433, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: soundFXScale
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424433, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: characterScale
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5214959952129424434, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
       propertyPath: m_Name
