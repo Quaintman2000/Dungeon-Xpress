@@ -16,7 +16,6 @@ MonoBehaviour:
   CharacterModel: {fileID: 0}
   MaxHealth: 100
   MovementRange: 0
-  PhysicalDamage: 0
   MagicDamage: 0
   AttackSpeed: 0
   StartingActionPoints: 6

@@ -190,7 +190,8 @@ public class CombatController : MonoBehaviour
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
-        other.TakeDamage(selectedAbilityData.Type != AbilityData.AbilityType.MeleeAttack ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
+        other.TakeDamage(selectedAbilityData.PhysDamage); 
+        Debug.Log("Player took damage");
         if (animationManager != null)
             animationManager.SetAbilityTrigger(abilityIndex);
 

@@ -135,7 +135,6 @@ public class PlayerController : CharacterController
                         // Set the combatant as other.
                         CombatController other = hit.collider.GetComponent<CombatController>();
                         // If the combatant isnt us...
-
                         combatController.UseAbility(other);
                         audioControl.AbilityCastlineSound();
                     }
