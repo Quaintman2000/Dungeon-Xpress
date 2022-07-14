@@ -28,7 +28,7 @@ public class DoorTrigger : MonoBehaviour
         player.gameObject.transform.rotation = ExitPoint.rotation;
         Debug.Log("Ignore wall");
     }
-    //When the player presses E to enter
+    //When the player presses R to enter
     public void OnDoorEnter(PlayerController player)
     {
         switch(doorType)

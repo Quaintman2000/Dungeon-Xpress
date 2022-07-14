@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dab9fa7b168a9d438928dc37be9ea10, type: 3}
   m_Name: TestMusic
   m_EditorClassIdentifier: 
-  audio: {fileID: 0}
+  audio: {fileID: 8300000, guid: 3bef8165c6e0910439b05639a685704e, type: 3}
   Type: 0
   Volume: 1
-  DoesLoop: 0
+  DoesLoop: 1

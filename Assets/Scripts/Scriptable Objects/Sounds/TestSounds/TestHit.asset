@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 584031a2d06ad374bb791daac157afeb, type: 3}
   Type: 3
-  Volume: 1
+  Volume: 0.5
   DoesLoop: 0

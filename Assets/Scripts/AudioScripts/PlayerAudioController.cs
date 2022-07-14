@@ -37,4 +37,5 @@ public class PlayerAudioController : CreatureAudioController
     {
         AudioManager.instance.PlaySound(playerAudio.Death, transform.position);
     }
+
 }

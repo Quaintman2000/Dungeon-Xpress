@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -144, y: -294}
-  m_SizeDelta: {x: 390.6195, y: 514.0056}
+  m_AnchoredPosition: {x: -144, y: -329.07764}
+  m_SizeDelta: {x: 390.6195, y: 584.1609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3789839
 MonoBehaviour:
@@ -193,9 +193,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "In Player Focused Mode press Q/E to rotate camera around player. \nIn
-    Room Locked Mode \n\nUse the scrool wheel to zoom in and zoom out\n\nHold Left
-    Click to Move the camera around. \n\n"
+  m_Text: "when in player focus mode use q/e to rotate camera. \nHold right click
+    to also rotate camera\r\nWhen in room locked use q/e to rotate camera\r\nWasd
+    to move the camera around the room.\n\nUse the scrool wheel to zoom in and zoom
+    out\n\nHold Left Click to Move the camera around. \n\n"
 --- !u!222 &3789840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -238,9 +239,9 @@ RectTransform:
   m_Father: {fileID: 195668050}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4, y: -434.48746}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -80, y: -455}
   m_SizeDelta: {x: 258.1776, y: 78.0834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &42102357
@@ -2465,6 +2466,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425469520}
   m_CullTransparentMesh: 1
+--- !u!1001 &428379897
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424432, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424433, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: musicScale
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5214959952129424434, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
 --- !u!1 &497890024
 GameObject:
   m_ObjectHideFlags: 0
@@ -3093,6 +3155,86 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567558872}
+  m_CullTransparentMesh: 1
+--- !u!1 &580971739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 580971740}
+  - component: {fileID: 580971742}
+  - component: {fileID: 580971741}
+  m_Layer: 5
+  m_Name: Items Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &580971740
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580971739}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 905404374}
+  m_Father: {fileID: 1070721795}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 506, y: -35.238617}
+  m_SizeDelta: {x: 408.4807, y: 70.4773}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &580971741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580971739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Items
+--- !u!222 &580971742
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580971739}
   m_CullTransparentMesh: 1
 --- !u!1 &587938700
 GameObject:
@@ -4145,9 +4287,9 @@ RectTransform:
   m_Father: {fileID: 1129755834}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 269.91113, y: -436.48746}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 216, y: -459}
   m_SizeDelta: {x: 258.1776, y: 78.0834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703118759
@@ -5125,9 +5267,9 @@ RectTransform:
   m_Father: {fileID: 195668050}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 269.91113, y: -434.48746}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 181, y: -454}
   m_SizeDelta: {x: 258.1776, y: 78.0834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846911650
@@ -5724,6 +5866,91 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 893989526}
+  m_CullTransparentMesh: 1
+--- !u!1 &905404373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 905404374}
+  - component: {fileID: 905404376}
+  - component: {fileID: 905404375}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &905404374
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905404373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 580971740}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 178, y: -175.26733}
+  m_SizeDelta: {x: 365.5522, y: 288.6981}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &905404375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905404373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.98490566, b: 0.98490566, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'The 3 white boxes are your item inventory when you find a time press f
+    to pick up.
+
+    to use the item press the corresponding number to use it or
+    left click on the button to use the item
+
+'
+--- !u!222 &905404376
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905404373}
   m_CullTransparentMesh: 1
 --- !u!1 &924464438
 GameObject:
@@ -6512,13 +6739,14 @@ RectTransform:
   m_Children:
   - {fileID: 1600683847}
   - {fileID: 1159632767}
+  - {fileID: 580971740}
   m_Father: {fileID: 552403249}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -189}
-  m_SizeDelta: {x: 270.8864, y: 70.477295}
+  m_AnchoredPosition: {x: -220, y: -189}
+  m_SizeDelta: {x: 408.4807, y: 70.4773}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1070721796
 MonoBehaviour:
@@ -6553,9 +6781,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Abilites
-
-'
+  m_Text: 'Abilities '
 --- !u!222 &1070721797
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6868,6 +7094,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1622272128}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
@@ -7279,9 +7517,9 @@ RectTransform:
   m_Father: {fileID: 1070721795}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 269.91113, y: -434.48746}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 331, y: -454}
   m_SizeDelta: {x: 258.1776, y: 78.0834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1159632768
@@ -8963,9 +9201,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "In Free roam left Click on the player then right click on a space to move
-    them there. \n\nIn Combat Same Situation but you are limted based on 6 action
-    points."
+  m_Text: "left click player to highlight \r\nright click to move\r\nwhen close to
+    a enemy make sure you are highligted right click the enemy to start comabat\n\nIn
+    Combat Same Situation but you are limted based on 6 action points."
 --- !u!222 &1481601949
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9350,6 +9588,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1622272128}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1576141111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9712,8 +9962,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -122, y: -226}
-  m_SizeDelta: {x: 373.6298, y: 390.1634}
+  m_AnchoredPosition: {x: 179, y: -325.81204}
+  m_SizeDelta: {x: 365.5522, y: 589.7874}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1600683848
 MonoBehaviour:
@@ -9748,8 +9998,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "In Combat Click on a Ability button then left click on the player. \n\nAfter
-    you left click right click on a enemy to attack them. \n\nRepeat this process
+  m_Text: "when in combat left click on a ability then left click on player to highlight.
+    \r\nthen right click on a enemy to use ability on them and do damage. \r\nrepeat
+    process until enemy is dead or you. \r\n\r\nThe 3 white boxes are your item inventory
+    when you find a time press f to pick up.\r\nto use the item press the corresponding
+    number to use it or left click on the button to use the item\n\nRepeat this process
     until they are dead. Remember you only have 6 action points so use them wisley!"
 --- !u!222 &1600683849
 CanvasRenderer:
@@ -9772,6 +10025,7 @@ GameObject:
   - component: {fileID: 1622272124}
   - component: {fileID: 1622272123}
   - component: {fileID: 1622272127}
+  - component: {fileID: 1622272128}
   m_Layer: 5
   m_Name: MainMenuUICanvas
   m_TagString: Untagged
@@ -9886,6 +10140,22 @@ MonoBehaviour:
   brightnessSlider: {fileID: 1158212632}
   resolutionDropdown: {fileID: 505643946}
   sceneLoader: {fileID: 11400000, guid: 03a2b0ef9428a194e930ad889d2629a7, type: 2}
+  mainMenuAudio: {fileID: 1622272128}
+--- !u!114 &1622272128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622272122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6ab2f9991ed4324db8600c743497ff7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 11400000, guid: c21c9c46aad741748be0a4cdb08b465b, type: 2}
+  - {fileID: 11400000, guid: 42d0c0252a9d7084b81dc9969d08af4f, type: 2}
 --- !u!1 &1635244782
 GameObject:
   m_ObjectHideFlags: 0
@@ -11658,6 +11928,18 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1622272128}
+        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

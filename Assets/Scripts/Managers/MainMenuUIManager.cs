@@ -31,8 +31,12 @@ public class MainMenuUIManager : MonoBehaviour
     Resolution[] resolutions;
 
     [SerializeField] SceneLoader sceneLoader;
-    
 
+    [SerializeField] AudioController mainMenuAudio;
+    private void Awake()
+    {
+        mainMenuAudio = GetComponent<AudioController>();
+    }
     private void Start()
     {
         // Upload saved settings data.
@@ -47,6 +51,7 @@ public class MainMenuUIManager : MonoBehaviour
         graphicsDropdown.value = QualitySettings.GetQualityLevel();
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
+        mainMenuAudio.PlaySound(0);
 
     }
 
@@ -115,7 +120,7 @@ public class MainMenuUIManager : MonoBehaviour
     public void OnMatchMakeButtonClicked()
     {
         // Have the sceneloader load the gameplay scene.
-        sceneLoader.LoadScene("GameplayScene");
+        sceneLoader.LoadScene("MapGenerationTestScene");
     }
     public void OnApplicationQuit()
     {

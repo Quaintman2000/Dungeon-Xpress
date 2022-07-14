@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dab9fa7b168a9d438928dc37be9ea10, type: 3}
   m_Name: TestWalk
   m_EditorClassIdentifier: 
-  audio: {fileID: 8300000, guid: 322f2e9d12a605845ae0ea02136d664e, type: 3}
+  audio: {fileID: 8300000, guid: bac23fc9c42143e469958e7e2cc23e27, type: 3}
   Type: 1
   Volume: 0.195
   DoesLoop: 0
