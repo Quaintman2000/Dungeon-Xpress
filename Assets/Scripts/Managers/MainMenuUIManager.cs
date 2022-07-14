@@ -117,4 +117,9 @@ public class MainMenuUIManager : MonoBehaviour
         // Have the sceneloader load the gameplay scene.
         sceneLoader.LoadScene("GameplayScene");
     }
+    public void OnApplicationQuit()
+    {
+        Application.Quit();
+        Debug.Log("Left Application");
+    }
 }
