@@ -6,14 +6,11 @@ public class ToolTipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 {   
     public string header;
     public string content;
-    public GameObject Panel;
+ 
+
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(gameObject.activeInHierarchy == true)
-        {
-            ToolTipSystem.Show(content, header);
-        }
-       // ToolTipSystem.Show(content, header);
+       ToolTipSystem.Show(content, header);    
     }
 
     public void OnPointerExit(PointerEventData eventData)

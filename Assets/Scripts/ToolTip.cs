@@ -7,6 +7,7 @@ using UnityEngine.UI;
 [ExecuteInEditMode()]
 public class ToolTip : MonoBehaviour
 {
+
     public TextMeshProUGUI headerField;
     public TextMeshProUGUI contentField;
     public LayoutElement layoutElement;
@@ -25,11 +26,13 @@ public class ToolTip : MonoBehaviour
             headerField.text = header;
         }
         contentField.text = content;
+        if (Application.isEditor)
+        {
+            int headerLength = headerField.text.Length;
+            int contentLength = contentField.text.Length;
 
-        int headerLength = headerField.text.Length;
-        int contentLength = contentField.text.Length;
-
-        layoutElement.enabled = (headerLength > characterWrapLimit || contentLength > characterWrapLimit) ? true : false;
-
+            layoutElement.enabled = (headerLength > characterWrapLimit || contentLength > characterWrapLimit) ? true : false;
+        }
+        
     }
 }
