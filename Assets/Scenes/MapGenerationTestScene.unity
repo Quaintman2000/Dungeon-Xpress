@@ -409,7 +409,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 473106632857378270, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 473106632857378270, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
+      propertyPath: m_NavMeshLayer
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 473106632857378270, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
@@ -419,7 +427,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh72406
+  m_Name: pb_Mesh29486
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1277,7 +1285,7 @@ PrefabInstance:
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: endRoom
       value: 
-      objectReference: {fileID: 3372612735793007527, guid: aabdda609302fac4d8896dcd009432df, type: 3}
+      objectReference: {fileID: 4441000075535754884, guid: 61c3c7e083f767a4fa7cbf69855a1f10, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: surface
       value: 
@@ -1286,6 +1294,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: startRoom
+      value: 
+      objectReference: {fileID: 3878203321433792345, guid: 59f1841117c75cd458c5eaf18009c804, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: maxNumRooms
       value: 10
@@ -1296,7 +1308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.size
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: dungeonRooms.Array.size
@@ -1334,5 +1346,13 @@ PrefabInstance:
       propertyPath: roomPrefabs.Array.data[5].room
       value: 
       objectReference: {fileID: 2729735182670702968, guid: 07744339240a9d143b7b9694d66abaa2, type: 3}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: roomPrefabs.Array.data[6].room
+      value: 
+      objectReference: {fileID: 8604019156563565131, guid: 07d6f985945e17d4bb6f2ab6184c85ba, type: 3}
+    - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
+      propertyPath: roomPrefabs.Array.data[7].room
+      value: 
+      objectReference: {fileID: 3878203321433792345, guid: 59f1841117c75cd458c5eaf18009c804, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
