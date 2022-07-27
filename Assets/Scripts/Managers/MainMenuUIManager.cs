@@ -122,6 +122,11 @@ public class MainMenuUIManager : MonoBehaviour
         // Have the sceneloader load the gameplay scene.
         sceneLoader.LoadScene("MapGenerationTestScene");
     }
+
+   public void OnMainMenuButtonClicked()
+    {
+        sceneLoader.LoadScene("MainMenu");
+    }
     public void OnApplicationQuit()
     {
         Application.Quit();

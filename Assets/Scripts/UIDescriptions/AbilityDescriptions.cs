@@ -11,13 +11,14 @@ public class AbilityDescriptions : MonoBehaviour
     public TextMeshProUGUI titleField;
     public TextMeshProUGUI rangeField;
     public TextMeshProUGUI apField;
-    public TextMeshProUGUI descriptionField;
 
     public LayoutElement mylayoutElement;
 
     public int textWrapLimit;
 
-    public void SetText(string title, string range, string ap, string description = "")
+    // public TextMeshProUGUI descriptionField;
+
+    public void SetText(string title, string range, string ap = "")//, string description = "") 
     {
         if (string.IsNullOrEmpty(title))
         {
@@ -30,18 +31,18 @@ public class AbilityDescriptions : MonoBehaviour
         }
         rangeField.text = range;
         apField.text = ap;
-        descriptionField.text = description;
+        //descriptionField.text = description;
         
         if (Application.isEditor)
         {
             int titleLength = titleField.text.Length;
             int rangeLength = rangeField.text.Length;
             int apLength = apField.text.Length;
-            int descriptionLength = descriptionField.text.Length;
+            // int descriptionLength = descriptionField.text.Length;
 
 
             mylayoutElement.enabled = (titleLength > textWrapLimit || rangeLength > textWrapLimit || rangeLength > textWrapLimit
-                || apLength > textWrapLimit || descriptionLength > textWrapLimit) ? true : false;
+                || apLength > textWrapLimit) ? true : false; //|| descriptionLength > textWrapLimit) ? true : false;
         }
 
     }

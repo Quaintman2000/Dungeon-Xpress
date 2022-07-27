@@ -11,7 +11,12 @@ public class AbilityDescriptionTrigger : MonoBehaviour, IPointerEnterHandler, IP
     public string description;
     public void OnPointerEnter(PointerEventData eventData)
     {
-        AbilityDescriptionSystem.SuperShow(title, range, ap, description);
+
+        AbilityDescriptionSystem.SuperShow(title, range, ap);//, description);
+        AbilityDescriptionSystem.SuperDescription(description);
+      
+        
+     
     }
 
     public void OnPointerExit(PointerEventData eventData)
