@@ -79494,7 +79494,7 @@ PrefabInstance:
     - target: {fileID: 2064005378665360291, guid: 0cb246d6b09a6f440857d5c0963cbbbc, type: 3}
       propertyPath: characterData
       value: 
-      objectReference: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
+      objectReference: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
     - target: {fileID: 2064005378665360291, guid: 0cb246d6b09a6f440857d5c0963cbbbc, type: 3}
       propertyPath: charaterPrefab
       value: 
@@ -79564,7 +79564,7 @@ PrefabInstance:
     - target: {fileID: 2064005378665360291, guid: 0cb246d6b09a6f440857d5c0963cbbbc, type: 3}
       propertyPath: characterData
       value: 
-      objectReference: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
+      objectReference: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
     - target: {fileID: 2064005378665360291, guid: 0cb246d6b09a6f440857d5c0963cbbbc, type: 3}
       propertyPath: charaterPrefab
       value: 
@@ -79634,7 +79634,7 @@ PrefabInstance:
     - target: {fileID: 2064005378665360291, guid: 0cb246d6b09a6f440857d5c0963cbbbc, type: 3}
       propertyPath: characterData
       value: 
-      objectReference: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
+      objectReference: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
     - target: {fileID: 2064005378665360291, guid: 0cb246d6b09a6f440857d5c0963cbbbc, type: 3}
       propertyPath: charaterPrefab
       value: 

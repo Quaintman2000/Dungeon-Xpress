@@ -126,6 +126,7 @@ public class MainMenuUIManager : MonoBehaviour
    public void OnMainMenuButtonClicked()
     {
         sceneLoader.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
     public void OnApplicationQuit()
     {
