@@ -95,7 +95,7 @@ public class CombatController : MonoBehaviour
                     // Apply the buff or debuff onto self.
                     DebuffOrBuff(selectedAbilityData);
                    // Heal(15);
-                    //other.Heal(selectedAbilityData.Type != AbilityData.AbilityType.Healing ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
+                   //other.Heal(selectedAbilityData.Type != AbilityData.AbilityType.Healing ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
                 }
                 // Else, if we can target only others or ourselves and others while targeting someone else...
                 else if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Others || selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) && Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range && other != this)

@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -144, y: -329.07764}
-  m_SizeDelta: {x: 390.6195, y: 584.1609}
+  m_AnchoredPosition: {x: -89.09345, y: -329.07764}
+  m_SizeDelta: {x: 500.4326, y: 584.1609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3789839
 MonoBehaviour:
@@ -193,10 +193,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "when in player focus mode use q/e to rotate camera. \nHold right click
-    to also rotate camera\r\nWhen in room locked use q/e to rotate camera\r\nWasd
-    to move the camera around the room.\n\nUse the scrool wheel to zoom in and zoom
-    out\n\nHold Left Click to Move the camera around. \n\n"
+  m_Text: "Player Focus Mode (1 Key): Use the Q & E Keys or hold down RIght Click
+    to rotate the camera.\n\nRoom Locked Mode (3 Key): Use the Q & E Keys or hold
+    down Right Click to rotate the camera\r and use the WASD Keys to move the camera
+    around the room.\n\nIn both modes, use the scroll wheel to zoom in and out."
 --- !u!222 &3789840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -241,7 +241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -80, y: -455}
+  m_AnchoredPosition: {x: 199, y: -455}
   m_SizeDelta: {x: 258.1776, y: 78.0834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &42102357
@@ -1313,12 +1313,13 @@ RectTransform:
   - {fileID: 1481601947}
   - {fileID: 846911649}
   - {fileID: 42102356}
+  - {fileID: 817590906}
   m_Father: {fileID: 552403249}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -189}
+  m_AnchoredPosition: {x: -277, y: -189}
   m_SizeDelta: {x: 270.8864, y: 70.477295}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &209242147
@@ -5080,6 +5081,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 779011113}
   m_CullTransparentMesh: 1
+--- !u!1 &817590905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 817590906}
+  - component: {fileID: 817590908}
+  - component: {fileID: 817590907}
+  m_Layer: 5
+  m_Name: PauseText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &817590906
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817590905}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1737288724}
+  m_Father: {fileID: 195668050}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 553.07434, y: 2.1601}
+  m_SizeDelta: {x: 318.1487, y: 66.157}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &817590907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817590905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Pause Game
+--- !u!222 &817590908
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817590905}
+  m_CullTransparentMesh: 1
 --- !u!1 &826982271
 GameObject:
   m_ObjectHideFlags: 0
@@ -5325,7 +5406,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 181, y: -454}
+  m_AnchoredPosition: {x: 460.00003, y: -454}
   m_SizeDelta: {x: 258.1776, y: 78.0834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &846911650
@@ -6005,13 +6086,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The 3 white boxes are your item inventory when you find a time press f
-    to pick up.
-
-    to use the item press the corresponding number to use it or
-    left click on the button to use the item
-
-'
+  m_Text: The 3 white boxes with numbers 6, 7, & 8 represent your Item Inventory.
+    The numbers DO NOT correlate with the number keys; instead, Left Click the Item
+    Buttons to use them.
 --- !u!222 &905404376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6793,7 +6870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1070721795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7308,7 +7385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1129755832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9245,8 +9322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -122, y: -226}
-  m_SizeDelta: {x: 373.6298, y: 390.1634}
+  m_AnchoredPosition: {x: 200.18414, y: -377.14435}
+  m_SizeDelta: {x: 459.9981, y: 692.4521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1481601948
 MonoBehaviour:
@@ -9281,9 +9358,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "left click player to highlight \r\nright click to move\r\nwhen close to
-    a enemy make sure you are highligted right click the enemy to start comabat\n\nIn
-    Combat Same Situation but you are limted based on 6 action points."
+  m_Text: 'Initiate Movement: Left Click on the character to prepare yourself for
+    movement, then Right Click on a free space on the floor to move to that spot.
+
+
+    Initiating
+    Combat: Left Click on the character to prepare yourself for movement, then Right
+    Click on the Enemy to start combat.
+
+
+    Movement in Combat: When in Combat,
+    movement controls are the same, but you''re limited how much you can move by
+    Action Points (refer to "Abilities" for more info).'
 --- !u!222 &1481601949
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10078,12 +10164,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "when in combat left click on a ability then left click on player to highlight.
-    \r\nthen right click on a enemy to use ability on them and do damage. \r\nrepeat
-    process until enemy is dead or you. \r\n\r\nThe 3 white boxes are your item inventory
-    when you find a time press f to pick up.\r\nto use the item press the corresponding
-    number to use it or left click on the button to use the item\n\nRepeat this process
-    until they are dead. Remember you only have 6 action points so use them wisley!"
+  m_Text: 'Using Abilities: When in Combat, to select one of the Abilites, Left Click
+    on one of the Ability Icons. After you select an Ability, Left Click on your
+    Character, then Right Click the Enemy to use the Ability. You can do this as
+    long as you have enough Action Points, but you only have 6, so use them wisely!'
 --- !u!222 &1600683849
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10805,6 +10889,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675264527}
+  m_CullTransparentMesh: 1
+--- !u!1 &1737288723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737288724}
+  - component: {fileID: 1737288726}
+  - component: {fileID: 1737288725}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1737288724
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737288723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 817590906}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.0012093, y: -195.54504}
+  m_SizeDelta: {x: 318.15, y: 298.3173}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1737288725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737288723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Press the p button to pause the game. '
+--- !u!222 &1737288726
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737288723}
   m_CullTransparentMesh: 1
 --- !u!1 &1741929707
 GameObject:
@@ -11862,7 +12025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1904504042
 RectTransform:
   m_ObjectHideFlags: 0

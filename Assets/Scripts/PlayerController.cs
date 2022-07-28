@@ -171,10 +171,15 @@ public class PlayerController : CharacterController
         }
         else if (Input.GetKey(KeyCode.R))
         {
-            
             //Checks if player is near door and enters if they do
             GameManager.Instance.OpenDoor(this);
             playerNav.navMeshAgent.destination = this.transform.position;
+        }
+
+        if (Input.GetKey(KeyCode.P))
+        {
+            uIManager.pausePanel.SetActive(true);
+            uIManager.PauseGame();
         }
 
             //When scrolling the mouse wheel...
