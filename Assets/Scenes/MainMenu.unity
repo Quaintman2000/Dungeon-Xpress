@@ -193,12 +193,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "when in player focus mode use q/e to rotate camera. \nHold right click
-    to also rotate camera\r\nWhen in room locked use q/e to rotate camera\r and use
-    wasd to move the camera around the room.\nTo change between player and room focused
-    press the 1 key to do player foucs and the 3 key for toom locked. \n\nUse the
-    scroll wheel to zoom in and zoom out for the camera\n\nHold Left Click to Move
-    the camera around. \n\n"
+  m_Text: "Player Focus Mode (1 Key): Use the Q & E Keys or hold down RIght Click
+    to rotate the camera.\n\nRoom Locked Mode (3 Key): Use the Q & E Keys or hold
+    down Right Click to rotate the camera\r and use the WASD Keys to move the camera
+    around the room.\n\nIn both modes, use the scroll wheel to zoom in and out."
 --- !u!222 &3789840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6088,9 +6086,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "The 3 white boxes are your item inventory when you find a item press f
-    to pick up.\nto use the item press the corresponding number to use it or left
-    click on the button to use the item. \n"
+  m_Text: The 3 white boxes with numbers 6, 7, & 8 represent your Item Inventory.
+    The numbers DO NOT correlate with the number keys; instead, Left Click the Item
+    Buttons to use them.
 --- !u!222 &905404376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6872,7 +6870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1070721795
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7387,7 +7385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1129755832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9324,8 +9322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 157, y: -226}
-  m_SizeDelta: {x: 373.6298, y: 390.1634}
+  m_AnchoredPosition: {x: 200.18414, y: -377.14435}
+  m_SizeDelta: {x: 459.9981, y: 692.4521}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1481601948
 MonoBehaviour:
@@ -9360,11 +9358,18 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "left click on the player to highlight him then right click to move\r on
-    a space to move him to the location. \n\nwhen you are close to a enemy make sure
-    you are highligted and then right click on the enemy to start combat\n\nWhen
-    you are In Combat, its the same situation for movement but you are limted based
-    on 6 action points."
+  m_Text: 'Initiate Movement: Left Click on the character to prepare yourself for
+    movement, then Right Click on a free space on the floor to move to that spot.
+
+
+    Initiating
+    Combat: Left Click on the character to prepare yourself for movement, then Right
+    Click on the Enemy to start combat.
+
+
+    Movement in Combat: When in Combat,
+    movement controls are the same, but you''re limited how much you can move by
+    Action Points (refer to "Abilities" for more info).'
 --- !u!222 &1481601949
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10159,11 +10164,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "When in combat left click on one of the 4 abilities then left click on
-    the player to highlight them. \n\nThen if the player is highlight  right click
-    on a enemy to use ability on them and do damage. \r\nRepeat the process until
-    enemy is dead or you die.\n\nRemember you only have 6 action points so use them
-    wisley!"
+  m_Text: 'Using Abilities: When in Combat, to select one of the Abilites, Left Click
+    on one of the Ability Icons. After you select an Ability, Left Click on your
+    Character, then Right Click the Enemy to use the Ability. You can do this as
+    long as you have enough Action Points, but you only have 6, so use them wisely!'
 --- !u!222 &1600683849
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12021,7 +12025,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1904504042
 RectTransform:
   m_ObjectHideFlags: 0

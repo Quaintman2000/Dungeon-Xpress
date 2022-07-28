@@ -662,7 +662,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh53084
+  m_Name: pb_Mesh60746
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1611,21 +1611,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 606382155, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 606382156, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 92
       objectReference: {fileID: 0}
     - target: {fileID: 1465134125, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1465134126, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 414
+      objectReference: {fileID: 0}
+    - target: {fileID: 1465134126, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 63783979369964908, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1646537890501301975, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646537890501301975, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 167
+      value: 166.76
       objectReference: {fileID: 0}
     - target: {fileID: 3304279293681181069, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1843,10 +1859,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6040557438302671359, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e0508b3773b292e4b9ae059d615719ea, type: 3}
     - target: {fileID: 8799153125287885763, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9103823597340657373, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c92199792cbe014f9d18f70075eac29, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
 --- !u!224 &1158763067 stripped
@@ -1874,7 +1898,7 @@ MonoBehaviour:
   title: 'Test Me '
   range: 1.6
   ap: 1
-  description: Deals a 5 damage but you dont know how or why just works.
+  description: Deals 5 damage but you dont know how or why it  just works.
 --- !u!1 &1330899250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,7 +3021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6475068525652717287, guid: bc97d9a7e3e162841bc9020625baaa30, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 541
+      value: 521
       objectReference: {fileID: 0}
     - target: {fileID: 6736834771725082549, guid: bc97d9a7e3e162841bc9020625baaa30, type: 3}
       propertyPath: m_AnchorMax.y
