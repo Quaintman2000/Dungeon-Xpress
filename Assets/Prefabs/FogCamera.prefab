@@ -100,5 +100,5 @@ MonoBehaviour:
   playerOne: {fileID: 0}
   fogOfWarLayer:
     serializedVersion: 2
-    m_Bits: 69
-  exposedRadius: 8
+    m_Bits: 4
+  exposedRadius: 12
