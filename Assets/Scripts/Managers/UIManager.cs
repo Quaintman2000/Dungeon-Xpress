@@ -12,8 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PlayerController playerCtrl;
     [SerializeField] private CombatController combatCtrl;
     [SerializeField] private GameObject skillBar;
-   
-
+     public GameObject pausePanel;
     [Header("Abilities to assign")]
     //the abilities that will be used everytime a button is clicked
     [SerializeField] private AbilityData[] abilities = new AbilityData[4];
@@ -28,6 +27,9 @@ public class UIManager : MonoBehaviour
         abilities[1] = combatCtrl.CharacterData.Abilities[1];
         abilities[2] = combatCtrl.CharacterData.Abilities[2];
         abilities[3] = combatCtrl.CharacterData.Abilities[3];
+
+        pausePanel.SetActive(false);
+        
     }
 
     void Update()
@@ -36,11 +38,13 @@ public class UIManager : MonoBehaviour
         if (playerCtrl.currentState == CharacterController.PlayerState.InCombat)
         {
             skillBar.SetActive(true);
+            
         }
         //if player is not in combat mode then hide it
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
             skillBar.SetActive(false);
+            
 
         }
     }
@@ -82,5 +86,14 @@ public class UIManager : MonoBehaviour
     private void OnHealthChange(float health)
     {
         healthBar.fillAmount = health / combatCtrl.CharacterData.MaxHealth;
+    }
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        pausePanel.SetActive(false);
     }
 }
