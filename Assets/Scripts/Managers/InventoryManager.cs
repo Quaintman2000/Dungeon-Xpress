@@ -5,111 +5,142 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    /// Should allow creatures to swap items or take items out of an inventory
-    /// this is designed to allow transfership of items mainly
-    //Instance of the InventoryManager
-    public static InventoryManager Instance;
+    // An event for when sucessfully pick up the item.
+    public delegate void ItemPickUpSucess(ItemData itemData);
+    public event ItemPickUpSucess OnItemPickUpSucess;
+    // List of our items in our inventory.
+    public List<ItemData> itemDatas { get; private set; }
 
-    //Keeps track of what inventory is being used by ui buttons
-    public PlayerController player;
+    [SerializeField]
+    CapsuleCollider pickupRadiusTriggerCollider;
+    // Keeps track of our inventory size.
+    [SerializeField]
+    int inventorySize = 3;
+    // Item focus cone radius to help the player select and item from a pile.
+    [SerializeField]
+    float itemFocusConeRadius = 45;
+    // The pick up radius.
+    [SerializeField]
+    float itemPickupRadius = 1;
+    [SerializeField]
+    float forwardDropForce = 100;
 
-    //Item that is within range on the floor for the player to pick up
-    public GameObject FloorItem;
+    // Keeps track of our items.
+    InventoryItem focusedItem;
+    // Reference to the player controller.
+    PlayerController playerController;
+    
 
-    //used to display if an item is within pickup range
-    [SerializeField] private GameObject IPickupNotification;
-    //Contains the spots for the inventory ui sprites
-    [SerializeField] private Image[] IInventorySpots; 
-
-    // Ensures that only one instance of Inventory Manager exists
-    void Awake()
+    private void Awake()
     {
-        if(Instance == null)
+        // Initialize the list.
+        itemDatas = new List<ItemData>();
+        // Sets the trigger radius.
+        pickupRadiusTriggerCollider.radius = itemPickupRadius;
+        // Set us up with the key binding.
+        if (TryGetComponent<PlayerController>(out playerController))
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(Instance.gameObject);
-            Instance = this;
-        }
-        IInventorySpots = new Image[3];
-    }
-    //Inventory Spots self assign themselves to the list of inventoryspots
-    public void AssignIInventorySpot(Image inventorySpot, int position)
-    {
-        IInventorySpots[position] = inventorySpot;
-    }
-    //Uses the players item then refreshes the ui
-    public void UsePlayerItem(int position)
-    {
-        player.inventoryController.Use(position,player.combatController); 
-        
-        RefreshItemUI();
-    }
-    //Drops the players item on the ground
-    public void DropPlayerItem(int position)
-    {
-        player.inventoryController.DropItem(position);
-
-        RefreshItemUI();
-    }
-    /// <summary>
-    /// When a player comes near a item it lets them know and makes it possible to pick it up
-    /// </summary>
-    /// <param name="item"></param>
-    public void NearItem(GameObject item)
-    {
-        IPickupNotification.SetActive(true);
-        FloorItem = item;
-    }    
-    /// <summary>
-    /// Checks if the item parameter is the same as the floor item
-    /// </summary>
-    /// <param name="item"></param>
-    public void LeftItem(GameObject item)
-    {
-        if (item == FloorItem)
-        {
-            IPickupNotification.SetActive(false);
-
-            FloorItem = null;
-        }
-    }
-    //Player presses e then checks if they are able to pickup an item or not
-    public void PickUpItem()
-    {
-        //If no floor item then stop
-        if(FloorItem == null) return;
-
-        int itemPosition = player.inventoryController.AddItem(FloorItem);
-
-        //if the item was set to a position then it deletes it from the floor
-        if (itemPosition >= 0)
-        {
-            RefreshItemUI();
-            IPickupNotification.SetActive(false);
-
-            Destroy(FloorItem);
-        }
-        else
-        {
-            Debug.Log("Couldnt pick up item");
+            playerController.AttemptPickup += PickUpItem;
         }
     }
 
-    //Goes through all three spots and refreshes them
-    void RefreshItemUI()
+    private void OnTriggerEnter(Collider other)
     {
-        for(int i = 0; i < IInventorySpots.Length; i++)
+        // If we're not focusing on another item...
+        if (focusedItem == null)
         {
-            if (player.inventoryController.GetItem(i) != null)
+            // If they are within our focus.
+            if (IsWithinFocus(other.transform.position))
             {
-                IInventorySpots[i].sprite = player.inventoryController.GetItem(i).Icon;
-            } else
-            {
-                IInventorySpots[i].sprite = null;
+                // If the other is a inventory item, set it to be our focused item.
+                other.TryGetComponent<InventoryItem>(out focusedItem);
+                // Set the UI to activate.
+                focusedItem.SetFocused(true);
             }
         }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        // If we're focusing on a item...
+        if (focusedItem != null)
+        {
+            // If the other is the item we are focusing on...
+            if (other.GetComponent<InventoryItem>() == focusedItem)
+            {
+                // Set the UI to deactivate.
+                focusedItem.SetFocused(true);
+                // Clear the focus item.
+                focusedItem = null;
+            }
+        }
+    }
+    /// <summary>
+    /// Attempts to pickup the item if we have enough space in our inventory and are focusing on an object.
+    /// </summary>
+    private void PickUpItem()
+    {
+        // If there is still room in our inventory and if we're focusing on an item...
+        if (itemDatas.Count < inventorySize && focusedItem != null)
+        {
+            // Add the item to our inventory.
+            itemDatas.Add(focusedItem.Pickup());
+            // Invokes the event for a sucessfull pickup if anyone is listening.
+            OnItemPickUpSucess?.Invoke(focusedItem.CurrentItemData);
+            // Clear the focused item.
+            focusedItem = null;
+        }
+    }
+    /// <summary>
+    /// Drops the item at a index.
+    /// </summary>
+    /// <param name="index">The index of the item to drop.</param>
+    public void DropItem(int index)
+    {
+        // If the index is within our items count...
+        if (index < itemDatas.Count)
+        {
+            Rigidbody itemRigidbody;
+            // Spawn in the inventory item of that item data.
+            var droppedItem = Instantiate(itemDatas[index].ItemGameObject, (transform.forward + transform.up), Quaternion.identity);
+            // If it has a rigidbody, apply forward force to it
+            if (droppedItem.TryGetComponent<Rigidbody>(out itemRigidbody))
+                itemRigidbody.AddForce(transform.forward.normalized * forwardDropForce);
+            // Remove the item in our inventory.
+            itemDatas.RemoveAt(index);
+        }
+    }
+    /// <summary>
+    /// Drops the item.
+    /// </summary>
+    /// <param name="item">The item to drop.</param>
+    public void DropItem(ItemData item)
+    {
+        // If we have this item.
+        if (itemDatas.Contains(item))
+        {
+            Rigidbody itemRigidbody;
+            // Spawn in the inventory item of that item data.
+            var droppedItem = Instantiate(item.ItemGameObject, (transform.forward + transform.up), Quaternion.identity);
+            // If it has a rigidbody, apply forward force to it
+            if (droppedItem.TryGetComponent<Rigidbody>(out itemRigidbody))
+                itemRigidbody.AddForce(transform.forward.normalized * forwardDropForce);
+            // Remove the item in our inventory.
+            itemDatas.Remove(item);
+        }
+    }
+
+    /// <summary>
+    /// Determines whether or not if the position is within our field of view.
+    /// </summary>
+    /// <param name="otherPosition">The other's position. </param>
+    /// <returns>True if they are within the field of view, else false.</returns>
+    bool IsWithinFocus(Vector3 otherPosition)
+    {
+        // Get the vector to the target.
+        var vectorToTarget = otherPosition - transform.position;
+        // Get the angle to the target.
+        var angleToTarget = Vector3.Angle(vectorToTarget, transform.forward);
+
+        return (angleToTarget < itemFocusConeRadius);
     }
 }
