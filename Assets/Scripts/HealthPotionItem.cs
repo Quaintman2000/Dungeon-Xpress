@@ -5,9 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewHealthPotionData", menuName = "Items/Health potion data")]
 public class HealthPotionItem : ItemData
 {
-    public override void Activate()
+    [SerializeField]
+    float healAmount;
+    public override void Activate(CombatController user)
     {
-        throw new System.NotImplementedException();
+        user.Heal(healAmount);
     }
 
 }

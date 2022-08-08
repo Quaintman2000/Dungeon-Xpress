@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     // An event for when sucessfully pick up the item.
-    public delegate void ItemPickUpSucess(ItemData itemData);
-    public event ItemPickUpSucess OnItemPickUpSucess;
+    public delegate void ItemAction(ItemData itemData);
+    public event ItemAction OnItemPickUpSucess, OnUseItem, OnItemRemoved;
     // List of our items in our inventory.
     public List<ItemData> itemDatas { get; private set; }
 
@@ -29,7 +29,8 @@ public class InventoryManager : MonoBehaviour
     InventoryItem focusedItem;
     // Reference to the player controller.
     PlayerController playerController;
-    
+    [SerializeField]
+    UIManager uIManager;
 
     private void Awake()
     {
@@ -41,6 +42,10 @@ public class InventoryManager : MonoBehaviour
         if (TryGetComponent<PlayerController>(out playerController))
         {
             playerController.AttemptPickup += PickUpItem;
+        }
+        if(uIManager != null)
+        {
+            uIManager.OnItemButtonPressed += UseItem;
         }
     }
 
@@ -142,5 +147,12 @@ public class InventoryManager : MonoBehaviour
         var angleToTarget = Vector3.Angle(vectorToTarget, transform.forward);
 
         return (angleToTarget < itemFocusConeRadius);
+    }
+
+    void UseItem(int index)
+    {
+        OnUseItem?.Invoke(itemDatas[index]);
+        OnItemRemoved?.Invoke(itemDatas[index]);
+        itemDatas.RemoveAt(index);
     }
 }

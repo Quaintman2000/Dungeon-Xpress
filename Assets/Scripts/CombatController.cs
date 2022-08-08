@@ -23,7 +23,7 @@ public class CombatController : MonoBehaviour
 
     [SerializeField] List<StatusEffect> statusEffects;
 
-    public delegate void CombatantDeath( CombatController combatController);
+    public delegate void CombatantDeath(CombatController combatController);
     public event CombatantDeath OnCombatantDeath;
 
     public delegate void HealthChange(float health);
@@ -32,7 +32,7 @@ public class CombatController : MonoBehaviour
     [SerializeField] PlayerAnimationManager animationManager;
 
     CreatureAudioController audioControl;
-
+    InventoryManager inventoryManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,9 +42,14 @@ public class CombatController : MonoBehaviour
         Health = CharacterData.MaxHealth;
         animationManager = GetComponent<PlayerAnimationManager>();
         audioControl = GetComponent<CreatureAudioController>();
+
+        if (TryGetComponent<InventoryManager>(out inventoryManager))
+        {
+            inventoryManager.OnUseItem += ApplyEffect;
+        }
     }
 
-  
+
     /// <summary>
     /// Uses the selected ability data and applies its functionality onto the target
     /// </summary>
@@ -66,9 +71,9 @@ public class CombatController : MonoBehaviour
 
 
         Debug.Log("Movement Cost:" + movementCost);
-        if(movementCost < actionPoints)
+        if (movementCost < actionPoints)
             CheckCanUseAbility(other, movementCost);
-        
+
         // Check if we ran out of action points.
         CheckEndTurn();
 
@@ -94,7 +99,7 @@ public class CombatController : MonoBehaviour
                 {
                     // Apply the buff or debuff onto self.
                     DebuffOrBuff(selectedAbilityData);
-                   // Heal(15);
+                    // Heal(15);
                     //other.Heal(selectedAbilityData.Type != AbilityData.AbilityType.Healing ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
                 }
                 // Else, if we can target only others or ourselves and others while targeting someone else...
@@ -117,7 +122,7 @@ public class CombatController : MonoBehaviour
                         actionPoints -= movementCost;
                         // Start the attack move couroutine.
                         StartCoroutine(AttackMove(other));
-                        
+
                     }
                 }
                 // Else, if the ability was a movement type.
@@ -158,7 +163,7 @@ public class CombatController : MonoBehaviour
             }
             // Subtract ability cost from our action points.
             actionPoints -= selectedAbilityData.cost;
-            
+
         }
     }
 
@@ -190,12 +195,12 @@ public class CombatController : MonoBehaviour
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
-        other.TakeDamage(selectedAbilityData.PhysDamage); 
+        other.TakeDamage(selectedAbilityData.PhysDamage);
         Debug.Log("Player took damage");
         if (animationManager != null)
             animationManager.SetAbilityTrigger(abilityIndex);
 
-        AudioManager.instance.PlaySound(selectedAbilityData.AbilitySound,transform.position);
+        AudioManager.instance.PlaySound(selectedAbilityData.AbilitySound, transform.position);
 
         // Set the combat state back to idle.
         currentCombatState = CombatState.Idle;
@@ -243,14 +248,14 @@ public class CombatController : MonoBehaviour
     public void Heal(float hAmount)
     {
         Health += hAmount;
-        if (Health <= 99)
+        Health = Mathf.Clamp(Health, 0, CharacterData.MaxHealth);
+
+        if (OnHealthChange != null)
         {
-            if (OnHealthChange != null)
-            {
-                //updates the health bar
-                OnHealthChange.Invoke(Health);
-            }
+            //updates the health bar
+            OnHealthChange.Invoke(Health);
         }
+
     }
     /// <summary>
     /// Shoots the projectile towards the target.
@@ -339,10 +344,15 @@ public class CombatController : MonoBehaviour
             // Subtract the points.
             actionPoints -= movementCost;
             // Move to the position.
-            navMesh.AttackMove(raycastPoint,1f);
+            navMesh.AttackMove(raycastPoint, 1f);
         }
         // Check for end turn.
         CheckEndTurn();
+    }
+
+    void ApplyEffect(ItemData item)
+    {
+        item.Activate(this);
     }
 }
 

@@ -918,11 +918,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3726740952248020482, guid: 5fbfbee0f9885764383291c4c5e18668, type: 3}
   m_PrefabInstance: {fileID: 142490456}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &150757117 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5117021578344232567, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
-  m_PrefabInstance: {fileID: 1316953836}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &158183730
 GameObject:
   m_ObjectHideFlags: 0
@@ -10252,10 +10247,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 606382156, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: combatCtrl
       value: 
@@ -10264,10 +10255,6 @@ PrefabInstance:
       propertyPath: playerCtrl
       value: 
       objectReference: {fileID: 659099456908468160}
-    - target: {fileID: 5117021577683650030, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5117021578344232566, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_Name
       value: Player UI Canvas
@@ -10355,10 +10342,6 @@ PrefabInstance:
     - target: {fileID: 5117021578344232567, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8915099314998731775, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
@@ -15919,101 +15902,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3726740952248020482, guid: 5fbfbee0f9885764383291c4c5e18668, type: 3}
   m_PrefabInstance: {fileID: 1979643016}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2000590551
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2000590552}
-  - component: {fileID: 2000590554}
-  - component: {fileID: 2000590553}
-  m_Layer: 5
-  m_Name: Instructions Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2000590552
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000590551}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 150757117}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 615.8015, y: 938.8531}
-  m_Pivot: {x: 1, y: 1}
---- !u!114 &2000590553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000590551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 41
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 42
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'To move, left click the knight to select him and right click the ground
-    to move to that spot.
-
-    WASD and Arrow keys to move the camera around outside
-    of "follow mode"
-
-    Q and E or hold right click and move it side-to-side to
-    rotate the camera left or right.
-
-    To change Camera Styles:
-
-    Press 1 for
-    player focused
-
-    Press 3 for room locked
-
-'
---- !u!222 &2000590554
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000590551}
-  m_CullTransparentMesh: 1
 --- !u!1001 &2000700047
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16872,10 +16760,6 @@ PrefabInstance:
       propertyPath: camControl
       value: 
       objectReference: {fileID: 1057454755}
-    - target: {fileID: 979230311791587864, guid: 91a59c8d1e3905442b47113427407742, type: 3}
-      propertyPath: audioControl
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1021381665112887711, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -16920,22 +16804,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2803923730436499616, guid: 91a59c8d1e3905442b47113427407742, type: 3}
-      propertyPath: itemPickupRadius
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2803923730436499616, guid: 91a59c8d1e3905442b47113427407742, type: 3}
-      propertyPath: itemFocusConeRadius
-      value: 45
-      objectReference: {fileID: 0}
     - target: {fileID: 6137635376044328978, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: noGoText
       value: 
       objectReference: {fileID: 2018780826}
-    - target: {fileID: 7779888732958187691, guid: 91a59c8d1e3905442b47113427407742, type: 3}
-      propertyPath: m_TargetDisplay
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a59c8d1e3905442b47113427407742, type: 3}
 --- !u!114 &659099456908468160 stripped

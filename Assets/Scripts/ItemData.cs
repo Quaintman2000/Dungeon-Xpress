@@ -14,6 +14,6 @@ public abstract class ItemData : ScriptableObject
     protected Sprite icon;
     [SerializeField]
     protected InventoryItem itemGameObject;
-    public abstract void Activate();
+    public abstract void Activate(CombatController user);
    
 }
