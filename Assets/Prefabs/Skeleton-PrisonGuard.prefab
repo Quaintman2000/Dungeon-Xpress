@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2777166818814060722}
   - component: {fileID: 6049803516341693992}
   - component: {fileID: 7708956525878159103}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shoulder Pads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 8914553382335106238}
   - component: {fileID: 5167374100945429449}
   - component: {fileID: 534648135473240163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 5663617553394318182}
   - component: {fileID: 1076348446134736069}
   - component: {fileID: 8515815825966838896}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Belt Fabric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 5687954134947532201}
   - component: {fileID: 1194838636847752800}
   - component: {fileID: 6071209198203350099}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shackles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 7950727735929017799}
   - component: {fileID: 7950727735929017796}
   - component: {fileID: -1992880566794851244}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton-PrisonGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,7 +490,7 @@ GameObject:
   - component: {fileID: 5733395388130799461}
   - component: {fileID: 2848325400723963948}
   - component: {fileID: 8705605071872587852}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shoulder Fabric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +570,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7625229894292000161}
   - component: {fileID: 7625229894292000160}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Skeleton Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +653,7 @@ GameObject:
   - component: {fileID: 9058595414879398160}
   - component: {fileID: 2083947823388014459}
   - component: {fileID: 1057588125425021604}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

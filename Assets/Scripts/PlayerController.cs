@@ -16,6 +16,10 @@ public class PlayerController : CharacterController
 
     const float rightClickHoldGap = 0.15f;
     float rightClickHoldTime;
+
+    //Used to avoid a player from going through multiple doors in a frame
+    bool canOpenDoor;
+
     //Prevents player input during certain actions
     public bool isBusy;
     private void Awake()
@@ -30,6 +34,8 @@ public class PlayerController : CharacterController
     {
         //sets instance ui inventory to this players inventory[not set up for multiple players]
         InventoryManager.Instance.player = this;
+
+        canOpenDoor = true;
     }
     // Update is called once per frame
     void Update()
@@ -169,11 +175,13 @@ public class PlayerController : CharacterController
             //Attempts to pickup an item if there is one on the floor
             InventoryManager.Instance.PickUpItem();
         }
-        else if (Input.GetKey(KeyCode.R))
+        else if (Input.GetKeyDown(KeyCode.R) && canOpenDoor)
         {
             //Checks if player is near door and enters if they do
+
             GameManager.Instance.OpenDoor(this);
-            playerNav.navMeshAgent.destination = this.transform.position;
+            //Starts cooldown
+            StartCoroutine(DoorCooldown());
         }
 
         if (Input.GetKey(KeyCode.P))
@@ -234,5 +242,18 @@ public class PlayerController : CharacterController
             character.SelectionToggle(true);
         selectedCharacter = character;
     }
-}
+    public void Warped(Vector3 Offset)
+    {
+        //Sets camera to player position
+        camControl.SetPosition(this.transform.position + Offset);
 
+        //Anything else that should move with the player should also move here
+    }
+    //Used to prevent a player from going through multiples doors in a frame
+    IEnumerator DoorCooldown()
+    {
+        canOpenDoor = false;
+        yield return new WaitForSeconds(1f);
+        canOpenDoor = true;
+    }
+}

@@ -135,13 +135,10 @@ public class AIController : CharacterController
     [SerializeField] float idleWait;
     IEnumerator QuickBreak()
     {
-
-        Debug.Log("Doing Action");
         performingAction = true;
 
         //waits a set time to allow ample time to finish this current action before beginning a new one
         yield return new WaitForSeconds(idleWait);
-        Debug.Log("Finished Action");
         performingAction = false;
     }
 

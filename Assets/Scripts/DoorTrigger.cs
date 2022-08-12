@@ -23,9 +23,16 @@ public class DoorTrigger : MonoBehaviour
     //Sets the players position to the exit point
     void Teleport(PlayerController player) 
     {
+        //Used to teleport the camera to the same position as the other and other parts of the player
+        Vector3 offset = player.transform.position;
 
-        player.gameObject.transform.position = ExitPoint.position;
+        player.playerNav.navMeshAgent.Warp(ExitPoint.position);
         player.gameObject.transform.rotation = ExitPoint.rotation;
+        player.playerNav.Stop();
+
+        offset += player.transform.position;
+
+        player.Warped(offset);
         Debug.Log("Ignore wall");
     }
     //When the player presses R to enter
@@ -41,7 +48,7 @@ public class DoorTrigger : MonoBehaviour
                 PlayerAnimationManager playerAnimator = player.GetComponent<PlayerAnimationManager>();
                 if (playerAnimator != null)
                 {
-              
+                    //Should be able to do extra animations and cinematics
                     playerAnimator.DoorEnter();
                    
                 }

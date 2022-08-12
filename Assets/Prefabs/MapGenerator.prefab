@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6644808528645123940}
   - component: {fileID: 6644808528645123943}
+  - component: {fileID: 1348970734}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -43,11 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03315e83eb71c684aa179e70aa4fcb2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomSpacing: 6
-  maxNumRooms: 20
+  surface: {fileID: 1348970734}
+  roomSpacing: 24
+  maxNumRooms: 10
   hallwayPrefab: {fileID: 5505626208003127883, guid: b0ae82186be81c940800d2df9676c201, type: 3}
-  startRoom: {fileID: 4441000075535754884, guid: 61c3c7e083f767a4fa7cbf69855a1f10, type: 3}
-  roomPrefabs: []
+  startRoom: {fileID: 3878203321433792345, guid: 59f1841117c75cd458c5eaf18009c804, type: 3}
+  roomPrefabs:
+  - room: {fileID: 3372612735793007527, guid: e3f33dfd9b49bde46a2162c06923bef3, type: 3}
+    weight: 0
+  - room: {fileID: 3372612735793007527, guid: 617358e58c528274ea6c825ee3f81560, type: 3}
+    weight: 0
+  - room: {fileID: 3372612735793007527, guid: f137684d5d989124dbf601077f0a138d, type: 3}
+    weight: 0
+  - room: {fileID: 3372612735793007527, guid: c6a82db4c33cfbf42872a2fd0cf4582a, type: 3}
+    weight: 0
+  - room: {fileID: 2722409774867135895, guid: 9fde8202b47b25a4c9f81674122d3bc8, type: 3}
+    weight: 0
+  - room: {fileID: 2729735182670702968, guid: 07744339240a9d143b7b9694d66abaa2, type: 3}
+    weight: 0
+  - room: {fileID: 8604019156563565131, guid: 07d6f985945e17d4bb6f2ab6184c85ba, type: 3}
+    weight: 0
   dungeonRooms:
   - {fileID: 0}
   - {fileID: 0}
@@ -59,13 +75,33 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  endRoom: {fileID: 3372612735793007527, guid: aabdda609302fac4d8896dcd009432df, type: 3}
+--- !u!114 &1348970734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6644808528645123942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 59
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: 51ecdb149dcd2154497921591a986940, type: 2}

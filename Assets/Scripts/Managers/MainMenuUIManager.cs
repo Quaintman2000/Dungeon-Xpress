@@ -8,8 +8,15 @@ public class MainMenuUIManager : MonoBehaviour
 {
     // Sfx slider UI.
     [SerializeField] Slider sfxSlider;
+    // ambient slider UI.
+    [SerializeField] Slider ambientSlider;
     // Music slider UI.
     [SerializeField] Slider musicSlider;
+    // character slider UI.
+    [SerializeField] Slider characterSlider;
+    // enemy slider UI.
+    [SerializeField] Slider enemySlider;
+
     // Graphics dropdown TM UI.
     [SerializeField] TMP_Dropdown graphicsDropdown;
     // Brightness slider UI.
@@ -17,10 +24,17 @@ public class MainMenuUIManager : MonoBehaviour
     // Resolution dropdown TM UI.
     [SerializeField] TMP_Dropdown resolutionDropdown;
 
+    // Music volume.
+    float musicVolume;
+    // Ambient volume.
+    float ambientVolume;
     // Sound effects volume.
     float sfxVolume;
     // Music volume.
-    float musicVolume;
+    float characterVolume;
+    // Music volume.
+    float enemyVolume;
+
     // Brightness value.
     float brightness;
     // Graphics current index.
@@ -40,8 +54,12 @@ public class MainMenuUIManager : MonoBehaviour
     private void Start()
     {
         // Upload saved settings data.
-        sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
         musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        ambientVolume = PlayerPrefs.GetFloat("AmbientVolume");
+        sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
+        characterVolume = PlayerPrefs.GetFloat("CharacterVolume");
+        enemyVolume = PlayerPrefs.GetFloat("EnemyVolume");
+
         brightness = PlayerPrefs.GetFloat("Brightness");
         // Update the UI sliders to match.
         sfxSlider.value = sfxVolume;
@@ -83,17 +101,46 @@ public class MainMenuUIManager : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
     // Adjust and save the SFX volume level.
-    public void OnSFXSliderChanged()
-    {
-        sfxVolume = sfxSlider.value;
-        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
-    }
-    // Adjust and save the Music volume level.
     public void OnMusicSliderChanged()
     {
         musicVolume = musicSlider.value;
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        if (AudioManager.instance != null)
+            AudioManager.instance.AdjustVolume(SoundType.music, musicSlider.value);
     }
+    // Adjust and save the Music volume level.
+    public void OnAmbientSliderChanged()
+    {
+        ambientVolume = ambientSlider.value;
+        PlayerPrefs.SetFloat("AmbientVolume", musicVolume);
+        if (AudioManager.instance != null)
+            AudioManager.instance.AdjustVolume(SoundType.ambient, ambientSlider.value);
+    }
+    public void OnSFXSliderChanged()
+    {
+        sfxVolume = sfxSlider.value;
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+
+        if (AudioManager.instance != null)
+            AudioManager.instance.AdjustVolume(SoundType.soundFX, sfxSlider.value);
+    }
+    // Adjust and save the Music volume level.
+    public void OnCharacterSliderChanged()
+    {
+        characterVolume = characterSlider.value;
+        PlayerPrefs.SetFloat("CharacterVolume", characterVolume);
+        if (AudioManager.instance != null)
+            AudioManager.instance.AdjustVolume(SoundType.character, characterSlider.value);
+    }
+    public void OnEnemySliderChanged()
+    {
+        enemyVolume = enemySlider.value;
+        PlayerPrefs.SetFloat("EnemyVolume", enemyVolume);
+
+        if (AudioManager.instance != null)
+            AudioManager.instance.AdjustVolume(SoundType.enemy, enemySlider.value);
+    }
+
     // Adjust and save the Brightness level.
     public void OnBrightnessSlider()
     {

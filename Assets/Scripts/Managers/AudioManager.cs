@@ -27,7 +27,8 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
 
     private GameObject SoundHolder;
-    private List<AudioSource> CurrentSounds;
+    [SerializeField]private List<AudioSource> CurrentSounds;
+    [SerializeField]private List<SoundData> CurrentSoundData;
     private GameObject TempSound;
 
     [SerializeField][Range(0f, 1f)] private float musicScale; //Music sounds
@@ -54,6 +55,37 @@ public class AudioManager : MonoBehaviour
         TempSound = new GameObject();
         TempSound.AddComponent<AudioSource>();
     }
+    //Changes all currently playing sounds volume to match new volume scale
+    public void UpdateVolume()
+    {
+        int index = 0;
+        foreach(AudioSource sound in CurrentSounds)
+        {
+            //The original volume of the sound
+            float newVolume = 0;
+
+            switch (CurrentSoundData[index].Type)
+            {
+                case SoundType.music:
+                    newVolume = CurrentSoundData[index].Volume * musicScale;
+                    break;
+                case SoundType.ambient:
+                    newVolume = CurrentSoundData[index].Volume * ambientScale;
+                    break;
+                case SoundType.soundFX:
+                    newVolume = CurrentSoundData[index].Volume * soundFXScale;
+                    break;
+                case SoundType.character:
+                    newVolume = CurrentSoundData[index].Volume * characterScale;
+                    break;
+                case SoundType.enemy:
+                    newVolume = CurrentSoundData[index].Volume * enemyScale;
+                    break;
+            }
+            sound.volume = newVolume;
+            index++;
+        }
+    }
     //Used for when UI Sliders are adjusted in menu to change the games sound volume for those types
     public void AdjustVolume(SoundType type,float value)
     {
@@ -75,6 +107,7 @@ public class AudioManager : MonoBehaviour
                 enemyScale = value;
                 break;
         }
+        UpdateVolume();
     }
     //Plays a specific sound at a specfic spot and sets the volume to the 
     public void PlaySound(SoundData Sound, Vector3 target)
@@ -87,7 +120,7 @@ public class AudioManager : MonoBehaviour
         //If the sound doesn't loop then it should be destroyed aftera  while
         if (!Sound.DoesLoop)
         {
-            StartCoroutine(RunSound(Sound.audio.length, sound));
+            StartCoroutine(RunSound(Sound.audio.length, sound, Sound));
         }
 
         sound.Play();
@@ -102,9 +135,14 @@ public class AudioManager : MonoBehaviour
         //Sets the volume to the audio type
         sound.volume = CalculateVolume(Sound);
 
+        //Adds a sound that will end or a sound that wont end
         if (!Sound.DoesLoop)
         {
-            StartCoroutine(RunSound(Sound.audio.length, sound));
+            StartCoroutine(RunSound(Sound.audio.length, sound, Sound));
+        } else
+        {
+            CurrentSounds.Add(sound);
+            CurrentSoundData.Add(Sound);
         }
 
         sound.Play();
@@ -131,11 +169,13 @@ public class AudioManager : MonoBehaviour
         //If the sound doesn't loop then it should be destroyed aftera  while
         
     }
-    IEnumerator RunSound(float seconds, AudioSource sound)
+    IEnumerator RunSound(float seconds, AudioSource sound, SoundData soundData)
     {
         CurrentSounds.Add(sound);
+        CurrentSoundData.Add(soundData);
         yield return new WaitForSeconds(seconds);
         CurrentSounds.Remove(sound);
+        CurrentSoundData.Remove(soundData);
 
         Destroy(sound.gameObject);
     }
