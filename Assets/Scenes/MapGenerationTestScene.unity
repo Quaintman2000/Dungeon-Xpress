@@ -666,7 +666,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17914
+  m_Name: pb_Mesh21230
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3151,7 +3151,7 @@ PrefabInstance:
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: startRoom
       value: 
-      objectReference: {fileID: 3878203321433792345, guid: 59f1841117c75cd458c5eaf18009c804, type: 3}
+      objectReference: {fileID: 4576859774510489449, guid: 73a07fb5a44611c45a416e4535c62552, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: maxNumRooms
       value: 10
