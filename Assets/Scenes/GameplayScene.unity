@@ -328,6 +328,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 501275821956340195, guid: 7c71cb12da192f44aa4b9a1c5e3f3c79, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 77de5ea59e592554196fd1c878c90696, type: 2}
     - target: {fileID: 3573888028335486619, guid: 7c71cb12da192f44aa4b9a1c5e3f3c79, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -4790,7 +4794,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh84380
+  m_Name: pb_Mesh41080
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10343,6 +10347,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8402952537580759247, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3889193424023192011, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
 --- !u!1001 &1318188703
@@ -16804,6 +16812,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2803923730436499616, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: uIManager
+      value: 
+      objectReference: {fileID: 973611707}
     - target: {fileID: 6137635376044328978, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: noGoText
       value: 

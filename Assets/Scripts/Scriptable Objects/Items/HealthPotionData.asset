@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d44e2af437d294409ee29921c4cf234, type: 3}
   m_Name: HealthPotionData
   m_EditorClassIdentifier: 
-  displayName: 
-  icon: {fileID: 0}
+  displayName: Health Potion
+  icon: {fileID: 21300000, guid: 1d130991a81017b4a9b4046ef0302b0b, type: 3}
   itemGameObject: {fileID: 0}
+  statusEffectData: {fileID: 11400000, guid: c0326be141006464289c19c994bd61a9, type: 2}
