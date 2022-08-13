@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ItemData : ScriptableObject
+[CreateAssetMenu(fileName ="NewItemData", menuName = "Item")]
+public class ItemData : ScriptableObject
 {
     public string DisplayName => displayName;
     public Sprite Icon => icon;
@@ -14,6 +15,11 @@ public abstract class ItemData : ScriptableObject
     protected Sprite icon;
     [SerializeField]
     protected InventoryItem itemGameObject;
-    public abstract void Activate(CombatController user);
+    [SerializeField]
+    StatusEffectData statusEffectData;
+    public void Activate(CombatController user)
+    {
+        user.AddStatusEffect(statusEffectData.GetStatusEffect(user));
+    }
    
 }

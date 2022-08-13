@@ -125,7 +125,12 @@ public class UIManager : MonoBehaviour
     }
     public void UseItem(int index)
     {
-        OnItemButtonPressed?.Invoke(index);
+        // If it is our turn.
+        if (combatCtrl.IsTurn)
+        {
+            // Send out the event for an invent button press.
+            OnItemButtonPressed?.Invoke(index);
+        }
     }
 
     void Awake()

@@ -19,8 +19,6 @@ public class AbilityData : ScriptableObject
     public int Cooldown;
     public int cost;
 
-    public StatusEffect statusEffect = new StatusEffect(2, 2);
-
     public float MovementModifier;
 
     public Projectile Projectile;
@@ -28,25 +26,4 @@ public class AbilityData : ScriptableObject
     public SoundData AbilitySound;
 }
 
-[System.Serializable]
-public struct StatusEffect
-{
-    public int EffectTime;
-    public float Multiplier;
-    public StatusEffect(int effectTime, float multiplier)
-    {
-        EffectTime = effectTime;
-        Multiplier = multiplier;
-    }
 
-    public void ReduceDuration()
-    {
-        EffectTime -= 1;
-    }
-
-    public void ReduceDuration(int reduceValue)
-    {
-        EffectTime -= reduceValue;
-    }
-
-}

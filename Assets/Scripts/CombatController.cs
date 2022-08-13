@@ -21,10 +21,9 @@ public class CombatController : MonoBehaviour
     public int abilityIndex;
     [SerializeField] public AbilityData selectedAbilityData;
 
-    [SerializeField] List<StatusEffect> statusEffects;
-
-    public delegate void CombatantDeath(CombatController combatController);
-    public event CombatantDeath OnCombatantDeath;
+    public delegate void CombatantEvent(CombatController combatController);
+     
+    public event CombatantEvent OnCombatantDeath, OnStartTurn;
 
     public delegate void HealthChange(float health);
     public event HealthChange OnHealthChange;
@@ -33,6 +32,9 @@ public class CombatController : MonoBehaviour
 
     CreatureAudioController audioControl;
     InventoryManager inventoryManager;
+
+    List<StatusEffect> statusEffects = new List<StatusEffect>();
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -59,11 +61,11 @@ public class CombatController : MonoBehaviour
         // The total length of the path from the player to the target.
         float distance = navMesh.GetDistance(other.transform.position);
         // If we have any status effects...
-        if (statusEffects.Count > 0)
-        {
-            // Apply the modifier to the total distance.
-            distance /= statusEffects[0].Multiplier;
-        }
+        //if (statusEffects.Count > 0)
+        //{
+        //    // Apply the modifier to the total distance.
+        //    distance /= statusEffects[0].Multiplier;
+        //}
         // Calculate the movement cost by how far along the path we have to travel.
         int movementCost = Mathf.RoundToInt(distance - selectedAbilityData.Range);
         // Clamp the value to 0 to prevent logic errors.
@@ -298,6 +300,7 @@ public class CombatController : MonoBehaviour
     // Starts the player's turn with their starting action points.
     public void StartTurn()
     {
+        OnStartTurn?.Invoke(this);
         // Sets the isTurn to true.
         IsTurn = true;
         // Sets the action points to this class's starting action points.
@@ -311,19 +314,20 @@ public class CombatController : MonoBehaviour
         {
             // Set isTurn to false.
             IsTurn = false;
-            // For each status effect in our list of status effects...
-            for (int i = 0; i < statusEffects.Count; i++)
-            {
-                // Reduce the duration of that status effect by one.
-                statusEffects[i].ReduceDuration();
-                // If status effect's time has run out...
-                if (statusEffects[i].EffectTime <= 0)
-                    // Remove it from the list.
-                    statusEffects.RemoveAt(i);
-            }
+            
             // Call the battlemanager to change turns.
             BattleManager.Instance.ChangeTurn();
         }
+    }
+
+    /// <summary>
+    /// Debug function to the combatant's turn.
+    /// </summary>
+    [ContextMenu("End Turn")]
+    private void EndTurn()
+    {
+        actionPoints = 0;
+        CheckEndTurn();
     }
     /// <summary>
     /// Moves to the raycast point and subtracts action points.
@@ -353,6 +357,29 @@ public class CombatController : MonoBehaviour
     void ApplyEffect(ItemData item)
     {
         item.Activate(this);
+    }
+
+    /// <summary>
+    /// Adds the status effect to a list of status effects.
+    /// </summary>
+    /// <param name="statusEffect"></param>
+    public void AddStatusEffect(StatusEffect statusEffect)
+    {
+        // Add the status effect.
+        statusEffects.Add(statusEffect);
+        // Listen for when the effect ends.
+        statusEffect.OnEffectEnd += RemoveStatusEffect;
+    }
+    /// <summary>
+    /// Removes the status effect.
+    /// </summary>
+    /// <param name="effect"></param>
+    void RemoveStatusEffect(StatusEffect effect)
+    {
+        // Remove the status effect from out list.
+        statusEffects.Remove(effect);
+        // Stop listening for when the effect ends.
+        effect.OnEffectEnd -= RemoveStatusEffect;
     }
 }
 
