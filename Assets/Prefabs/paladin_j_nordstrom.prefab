@@ -141,10 +141,8 @@ GameObject:
   - component: {fileID: 659099456908468155}
   - component: {fileID: 659099456908468156}
   - component: {fileID: 5766508941544558256}
-  - component: {fileID: 659099456908468158}
   - component: {fileID: 659099456908468161}
   - component: {fileID: 659099456908468163}
-  - component: {fileID: 107326356}
   m_Layer: 0
   m_Name: paladin_j_nordstrom
   m_TagString: Untagged
@@ -317,21 +315,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &659099456908468158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389417993632140069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd7d400e4820c3448d97370987645fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthToTrack: {fileID: 8693437862511915635}
-  barFill: {fileID: 0}
-  trackingOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &659099456908468161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,21 +343,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInventory: []
---- !u!114 &107326356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389417993632140069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd7d400e4820c3448d97370987645fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthToTrack: {fileID: 8693437862511915635}
-  barFill: {fileID: 0}
-  trackingOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &486038521762490326
 GameObject:
   m_ObjectHideFlags: 0
