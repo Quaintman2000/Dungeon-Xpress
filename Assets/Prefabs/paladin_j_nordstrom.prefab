@@ -140,10 +140,9 @@ GameObject:
   - component: {fileID: 8693437862511915635}
   - component: {fileID: 659099456908468155}
   - component: {fileID: 659099456908468156}
-  - component: {fileID: 5766508941544558256}
-  - component: {fileID: 659099456908468158}
   - component: {fileID: 659099456908468161}
-  - component: {fileID: 659099456908468163}
+  - component: {fileID: 3663987290641129149}
+  - component: {fileID: 2803923730436499616}
   m_Layer: 0
   m_Name: paladin_j_nordstrom
   m_TagString: Untagged
@@ -250,7 +249,6 @@ MonoBehaviour:
   uIManager: {fileID: 0}
   selectedCharacter: {fileID: 0}
   audioControl: {fileID: 0}
-  inventoryController: {fileID: 0}
   isBusy: 0
 --- !u!114 &8693437862511915635
 MonoBehaviour:
@@ -302,35 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1140dabf7499e7f49b8dff0b9501e186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!136 &5766508941544558256
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389417993632140069}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &659099456908468158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389417993632140069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd7d400e4820c3448d97370987645fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthToTrack: {fileID: 8693437862511915635}
-  barFill: {fileID: 0}
-  trackingOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &659099456908468161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,7 +315,21 @@ MonoBehaviour:
   sounds: []
   audioData: {fileID: 11400000, guid: d4d0fcb6fd34f6a4bb32fa609bfef45d, type: 2}
   playerAudio: {fileID: 11400000, guid: 94000e9cba0ed6545bbcc29b66603aff, type: 2}
---- !u!114 &659099456908468163
+--- !u!136 &3663987290641129149
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389417993632140069}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 0.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2803923730436499616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,10 +338,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 389417993632140069}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 026df29816c28f9479726e9f543b052c, type: 3}
+  m_Script: {fileID: 11500000, guid: be911c2714218cf4bacf5da7a4389646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInventory: []
+  pickupRadiusTriggerCollider: {fileID: 3663987290641129149}
+  inventorySize: 3
+  itemFocusConeRadius: 45
+  itemPickupRadius: 1
+  forwardDropForce: 100
 --- !u!1 &486038521762490326
 GameObject:
   m_ObjectHideFlags: 0
@@ -2650,6 +2637,10 @@ PrefabInstance:
     - target: {fileID: 5181613315100173274, guid: 18ddfdd811e3fd042b557501285523f0, type: 3}
       propertyPath: fogOfWarLayer.m_Bits
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5181613315100173284, guid: 18ddfdd811e3fd042b557501285523f0, type: 3}
+      propertyPath: m_TargetDisplay
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddfdd811e3fd042b557501285523f0, type: 3}
