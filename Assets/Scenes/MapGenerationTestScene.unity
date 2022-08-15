@@ -444,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 473106632857378270, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4bb525b432add747bffab3a663cf1d2, type: 3}
@@ -533,7 +533,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh21230
+  m_Name: pb_Mesh18818
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2418,7 +2418,7 @@ PrefabInstance:
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[3].room
       value: 
-      objectReference: {fileID: 3372612735793007527, guid: c6a82db4c33cfbf42872a2fd0cf4582a, type: 3}
+      objectReference: {fileID: 6888048024818568309, guid: 2e32310c603dd1a47a40c9c8ba03ad3f, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[4].room
       value: 
@@ -2430,6 +2430,6 @@ PrefabInstance:
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[6].room
       value: 
-      objectReference: {fileID: 8604019156563565131, guid: 07d6f985945e17d4bb6f2ab6184c85ba, type: 3}
+      objectReference: {fileID: 3528403171523519020, guid: c3290d9e9da985040a0a588acc20c261, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
