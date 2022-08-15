@@ -69,7 +69,6 @@ public class CameraController : MonoBehaviour
         cameraTransform.localPosition = new Vector3(0f, yPos, -zPos);
         cameraTransform.rotation = Quaternion.Euler(setPitchAngle, 0, 0);
     }
-
     //Move on the x and z axis based on input from the player controller
     public void MoveCamera(float verticalInput, float horizontalInput)
     {
@@ -218,6 +217,14 @@ public class CameraController : MonoBehaviour
         {
             ToggleRoomLocked();
         }
-       
+
     }
+    //Sets position of camera
+    public void SetPosition(Vector3 position)
+    {
+        Debug.Log("Camera Position");
+        Debug.Log(position);
+        this.transform.position = position;
+    }
+
 }

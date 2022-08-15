@@ -15,4 +15,4 @@ MonoBehaviour:
   audio: {fileID: 8300000, guid: 3bef8165c6e0910439b05639a685704e, type: 3}
   Type: 0
   Volume: 1
-  DoesLoop: 0
+  DoesLoop: 1
