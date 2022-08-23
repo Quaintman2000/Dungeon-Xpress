@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     // AI pathing variable.
-    [SerializeField] public PlayerNavMesh playerNav;
+    [SerializeField] public NavMeshMovement navMeshMovement;
     [SerializeField] GameObject selectionCircle;
 
     // Reference to the player state.
@@ -18,7 +18,7 @@ public class CharacterController : MonoBehaviour
     void Awake()
     {
         // Grab our pathing component.
-        playerNav = gameObject.GetComponent<PlayerNavMesh>();
+        navMeshMovement = gameObject.GetComponent<NavMeshMovement>();
     }
     //get the current state of the player and then switch it to either combat or freeroam.
    public void ChangeState(PlayerState newState)

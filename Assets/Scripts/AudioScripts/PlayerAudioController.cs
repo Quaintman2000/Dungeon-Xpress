@@ -8,6 +8,17 @@ using UnityEngine;
 public class PlayerAudioController : CreatureAudioController
 {
     [SerializeField] private ComplexCreatureAudioData playerAudio;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        // If we have a player navmesh component...
+        if (TryGetComponent <PlayerNavMesh>(out PlayerNavMesh playerNavMesh))
+        {
+            // Subscribe to its events.
+           // playerNavMesh.WalkingAction += WalkLineSound;
+        }
+    }
     //When the player starts a move during combat
     public void WalkLineSound()
     {

@@ -9,7 +9,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] Transform cameraTransform;
 
     //Reference to the player's transform
-    [SerializeField] Transform playerTransform;
+    [SerializeField] PlayerController playerController;
+    Transform playerTransform;
     [SerializeField, Range(0f, 90f)] float cameraAngle = 65f;
     [SerializeField] float startingDistance = 5f;
     //Movement, rotation, and zoom speed
@@ -44,6 +45,20 @@ public class CameraController : MonoBehaviour
     [HideInInspector] public Vector3 rotateStartPosition;
     Vector3 rotateCurrentPosition;
 
+    private void Awake()
+    {
+        // Grab the player transform from the controller.
+        playerTransform = playerController.transform;
+
+        // Subscribe to the player controller events.
+        playerController.OnRightClickDownAction += SetRotateStartPosition;
+        playerController.OnRightClickHeldDownAction += RotateCamera;
+        playerController.MoveCameraAction += MoveCamera;
+
+        // Temporary only!
+        playerController.SwitchCameraStyle += SwitchCameraStyle;
+    }
+
     private void Start()
     {
         SetCamera(startingDistance, cameraAngle);
@@ -58,6 +73,15 @@ public class CameraController : MonoBehaviour
     {
         SetCamera(startingDistance, cameraAngle);
     }
+
+    /// <summary>
+    /// Sets the rotateStartPosition to the mousePositon;
+    /// </summary>
+    void SetRotateStartPosition()
+    {
+        rotateStartPosition = Input.mousePosition;
+    }
+
     // Sets the camera position based on set distance and set pitch
     void SetCamera(float setDistance, float setPitchAngle)
     {
@@ -83,17 +107,17 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    //Rotate on either the y or x axis based on input from the player controller
-    public void RotateCamera(float pivotDirection, float pitchDirection)
+    //Rotate on either the y axis based on input from the player controller
+    public void RotateCamera(float pivotDirection)
     {
         transform.Rotate((Vector3.up * pivotDirection * turnSpeed * Time.deltaTime), Space.Self);
-        cameraTransform.Rotate((Vector3.right * pitchDirection * turnSpeed * Time.deltaTime), Space.Self);
+        
     }
 
-    public void RotateCamera(Vector3 mousePosition)
+    public void RotateCamera()
     {
         // Set the current position.
-        rotateCurrentPosition = mousePosition;
+        rotateCurrentPosition = Input.mousePosition;
         // Calculate the difference amongst frames.
         Vector3 difference = rotateStartPosition - rotateCurrentPosition;
         // Reset drag position for the next frame.

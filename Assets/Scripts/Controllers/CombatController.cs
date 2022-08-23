@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatController : MonoBehaviour
 {
+
     [SerializeField] Transform firePoint;
     [SerializeField] int actionPoints;
     // Reference to the player Nav Mesh.
@@ -35,6 +36,8 @@ public class CombatController : MonoBehaviour
 
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
+    
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,9 +48,22 @@ public class CombatController : MonoBehaviour
         animationManager = GetComponent<PlayerAnimationManager>();
         audioControl = GetComponent<CreatureAudioController>();
 
+        // Try to geth the inventory manager component if we have one.
         if (TryGetComponent<InventoryManager>(out inventoryManager))
         {
             inventoryManager.OnUseItem += ApplyEffect;
+        }
+        // Try to grab the character controller if we have one.
+        CharacterController characterController;
+        if (TryGetComponent<CharacterController>(out characterController))
+        {
+            // If this character controller is a player controller...
+            if(characterController is PlayerController player)
+            {
+                // Subscribe to the combat related events.
+                player.CombatMoveToPointAction += MoveToPoint;
+                player.UseAbilityAction += UseAbility;
+            }
         }
     }
 

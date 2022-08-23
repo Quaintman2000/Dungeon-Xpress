@@ -8,6 +8,17 @@ using UnityEngine;
 public class CreatureAudioController : AudioController
 {
     [SerializeField] private CreatureAudioData audioData;
+
+    protected virtual void Awake()
+    {
+        // If we have a navMeshmovement component...
+        if(TryGetComponent<NavMeshMovement>(out NavMeshMovement navMeshMovement))
+        {
+            // Subscribe its action event(s).
+           // navMeshMovement.WalkingAction += WalkSound;
+        }
+    }
+
     /// <summary>
     /// Plays the abilties sound when the ability is cast
     /// </summary>

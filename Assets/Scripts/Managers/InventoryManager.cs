@@ -41,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         // Set us up with the key binding.
         if (TryGetComponent<PlayerController>(out playerController))
         {
-            playerController.AttemptPickup += PickUpItem;
+            playerController.AttemptPickupAction += PickUpItem;
         }
         if(uIManager != null)
         {

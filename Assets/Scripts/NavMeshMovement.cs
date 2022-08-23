@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+
+[RequireComponent(typeof(NavMeshAgent))]
 public class NavMeshMovement : MonoBehaviour
 {
     public bool isMoving;
@@ -11,7 +14,9 @@ public class NavMeshMovement : MonoBehaviour
     // NavMeshAgent for pathfind.
     public NavMeshAgent navMeshAgent;
 
-    private void Awake()
+    public Action WalkingAction;
+
+    protected virtual void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
@@ -37,7 +42,7 @@ public class NavMeshMovement : MonoBehaviour
     {
         //Tell the NavMesh to go to the move position
         navMeshAgent.destination = movePosition;
-
+        WalkingAction?.Invoke();
         if (movingCoroutine != null)
         {
             StopCoroutine(movingCoroutine);
@@ -49,7 +54,7 @@ public class NavMeshMovement : MonoBehaviour
     {
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = position;
-
+        WalkingAction.Invoke();
         if (movingCoroutine != null)
         {
             StopCoroutine(movingCoroutine);

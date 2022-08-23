@@ -26,9 +26,9 @@ public class DoorTrigger : MonoBehaviour
         //Used to teleport the camera to the same position as the other and other parts of the player
         Vector3 offset = player.transform.position;
 
-        player.playerNav.navMeshAgent.Warp(ExitPoint.position);
+        player.navMeshMovement.navMeshAgent.Warp(ExitPoint.position);
         player.gameObject.transform.rotation = ExitPoint.rotation;
-        player.playerNav.Stop();
+        player.navMeshMovement.Stop();
 
         offset += player.transform.position;
 

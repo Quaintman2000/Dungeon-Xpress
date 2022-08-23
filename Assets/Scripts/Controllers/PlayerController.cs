@@ -1,22 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[RequireComponent(typeof(PlayerNavMesh))]
+
 public class PlayerController : CharacterController
 {
-    // [SerializeField] PlayerNavMesh playerNav;
+    
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-    [SerializeField] UIManager uIManager;
-    [SerializeField] CharacterController selectedCharacter;
     [SerializeField] PlayerAudioController audioControl;
 
-    // Set's up our button event type.
-    public delegate void ActionEvent();
-    // Button pressed events.
-    public event ActionEvent AttemptPickup;
+  
+    // Action events
+    public Action AttemptPickupAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
+    public Action<CombatController> UseAbilityAction;
+    public Action<Vector3> CombatMoveToPointAction, FreeMoveToPointAction;
+    public Action<float, float> MoveCameraAction;
+    public Action<float> RotateCameraAction;
+    public Action<bool> OnCombatStartedAction;
 
+    // TEMPORARY! Testing purposes only.
+    public Action<CameraController.CameraStyle> SwitchCameraStyle;
+
+    CharacterController selectedCharacter;
     const float rightClickHoldGap = 0.15f;
     float rightClickHoldTime;
 
@@ -27,9 +34,6 @@ public class PlayerController : CharacterController
     public bool isBusy;
     private void Awake()
     {
-        // Grab our pathing component.
-        // playerNav = GetComponent<PlayerNavMesh>();
-        combatController = GetComponent<CombatController>();
         audioControl = GetComponent<PlayerAudioController>();
     }
     private void Start()
@@ -67,15 +71,17 @@ public class PlayerController : CharacterController
             Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
             // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
-            if (hit.collider.GetComponent<CharacterController>())
-                SelectCharacter(hit.collider.GetComponent<CharacterController>());
+            CharacterController characterController;
+            if (hit.collider.TryGetComponent<CharacterController>(out characterController))
+                SelectCharacter(characterController);
             else
-                SelectCharacter(null);
+                SelectCharacter(this);
         }
         if (Input.GetMouseButtonDown(1))
         {
             // Sets the start position for the rotate start position.
-            camControl.rotateStartPosition = Input.mousePosition;
+            OnRightClickDownAction?.Invoke();
+            //camControl.rotateStartPosition = Input.mousePosition;
             // Set the right click hold time to zero.
             rightClickHoldTime = 0;
         }
@@ -87,7 +93,8 @@ public class PlayerController : CharacterController
             if (rightClickHoldTime > rightClickHoldGap)
             {
                 // Rotate the camera
-                camControl.RotateCamera(Input.mousePosition);
+                OnRightClickHeldDownAction?.Invoke();
+                //camControl.RotateCamera(Input.mousePosition);
 
                 audioControl.WalkSound();
             }
@@ -118,7 +125,8 @@ public class PlayerController : CharacterController
                     if (!hit.collider.GetComponent<CombatController>())
                     {
                         // Set the pathing to start.
-                        playerNav.SetMoveToMarker(raycastPoint);
+                        FreeMoveToPointAction?.Invoke(raycastPoint);
+                        
                         audioControl.WalkLineSound();
                         audioControl.WalkSound();
                     }
@@ -128,25 +136,24 @@ public class PlayerController : CharacterController
                         if (hit.collider.GetComponent<CombatController>() != this.combatController)
                         {
                             MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
-                            uIManager.ToggleSkillBar(true);
+                            OnCombatStartedAction?.Invoke(true);
                         }
                     }
                 }
                 else if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
                 {
+                     
                     // If we hit a combatant...
-                    if (hit.collider.GetComponent<CombatController>())
+                    if (hit.collider.TryGetComponent<CombatController>(out CombatController other))
                     {
-                        Debug.Log("Target Locked!");
-                        // Set the combatant as other.
-                        CombatController other = hit.collider.GetComponent<CombatController>();
                         // If the combatant isnt us...
-                        combatController.UseAbility(other);
+                        UseAbilityAction?.Invoke(other);
+                        //combatController.UseAbility(other);
                         audioControl.AbilityCastlineSound();
                     }
                     else
                     {
-                        combatController.MoveToPoint(raycastPoint);
+                        CombatMoveToPointAction?.Invoke(raycastPoint);
                         audioControl.WalkLineSound();
                         audioControl.WalkSound();
                     }
@@ -155,25 +162,28 @@ public class PlayerController : CharacterController
         }
 
         //If inputs a direction input...
-        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+        if (verticalInput != 0 || horizontalInput != 0)
         {
             //Move on the desired input
-            camControl.MoveCamera(verticalInput, horizontalInput);
+            MoveCameraAction?.Invoke(verticalInput, horizontalInput);
+            
         }
 
 
         if (Input.GetKey(KeyCode.E))
         {
-            camControl.RotateCamera(-1, 0);
+            // Rotate the camera to the right.
+            RotateCameraAction?.Invoke(-1);
         }
         else if (Input.GetKey(KeyCode.Q))
         {
-            camControl.RotateCamera(1, 0);
+            // Rotate the camera to the left.
+            RotateCameraAction?.Invoke(1);
         }
         if (Input.GetKey(KeyCode.F))
         {
             //Attempts to pickup an item if there is one on the floor
-            AttemptPickup?.Invoke();
+            AttemptPickupAction?.Invoke();
         }
         else if (Input.GetKeyDown(KeyCode.R) && canOpenDoor)
         {
@@ -183,11 +193,11 @@ public class PlayerController : CharacterController
             //Starts cooldown
             StartCoroutine(DoorCooldown());
         }
-
+        // If we press P.
         if (Input.GetKey(KeyCode.P))
         {
-            uIManager.pausePanel.SetActive(true);
-            uIManager.PauseGame();
+            // Invoke the pause action event.
+            OnPauseAction?.Invoke();
         }
 
             //When scrolling the mouse wheel...
@@ -201,34 +211,34 @@ public class PlayerController : CharacterController
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             //Set camera style to player focused.
-            camControl.SwitchCameraStyle(CameraController.CameraStyle.PlayerFocused);
+            SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
         }
 
         // If pressed 3...
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             //Set camera style to room locked.
-            camControl.SwitchCameraStyle(CameraController.CameraStyle.RoomLocked);
+            SwitchCameraStyle?.Invoke(CameraController.CameraStyle.RoomLocked);
         }
         //Used for items when held down drops the item in the slot instead of using them
-        bool shiftDown = Input.GetKey(KeyCode.LeftShift);
+        //bool shiftDown = Input.GetKey(KeyCode.LeftShift);
 
-        //If Pressing 5 at top of keyboard or numpad
-        if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
-        {
+        ////If Pressing 5 at top of keyboard or numpad
+        //if (Input.GetKeyDown(KeyCode.Alpha5) || Input.GetKeyDown(KeyCode.Keypad5))
+        //{
 
-            Debug.Log("Used Item");
-        }
-        //If Pressing 6 at top of keyboard or numpad
-        if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
-        {
+        //    Debug.Log("Used Item");
+        //}
+        ////If Pressing 6 at top of keyboard or numpad
+        //if (Input.GetKeyDown(KeyCode.Alpha6) || Input.GetKeyDown(KeyCode.Keypad6))
+        //{
 
-        }
-        //If Pressing 6 at top of keyboard or numpad
-        if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
-        {
+        //}
+        ////If Pressing 6 at top of keyboard or numpad
+        //if (Input.GetKeyDown(KeyCode.Alpha7) || Input.GetKeyDown(KeyCode.Keypad7))
+        //{
 
-        }
+        //}
     }
     void SelectCharacter(CharacterController character)
     {

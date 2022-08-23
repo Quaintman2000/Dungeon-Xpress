@@ -56,14 +56,14 @@ public class PlayerAnimationManager : AnimationManager
     private void AnimationStart()
     {
         PlayerController player = this.gameObject.GetComponent<PlayerController>();
-        player.playerNav.navMeshAgent.isStopped = true;
+        player.navMeshMovement.navMeshAgent.isStopped = true;
         player.isBusy = true;
     }
     //When the animation finishes it lets them move again
     public void AnimationEnd()
     {
         PlayerController player = this.gameObject.GetComponent<PlayerController>();
-        player.playerNav.navMeshAgent.isStopped = false;
+        player.navMeshMovement.navMeshAgent.isStopped = false;
         
         player.isBusy = false;
     }

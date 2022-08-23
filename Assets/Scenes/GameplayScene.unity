@@ -10251,6 +10251,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 403079769316277582, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: combatCtrl
       value: 
@@ -13402,6 +13406,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6780ad6daf498d54092376d62c126695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentSounds: []
+  CurrentSoundData: []
   musicScale: 0
   ambientScale: 0
   soundFXScale: 0
@@ -16983,6 +16989,10 @@ PrefabInstance:
     - target: {fileID: 7104359218675198186, guid: 5ca8043319172e845b5f747a306d510d, type: 3}
       propertyPath: m_Name
       value: Skeleton-PrisonGuard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7104359218675198186, guid: 5ca8043319172e845b5f747a306d510d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627991373300920912, guid: 5ca8043319172e845b5f747a306d510d, type: 3}
       propertyPath: m_RootOrder

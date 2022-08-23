@@ -19,6 +19,17 @@ public class PlayerNavMesh : NavMeshMovement
     // NavMeshAgent for pathfind.
     GameObject spawnedMarker;
     //Draws the line renderer path and sets the position of the marker to the destination
+
+    protected override void Awake()
+    {
+        base.Awake();
+        // Try to get the character controller...
+        if(TryGetComponent<PlayerController>(out PlayerController playerController))
+        {
+            // Subscribe the player controller actions.
+            playerController.FreeMoveToPointAction += SetMoveToMarker;
+        }
+    }
     private void DrawPath(Vector3 target)
     {
         NavMeshPath path = new NavMeshPath();
@@ -60,7 +71,7 @@ public class PlayerNavMesh : NavMeshMovement
         }
         //Draws a path for the character
         DrawPath(navHit.position);
-        
+        WalkingAction?.Invoke();
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = raycastPoint;
 
@@ -93,6 +104,8 @@ public class PlayerNavMesh : NavMeshMovement
 
     public override void AttackMove(Vector3 position, float closeEnough)
     {
+        SetMoveToMarker(position);
+        WalkingAction?.Invoke();
         DrawPath(position);
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = position;
