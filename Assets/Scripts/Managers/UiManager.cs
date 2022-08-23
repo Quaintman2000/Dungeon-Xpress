@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     //the abilities that will be used everytime a button is clicked
     [SerializeField] private AbilityData[] abilities = new AbilityData[4];
     [SerializeField] InventoryButton[] inventoryButtons = new InventoryButton[3];
-    InventoryManager inventoryManager;
+    
 
 
     //assign the bars to player accordingly
@@ -37,9 +37,13 @@ public class UIManager : MonoBehaviour
         abilities[3] = combatCtrl.CharacterData.Abilities[3];
 
         pausePanel.SetActive(false);
-        
-        if(playerCtrl.TryGetComponent<InventoryManager>(out inventoryManager))
+        // Subscribe to the player controller events.
+        playerCtrl.OnCombatStartedAction += ToggleSkillBar;
+        playerCtrl.OnPauseAction += PauseGame;
+        // If the player controller has an inventory manager...
+        if(playerCtrl.TryGetComponent<InventoryManager>(out InventoryManager inventoryManager))
         {
+            // Subscribe to the inventory manager events.
             inventoryManager.OnItemPickUpSucess += SetInventoryIcon;
             inventoryManager.OnItemRemoved += RemoveInventoryIcon;
         }
@@ -157,8 +161,14 @@ public class UIManager : MonoBehaviour
     {
         healthBar.fillAmount = health / combatCtrl.CharacterData.MaxHealth;
     }
+    /// <summary>
+    /// Pauses the game.
+    /// </summary>
     public void PauseGame()
     {
+        // Activate the pause panel.
+        pausePanel.SetActive(true);
+        // Set the timescale to 0.
         Time.timeScale = 0;
     }
     public void ResumeGame()
