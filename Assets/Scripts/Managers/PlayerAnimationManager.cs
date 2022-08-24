@@ -46,25 +46,25 @@ public class PlayerAnimationManager : AnimationManager
                 break;
         }
     }
-    public void DoorEnter()
-    {
-        AnimationStart();
-        animator.SetTrigger("OpenDoor");
-        AnimationEnd();
-    }
+    //public void DoorEnter()
+    //{
+    //    AnimationStart();
+    //    animator.SetTrigger("OpenDoor");
+    //    AnimationEnd();
+    //}
     //When certain animations start it should stop them in place
-    private void AnimationStart()
-    {
-        PlayerController player = this.gameObject.GetComponent<PlayerController>();
-        player.navMeshMovement.navMeshAgent.isStopped = true;
-        player.isBusy = true;
-    }
-    //When the animation finishes it lets them move again
-    public void AnimationEnd()
-    {
-        PlayerController player = this.gameObject.GetComponent<PlayerController>();
-        player.navMeshMovement.navMeshAgent.isStopped = false;
+    //private void AnimationStart()
+    //{
+    //    PlayerController player = this.gameObject.GetComponent<PlayerController>();
+    //    player.navMeshMovement.navMeshAgent.isStopped = true;
+    //    player.isBusy = true;
+    //}
+    ////When the animation finishes it lets them move again
+    //public void AnimationEnd()
+    //{
+    //    PlayerController player = this.gameObject.GetComponent<PlayerController>();
+    //    player.navMeshMovement.navMeshAgent.isStopped = false;
         
-        player.isBusy = false;
-    }
+    //    player.isBusy = false;
+    //}
 }

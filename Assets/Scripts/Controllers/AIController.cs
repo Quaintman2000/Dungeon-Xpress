@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class AIController : CharacterController
 {
-    [SerializeField] NavMeshMovement aiNav;
-    //Reference the creature animator
-    [SerializeField] Animator charAnimator;
+    // AI pathing variable.
+    [SerializeField] public NavMeshMovement navMeshMovement;
+    
 
     //Used to stop from running multiple actions
     bool performingAction;
@@ -32,7 +32,7 @@ public class AIController : CharacterController
     private void Awake()
     {
         // Grab our pathing component.
-        aiNav = gameObject.GetComponent<NavMeshMovement>();
+        navMeshMovement = gameObject.GetComponent<NavMeshMovement>();
     }
     // Start is called before the first frame update
     void Start()
@@ -60,7 +60,7 @@ public class AIController : CharacterController
     void Update()
     {
         if (!performingAction)
-            if (!aiNav.isMoving)
+            if (!navMeshMovement.isMoving)
         {
             AIState();
         }
@@ -97,7 +97,7 @@ public class AIController : CharacterController
     void Patrol()
     {
         Vector3 point = goToPoint1 ? PatrolPoint1 : PatrolPoint2;
-        aiNav.Move(point);
+        FreeMoveToPointAction?.Invoke(point);
         goToPoint1 = !goToPoint1;
     }
     //Gets a random direction for the enemy to move
@@ -111,7 +111,7 @@ public class AIController : CharacterController
         StartCoroutine(QuickBreak());
         if (NavMesh.SamplePosition(randomPoint, out hit, idleRadius, 1)) // Checks if it finds a point or not and stops if it doesn't
         {
-            aiNav.Move(hit.position + transform.position);
+            FreeMoveToPointAction?.Invoke(hit.position + transform.position);
         }
     }
     void CombatCheck()
@@ -124,8 +124,8 @@ public class AIController : CharacterController
                 //Should go after the second combatant
                 StartCoroutine(QuickBreak());
                 //Should go after the second combatant
-                if (aiNav.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.CharacterData.StartingActionPoints)
-                combatController.UseAbility(BattleManager.Instance.Combatants[0]);
+                if (navMeshMovement.GetDistance(BattleManager.Instance.Combatants[0].transform.position) <= combatController.CharacterData.StartingActionPoints)
+                    UseAbilityAction?.Invoke(BattleManager.Instance.Combatants[0]);
             }
         }
     }

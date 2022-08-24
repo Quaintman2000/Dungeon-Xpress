@@ -35,12 +35,12 @@ public class GameManager : MonoBehaviour
         TotalDoors++;
         return TotalDoors;
     }
-    public void OpenDoor(PlayerController player)
-    {
-        if (CurrentDoor != null)
-        {
-            CurrentDoor.OnDoorEnter(player);
+    //public void OpenDoor(PlayerController player)
+    //{
+    //    if (CurrentDoor != null)
+    //    {
+    //        CurrentDoor.OnDoorEnter(player);
             
-        }
-    }
+    //    }
+    //}
 }

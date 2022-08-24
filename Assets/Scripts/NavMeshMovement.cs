@@ -19,6 +19,13 @@ public class NavMeshMovement : MonoBehaviour
     protected virtual void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        if(TryGetComponent<CharacterController>(out CharacterController characterController))
+        {
+            if(!(characterController is PlayerController))
+            {
+                characterController.FreeMoveToPointAction = Move;
+            }
+        }
     }
     //We make a new path because most times the navMeshAgent has no path yet
     public virtual float GetDistance(Vector3 raycastPoint)

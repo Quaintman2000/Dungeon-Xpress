@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CombatController : MonoBehaviour
 {
@@ -22,21 +23,18 @@ public class CombatController : MonoBehaviour
     public int abilityIndex;
     [SerializeField] public AbilityData selectedAbilityData;
 
-    public delegate void CombatantEvent(CombatController combatController);
-     
-    public event CombatantEvent OnCombatantDeath, OnStartTurn;
-
-    public delegate void HealthChange(float health);
-    public event HealthChange OnHealthChange;
+    public Action OnDeathAction, OnHurtAction;
+    public Action<CombatController> OnCombatantDeath, OnStartTurn;
+    public Action<float> OnHealthChange;
 
     [SerializeField] PlayerAnimationManager animationManager;
 
-    CreatureAudioController audioControl;
-    InventoryManager inventoryManager;
+
+
 
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
-    
+
 
     // Start is called before the first frame update
     void Awake()
@@ -45,11 +43,11 @@ public class CombatController : MonoBehaviour
 
         // Set the player's starting health to the max.
         Health = CharacterData.MaxHealth;
-        animationManager = GetComponent<PlayerAnimationManager>();
-        audioControl = GetComponent<CreatureAudioController>();
+        TryGetComponent<PlayerAnimationManager>(out animationManager);
+
 
         // Try to geth the inventory manager component if we have one.
-        if (TryGetComponent<InventoryManager>(out inventoryManager))
+        if (TryGetComponent<InventoryManager>(out InventoryManager inventoryManager))
         {
             inventoryManager.OnUseItem += ApplyEffect;
         }
@@ -57,13 +55,11 @@ public class CombatController : MonoBehaviour
         CharacterController characterController;
         if (TryGetComponent<CharacterController>(out characterController))
         {
-            // If this character controller is a player controller...
-            if(characterController is PlayerController player)
-            {
-                // Subscribe to the combat related events.
-                player.CombatMoveToPointAction += MoveToPoint;
-                player.UseAbilityAction += UseAbility;
-            }
+
+            // Subscribe to the combat related events.
+            characterController.CombatMoveToPointAction += MoveToPoint;
+            characterController.UseAbilityAction += UseAbility;
+
         }
     }
 
@@ -117,8 +113,8 @@ public class CombatController : MonoBehaviour
                 {
                     // Apply the buff or debuff onto self.
                     DebuffOrBuff(selectedAbilityData);
-                   // Heal(15);
-                   //other.Heal(selectedAbilityData.Type != AbilityData.AbilityType.Healing ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
+                    // Heal(15);
+                    //other.Heal(selectedAbilityData.Type != AbilityData.AbilityType.Healing ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
                 }
                 // Else, if we can target only others or ourselves and others while targeting someone else...
                 else if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Others || selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) && Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range && other != this)
@@ -230,15 +226,13 @@ public class CombatController : MonoBehaviour
     /// <param name="damage"> The amount of damage to be dealt.</param>
     public void TakeDamage(float damage)
     {
-        audioControl.HurtSound();
+
         // Subtract health by damage.
         Health -= damage;
-        if (OnHealthChange != null)
-        {
-            Debug.Log("Took Damage");
-            //updates the health bar
-            OnHealthChange.Invoke(Health);
-        }
+
+        //updates the health bar
+        OnHealthChange?.Invoke(Health);
+        OnHurtAction?.Invoke();
         // If health is less than or equal to 0...
         if (Health <= 0)
         {
@@ -307,11 +301,10 @@ public class CombatController : MonoBehaviour
     {
         Debug.Log("Dead!");
         //Plays the death sound
-        audioControl.DeathSound();
-        // If there's someone listening to this event...
-        if (OnCombatantDeath != null)
-            // Call the death event with this.
-            OnCombatantDeath.Invoke(this);
+
+        OnDeathAction?.Invoke();
+        // Call the death event with this.
+        OnCombatantDeath?.Invoke(this);
     }
     // Starts the player's turn with their starting action points.
     public void StartTurn()
@@ -330,7 +323,7 @@ public class CombatController : MonoBehaviour
         {
             // Set isTurn to false.
             IsTurn = false;
-            
+
             // Call the battlemanager to change turns.
             BattleManager.Instance.ChangeTurn();
         }

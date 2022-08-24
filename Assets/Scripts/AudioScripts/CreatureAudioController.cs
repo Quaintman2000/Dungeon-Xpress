@@ -17,6 +17,13 @@ public class CreatureAudioController : AudioController
             // Subscribe its action event(s).
            // navMeshMovement.WalkingAction += WalkSound;
         }
+        // If we have a combat controller...
+        if(TryGetComponent<CombatController>(out CombatController combatController))
+        {
+            combatController.OnDeathAction += DeathSound;
+            combatController.OnHurtAction += HurtSound;
+        }
+        
     }
 
     /// <summary>

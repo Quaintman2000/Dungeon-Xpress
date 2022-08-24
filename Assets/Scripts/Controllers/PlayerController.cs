@@ -14,8 +14,8 @@ public class PlayerController : CharacterController
   
     // Action events
     public Action AttemptPickupAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
-    public Action<CombatController> UseAbilityAction;
-    public Action<Vector3> CombatMoveToPointAction, FreeMoveToPointAction;
+    
+    
     public Action<float, float> MoveCameraAction;
     public Action<float> RotateCameraAction;
     public Action<bool> OnCombatStartedAction;
@@ -189,7 +189,7 @@ public class PlayerController : CharacterController
         {
             //Checks if player is near door and enters if they do
 
-            GameManager.Instance.OpenDoor(this);
+            //GameManager.Instance.OpenDoor(this);
             //Starts cooldown
             StartCoroutine(DoorCooldown());
         }
