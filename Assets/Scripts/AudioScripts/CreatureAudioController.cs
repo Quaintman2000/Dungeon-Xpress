@@ -22,6 +22,7 @@ public class CreatureAudioController : AudioController
         {
             combatController.OnDeathAction += DeathSound;
             combatController.OnHurtAction += HurtSound;
+            combatController.OnAbilityUsedAction += PlayAbilitySound;
         }
         
     }
@@ -31,9 +32,9 @@ public class CreatureAudioController : AudioController
     /// </summary>
     /// <param name="i"></param>
     /// <param name="targetPostion"></param>
-    public void PlayAbilitySound(SoundData Ability)
+    public void PlayAbilitySound(CombatController Ability)
     {
-        AudioManager.instance.PlaySound(Ability, transform.position);
+        AudioManager.instance.PlaySound(Ability.selectedAbilityData.AbilitySound, transform.position);
     }
     public virtual void WalkSound()
     {

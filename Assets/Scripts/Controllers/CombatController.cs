@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 public class CombatController : MonoBehaviour
 {
@@ -23,9 +24,10 @@ public class CombatController : MonoBehaviour
     public int abilityIndex;
     [SerializeField] public AbilityData selectedAbilityData;
 
-    public Action OnDeathAction, OnHurtAction;
-    public Action<CombatController> OnCombatantDeath, OnStartTurn;
+    public Action OnDeathAction, OnHurtAction, OnAbilityUsedStartAction, OnAbilityUsedEndAction;
+    public Action<CombatController> OnCombatantDeath, OnStartTurn, OnAbilityUsedAction;
     public Action<float> OnHealthChange;
+ 
 
     [SerializeField] PlayerAnimationManager animationManager;
 
@@ -58,128 +60,45 @@ public class CombatController : MonoBehaviour
 
             // Subscribe to the combat related events.
             characterController.CombatMoveToPointAction += MoveToPoint;
-            characterController.UseAbilityAction += UseAbility;
-
+            characterController.UseAbilityAction += CheckCanUseAbility;
         }
+
+        OnAbilityUsedEndAction += CheckEndTurn;
     }
 
 
-    /// <summary>
-    /// Uses the selected ability data and applies its functionality onto the target
-    /// </summary>
-    /// <param name="other">The combatant selected target.</param>
-    public void UseAbility(CombatController other)
+    
+
+    async void CheckCanUseAbility(CombatController other)
     {
-        // The total length of the path from the player to the target.
-        float distance = navMesh.GetDistance(other.transform.position);
-        // If we have any status effects...
-        //if (statusEffects.Count > 0)
-        //{
-        //    // Apply the modifier to the total distance.
-        //    distance /= statusEffects[0].Multiplier;
-        //}
-        // Calculate the movement cost by how far along the path we have to travel.
-        int movementCost = Mathf.RoundToInt(distance - selectedAbilityData.Range);
-        // Clamp the value to 0 to prevent logic errors.
-        movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
-
-
-        Debug.Log("Movement Cost:" + movementCost);
-        if (movementCost < actionPoints)
-            CheckCanUseAbility(other, movementCost);
-
-        // Check if we ran out of action points.
-        CheckEndTurn();
-
-    }
-
-    /// <summary>
-    /// Checks to see if we can use the ability.
-    /// </summary>
-    /// <param name="other">The target.</param>
-    /// <param name="movementCost"> The cost to move for the ability. </param>
-    private void CheckCanUseAbility(CombatController other, int movementCost)
-    {
-        // If we have enough action points for the ability...
-        if (selectedAbilityData.cost <= actionPoints)
+        // We need to check to see if we can use this ability.
+        // If we have enough AP to use the ability and if we are in range...
+        if (actionPoints >= selectedAbilityData.Cost && Vector3.Distance(a: other.transform.position, b: transform.position) < selectedAbilityData.Range)
         {
-            // If the ability has a buff or debuff effect...
-            if (selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff || selectedAbilityData.BuffType == AbilityData.BuffOrDebuff.Buff)
-            {
-                // If the we can target ourselves or ourselves & others while also selecting us to use the ability...
-                if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Self ||
-                     selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) &&
-                     other == this)
-                {
-                    // Apply the buff or debuff onto self.
-                    DebuffOrBuff(selectedAbilityData);
-                    // Heal(15);
-                    //other.Heal(selectedAbilityData.Type != AbilityData.AbilityType.Healing ? selectedAbilityData.PhysDamage : CharacterData.PhysicalDamage);
-                }
-                // Else, if we can target only others or ourselves and others while targeting someone else...
-                else if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Others || selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) && Vector3.Distance(transform.position, other.transform.position) <= selectedAbilityData.Range && other != this)
-                {
-                    // Apply the buff or debuff on them.
-                    other.DebuffOrBuff(selectedAbilityData);
-                }
-            }
-            // If we can target only others or ourselves and others while targeting someone else...
-            if ((selectedAbilityData.TargetStyle == AbilityData.TargetType.Others || selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers) && other != this)
-            {
-                // If the ability is a melee type of ability...
-                if (selectedAbilityData.Type == AbilityData.AbilityType.MeleeAttack)
-                {
-                    // If we have enough action points to cover the cost of the ability and to move to the target...
-                    if (selectedAbilityData.cost + movementCost <= actionPoints)
-                    {
-                        // Subtract the movement cost from action points.
-                        actionPoints -= movementCost;
-                        // Start the attack move couroutine.
-                        StartCoroutine(AttackMove(other));
+            // Subtract the action points by the cost.
+            actionPoints -= selectedAbilityData.Cost;
+            // Call the event for those who need to know that we just used an ability.
+            OnAbilityUsedStartAction?.Invoke();
+            OnAbilityUsedAction?.Invoke(this);
+            
+            // Grab the ability animation length and convert it to milleseconds.
+            var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
+            
+            // Delay this function by the animation length.
+            await Task.Delay(animationLength);
 
-                    }
-                }
-                // Else, if the ability was a movement type.
-                else if (selectedAbilityData.Type == AbilityData.AbilityType.Movement)
-                {
-                    // TODO: for movement abilities like teleport.
-                }
-                // Else, if the ability is a range attack.
-                else if (selectedAbilityData.Type == AbilityData.AbilityType.RangeAttack)
-                {
-                    // Save raycast hit info.
-                    RaycastHit hit;
-                    // Save the direction to the target.
-                    Vector3 targetDirection = other.transform.position - transform.position;
-                    // If our raycast hits anything...
-                    if (Physics.Raycast(transform.position, targetDirection, out hit))
-                    {
-                        // If the collider we hit is the target's...
-                        if (hit.collider == other.GetComponent<Collider>())
-                        {
-                            Debug.DrawRay(transform.position, other.transform.position, Color.green);
-                            Debug.Log("Fireball!");
-                            // Do range attack on target.
-                            RangeAttack(other);
-                            if (animationManager != null)
-                                animationManager.SetAbilityTrigger(abilityIndex);
-                        }
-                    }
-                    // Else, if we hit nothing.
-                    else
-                    {
-                        // Do nothing.
-                        Debug.Log("miss fire");
-                        Debug.DrawRay(transform.position, targetDirection, Color.red);
-                    }
-                    Debug.Log("sizzle.");
-                }
-            }
-            // Subtract ability cost from our action points.
-            actionPoints -= selectedAbilityData.cost;
-
+            // Tell those who are listening for the ability to end that the ability is over.
+            OnAbilityUsedEndAction?.Invoke();
         }
     }
+
+    // This is called during the ability animation to signal the ability functionality as they can start at different times.
+    void Activate()
+    {
+        selectedAbilityData.Activate(this);
+    }
+
+    
 
     /// <summary>
     /// Moves the player into range of the target and deals damage to the target.
@@ -209,7 +128,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("Hiya!");
         // Set them to attacking and deal damage to the other combatant.
         currentCombatState = CombatState.Attacking;
-        other.TakeDamage(selectedAbilityData.PhysDamage);
+        //other.TakeDamage(selectedAbilityData.PhysDamage);
         Debug.Log("Player took damage");
         if (animationManager != null)
             animationManager.SetAbilityTrigger(abilityIndex);
@@ -241,22 +160,22 @@ public class CombatController : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Applies the buff or debuff effects on self.
-    /// </summary>
-    /// <param name="abilityData"> The ability to apply.</param>
-    public void DebuffOrBuff(AbilityData abilityData)
-    {
-        Health += abilityData.PhysDamage;
-        if (Health <= 99)
-        {
-            if (OnHealthChange != null)
-            {
-                //updates the health bar
-                OnHealthChange.Invoke(Health);
-            }
-        }
-    }
+    ///// <summary>
+    ///// Applies the buff or debuff effects on self.
+    ///// </summary>
+    ///// <param name="abilityData"> The ability to apply.</param>
+    //public void DebuffOrBuff(AbilityData abilityData)
+    //{
+    //    //Health += abilityData.PhysDamage;
+    //    if (Health <= 99)
+    //    {
+    //        if (OnHealthChange != null)
+    //        {
+    //            //updates the health bar
+    //            OnHealthChange.Invoke(Health);
+    //        }
+    //    }
+    //}
     public void Heal(float hAmount)
     {
         Health += hAmount;
@@ -269,31 +188,28 @@ public class CombatController : MonoBehaviour
         }
 
     }
-    /// <summary>
-    /// Shoots the projectile towards the target.
-    /// </summary>
-    /// <param name="other">The target</param>
-    void RangeAttack(CombatController other)
-    {
-        // Need the direction from the player's position to the target position.
-        Vector3 targetDirection = other.transform.position - transform.position;
-        // Rotate the player to look at the target.
-        transform.rotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
-        // Spawns in the projectile at the firepoint position and direction towards the target.
-        Projectile newProjectile = Instantiate<Projectile>(selectedAbilityData.Projectile, firePoint.position, Quaternion.LookRotation(targetDirection));
-        // Set the projectile's target to our target.
-        newProjectile.Target = other;
-        // Set it's damage to be the ability's damage.
-        newProjectile.Damage = selectedAbilityData.MagicDamage;
-    }
+    ///// <summary>
+    ///// Shoots the projectile towards the target.
+    ///// </summary>
+    ///// <param name="other">The target</param>
+    //void RangeAttack(CombatController other)
+    //{
+    //    // Need the direction from the player's position to the target position.
+    //    Vector3 targetDirection = other.transform.position - transform.position;
+    //    // Rotate the player to look at the target.
+    //    transform.rotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
+    //    // Spawns in the projectile at the firepoint position and direction towards the target.
+    //    Projectile newProjectile = Instantiate<Projectile>(selectedAbilityData.Projectile, firePoint.position, Quaternion.LookRotation(targetDirection));
+    //    // Set the projectile's target to our target.
+    //    newProjectile.Target = other;
+    //    // Set it's damage to be the ability's damage.
+    //    newProjectile.Damage = selectedAbilityData.MagicDamage;
+    //}
     /// <summary>
     /// Handles the movement ability like teleports and other special types of movement.
     /// </summary>
     /// <param name="other"> the Target</param>
-    void Movement(CombatController other)
-    {
-
-    }
+ 
 
     [ContextMenu("Die")]
     // Handles the death procedure.

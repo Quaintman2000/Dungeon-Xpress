@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5af7d037f9440664995a69cabfb37aa9, type: 3}
-  m_Name: Punch
+  m_Script: {fileID: 11500000, guid: a50b36ec9c9faa444bd6989435f2adba, type: 3}
+  m_Name: New Spinning Strike Data
   m_EditorClassIdentifier: 
   name: 
   abilityType: 0
@@ -18,6 +18,9 @@ MonoBehaviour:
   targetStyle: 3
   icon: {fileID: 0}
   range: 0
-  cost: 1
+  cost: 0
   soundData: {fileID: 0}
-  animationClip: {fileID: -203655887218126122, guid: 3b2a11ce679187b4db6d1e300853315e, type: 3}
+  animationClip: {fileID: -203655887218126122, guid: 50086a3bf61df3242a65e31116aa830f, type: 3}
+  damage: 0
+  maxHeight: 0
+  minHeight: 0

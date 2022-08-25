@@ -12,19 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af7d037f9440664995a69cabfb37aa9, type: 3}
   m_Name: TestAbility
   m_EditorClassIdentifier: 
-  AbilityName: Zap
-  Type: 0
-  BuffType: 1
-  TargetStyle: 1
-  Icon: {fileID: 0}
-  PhysDamage: 5
-  MagicDamage: 5
-  Range: 1.6
-  Cooldown: 0
+  name: 
+  abilityType: 0
+  buffOrDebuff: 0
+  targetStyle: 3
+  icon: {fileID: 0}
+  range: 0
   cost: 1
-  statusEffect:
-    EffectTime: 2
-    Multiplier: 2
-  MovementModifier: 0
-  Projectile: {fileID: 0}
-  AbilitySound: {fileID: 11400000, guid: 1e7140b81ba5d544ba10dbceb0aabe6f, type: 2}
+  soundData: {fileID: 0}
+  animationClip: {fileID: -203655887218126122, guid: 7bd4fc550017e5c44b1ac24ce23348aa, type: 3}

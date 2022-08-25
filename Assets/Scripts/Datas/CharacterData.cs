@@ -16,10 +16,7 @@ public class CharacterData : ScriptableObject
     public float MaxHealth;
     [BoxGroup("Split/ Stats:"), MinValue(0)]
     public float MovementRange;
-   // [BoxGroup("Split/ Stats:"), MinValue(0)]
-   // public float PhysicalDamage;
-    [BoxGroup("Split/ Stats:"), MinValue(0)]
-    public float MagicDamage;
+   
     [BoxGroup("Split/ Stats:"), MinValue(0)]
     public float AttackSpeed;
     [BoxGroup("Split/ Stats:"), MinValue(0)]

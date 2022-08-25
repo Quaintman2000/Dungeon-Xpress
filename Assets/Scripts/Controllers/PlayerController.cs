@@ -109,6 +109,8 @@ public class PlayerController : CharacterController
             // Sends the raycast of to infinity until hits something.
             Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
+           
+
             if (selectedCharacter == this)
             {
                 //Cast a ray from our camera toward the plane, through our mouse cursor
@@ -149,13 +151,13 @@ public class PlayerController : CharacterController
                         // If the combatant isnt us...
                         UseAbilityAction?.Invoke(other);
                         //combatController.UseAbility(other);
-                        audioControl.AbilityCastlineSound();
+                        //audioControl.AbilityCastlineSound();
                     }
                     else
                     {
                         CombatMoveToPointAction?.Invoke(raycastPoint);
-                        audioControl.WalkLineSound();
-                        audioControl.WalkSound();
+                       // audioControl.WalkLineSound();
+                        //audioControl.WalkSound();
                     }
                 }
             }
