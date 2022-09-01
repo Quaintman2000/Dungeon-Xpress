@@ -22,7 +22,7 @@ public class CreatureAudioController : AudioController
         {
             combatController.OnDeathAction += DeathSound;
             combatController.OnHurtAction += HurtSound;
-            combatController.OnAbilityUsedAction += PlayAbilitySound;
+           // combatController.OnAbilityUsedAction += PlayAbilitySound;
         }
         
     }

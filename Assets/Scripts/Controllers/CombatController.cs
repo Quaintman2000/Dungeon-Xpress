@@ -30,7 +30,7 @@ public class CombatController : MonoBehaviour
  
 
     [SerializeField] PlayerAnimationManager animationManager;
-
+    public CombatController currentTarget { get; private set; }
 
 
 
@@ -71,9 +71,15 @@ public class CombatController : MonoBehaviour
 
     async void CheckCanUseAbility(CombatController other)
     {
+        currentTarget = other;
         // We need to check to see if we can use this ability.
+        // If the target is the activator and the target style is NOT self or Self and others, don't hit activator.
+        if (currentTarget == this && (selectedAbilityData.TargetStyle != AbilityData.TargetType.Self && selectedAbilityData.TargetStyle != AbilityData.TargetType.SelfAndOthers))
+            return;
+
+        Debug.Log("Distance between the player and target: "+ Vector3.Distance(a: currentTarget.transform.position, b: transform.position)+" Units.");
         // If we have enough AP to use the ability and if we are in range...
-        if (actionPoints >= selectedAbilityData.Cost && Vector3.Distance(a: other.transform.position, b: transform.position) < selectedAbilityData.Range)
+        if (actionPoints >= selectedAbilityData.Cost && Vector3.Distance(a: currentTarget.transform.position, b: transform.position) <= selectedAbilityData.Range)
         {
             // Subtract the action points by the cost.
             actionPoints -= selectedAbilityData.Cost;
@@ -96,6 +102,7 @@ public class CombatController : MonoBehaviour
     void Activate()
     {
         selectedAbilityData.Activate(this);
+        selectedAbilityData = null;
     }
 
     
@@ -145,6 +152,33 @@ public class CombatController : MonoBehaviour
     /// <param name="damage"> The amount of damage to be dealt.</param>
     public void TakeDamage(float damage)
     {
+        // Subtract health by damage.
+        Health -= damage;
+
+        //updates the health bar
+        OnHealthChange?.Invoke(Health);
+        OnHurtAction?.Invoke();
+        // If health is less than or equal to 0...
+        if (Health <= 0)
+        {
+            // Commit die.
+            Die();
+        }
+    }
+    public void TakeDamage(float damage, CombatController attacker)
+    {
+        // For each effect in our status effects...
+        foreach (var effect in statusEffects)
+        {
+            // If effect is an IDefensiveEffect...
+            if (effect is IDefensiveEffect defensiveEffect)
+            {
+                // Call it to handle it's effect over.
+                defensiveEffect.HandleEffectOver(this, attacker);
+                RemoveStatusEffect(effect);
+                return;
+            }
+        }
 
         // Subtract health by damage.
         Health -= damage;

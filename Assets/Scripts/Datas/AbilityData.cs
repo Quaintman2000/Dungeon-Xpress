@@ -45,6 +45,21 @@ public class AbilityData : ScriptableObject
     public enum BuffOrDebuff { Buff, Debuff, None}
     public enum TargetType { Self, Others, Ground, SelfAndOthers }
 
+    public virtual bool IsValidTarget(CombatController self, CombatController target)
+    {
+        if (target == self && (targetStyle != TargetType.Self && targetStyle != TargetType.SelfAndOthers))
+            return false;
+        else if (target != self && (targetStyle != TargetType.Others && targetStyle != TargetType.SelfAndOthers))
+            return false;
+
+        return true;
+    }
+    public virtual bool IsValidTarget(CombatController self, CombatController target, out CombatController combatController)
+    {
+        combatController = target;
+        return true;
+    }
+
     public virtual async Task Activate(CombatController combatController) {
 
         await Task.Yield();

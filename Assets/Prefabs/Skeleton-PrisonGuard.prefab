@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2777166818814060722}
   - component: {fileID: 6049803516341693992}
   - component: {fileID: 7708956525878159103}
-  m_Layer: 7
+  - component: {fileID: 6755586338813717678}
+  m_Layer: 0
   m_Name: Shoulder Pads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6755586338813717678
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399100914240481197}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -7678996478536586809, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
 --- !u!1 &3040825597304084825
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +107,8 @@ GameObject:
   - component: {fileID: 8914553382335106238}
   - component: {fileID: 5167374100945429449}
   - component: {fileID: 534648135473240163}
-  m_Layer: 7
+  - component: {fileID: 6923629261382976067}
+  m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +178,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &6923629261382976067
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3040825597304084825}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5273605855520333666, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
 --- !u!1 &6098711356065239421
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +203,8 @@ GameObject:
   - component: {fileID: 5663617553394318182}
   - component: {fileID: 1076348446134736069}
   - component: {fileID: 8515815825966838896}
-  m_Layer: 7
+  - component: {fileID: 1909052913264376599}
+  m_Layer: 0
   m_Name: Belt Fabric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -243,6 +274,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1909052913264376599
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098711356065239421}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2627978272815971616, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
 --- !u!1 &6761911111224480738
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +299,8 @@ GameObject:
   - component: {fileID: 5687954134947532201}
   - component: {fileID: 1194838636847752800}
   - component: {fileID: 6071209198203350099}
-  m_Layer: 7
+  - component: {fileID: 7766575456069285009}
+  m_Layer: 0
   m_Name: Shackles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,6 +370,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7766575456069285009
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6761911111224480738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2637765815063728775, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
 --- !u!1 &7104359218675198186
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,7 +399,7 @@ GameObject:
   - component: {fileID: 7950727735929017799}
   - component: {fileID: 7950727735929017796}
   - component: {fileID: -1992880566794851244}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Skeleton-PrisonGuard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -377,7 +437,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
@@ -453,7 +513,6 @@ MonoBehaviour:
   currentCombatState: 0
   abilityIndex: 0
   selectedAbilityData: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
-  statusEffects: []
   animationManager: {fileID: 0}
 --- !u!114 &-1992880566794851244
 MonoBehaviour:
@@ -467,12 +526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92c840c793a894478702183f1fa9707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNav: {fileID: 0}
   selectionCircle: {fileID: 7625229894292000167}
   currentState: 1
   combatController: {fileID: 7950727735929017796}
-  aiNav: {fileID: 0}
-  charAnimator: {fileID: 0}
+  navMeshMovement: {fileID: 0}
   movementType: 2
   goToPoint1: 0
   PatrolPoint1: {x: 0, y: 0, z: 0}
@@ -490,7 +547,8 @@ GameObject:
   - component: {fileID: 5733395388130799461}
   - component: {fileID: 2848325400723963948}
   - component: {fileID: 8705605071872587852}
-  m_Layer: 7
+  - component: {fileID: 314208376151707077}
+  m_Layer: 0
   m_Name: Shoulder Fabric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,6 +618,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &314208376151707077
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7308910307828075041}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4065610250390435228, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}
 --- !u!1 &7625229894292000167
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7625229894292000161}
   - component: {fileID: 7625229894292000160}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Skeleton Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -653,7 +725,8 @@ GameObject:
   - component: {fileID: 9058595414879398160}
   - component: {fileID: 2083947823388014459}
   - component: {fileID: 1057588125425021604}
-  m_Layer: 7
+  - component: {fileID: 5806676217085248345}
+  m_Layer: 0
   m_Name: Belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -723,3 +796,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5806676217085248345
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8827845096338758423}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7497134608830541777, guid: c7dbba21c946ff04ba0dbab3a07eb0a2, type: 3}

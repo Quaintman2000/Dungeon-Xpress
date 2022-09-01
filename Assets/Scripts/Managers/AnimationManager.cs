@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Animator))]
 public abstract class AnimationManager : MonoBehaviour
 {
-    protected Animator animator;
+    public Animator animator { get; protected set; }
     protected NavMeshAgent navMeshAgent;
     protected CombatController combatController;
 
@@ -21,9 +21,9 @@ public abstract class AnimationManager : MonoBehaviour
 
     protected void PlayAbilityAnimation(CombatController combatant)
     {
-        var stateNameHasCode = GetTriggerName(combatant.abilityIndex);
+        var stateName = GetTriggerName(combatant.abilityIndex);
 
-        animator.SetTrigger(stateNameHasCode);
+        animator.SetTrigger(stateName);
     }
 
     protected string GetTriggerName(int index)

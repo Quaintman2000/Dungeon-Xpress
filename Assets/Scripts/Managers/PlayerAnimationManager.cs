@@ -46,6 +46,9 @@ public class PlayerAnimationManager : AnimationManager
                 break;
         }
     }
+
+ 
+
     //public void DoorEnter()
     //{
     //    AnimationStart();

@@ -43,4 +43,18 @@ public class SpinningStrikeData : AbilityData
             hitCombatants[i].TakeDamage(damage);
         }
     }
+
+    public override bool IsValidTarget(CombatController self, CombatController target)
+    {
+        if (target.transform.position.y > minHeight && target.transform.position.y < maxHeight && target != self && Vector3.Distance(self.transform.position, target.transform.position) < range) 
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    
+        
+    
+
 }

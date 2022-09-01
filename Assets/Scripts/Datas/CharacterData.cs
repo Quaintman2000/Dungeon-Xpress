@@ -25,4 +25,8 @@ public class CharacterData : ScriptableObject
     public Sprite CharacterImage;
 
     public AbilityData[] Abilities = new AbilityData[4];
+
+    public AnimatorOverrideController ClassAnimatorOverride => animatorOverrideController;
+    [SerializeField]
+    protected AnimatorOverrideController animatorOverrideController;
 }

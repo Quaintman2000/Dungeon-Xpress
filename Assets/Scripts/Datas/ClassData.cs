@@ -6,16 +6,14 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(fileName = "NewClassData", menuName ="Classes/ClassData")]
 public class ClassData : CharacterData
 {
-    public AnimatorOverrideController ClassAnimatorOverride => animatorOverrideController;
-    [SerializeField]
-    protected AnimatorOverrideController animatorOverrideController;
+  
 
     private void OnValidate()
     {
         // If we don't have an animation override controller, return.
         if (animatorOverrideController == null)
             return;
-
+         
         // Grab the current clip overrides.
         var currentClipOverrides = new List<KeyValuePair<AnimationClip, AnimationClip>>(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(currentClipOverrides);
@@ -27,13 +25,15 @@ public class ClassData : CharacterData
         foreach(var clipPair in currentClipOverrides)
         {
             // If the key is a walk or idle, skip it.
-            if (clipPair.Key.name.Contains("Walk") || clipPair.Key.name.Contains("Idle"))
+            if (!clipPair.Key.name.Contains("Ability"))
                 continue;
+
+            var newClip = Abilities[index].AnimationClip != null ? Abilities[index].AnimationClip : null;
 
             // Make a new pair with the old key and the new ability animation.
             var newClipPair = new KeyValuePair<AnimationClip, AnimationClip>(clipPair.Key, Abilities[index].AnimationClip);
-
-            Debug.Log(newClipPair.Key.name + " , " + newClipPair.Value.name);
+            if(Abilities[index].AnimationClip != null)
+                Debug.Log(newClipPair.Key.name + " , " + newClipPair.Value.name);
             // Add it to the new clip overrides.
             newClipOverrides.Add(newClipPair);
             // Increase the index for the abilites.
