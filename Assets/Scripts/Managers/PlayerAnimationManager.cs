@@ -4,50 +4,51 @@ using UnityEngine;
 
 public class PlayerAnimationManager : AnimationManager
 {
-    ClassData classData;
+    protected bool isParryStance = false;
+
+    readonly int parryStanceIdleState = Animator.StringToHash("Parry Stance Idle State");
+    readonly int parryState = Animator.StringToHash("Parry State");
+    readonly int enterDoorState;
 
     protected override void Start()
     {
         base.Start();
-        classData = (ClassData)combatController.CharacterData;
-        animator.runtimeAnimatorController = classData.ClassAnimatorOverride;
+      
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetIsParryStance(bool shouldParryStace)
     {
-        UpdateAnimator();   
+        isParryStance = shouldParryStace;
     }
 
-    protected override void UpdateAnimator()
+    protected override void ToggleWalkAnimation(bool isWalking)
     {
-        animator.SetBool("IsMoving", navMeshAgent.velocity.magnitude > 0.1f);
+        // Change our animation state to walking if "isWalking" is true.
+        // To idle if "isWalking" if false and if "isParryStance" is false, otherwise, go to parry stance idle. 
+        ChangeAnimationState(isWalking ? movingState : (isParryStance ? parryStanceIdleState : idleState));
     }
 
-    public void SetAbilityTrigger(int index)
+    protected override async void PlayAbilityAnimation(CombatController combatant)
     {
-        index = (int)Mathf.Clamp(index, 1, 4);
-        switch(index)
-        {
-            case 1:
-                animator.SetTrigger("UseSkillOne");
-                break;
-
-            case 2:
-                animator.SetTrigger("UseSkillTwo");
-                break;
-
-            case 3:
-                animator.SetTrigger("UseSkillThree");
-                break;
-
-            case 4:
-                animator.SetTrigger("UseSkillFour");
-                break;
-        }
+        // Get the state name from the ability index.
+        var stateName = GetTriggerName(combatant.abilityIndex);
+        // Change the animation state to that abilty state.
+        await ChangeAnimationState(stateName);
+        // Lock us in this state
+        await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
+        // Set the animator to our respective idle state based if we're in the parry stance or not.
+        await ChangeAnimationState(isParryStance ? parryStanceIdleState : idleState);
     }
 
- 
+    public async void PlayParryAnimation()
+    {
+        // Change the animation state to parry state.
+        await ChangeAnimationState(parryState);
+        // Lock us in this state
+        await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
+        // Set the animator to our respective idle state based if we're in the parry stance or not.
+        await ChangeAnimationState(idleState);
+    }
 
     //public void DoorEnter()
     //{
@@ -67,7 +68,7 @@ public class PlayerAnimationManager : AnimationManager
     //{
     //    PlayerController player = this.gameObject.GetComponent<PlayerController>();
     //    player.navMeshMovement.navMeshAgent.isStopped = false;
-        
+
     //    player.isBusy = false;
     //}
 }

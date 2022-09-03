@@ -14,7 +14,7 @@ public class NavMeshMovement : MonoBehaviour
     // NavMeshAgent for pathfind.
     public NavMeshAgent navMeshAgent;
 
-    public Action WalkingAction;
+    public Action<bool> WalkingAction;
 
     protected virtual void Awake()
     {
@@ -49,7 +49,7 @@ public class NavMeshMovement : MonoBehaviour
     {
         //Tell the NavMesh to go to the move position
         navMeshAgent.destination = movePosition;
-        WalkingAction?.Invoke();
+        WalkingAction?.Invoke(true);
         if (movingCoroutine != null)
         {
             StopCoroutine(movingCoroutine);
@@ -61,7 +61,7 @@ public class NavMeshMovement : MonoBehaviour
     {
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = position;
-        WalkingAction.Invoke();
+        WalkingAction.Invoke(true);
         if (movingCoroutine != null)
         {
             StopCoroutine(movingCoroutine);
@@ -94,6 +94,7 @@ public class NavMeshMovement : MonoBehaviour
     }
     public virtual void Stop()
     {
+        WalkingAction?.Invoke(false);
         isMoving = false;
     }
 }

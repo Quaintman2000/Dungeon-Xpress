@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu( menuName = "Status Effects/Parry Status")]
+[CreateAssetMenu(menuName = "Status Effects/Parry Status")]
 public class ParryStatusEffectData : StatusEffectData
 {
     public SlowEffectData SlowEffect => slowEffect;
@@ -34,10 +34,10 @@ public class ParryStatusEffect : StatusEffect, IDefensiveEffect
 
     public void ApplyEffect(CombatController combatController)
     {
-        
-        if(combatController.TryGetComponent<PlayerAnimationManager>(out animationManager))
+
+        if (combatController.TryGetComponent<PlayerAnimationManager>(out animationManager))
         {
-            animationManager.animator.SetBool("IsParryStance", true);
+            animationManager.SetIsParryStance(true);
         }
         else
         {
@@ -48,18 +48,18 @@ public class ParryStatusEffect : StatusEffect, IDefensiveEffect
 
     public void HandleEffectOver(CombatController defender, CombatController attacker)
     {
-        if(animationManager != null)
+        if (animationManager != null)
         {
-            animationManager.animator.SetTrigger("ActivateParry");
-            animationManager.animator.SetBool("IsParryStance", false);
-            parryEffectData.SlowEffect.GetStatusEffect(attacker);
+            animationManager.PlayParryAnimation();
+            animationManager.SetIsParryStance(false);
         }
         else
         {
             Debug.LogError("This character: " + defender.gameObject.name + " does not contain a player animation Manager.");
             return;
         }
+        parryEffectData.SlowEffect.GetStatusEffect(attacker);
     }
 
-  
+
 }

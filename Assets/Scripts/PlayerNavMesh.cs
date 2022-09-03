@@ -71,7 +71,7 @@ public class PlayerNavMesh : NavMeshMovement
         }
         //Draws a path for the character
         DrawPath(navHit.position);
-        WalkingAction?.Invoke();
+        WalkingAction?.Invoke(true);
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = raycastPoint;
 
@@ -105,7 +105,7 @@ public class PlayerNavMesh : NavMeshMovement
     public override void AttackMove(Vector3 position, float closeEnough)
     {
         SetMoveToMarker(position);
-        WalkingAction?.Invoke();
+        WalkingAction?.Invoke(true);
         DrawPath(position);
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = position;

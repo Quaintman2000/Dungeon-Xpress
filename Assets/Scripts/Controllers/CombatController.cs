@@ -27,9 +27,9 @@ public class CombatController : MonoBehaviour
     public Action OnDeathAction, OnHurtAction, OnAbilityUsedStartAction, OnAbilityUsedEndAction;
     public Action<CombatController> OnCombatantDeath, OnStartTurn, OnAbilityUsedAction;
     public Action<float> OnHealthChange;
- 
 
-    [SerializeField] PlayerAnimationManager animationManager;
+
+
     public CombatController currentTarget { get; private set; }
 
 
@@ -45,9 +45,12 @@ public class CombatController : MonoBehaviour
 
         // Set the player's starting health to the max.
         Health = CharacterData.MaxHealth;
-        TryGetComponent<PlayerAnimationManager>(out animationManager);
 
 
+        if (TryGetComponent<AnimationManager>(out AnimationManager animationManager))
+        {
+            animationManager.DeathAnimationOverAction += DestroyThis;
+        }
         // Try to geth the inventory manager component if we have one.
         if (TryGetComponent<InventoryManager>(out InventoryManager inventoryManager))
         {
@@ -67,7 +70,7 @@ public class CombatController : MonoBehaviour
     }
 
 
-    
+
 
     async void CheckCanUseAbility(CombatController other)
     {
@@ -77,7 +80,7 @@ public class CombatController : MonoBehaviour
         if (currentTarget == this && (selectedAbilityData.TargetStyle != AbilityData.TargetType.Self && selectedAbilityData.TargetStyle != AbilityData.TargetType.SelfAndOthers))
             return;
 
-        Debug.Log("Distance between the player and target: "+ Vector3.Distance(a: currentTarget.transform.position, b: transform.position)+" Units.");
+        Debug.Log("Distance between the player and target: " + Vector3.Distance(a: currentTarget.transform.position, b: transform.position) + " Units.");
         // If we have enough AP to use the ability and if we are in range...
         if (actionPoints >= selectedAbilityData.Cost && Vector3.Distance(a: currentTarget.transform.position, b: transform.position) <= selectedAbilityData.Range)
         {
@@ -86,10 +89,10 @@ public class CombatController : MonoBehaviour
             // Call the event for those who need to know that we just used an ability.
             OnAbilityUsedStartAction?.Invoke();
             OnAbilityUsedAction?.Invoke(this);
-            
+
             // Grab the ability animation length and convert it to milleseconds.
             var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
-            
+
             // Delay this function by the animation length.
             await Task.Delay(animationLength);
 
@@ -105,46 +108,46 @@ public class CombatController : MonoBehaviour
         selectedAbilityData = null;
     }
 
-    
+
 
     /// <summary>
     /// Moves the player into range of the target and deals damage to the target.
     /// </summary>
     /// <param name="other">The target.</param>
     /// <returns></returns>
-    public IEnumerator AttackMove(CombatController other)
-    {
-        Debug.Log("ATTACK!");
+    //public IEnumerator AttackMove(CombatController other)
+    //{
+    //    Debug.Log("ATTACK!");
 
-        // If the player is not within close enough range and the player isnt already moving...
-        if (Vector3.Distance(transform.position, other.transform.position) > selectedAbilityData.Range && (currentCombatState == CombatState.Idle || currentCombatState == CombatState.Attacking))
-        {
-            // Set the player to moving and move the player.
-            currentCombatState = CombatState.Moving;
-            navMesh.AttackMove(other.transform.position, selectedAbilityData.Range);
+    //    // If the player is not within close enough range and the player isnt already moving...
+    //    if (Vector3.Distance(transform.position, other.transform.position) > selectedAbilityData.Range && (currentCombatState == CombatState.Idle || currentCombatState == CombatState.Attacking))
+    //    {
+    //        // Set the player to moving and move the player.
+    //        currentCombatState = CombatState.Moving;
+    //        navMesh.AttackMove(other.transform.position, selectedAbilityData.Range);
 
-        }
-        // While the player is still not within range...
-        while (Vector3.Distance(transform.position, other.transform.position) > selectedAbilityData.Range)
-        {
-            // Keep moving.
-            yield return null;
-        }
-        // Once we are in range of the target. Stop moving.
-        navMesh.StopAllCoroutines();
-        Debug.Log("Hiya!");
-        // Set them to attacking and deal damage to the other combatant.
-        currentCombatState = CombatState.Attacking;
-        //other.TakeDamage(selectedAbilityData.PhysDamage);
-        Debug.Log("Player took damage");
-        if (animationManager != null)
-            animationManager.SetAbilityTrigger(abilityIndex);
+    //    }
+    //    // While the player is still not within range...
+    //    while (Vector3.Distance(transform.position, other.transform.position) > selectedAbilityData.Range)
+    //    {
+    //        // Keep moving.
+    //        yield return null;
+    //    }
+    //    // Once we are in range of the target. Stop moving.
+    //    navMesh.StopAllCoroutines();
+    //    Debug.Log("Hiya!");
+    //    // Set them to attacking and deal damage to the other combatant.
+    //    currentCombatState = CombatState.Attacking;
+    //    //other.TakeDamage(selectedAbilityData.PhysDamage);
+    //    Debug.Log("Player took damage");
+    //    if (animationManager != null)
+    //        animationManager.SetAbilityTrigger(abilityIndex);
 
-        AudioManager.instance.PlaySound(selectedAbilityData.AbilitySound, transform.position);
+    //    AudioManager.instance.PlaySound(selectedAbilityData.AbilitySound, transform.position);
 
-        // Set the combat state back to idle.
-        currentCombatState = CombatState.Idle;
-    }
+    //    // Set the combat state back to idle.
+    //    currentCombatState = CombatState.Idle;
+    //}
 
     /// <summary>
     /// Reduces the player's health based on damage inputted.
@@ -192,6 +195,11 @@ public class CombatController : MonoBehaviour
             // Commit die.
             Die();
         }
+    }
+    [ContextMenu("TakeDamage")]
+    public void DebugTakeDamage()
+    {
+        OnHurtAction?.Invoke();
     }
 
     ///// <summary>
@@ -243,7 +251,7 @@ public class CombatController : MonoBehaviour
     /// Handles the movement ability like teleports and other special types of movement.
     /// </summary>
     /// <param name="other"> the Target</param>
- 
+
 
     [ContextMenu("Die")]
     // Handles the death procedure.
@@ -255,7 +263,14 @@ public class CombatController : MonoBehaviour
         OnDeathAction?.Invoke();
         // Call the death event with this.
         OnCombatantDeath?.Invoke(this);
+
     }
+
+    void DestroyThis()
+    {
+        Destroy(this.gameObject);
+    }
+
     // Starts the player's turn with their starting action points.
     public void StartTurn()
     {
