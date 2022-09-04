@@ -2,52 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
+public class AudioManagerTwo : MonoBehaviour
+{
+    //Rich Work
+    [SerializeField] private SoundData music;
+    //Travis Work
+    public static AudioManagerTwo instance;
 
-public enum SoundType
-{
-    music,
-    ambient,
-    soundFX,
-    character,
-    enemy,
-}
-/// <summary>
-/// Only one of this type should exist to manage a levels volumes, Needs to eventually carry over settings from level to level for sound
-/// </summary>
-/// Adding Music would be done through a music manager which sends its sound tracks to this audio manager to play
-/// The NavMeshScript will have to be setup to when the creature reaches their destination they should stop the sound effect for the sound
-/// 
-/// 
-/// Setting up any type of sound script would be played through this script by sending it the Sound data.
-///     The AudioController of the object is the middleman which is used to play what is needed.
-///     
-/// How the sound data should be retrieved to play for any type of audiocontroller
-///     AudioManager(Instance)<-AudioController(PlayerAudioController)<-ComplexCreatureAudioData(DeathSound)<-SoundData
-public class AudioManager : MonoBehaviour
-{
-    public static AudioManager instance;
-    public AudioMixerGroup sfx;
     private GameObject SoundHolder;
-    [SerializeField]private List<AudioSource> CurrentSounds;
-    [SerializeField]private List<SoundData> CurrentSoundData;
+    [SerializeField] private List<AudioSource> CurrentSounds;
+    [SerializeField] private List<SoundData> CurrentSoundData;
     private GameObject TempSound;
 
-    [SerializeField][Range(0f, 1f)] private float musicScale; //Music sounds
-    [SerializeField][Range(0f, 1f)] private float ambientScale; // Ambient sounds
-    [SerializeField][Range(0f, 1f)] private float soundFXScale; // Sound FX ex. abilities
-    [SerializeField][Range(0f, 1f)] private float characterScale; //Character sounds ex. voicelines
-    [SerializeField][Range(0f, 1f)] private float enemyScale; //Enemy Sounds ex. voicelines
-    
+    [SerializeField] [Range(0f, 1f)] private float musicScale; //Music sounds
+    [SerializeField] [Range(0f, 1f)] private float ambientScale; // Ambient sounds
+    [SerializeField] [Range(0f, 1f)] private float soundFXScale; // Sound FX ex. abilities
+    [SerializeField] [Range(0f, 1f)] private float characterScale; //Character sounds ex. voicelines
+    [SerializeField] [Range(0f, 1f)] private float enemyScale; //Enemy Sounds ex. voicelines
+
     // Start is called before the first frame update
     void Awake()
     {
-        if(instance != null)
+        if (instance != null)
         {
             Destroy(instance);
         }
         instance = this;
 
         CurrentSounds = new List<AudioSource>();
+
+       
     }
     private void Start()
     {
@@ -55,12 +40,14 @@ public class AudioManager : MonoBehaviour
 
         TempSound = new GameObject();
         TempSound.AddComponent<AudioSource>();
+        PlaySound(music);
+        
     }
     //Changes all currently playing sounds volume to match new volume scale
     public void UpdateVolume()
     {
         int index = 0;
-        foreach(AudioSource sound in CurrentSounds)
+        foreach (AudioSource sound in CurrentSounds)
         {
             //The original volume of the sound
             float newVolume = 0;
@@ -88,7 +75,7 @@ public class AudioManager : MonoBehaviour
         }
     }
     //Used for when UI Sliders are adjusted in menu to change the games sound volume for those types
-    public void AdjustVolume(SoundType type,float value)
+    public void AdjustVolume(SoundType type, float value)
     {
         switch (type)
         {
@@ -140,7 +127,8 @@ public class AudioManager : MonoBehaviour
         if (!Sound.DoesLoop)
         {
             StartCoroutine(RunSound(Sound.audio.length, sound, Sound));
-        } else
+        }
+        else
         {
             CurrentSounds.Add(sound);
             CurrentSoundData.Add(Sound);
@@ -168,7 +156,7 @@ public class AudioManager : MonoBehaviour
                 return 1f;
         }
         //If the sound doesn't loop then it should be destroyed aftera  while
-        
+
     }
     IEnumerator RunSound(float seconds, AudioSource sound, SoundData soundData)
     {

@@ -96,7 +96,7 @@ public class PlayerController : CharacterController
                 OnRightClickHeldDownAction?.Invoke();
                 //camControl.RotateCamera(Input.mousePosition);
 
-                audioControl.WalkSound();
+     
             }
         }
 
