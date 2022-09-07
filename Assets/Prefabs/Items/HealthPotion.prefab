@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c27aed75b9d8354db02d0750ed698a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 070d9b32cb1b7cc4da5adb7be118acca, type: 2}
+  itemData: {fileID: 11400000, guid: 77de5ea59e592554196fd1c878c90696, type: 2}
   worldUICanvas: {fileID: 8217904603777790773}
 --- !u!1 &7705594589883740756
 GameObject:

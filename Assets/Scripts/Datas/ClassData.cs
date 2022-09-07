@@ -13,7 +13,7 @@ public class ClassData : CharacterData
         // If we don't have an animation override controller, return.
         if (animatorOverrideController == null)
             return;
-         
+        
         // Grab the current clip overrides.
         var currentClipOverrides = new List<KeyValuePair<AnimationClip, AnimationClip>>(animatorOverrideController.overridesCount);
         animatorOverrideController.GetOverrides(currentClipOverrides);
@@ -23,9 +23,10 @@ public class ClassData : CharacterData
         int index = 0;
         // For each clip pair in the current clip overrides...
         foreach(var clipPair in currentClipOverrides)
+        //for(int i = 0; i< currentClipOverrides.Count && index < 4; i++)
         {
             // If the key is a walk or idle, skip it.
-            if (!clipPair.Key.name.Contains("Ability"))
+            if (!clipPair.Key.name.Contains("Ability") || index >= Abilities.Length)
                 continue;
 
             var newClip = Abilities[index].AnimationClip != null ? Abilities[index].AnimationClip : null;

@@ -172,17 +172,17 @@ public class PlayerController : CharacterController
         }
 
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             // Rotate the camera to the right.
             RotateCameraAction?.Invoke(-1);
         }
-        else if (Input.GetKey(KeyCode.Q))
+        else if (Input.GetKeyDown(KeyCode.Q))
         {
             // Rotate the camera to the left.
             RotateCameraAction?.Invoke(1);
         }
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             //Attempts to pickup an item if there is one on the floor
             AttemptPickupAction?.Invoke();

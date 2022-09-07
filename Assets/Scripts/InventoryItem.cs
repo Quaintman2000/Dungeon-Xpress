@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryItem : MonoBehaviour
+public class InventoryItem : MonoBehaviour, IInteractable
 {
     // The item data for this object.
     public ItemData CurrentItemData => itemData;
@@ -28,5 +28,16 @@ public class InventoryItem : MonoBehaviour
     public void SetFocused(bool isFocused)
     {
         worldUICanvas.gameObject.SetActive(isFocused);
+    }
+
+    public void Interact(InteractionController controller)
+    {
+       if(controller.TryGetComponent<InventoryManager>(out InventoryManager inventory))
+        {
+            if(inventory.PickUpItem(itemData))
+            {
+                Pickup();
+            }
+        }
     }
 }
