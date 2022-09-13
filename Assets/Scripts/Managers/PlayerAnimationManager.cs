@@ -8,7 +8,7 @@ public class PlayerAnimationManager : AnimationManager
 
     readonly int parryStanceIdleState = Animator.StringToHash("Parry Stance Idle State");
     readonly int parryState = Animator.StringToHash("Parry State");
-    readonly int enterDoorState;
+    readonly int enterDoorState = Animator.StringToHash("Enter Door");
 
     protected override void Start()
     {
@@ -48,6 +48,16 @@ public class PlayerAnimationManager : AnimationManager
         await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
         // Set the animator to our respective idle state based if we're in the parry stance or not.
         await ChangeAnimationState(idleState);
+    }
+
+    public async void PlayDoorAnimation()
+    {
+        // Change the animation state to parry state.
+        await ChangeAnimationState(enterDoorState);
+        // Lock us in this state for the duration of the animation.
+        await LockState(animator.GetCurrentAnimatorClipInfo(0).Length);
+        // Set the animator to the idle state based if we're in the parry stance or not.
+        await ChangeAnimationState(isParryStance ? parryStanceIdleState : idleState);
     }
 
     //public void DoorEnter()

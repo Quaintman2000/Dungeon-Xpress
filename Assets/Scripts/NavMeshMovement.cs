@@ -16,6 +16,8 @@ public class NavMeshMovement : MonoBehaviour
 
     public Action<bool> WalkingAction;
 
+    public Vector3 WarpPosition { set; private get; }
+
     protected virtual void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -27,6 +29,17 @@ public class NavMeshMovement : MonoBehaviour
             }
         }
     }
+
+    public virtual void Warp()
+    {
+        if (WarpPosition != null)
+        {
+            navMeshAgent.Warp(WarpPosition);
+            WarpPosition = transform.position;
+        }
+    }
+
+
     //We make a new path because most times the navMeshAgent has no path yet
     public virtual float GetDistance(Vector3 raycastPoint)
     {
