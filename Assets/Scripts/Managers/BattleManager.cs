@@ -65,7 +65,8 @@ public class BattleManager : MonoBehaviour
         //If there is only one combatant left...
         if (Combatants.Count < 2)
         {
-            //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance
+            //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. Also siwtches the camera back to FreeRoam
+            player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.FreeRoam);
             Combatants[0].IsTurn = false;
             Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
             Destroy(this.gameObject);
