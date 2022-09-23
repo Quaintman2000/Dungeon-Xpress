@@ -80,7 +80,7 @@ public abstract class AnimationManager : MonoBehaviour
         // Get the state name from the ability index.
         var stateName = GetTriggerName(combatant.abilityIndex);
         // Change the animation state to that abilty state.
-        ChangeAnimationState(stateName);
+        await ChangeAnimationState(stateName);
         // Lock us in this state
         await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
 
