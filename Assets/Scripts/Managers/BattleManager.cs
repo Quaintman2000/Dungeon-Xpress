@@ -54,6 +54,17 @@ public class BattleManager : MonoBehaviour
 
         //Tell the first combatant to start their turn
         Combatants[0].StartTurn();
+
+        //Look for the combat controller in the list of combatants
+        foreach (CombatController combatController in Combatants)
+        {
+            //Look for the player controller
+            if (combatController.TryGetComponent<PlayerController>(out PlayerController player))
+            {
+                //Switch the camera style to room locked when in the player is in combat
+               player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.RoomLocked);
+            }
+        }
     }
 
     //When a combatant dies...
@@ -65,11 +76,21 @@ public class BattleManager : MonoBehaviour
         //If there is only one combatant left...
         if (Combatants.Count < 2)
         {
-            //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. Also siwtches the camera back to FreeRoam
-            player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.FreeRoam);
+            //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. 
             Combatants[0].IsTurn = false;
             Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
             Destroy(this.gameObject);
+
+            //Look for the combat controller in the list of combatants
+            foreach (CombatController combatant in Combatants)
+            {
+                //Look for the player controller 
+                if (combatant.TryGetComponent<PlayerController>(out PlayerController player))
+                {
+                    //Switch the camera style to player focused when combat is over
+                    player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
+                }
+            }
         }
         combatController.OnCombatantDeath -= OnCombatantDeath;
     }
