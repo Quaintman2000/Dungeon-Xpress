@@ -9,6 +9,7 @@ using UnityEngine.Audio;
 public class SoundData : ScriptableObject
 {
     public AudioClip audio;
+    [SerializeField] AudioMixer sfxMixer;
     public SoundType Type;
     //How loud the sound is
     //turn into slider

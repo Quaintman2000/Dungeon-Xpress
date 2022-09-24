@@ -14,4 +14,6 @@ public class CreatureAudioData : ScriptableObject
     public SoundData Hurt;
     //Creature dies
     public SoundData Death;
+
+    
 }

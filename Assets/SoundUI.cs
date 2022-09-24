@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public class Sound : MonoBehaviour
+public class SoundUI : MonoBehaviour
 {
     [SerializeField] AudioMixer gameMixer;
     [SerializeField] AudioMixer sfxMixer;
@@ -29,6 +29,6 @@ public class Sound : MonoBehaviour
     }
     private void SetSFXVolume(float value)
     {
-        sfxMixer.SetFloat(Mixer_Music, Mathf.Log10(value) * 20);
+        sfxMixer.SetFloat(Mixer_SFX, Mathf.Log10(value) * 20);
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf2d8b54a196d34ba184963ff77e77f, type: 3}
+  m_Name: PlayerPack
+  m_EditorClassIdentifier: 
+  Walking: {fileID: 11400000, guid: c4960a0ca7616044fb78fbb8ad8d4abc, type: 2}
+  Attack: {fileID: 11400000, guid: a94e6b0967c2a7743bb2b8a0e3118c93, type: 2}
+  Hurt: {fileID: 11400000, guid: 0a11dddca017d3e46a7a1b0bc4722a43, type: 2}
+  Death: {fileID: 11400000, guid: ec113fcf37413fe489e121fa88a763df, type: 2}
+  Ability: {fileID: 11400000, guid: 8ff6a609df7c4f04bbfa2157c9b0adfc, type: 2}

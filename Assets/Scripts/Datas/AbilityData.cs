@@ -24,6 +24,8 @@ public class AbilityData : ScriptableObject
     public Projectile Projectile;
 
     public SoundData AbilitySound;
+
+    public SoundClip AbilityClip;
 }
 
 

@@ -26,7 +26,6 @@ public enum SoundType
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-    public AudioMixerGroup sfx;
     private GameObject SoundHolder;
     [SerializeField]private List<AudioSource> CurrentSounds;
     [SerializeField]private List<SoundData> CurrentSoundData;

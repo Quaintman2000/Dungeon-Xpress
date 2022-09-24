@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BattleManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class BattleManager : MonoBehaviour
 
     //Variable to keep track of the current turn
     [SerializeField] int currentTurn;
+
+ 
 
     private void Awake()
     {
@@ -56,8 +59,8 @@ public class BattleManager : MonoBehaviour
         Combatants[0].StartTurn();
     }
 
-    //When a combatant dies...
-    private void OnCombatantDeath(CombatController combatController)
+//When a combatant dies...
+private void OnCombatantDeath(CombatController combatController)
     {
         //remove them from the list
         Combatants.Remove(combatController);
@@ -65,6 +68,7 @@ public class BattleManager : MonoBehaviour
         //If there is only one combatant left...
         if (Combatants.Count < 2)
         {
+            
             //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance
             Combatants[0].IsTurn = false;
             Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
@@ -121,3 +125,4 @@ public class BattleManager : MonoBehaviour
         }
     }
 }
+
