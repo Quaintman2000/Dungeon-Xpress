@@ -291,11 +291,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d1c27bd283136478fcc327e88816f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameMixer: {fileID: 24100000, guid: 75fe30e87127870478f5372134373257, type: 2}
-  sfxMixer: {fileID: 24100000, guid: bc7f2a347a902144696c089fc0639a16, type: 2}
+  masterMixer: {fileID: 24100000, guid: a666fb641dabca3489b8ced4b5bdcaeb, type: 2}
   musicSlider: {fileID: 782922638}
   sfxSlider: {fileID: 2045740423}
-  ambientSlider: {fileID: 259390892}
+  masterSlider: {fileID: 259390892}
 --- !u!1 &78789906 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 569105335, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
@@ -778,7 +777,7 @@ GameObject:
   - component: {fileID: 259390891}
   - component: {fileID: 259390892}
   m_Layer: 5
-  m_Name: AmbientSlider
+  m_Name: MasterSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -800,11 +799,11 @@ RectTransform:
   - {fileID: 1079533063}
   - {fileID: 1308696168}
   m_Father: {fileID: 1494568443}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 55}
+  m_AnchoredPosition: {x: 0, y: 341}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259390892
@@ -851,10 +850,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 885358103}
   m_HandleRect: {fileID: 1397990075}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1222,7 +1221,7 @@ RectTransform:
   - {fileID: 1885229262}
   - {fileID: 654802725}
   m_Father: {fileID: 1494568443}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -1690,7 +1689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f0777a7ea4aa7479047701c760da6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfxSound: {fileID: 24300002, guid: bc7f2a347a902144696c089fc0639a16, type: 2}
+  sfxSound: {fileID: -5029021688796462763, guid: a666fb641dabca3489b8ced4b5bdcaeb, type: 2}
   audioSource: {fileID: 0}
   soundClip: {fileID: 11400000, guid: c4960a0ca7616044fb78fbb8ad8d4abc, type: 2}
   CurrentSoundData: []
@@ -1703,7 +1702,7 @@ AudioSource:
   m_GameObject: {fileID: 1024651764}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 75fe30e87127870478f5372134373257, type: 2}
+  OutputAudioMixerGroup: {fileID: 7354379911607022545, guid: a666fb641dabca3489b8ced4b5bdcaeb, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3bef8165c6e0910439b05639a685704e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2381,7 +2380,7 @@ GameObject:
   - component: {fileID: 1308696170}
   - component: {fileID: 1308696169}
   m_Layer: 5
-  m_Name: AmbientText
+  m_Name: MasterText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2426,7 +2425,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ambient
+  m_text: 'Master
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3285,7 +3286,7 @@ RectTransform:
   - {fileID: 5097635}
   - {fileID: 1200435918}
   m_Father: {fileID: 1494568443}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSoundController : SFXController
+public class PlayerSoundController : MonoBehaviour
 {
+    //this gets the clips from the sounddata
     [SerializeField] private SoundClipData audioData;
 
     protected virtual void Awake()

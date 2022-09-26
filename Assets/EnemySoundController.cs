@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySoundController : SFXController
+public class EnemySoundController : MonoBehaviour
 {
+    //this gets the audio data from the soundclip script. 
     [SerializeField] private SoundClipData audioData;
 
     protected virtual void Awake()

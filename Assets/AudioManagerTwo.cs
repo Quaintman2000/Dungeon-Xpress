@@ -74,6 +74,7 @@ public class AudioManagerTwo : MonoBehaviour
 
 sound.Play();
     }
+    //this allows the sound to run for a few seconds.
     IEnumerator RunSound(float seconds, AudioSource sound, SoundClip soundData)
     {
        // CurrentSounds.Add(sound);
