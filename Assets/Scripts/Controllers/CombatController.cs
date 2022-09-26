@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 public class CombatController : MonoBehaviour
 {
@@ -36,8 +37,7 @@ public class CombatController : MonoBehaviour
 
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
-
-
+    public Vector3 MovementSpot;
     // Start is called before the first frame update
     void Awake()
     {
@@ -304,28 +304,45 @@ public class CombatController : MonoBehaviour
         CheckEndTurn();
     }
     /// <summary>
-    /// Moves to the raycast point and subtracts action points.
+    /// Moves to the raycast point and subtracts action points. unless the current selected ability 
+    /// is a movement ability then it should run that instead
     /// </summary>
     /// <param name="raycastPoint"> The designated point.</param>
     public void MoveToPoint(Vector3 raycastPoint)
     {
-        // Calculate length of the path.
-        float distance = navMesh.GetDistance(raycastPoint);
-        // Calculate the movement cost.
-        int movementCost = Mathf.RoundToInt(distance);
-        // Clamp it so we get no logic errors.
-        movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
-        // If we have enough action points to cover the cost...
-
-        if (movementCost <= actionPoints)
+        //If the ability selected isnt a movement type then just move normally
+        if (selectedAbilityData.Type != AbilityData.AbilityType.Movement)
         {
-            // Subtract the points.
-            actionPoints -= movementCost;
-            // Move to the position.
-            navMesh.AttackMove(raycastPoint, 1f);
+            // Calculate length of the path.
+            float distance = navMesh.GetDistance(raycastPoint);
+            // Calculate the movement cost.
+            int movementCost = Mathf.RoundToInt(distance);
+            // Clamp it so we get no logic errors.
+            movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
+            // If we have enough action points to cover the cost...
+
+            if (movementCost <= actionPoints)
+            {
+                // Subtract the points.
+                actionPoints -= movementCost;
+                // Move to the position.
+                navMesh.AttackMove(raycastPoint, 1f);
+            }
+        } else
+        {
+            MovementSpot = raycastPoint;
+            Activate(); //USED FOR TESTING until animation activate works
+            Debug.Log("Player did movement ability");
         }
         // Check for end turn.
         CheckEndTurn();
+    }
+    /// <summary>
+    /// Used to instantly move the player to the raycast point
+    /// </summary>
+    public void InstantMove(Vector3 raycastPoint)
+    {
+        navMesh.Teleport(raycastPoint);
     }
 
     void ApplyEffect(ItemData item)

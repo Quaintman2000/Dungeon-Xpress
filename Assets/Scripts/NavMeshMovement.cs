@@ -110,4 +110,9 @@ public class NavMeshMovement : MonoBehaviour
         WalkingAction?.Invoke(false);
         isMoving = false;
     }
+    public void Teleport(Vector3 newPosition)
+    {
+        Debug.Log("Teleported");
+        navMeshAgent.Warp(newPosition);
+    }
 }
