@@ -11,6 +11,7 @@ public class PlayerController : CharacterController
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] PlayerAudioController audioControl;
+    [SerializeField] PlayerSoundController soundController;
   
     // Action events
     public Action AttemptPickupAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
@@ -35,6 +36,7 @@ public class PlayerController : CharacterController
     private void Awake()
     {
         audioControl = GetComponent<PlayerAudioController>();
+        soundController = GetComponent<PlayerSoundController>();
     }
     private void Start()
     {
@@ -127,8 +129,9 @@ public class PlayerController : CharacterController
                         // Set the pathing to start.
                         FreeMoveToPointAction?.Invoke(raycastPoint);
 
-                        audioControl.WalkLineSound();
-                        audioControl.WalkSound();
+                        //audioControl.WalkLineSound();
+                        // audioControl.WalkSound();
+                        //soundController.WalkSound();
                      
                       
                     }
