@@ -11,9 +11,6 @@ public class PlayerController : CharacterController
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] PlayerAudioController audioControl;
-
-    [SerializeField] PlayerSoundController soundController;
-
   
     // Action events
     public Action AttemptPickupAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
@@ -164,10 +161,6 @@ public class PlayerController : CharacterController
                         CombatMoveToPointAction?.Invoke(raycastPoint);
                         audioControl.WalkLineSound();
                         audioControl.WalkSound();
-
-                        soundController.WalkSound();
-                        AudioManagerTwo.instance.PlaySoundOnce();
-                        AudioManagerTwo.instance.PlayClipAtPoint();
                     }
                 }
             }
