@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Audio;
 /// <summary>
 /// Default Sound Data used by all sounds to be able to play in the AudioManager
 /// </summary>
@@ -9,8 +9,8 @@ using UnityEngine;
 public class SoundData : ScriptableObject
 {
     public AudioClip audio;
+    [SerializeField] AudioMixer sfxMixer;
     public SoundType Type;
-
     //How loud the sound is
     //turn into slider
     [Range(0f, 1f)]

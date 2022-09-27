@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
             Destroy(Instance.gameObject);
             Instance = this;
         }
+
+       
     }
     public void StartMatch()
     {

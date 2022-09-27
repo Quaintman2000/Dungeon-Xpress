@@ -23,6 +23,7 @@ public class PlayerAudioController : CreatureAudioController
     public void WalkLineSound()
     {
         AudioManager.instance.PlaySound(playerAudio.GetRandomMovementLine(), transform.position);
+  
     }
     //Plays when the player choses an ability through the button in ui
     public void AbilityCastlineSound()
@@ -33,6 +34,7 @@ public class PlayerAudioController : CreatureAudioController
     public override void WalkSound()
     {
         AudioManager.instance.PlaySound(playerAudio.Walking, transform.position);
+
     }
     //Whenever the player does a normal attack this should play
     public override void AttackSound()
