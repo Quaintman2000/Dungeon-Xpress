@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 8693437862511915635}
   - component: {fileID: 659099456908468155}
   - component: {fileID: 659099456908468156}
-  - component: {fileID: 659099456908468161}
   - component: {fileID: 3663987290641129149}
   - component: {fileID: 2803923730436499616}
   m_Layer: 0
@@ -241,14 +240,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNav: {fileID: 6137635376044328978}
   selectionCircle: {fileID: 7983566211049265759}
   currentState: 1
   combatController: {fileID: 8693437862511915635}
   camControl: {fileID: 0}
-  uIManager: {fileID: 0}
-  selectedCharacter: {fileID: 0}
   audioControl: {fileID: 0}
+  soundController: {fileID: 0}
   isBusy: 0
 --- !u!114 &8693437862511915635
 MonoBehaviour:
@@ -272,8 +269,6 @@ MonoBehaviour:
   currentCombatState: 0
   abilityIndex: 0
   selectedAbilityData: {fileID: 11400000, guid: 47ddcb140b19795449693c75f6a2f298, type: 2}
-  statusEffects: []
-  animationManager: {fileID: 659099456908468156}
 --- !u!136 &659099456908468155
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -300,21 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1140dabf7499e7f49b8dff0b9501e186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &659099456908468161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389417993632140069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5213cbfb81a18854c99582bec353edf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds: []
-  audioData: {fileID: 11400000, guid: d4d0fcb6fd34f6a4bb32fa609bfef45d, type: 2}
-  playerAudio: {fileID: 11400000, guid: 94000e9cba0ed6545bbcc29b66603aff, type: 2}
+  animationTransitionTime: 0
 --- !u!136 &3663987290641129149
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -341,11 +322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be911c2714218cf4bacf5da7a4389646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupRadiusTriggerCollider: {fileID: 3663987290641129149}
   inventorySize: 3
-  itemFocusConeRadius: 45
-  itemPickupRadius: 1
   forwardDropForce: 100
+  uIManager: {fileID: 0}
 --- !u!1 &486038521762490326
 GameObject:
   m_ObjectHideFlags: 0

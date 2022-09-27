@@ -46,10 +46,10 @@ public class MainMenuUIManager : MonoBehaviour
 
     [SerializeField] SceneLoader sceneLoader;
 
-    [SerializeField] AudioController mainMenuAudio;
+    
     private void Awake()
     {
-        mainMenuAudio = GetComponent<AudioController>();
+       
     }
     private void Start()
     {
@@ -69,7 +69,6 @@ public class MainMenuUIManager : MonoBehaviour
         graphicsDropdown.value = QualitySettings.GetQualityLevel();
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
-        mainMenuAudio.PlaySound(0);
 
     }
 
@@ -105,40 +104,29 @@ public class MainMenuUIManager : MonoBehaviour
     {
         musicVolume = musicSlider.value;
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-        if (AudioManager.instance != null)
-            AudioManager.instance.AdjustVolume(SoundType.music, musicSlider.value);
+     
     }
     // Adjust and save the Music volume level.
     public void OnAmbientSliderChanged()
     {
         ambientVolume = ambientSlider.value;
         PlayerPrefs.SetFloat("AmbientVolume", musicVolume);
-        if (AudioManager.instance != null)
-            AudioManager.instance.AdjustVolume(SoundType.ambient, ambientSlider.value);
     }
     public void OnSFXSliderChanged()
     {
         sfxVolume = sfxSlider.value;
         PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
-
-        if (AudioManager.instance != null)
-            AudioManager.instance.AdjustVolume(SoundType.soundFX, sfxSlider.value);
     }
     // Adjust and save the Music volume level.
     public void OnCharacterSliderChanged()
     {
         characterVolume = characterSlider.value;
         PlayerPrefs.SetFloat("CharacterVolume", characterVolume);
-        if (AudioManager.instance != null)
-            AudioManager.instance.AdjustVolume(SoundType.character, characterSlider.value);
     }
     public void OnEnemySliderChanged()
     {
         enemyVolume = enemySlider.value;
         PlayerPrefs.SetFloat("EnemyVolume", enemyVolume);
-
-        if (AudioManager.instance != null)
-            AudioManager.instance.AdjustVolume(SoundType.enemy, enemySlider.value);
     }
 
     // Adjust and save the Brightness level.

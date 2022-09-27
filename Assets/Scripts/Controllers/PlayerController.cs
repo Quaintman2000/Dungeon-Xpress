@@ -10,8 +10,6 @@ public class PlayerController : CharacterController
     
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-    [SerializeField] PlayerAudioController audioControl;
-    [SerializeField] PlayerSoundController soundController;
   
     // Action events
     public Action AttemptPickupAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
@@ -35,8 +33,7 @@ public class PlayerController : CharacterController
     public bool isBusy;
     private void Awake()
     {
-        audioControl = GetComponent<PlayerAudioController>();
-        soundController = GetComponent<PlayerSoundController>();
+
     }
     private void Start()
     {
@@ -156,13 +153,11 @@ public class PlayerController : CharacterController
                         // If the combatant isnt us...
                         UseAbilityAction?.Invoke(other);
                         //combatController.UseAbility(other);
-                        //audioControl.AbilityCastlineSound();
                     }
                     else
                     {
                         CombatMoveToPointAction?.Invoke(raycastPoint);
-                       // audioControl.WalkLineSound();
-                        //audioControl.WalkSound();
+                     
                     }
                 }
             }

@@ -241,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 6398631978322316261, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: a18aeb8cb16304e4ca0211a15840d618, type: 2}
+      objectReference: {fileID: 9100000, guid: c31b1f70b7bed8e47bd6fdf2214b52c7, type: 2}
     - target: {fileID: 7779888732958187669, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: exposedRadius
       value: 12
@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+      propertyPath: CharacterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 72eb2d30bae06b04f96c566ec099aa79, type: 2}
     m_RemovedComponents:
     - {fileID: 659099456908468161, guid: 91a59c8d1e3905442b47113427407742, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 91a59c8d1e3905442b47113427407742, type: 3}
@@ -886,8 +890,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e6e1aa931de26b4b81dab2ede94f63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 1902037883}
-  CurrentDoor: {fileID: 0}
 --- !u!4 &523233436
 Transform:
   m_ObjectHideFlags: 0
@@ -2592,7 +2594,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.083333336
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
 --- !u!114 &1348970735 stripped

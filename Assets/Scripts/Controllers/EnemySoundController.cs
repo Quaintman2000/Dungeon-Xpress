@@ -20,22 +20,22 @@ public class EnemySoundController : MonoBehaviour
     }
     public void PlayAbilitySound(SoundClip Ability)
     {
-        AudioManagerTwo.instance.PlaySound(Ability, transform.position);
+        AudioManager.instance.PlaySound(Ability, transform.position);
     }
     public virtual void WalkSound()
     {
-        AudioManagerTwo.instance.PlaySound(audioData.Walking, transform.position);
+        AudioManager.instance.PlaySound(audioData.Walking, transform.position);
     }
     public virtual void AttackSound()
     {
-        AudioManagerTwo.instance.PlaySound(audioData.Attack, transform.position);
+        AudioManager.instance.PlaySound(audioData.Attack, transform.position);
     }
     public virtual void HurtSound()
     {
-        AudioManagerTwo.instance.PlaySound(audioData.Hurt, transform.position);
+        AudioManager.instance.PlaySound(audioData.Hurt, transform.position);
     }
     public virtual void DeathSound()
     {
-        AudioManagerTwo.instance.PlaySound(audioData.Death, transform.position);
+        AudioManager.instance.PlaySound(audioData.Death, transform.position);
     }
 }

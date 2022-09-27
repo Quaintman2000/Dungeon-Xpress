@@ -15,5 +15,5 @@ MonoBehaviour:
   Walking: {fileID: 11400000, guid: c4960a0ca7616044fb78fbb8ad8d4abc, type: 2}
   Attack: {fileID: 11400000, guid: a94e6b0967c2a7743bb2b8a0e3118c93, type: 2}
   Hurt: {fileID: 11400000, guid: 0a11dddca017d3e46a7a1b0bc4722a43, type: 2}
-  Death: {fileID: 11400000, guid: ec113fcf37413fe489e121fa88a763df, type: 2}
-  Ability: {fileID: 11400000, guid: 8ff6a609df7c4f04bbfa2157c9b0adfc, type: 2}
+  Death: {fileID: 11400000, guid: e05645f418656444d94fbfdff13674cc, type: 2}
+  Ability: {fileID: 11400000, guid: aa8e5c10206666b498348a992da00e1b, type: 2}

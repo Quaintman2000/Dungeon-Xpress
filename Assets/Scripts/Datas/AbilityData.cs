@@ -33,10 +33,6 @@ public class AbilityData : ScriptableObject
     [SerializeField]
     protected int cost;
 
-    public SoundData AbilitySound =>soundData;
-    [SerializeField]
-    protected SoundData soundData;
-
     public AnimationClip AnimationClip => animationClip;
     [SerializeField]
     protected AnimationClip animationClip;
