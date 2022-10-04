@@ -1594,6 +1594,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1943498075}
     - target: {fileID: 7336554476464435533, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 107326355}
+    - target: {fileID: 7336554476464435533, guid: d8df16c3c2cf09b4780ef905484246cb, type: 3}
       propertyPath: startingDistance
       value: 12
       objectReference: {fileID: 0}
@@ -1679,6 +1683,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5214959952129424434, guid: ad6202d0d3f973242849698afc1d8ce3, type: 3}
   m_PrefabInstance: {fileID: 923841205}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1024651766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024651764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22ccd7496bef2642995aaddaf454abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: {fileID: 0}
 --- !u!114 &1024651767
 MonoBehaviour:
   m_ObjectHideFlags: 0
