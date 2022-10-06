@@ -4195,7 +4195,7 @@ PrefabInstance:
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[3].room
       value: 
-      objectReference: {fileID: 6888048024818568309, guid: 2e32310c603dd1a47a40c9c8ba03ad3f, type: 3}
+      objectReference: {fileID: 839735639081282323, guid: 2e32310c603dd1a47a40c9c8ba03ad3f, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[4].room
       value: 
