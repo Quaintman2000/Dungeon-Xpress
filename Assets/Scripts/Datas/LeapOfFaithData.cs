@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
+using System.Threading.Tasks;
 
 [CreateAssetMenu(menuName = "Ability Data/Leap of Faith")]
 public class LeapOfFaithData : AbilityData
@@ -54,11 +54,13 @@ public class LeapOfFaithData : AbilityData
     public override bool IsValidTarget(CombatController self, CombatController target)
     {
         //Avoids calculations if target is self
-        if(target == self)
+        if (target.transform.position.y > minHeight && target.transform.position.y < maxHeight && target != self && Vector3.Distance(self.transform.position, target.transform.position) < range)
         {
             return true;
         }
-
+        else
+            return false;
+        /*
         //If the target is in height of the self and also in range then return true
         Vector3 selfPosition = self.transform.position;
         Vector3 targetPosition = target.transform.position;
@@ -69,6 +71,6 @@ public class LeapOfFaithData : AbilityData
             return true;
         }
         else
-            return false;
+            return false;*/
     }
 }

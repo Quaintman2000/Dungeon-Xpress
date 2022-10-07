@@ -16,11 +16,11 @@ MonoBehaviour:
   abilityType: 2
   buffOrDebuff: 2
   targetStyle: 2
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: efc4d7aeeca9e47cba52282a447e31bf, type: 3}
   range: 10
   cost: 1
   soundData: {fileID: 0}
-  animationClip: {fileID: 7400000, guid: 002972e0bacc64d488e7f776be1e2ea0, type: 2}
+  animationClip: {fileID: -203655887218126122, guid: 36bdfdda9a504cf45aefa782cf111054, type: 3}
   damage: 20
   maxHeight: 0.5
   minHeight: -0.5

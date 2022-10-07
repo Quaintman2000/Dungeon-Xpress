@@ -80,6 +80,12 @@ public class CombatController : MonoBehaviour
         if (currentTarget == this && (selectedAbilityData.TargetStyle != AbilityData.TargetType.Self && selectedAbilityData.TargetStyle != AbilityData.TargetType.SelfAndOthers))
             return;
 
+        //When an enemy is selected with a ground ability it should try and sample the ground around to find a spot to land on.
+        if (selectedAbilityData.TargetStyle == AbilityData.TargetType.Ground)
+            //Player will land in front of where the enemy is facing 
+            MovementSpot = other.transform.position + (other.transform.forward * 0.5f);
+
+
         Debug.Log("Distance between the player and target: " + Vector3.Distance(a: currentTarget.transform.position, b: transform.position) + " Units.");
         // If we have enough AP to use the ability and if we are in range...
         if (actionPoints >= selectedAbilityData.Cost && Vector3.Distance(a: currentTarget.transform.position, b: transform.position) <= selectedAbilityData.Range)
@@ -104,6 +110,7 @@ public class CombatController : MonoBehaviour
     // This is called during the ability animation to signal the ability functionality as they can start at different times.
     void Activate()
     {
+        Debug.Log("Activated Ability");
         selectedAbilityData.Activate(this);
         selectedAbilityData = null;
     }
@@ -331,7 +338,30 @@ public class CombatController : MonoBehaviour
         } else
         {
             MovementSpot = raycastPoint;
-            Activate(); //USED FOR TESTING until animation activate works
+
+            //Conditions for if statement
+            bool hasActionPoints = actionPoints >= selectedAbilityData.Cost;
+            bool isClose = Vector3.Distance(raycastPoint, transform.position) <= selectedAbilityData.Range;
+            Debug.Log(hasActionPoints + " && " + isClose);
+            //if has enough action points and is within range
+            if (hasActionPoints && isClose)
+            {
+                // Subtract the action points by the cost.
+                actionPoints -= selectedAbilityData.Cost;
+                // Call the event for those who need to know that we just used an ability.
+                OnAbilityUsedStartAction?.Invoke();
+                OnAbilityUsedAction?.Invoke(this);
+
+                // Grab the ability animation length and convert it to milleseconds.
+                var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
+
+                /*Find a solution to incorporate await function*/
+                /// Delay this function by the animation length.
+                ///await Task.Delay(animationLength);
+
+                // Tell those who are listening for the ability to end that the ability is over.
+                OnAbilityUsedEndAction?.Invoke();
+            }
             Debug.Log("Player did movement ability");
         }
         // Check for end turn.
