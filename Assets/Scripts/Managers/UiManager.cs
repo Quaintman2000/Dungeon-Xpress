@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class UIManager : MonoBehaviour
 {
     public delegate void ItemButtonPressed(int index);
@@ -23,8 +23,9 @@ public class UIManager : MonoBehaviour
     //the abilities that will be used everytime a button is clicked
     [SerializeField] private AbilityData[] abilities = new AbilityData[4];
     [SerializeField] InventoryButton[] inventoryButtons = new InventoryButton[3];
-    
 
+    [SerializeField] TextMeshProUGUI actionPointsText;
+   
 
     //assign the bars to player accordingly
     void Start()
@@ -47,6 +48,11 @@ public class UIManager : MonoBehaviour
             inventoryManager.OnItemPickUpSucess += SetInventoryIcon;
             inventoryManager.OnItemRemoved += RemoveInventoryIcon;
         }
+
+        //update action points
+        actionPointsText.text = "Action Points" + combatCtrl.actionPoints.ToString();
+
+
     }
 
     void Update()
@@ -64,6 +70,7 @@ public class UIManager : MonoBehaviour
             
 
         }
+        
     }
 
     // Toggles the skill bar off and on.
@@ -182,4 +189,14 @@ public class UIManager : MonoBehaviour
         public Button button;
         public bool hasItem;
     }
+
+    public void UpdateActionPoints()
+    {
+        combatCtrl.actionPoints = combatCtrl.selectedAbilityData.Cost;
+        //combatCtrl.actionPoints -= combatCtrl.
+        actionPointsText.text = "Action Points" + combatCtrl.actionPoints.ToString();
+        //actionPointsText.text = "Action Points" + combatCtrl.actionPoints.ToString();
+
+    }
+
 }

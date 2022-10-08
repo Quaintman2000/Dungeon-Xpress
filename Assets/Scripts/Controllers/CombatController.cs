@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 public class CombatController : MonoBehaviour
 {
 
     [SerializeField] Transform firePoint;
-    [SerializeField] int actionPoints;
+    [SerializeField] public int actionPoints;
     // Reference to the player Nav Mesh.
     [SerializeField] NavMeshMovement navMesh;
     // The close enough range to hit our target in melee.
@@ -86,10 +87,11 @@ public class CombatController : MonoBehaviour
         {
             // Subtract the action points by the cost.
             actionPoints -= selectedAbilityData.Cost;
+            
             // Call the event for those who need to know that we just used an ability.
             OnAbilityUsedStartAction?.Invoke();
             OnAbilityUsedAction?.Invoke(this);
-
+            UIManager.Instance.UpdateActionPoints();
             // Grab the ability animation length and convert it to milleseconds.
             var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
 
