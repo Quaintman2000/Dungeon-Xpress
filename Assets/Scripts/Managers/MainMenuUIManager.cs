@@ -12,7 +12,7 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider masterSlider;
-
+    [SerializeField] Toggle fullscreenToggle;
 
     // Graphics dropdown TM UI.
     [SerializeField] TMP_Dropdown graphicsDropdown;
@@ -32,6 +32,8 @@ public class MainMenuUIManager : MonoBehaviour
     int graphicsIndex;
     // Resolution current index;
     int resolutionIndex;
+    // FullScreen current index
+    int isFullscreen;
 
     Resolution[] resolutions;
 
@@ -44,7 +46,10 @@ public class MainMenuUIManager : MonoBehaviour
     }
     private void Start()
     {
-        // Upload saved settings data.
+        //will have the sliders listen in for the mixers functions and changed the volume 
+        musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+        masterSlider.onValueChanged.AddListener(SetMasterVolume);
         brightness = PlayerPrefs.GetFloat("Brightness");
         brightnessSlider.value = brightness;
         //will have the sliders listen in for the mixers functions and changed the volume 
@@ -120,6 +125,13 @@ public class MainMenuUIManager : MonoBehaviour
         resolutionIndex = resolutionDropdown.value;
         Resolution resolution = resolutions[resolutionDropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+    }
+
+    // Use a boolean to set the screen to fullscreen
+    public void SetFullscreen(bool isFullScreen)
+    {
+        Screen.fullScreen = isFullScreen;
+        Debug.Log("fullscreen" + isFullScreen);
     }
 
     public void OnMatchMakeButtonClicked()
