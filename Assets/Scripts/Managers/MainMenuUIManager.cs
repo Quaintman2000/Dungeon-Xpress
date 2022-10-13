@@ -12,7 +12,6 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider masterSlider;
-    [SerializeField] Toggle fullscreenToggle;
 
     // Graphics dropdown TM UI.
     [SerializeField] TMP_Dropdown graphicsDropdown;
@@ -32,8 +31,8 @@ public class MainMenuUIManager : MonoBehaviour
     int graphicsIndex;
     // Resolution current index;
     int resolutionIndex;
-    // FullScreen current index
-    int isFullscreen;
+
+    bool isFullScreen;
 
     Resolution[] resolutions;
 
@@ -41,25 +40,27 @@ public class MainMenuUIManager : MonoBehaviour
 
     
     private void Awake()
-    {
+    {  
        
     }
     private void Start()
     {
+        PlayerPrefs.GetFloat("MixerMusic");
         //will have the sliders listen in for the mixers functions and changed the volume 
         musicSlider.onValueChanged.AddListener(SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+        PlayerPrefs.GetFloat("MixerSFX");
+        sfxSlider.onValueChanged.AddListener(SetSFXVolume); 
+        PlayerPrefs.GetFloat("MasterMusic");
         masterSlider.onValueChanged.AddListener(SetMasterVolume);
         brightness = PlayerPrefs.GetFloat("Brightness");
         brightnessSlider.value = brightness;
-        //will have the sliders listen in for the mixers functions and changed the volume 
-        musicSlider.onValueChanged.AddListener(SetMusicVolume);
-        sfxSlider.onValueChanged.AddListener(SetSFXVolume);
-        masterSlider.onValueChanged.AddListener(SetMasterVolume);
+        PlayerPrefs.GetInt("GraphicsSetting");
         // Update the graphics dropdown to the current setting.
         graphicsDropdown.value = QualitySettings.GetQualityLevel();
+        PlayerPrefs.GetInt("ResolutionsSetting");
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
+        isFullScreen = (PlayerPrefs.GetInt("FullScreenSetting") != 0);
 
     }
 
@@ -94,14 +95,17 @@ public class MainMenuUIManager : MonoBehaviour
     private void SetMusicVolume(float value)
     {
         masterMixer.SetFloat(Mixer_Music, Mathf.Log10(value) * 20);
+        PlayerPrefs.SetFloat("MixerMusic", value);
     }
     private void SetSFXVolume(float value)
     {
         masterMixer.SetFloat(Mixer_SFX, Mathf.Log10(value) * 20);
+        PlayerPrefs.SetFloat("MixerSFX", value);
     }
     private void SetMasterVolume(float value)
     {
         masterMixer.SetFloat(Mixer_Master, Mathf.Log10(value) * 20);
+        PlayerPrefs.SetFloat("MixerMaster", value);
     }
 
     // Adjust and save the Brightness level.
@@ -125,13 +129,16 @@ public class MainMenuUIManager : MonoBehaviour
         resolutionIndex = resolutionDropdown.value;
         Resolution resolution = resolutions[resolutionDropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        PlayerPrefs.SetInt("ResolutionsSetting", resolutionIndex);
     }
 
     // Use a boolean to set the screen to fullscreen
-    public void SetFullscreen(bool isFullScreen)
+    public void SetFullscreen()
     {
-        Screen.fullScreen = isFullScreen;
-        Debug.Log("fullscreen" + isFullScreen);
+        isFullScreen = Screen.fullScreen;
+        Screen.fullScreen = !Screen.fullScreen;
+        PlayerPrefs.SetInt("FullScreenSetting", (isFullScreen ? 1 : 0));
+        
     }
 
     public void OnMatchMakeButtonClicked()
