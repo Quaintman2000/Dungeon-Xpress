@@ -48,11 +48,7 @@ public class UIManager : MonoBehaviour
             inventoryManager.OnItemPickUpSucess += SetInventoryIcon;
             inventoryManager.OnItemRemoved += RemoveInventoryIcon;
         }
-
-        //update action points
-        actionPointsText.text = "Action Points" + combatCtrl.actionPoints.ToString();
-
-
+        actionPointsText.text = "Action Points " + combatCtrl.actionPoints.ToString();
     }
 
     void Update()
@@ -190,12 +186,11 @@ public class UIManager : MonoBehaviour
         public bool hasItem;
     }
 
-    public void UpdateActionPoints()
+    public void UpdateActionPoints(float actionPoints)
     {
-        combatCtrl.actionPoints = combatCtrl.selectedAbilityData.Cost;
-        //combatCtrl.actionPoints -= combatCtrl.
-        actionPointsText.text = "Action Points" + combatCtrl.actionPoints.ToString();
-        //actionPointsText.text = "Action Points" + combatCtrl.actionPoints.ToString();
+
+        actionPointsText.text = "Action Points " + actionPoints.ToString();
+     
 
     }
 

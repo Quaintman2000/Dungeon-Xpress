@@ -91,7 +91,7 @@ public class CombatController : MonoBehaviour
             // Call the event for those who need to know that we just used an ability.
             OnAbilityUsedStartAction?.Invoke();
             OnAbilityUsedAction?.Invoke(this);
-            UIManager.Instance.UpdateActionPoints();
+            UIManager.Instance.UpdateActionPoints(actionPoints );
             // Grab the ability animation length and convert it to milleseconds.
             var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
 
@@ -276,11 +276,13 @@ public class CombatController : MonoBehaviour
     // Starts the player's turn with their starting action points.
     public void StartTurn()
     {
+        UIManager.Instance.UpdateActionPoints(actionPoints);
         OnStartTurn?.Invoke(this);
         // Sets the isTurn to true.
         IsTurn = true;
         // Sets the action points to this class's starting action points.
         actionPoints = CharacterData.StartingActionPoints;
+        
     }
     // Checks if our turn is over.
     private void CheckEndTurn()
@@ -325,6 +327,7 @@ public class CombatController : MonoBehaviour
             actionPoints -= movementCost;
             // Move to the position.
             navMesh.AttackMove(raycastPoint, 1f);
+            UIManager.Instance.UpdateActionPoints(actionPoints );
         }
         // Check for end turn.
         CheckEndTurn();

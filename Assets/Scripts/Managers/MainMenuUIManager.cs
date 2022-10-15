@@ -12,6 +12,7 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
     [SerializeField] Slider masterSlider;
+    [SerializeField] Toggle fullScreenToggle;
 
     // Graphics dropdown TM UI.
     [SerializeField] TMP_Dropdown graphicsDropdown;
@@ -32,7 +33,7 @@ public class MainMenuUIManager : MonoBehaviour
     // Resolution current index;
     int resolutionIndex;
 
-    bool isFullScreen;
+    bool isFullScreen = false;
 
     Resolution[] resolutions;
 
@@ -40,8 +41,8 @@ public class MainMenuUIManager : MonoBehaviour
 
     
     private void Awake()
-    {  
-       
+    {
+    
     }
     private void Start()
     {
@@ -61,6 +62,7 @@ public class MainMenuUIManager : MonoBehaviour
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
         isFullScreen = (PlayerPrefs.GetInt("FullScreenSetting") != 0);
+        
 
     }
 
