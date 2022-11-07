@@ -592,6 +592,18 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: ODIN_INSPECTOR;ODIN_INSPECTOR_3
+    7: 
+    13: 
+    14: 
+    19: 
+    21: 
+    25: 
+    27: 
+    28: 
+    29: 
+    30: 
+    32: 
+    33: 
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/TutorialRoom.meta
 guid: ef331f13d01a066448ac9aae527c78b0
 folderAsset: yes
+========
+guid: bb6c7bd901764054fbe3375faf20f4d7
+>>>>>>>> Kaitlyn's-Branch:Assets/Scenes/Kaitlyn-Whiteboxes.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

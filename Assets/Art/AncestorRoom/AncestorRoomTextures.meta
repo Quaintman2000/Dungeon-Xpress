@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: 98b0da57f34659c40b1b7cd00a90fa00
+<<<<<<<< HEAD:Assets/Art/AncestorRoom/AncestorRoomTextures.meta
+guid: 2ac871ef153d16f46900072de28334f7
 folderAsset: yes
+========
+guid: 5e7ec67e6a0f38b469fc40b530ec1ea6
+>>>>>>>> Kaitlyn's-Branch:Assets/External Resources/Alstra Infinite/Tool Set - PolyPack/Scene/Showcase.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
