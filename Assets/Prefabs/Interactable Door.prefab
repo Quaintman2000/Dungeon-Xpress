@@ -161,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldUICanvas: {fileID: 3037848674789164592}
   doorExitPosition: {fileID: 3037848674468395378}
-  doorPair: {fileID: 0}
+  doorPair: {fileID: 3037848674641908572}
 --- !u!54 &3037848674641908570
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -186,7 +186,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3037848674641908575}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.2498589, y: 4.296621, z: 1.967504}

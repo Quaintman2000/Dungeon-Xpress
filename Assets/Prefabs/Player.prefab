@@ -142,7 +142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8244661646356834003}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.75, y: 1.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8244661646017422459}
@@ -247,6 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ae11269e32896c4f9d6a9387aed644c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoving: 0
+  navMeshAgent: {fileID: 0}
   corners: []
   moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
   noGoText: {fileID: 0}
@@ -263,10 +265,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNav: {fileID: 8244661646356814121}
+  selectionCircle: {fileID: 0}
   currentState: 1
   combatController: {fileID: 3059280784193617559}
   camControl: {fileID: 0}
+  isBusy: 0
 --- !u!114 &3059280784193617559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,11 +284,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5290708126023731408}
   actionPoints: 5
-  playerNavMesh: {fileID: 8244661646356814121}
+  navMesh: {fileID: 0}
   closeEnough: 1
-  classData: {fileID: 11400000, guid: 13e51ee3d7a5860439a54a396ef7a22b, type: 2}
+  CharacterData: {fileID: 0}
   Health: 0
   IsTurn: 0
   currentCombatState: 0
+  abilityIndex: 0
   selectedAbilityData: {fileID: 11400000, guid: e1b5a1b7e5f1db5439cda1899734f5e2, type: 2}
-  statusEffects: []

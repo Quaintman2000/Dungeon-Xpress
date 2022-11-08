@@ -3,7 +3,16 @@ guid: 03315e83eb71c684aa179e70aa4fcb2e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - surface: {instanceID: 0}
+  - hallwayPrefab: {instanceID: 0}
+  - startRoom: {instanceID: 0}
+  - endRoom: {instanceID: 0}
+  - bossRoomPrefab: {fileID: 8195154995233048697, guid: c0942eb6b4e397c4ea1768f77ad79dd5, type: 3}
+  - endRoomPrefab: {fileID: 1575000624971345763, guid: aabdda609302fac4d8896dcd009432df, type: 3}
+  - doorPair: {instanceID: 0}
+  - thePlayer: {fileID: 389417993632140069, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+  - doorExitPosition: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

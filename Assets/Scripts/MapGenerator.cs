@@ -22,7 +22,10 @@ public class MapGenerator : MonoBehaviour
     Room[] dungeonRooms;
 
     [SerializeField]
-    Room endRoom;
+    EndRoom endRoom;
+
+    [SerializeField]
+    EndRoom bossRoom;
 
     List<GameObject> hallways;
     
@@ -47,7 +50,7 @@ public class MapGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+      
     }
 
     // Update is called once per frame
@@ -101,6 +104,9 @@ public class MapGenerator : MonoBehaviour
     /// </summary>
     private IEnumerator GenerateDungeon()
     {
+        // Creating the newEndRoom reference
+        EndRoom _newEndRoom = null;
+
         // Determine the total weight for the weighted random.
         float totalWeight = 0;
         foreach (WeightedRoom weightedRoom in roomPrefabs)
@@ -230,12 +236,19 @@ public class MapGenerator : MonoBehaviour
 
                             // Determine the room to spawn via weighted random.
                             Room roomToSpawn = (roomsMade == (maxNumRooms -1))? endRoom : WeightedRandomRoom(totalWeight);
-
+                            
                             // Spawn in the selected room at the new position and add it to the list.
                             Room newRoom = Instantiate(roomToSpawn, new Vector3(newPosition.x, 0, newPosition.y) * roomSpacing * 2, Quaternion.identity);
                             dungeonRooms[roomsMade] = newRoom;
                             newRoom.roomPosition = newPosition;
                             newRoom.gameObject.name += "# " + roomsMade;
+
+                            if (roomToSpawn == endRoom)
+                            {
+                                newRoom.TryGetComponent<EndRoom>(out _newEndRoom);                           
+                            }
+                                
+                           
 
                             // Determine what doors the new room has.
                             bool hasNorth = false, hasSouth = false, hasWest = false, hasEast = false;
@@ -716,6 +729,10 @@ public class MapGenerator : MonoBehaviour
             }
         }
         surface.BuildNavMesh();
+        // Set the newEndRoom interactable door equal to the boss room interactable door
+        _newEndRoom.InteractableDoor.doorPair = bossRoom.InteractableDoor;
+        // Set the boss room interactable door equal to the newEndRoom interactable door
+        bossRoom.InteractableDoor.doorPair = _newEndRoom.InteractableDoor;
     }
 
     /// <summary>
@@ -798,6 +815,7 @@ public class MapGenerator : MonoBehaviour
             roomPrefabs[index2] = temp;
         }
     }
+ 
 }
 
 
