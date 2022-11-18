@@ -55,6 +55,8 @@ public class CameraController : MonoBehaviour
         playerController.OnRightClickHeldDownAction += RotateCamera;
         playerController.MoveCameraAction += MoveCamera;
 
+        playerController.RotateCameraAction += RotateCamera;
+
         // Temporary only!
         playerController.SwitchCameraStyle += SwitchCameraStyle;
     }

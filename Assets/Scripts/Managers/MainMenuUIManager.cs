@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio;
 
 public class MainMenuUIManager : MonoBehaviour
 {
-    // Sfx slider UI.
-    [SerializeField] Slider sfxSlider;
-    // ambient slider UI.
-    [SerializeField] Slider ambientSlider;
-    // Music slider UI.
+    //Variables 
+    [SerializeField] AudioMixer masterMixer;
     [SerializeField] Slider musicSlider;
-    // character slider UI.
-    [SerializeField] Slider characterSlider;
-    // enemy slider UI.
-    [SerializeField] Slider enemySlider;
+    [SerializeField] Slider sfxSlider;
+    [SerializeField] Slider masterSlider;
+    [SerializeField] Toggle fullScreenToggle;
 
     // Graphics dropdown TM UI.
     [SerializeField] TMP_Dropdown graphicsDropdown;
@@ -24,16 +21,10 @@ public class MainMenuUIManager : MonoBehaviour
     // Resolution dropdown TM UI.
     [SerializeField] TMP_Dropdown resolutionDropdown;
 
-    // Music volume.
-    float musicVolume;
-    // Ambient volume.
-    float ambientVolume;
-    // Sound effects volume.
-    float sfxVolume;
-    // Music volume.
-    float characterVolume;
-    // Music volume.
-    float enemyVolume;
+    //Gets the name of the paramter to change the volume 
+    const string Mixer_Music = "MusicVolume";
+    const string Mixer_SFX = "SFXVolume";
+    const string Mixer_Master = "MasterVolume";
 
     // Brightness value.
     float brightness;
@@ -42,6 +33,8 @@ public class MainMenuUIManager : MonoBehaviour
     // Resolution current index;
     int resolutionIndex;
 
+    bool isFullScreen = false;
+
     Resolution[] resolutions;
 
     [SerializeField] SceneLoader sceneLoader;
@@ -49,26 +42,27 @@ public class MainMenuUIManager : MonoBehaviour
     
     private void Awake()
     {
-       
+    
     }
     private void Start()
     {
-        // Upload saved settings data.
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        ambientVolume = PlayerPrefs.GetFloat("AmbientVolume");
-        sfxVolume = PlayerPrefs.GetFloat("SFXVolume");
-        characterVolume = PlayerPrefs.GetFloat("CharacterVolume");
-        enemyVolume = PlayerPrefs.GetFloat("EnemyVolume");
-
+        PlayerPrefs.GetFloat("MixerMusic");
+        //will have the sliders listen in for the mixers functions and changed the volume 
+        musicSlider.onValueChanged.AddListener(SetMusicVolume);
+        PlayerPrefs.GetFloat("MixerSFX");
+        sfxSlider.onValueChanged.AddListener(SetSFXVolume); 
+        PlayerPrefs.GetFloat("MasterMusic");
+        masterSlider.onValueChanged.AddListener(SetMasterVolume);
         brightness = PlayerPrefs.GetFloat("Brightness");
-        // Update the UI sliders to match.
-        sfxSlider.value = sfxVolume;
-        musicSlider.value = musicVolume;
         brightnessSlider.value = brightness;
+        PlayerPrefs.GetInt("GraphicsSetting");
         // Update the graphics dropdown to the current setting.
         graphicsDropdown.value = QualitySettings.GetQualityLevel();
+        PlayerPrefs.GetInt("ResolutionsSetting");
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
+        isFullScreen = (PlayerPrefs.GetInt("FullScreenSetting") != 0);
+        
 
     }
 
@@ -99,34 +93,21 @@ public class MainMenuUIManager : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
-    // Adjust and save the SFX volume level.
-    public void OnMusicSliderChanged()
+    //changes the volume of the mixer 
+    private void SetMusicVolume(float value)
     {
-        musicVolume = musicSlider.value;
-        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-     
+        masterMixer.SetFloat(Mixer_Music, Mathf.Log10(value) * 20);
+        PlayerPrefs.SetFloat("MixerMusic", value);
     }
-    // Adjust and save the Music volume level.
-    public void OnAmbientSliderChanged()
+    private void SetSFXVolume(float value)
     {
-        ambientVolume = ambientSlider.value;
-        PlayerPrefs.SetFloat("AmbientVolume", musicVolume);
+        masterMixer.SetFloat(Mixer_SFX, Mathf.Log10(value) * 20);
+        PlayerPrefs.SetFloat("MixerSFX", value);
     }
-    public void OnSFXSliderChanged()
+    private void SetMasterVolume(float value)
     {
-        sfxVolume = sfxSlider.value;
-        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
-    }
-    // Adjust and save the Music volume level.
-    public void OnCharacterSliderChanged()
-    {
-        characterVolume = characterSlider.value;
-        PlayerPrefs.SetFloat("CharacterVolume", characterVolume);
-    }
-    public void OnEnemySliderChanged()
-    {
-        enemyVolume = enemySlider.value;
-        PlayerPrefs.SetFloat("EnemyVolume", enemyVolume);
+        masterMixer.SetFloat(Mixer_Master, Mathf.Log10(value) * 20);
+        PlayerPrefs.SetFloat("MixerMaster", value);
     }
 
     // Adjust and save the Brightness level.
@@ -150,6 +131,16 @@ public class MainMenuUIManager : MonoBehaviour
         resolutionIndex = resolutionDropdown.value;
         Resolution resolution = resolutions[resolutionDropdown.value];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        PlayerPrefs.SetInt("ResolutionsSetting", resolutionIndex);
+    }
+
+    // Use a boolean to set the screen to fullscreen
+    public void SetFullscreen()
+    {
+        isFullScreen = Screen.fullScreen;
+        Screen.fullScreen = !Screen.fullScreen;
+        PlayerPrefs.SetInt("FullScreenSetting", (isFullScreen ? 1 : 0));
+        
     }
 
     public void OnMatchMakeButtonClicked()

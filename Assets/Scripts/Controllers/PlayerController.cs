@@ -127,11 +127,6 @@ public class PlayerController : CharacterController
                     {
                         // Set the pathing to start.
                         FreeMoveToPointAction?.Invoke(raycastPoint);
-
-                        //audioControl.WalkLineSound();
-                        // audioControl.WalkSound();
-                        //soundController.WalkSound();
-                     
                       
                     }
                     else
@@ -174,11 +169,13 @@ public class PlayerController : CharacterController
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("works");
             // Rotate the camera to the right.
             RotateCameraAction?.Invoke(-1);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
+            Debug.Log("doesnt work");
             // Rotate the camera to the left.
             RotateCameraAction?.Invoke(1);
         }
