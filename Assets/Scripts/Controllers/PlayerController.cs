@@ -131,8 +131,6 @@ public class PlayerController : CharacterController
                         //audioControl.WalkLineSound();
                         // audioControl.WalkSound();
                         //soundController.WalkSound();
-                     
-                      
                     }
                     else
                     {
@@ -157,7 +155,6 @@ public class PlayerController : CharacterController
                     else
                     {
                         CombatMoveToPointAction?.Invoke(raycastPoint);
-                     
                     }
                 }
             }
@@ -170,7 +167,6 @@ public class PlayerController : CharacterController
             MoveCameraAction?.Invoke(verticalInput, horizontalInput);
             
         }
-
 
         if (Input.GetKeyDown(KeyCode.E))
         {

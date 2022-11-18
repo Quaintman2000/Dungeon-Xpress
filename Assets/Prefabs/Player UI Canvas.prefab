@@ -1273,7 +1273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.0000047683716, y: -30.566223}
+  m_AnchoredPosition: {x: 0.0000047683716, y: -30.566162}
   m_SizeDelta: {x: 301.0897, y: 61.132385}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8721146161521228217
@@ -2588,6 +2588,7 @@ MonoBehaviour:
     hasItem: 0
   - button: {fileID: 569105338}
     hasItem: 0
+  circleController: {fileID: 0}
 --- !u!1 &5117021578359728337
 GameObject:
   m_ObjectHideFlags: 0

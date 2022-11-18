@@ -23,8 +23,8 @@ public class UIManager : MonoBehaviour
     //the abilities that will be used everytime a button is clicked
     [SerializeField] private AbilityData[] abilities = new AbilityData[4];
     [SerializeField] InventoryButton[] inventoryButtons = new InventoryButton[3];
-    
 
+    [SerializeField] MagicCircleController circleController;
 
     //assign the bars to player accordingly
     void Start()
@@ -61,8 +61,6 @@ public class UIManager : MonoBehaviour
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
             skillBar.SetActive(false);
-            
-
         }
     }
 
@@ -73,15 +71,29 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Let's the combatcontroller know which ability was selected.
+    /// Let's the combatcontroller know which ability was selected and activates the magic circle.
     /// </summary>
     /// <param name="index"></param>
     public void SelectAbility(int index)
     {
         if (combatCtrl)
         {
-            combatCtrl.abilityIndex = index + 1;
-            combatCtrl.selectedAbilityData = abilities[index];
+            if (combatCtrl.selectedAbilityData == null)
+            {
+                if (circleController)
+                {
+                    var _circleScale = Vector3.one * abilities[index].Range * 2;
+                    circleController.ActivateMagicCircle(newScale: _circleScale);
+                }
+                combatCtrl.abilityIndex = index + 1;
+                combatCtrl.selectedAbilityData = abilities[index];
+            }
+            else
+            {
+                combatCtrl.selectedAbilityData = null;
+                if (circleController)
+                    circleController.HideMagicCircle();
+            }
         }
     }
     /// <summary>
