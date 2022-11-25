@@ -8,7 +8,6 @@ public class InteractableDoor : MonoBehaviour , IInteractable
     [SerializeField]
     Canvas worldUICanvas;
 
-
     // The exit position for when teleport through.
     public Vector3 DoorExitPosition => doorExitPosition.position;
     [SerializeField]
@@ -16,9 +15,7 @@ public class InteractableDoor : MonoBehaviour , IInteractable
 
     // The door to teleport us to.
     [SerializeField]
-    InteractableDoor doorPair;
-
-
+    public InteractableDoor doorPair;
 
     public void Interact(InteractionController controller)
     {
@@ -33,6 +30,7 @@ public class InteractableDoor : MonoBehaviour , IInteractable
             {
                 // Set the warp destination.
                 navMeshMovement.WarpPosition = doorPair.DoorExitPosition;
+
             }
         }
     }
@@ -45,5 +43,4 @@ public class InteractableDoor : MonoBehaviour , IInteractable
     {
         worldUICanvas.gameObject.SetActive(isFocused);
     }
-
 }
