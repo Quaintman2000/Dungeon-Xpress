@@ -318,7 +318,6 @@ GameObject:
   - component: {fileID: 3663987290641129149}
   - component: {fileID: 2803923730436499616}
   - component: {fileID: 761754733}
-  - component: {fileID: 107326356}
   - component: {fileID: 107326365}
   m_Layer: 0
   m_Name: paladin_j_nordstrom
@@ -517,21 +516,6 @@ MonoBehaviour:
   focusConeRadius: 45
   interactionRadius: 1
   radiusTriggerCollider: {fileID: 3663987290641129149}
---- !u!114 &107326356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389417993632140069}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd7d400e4820c3448d97370987645fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthToTrack: {fileID: 8693437862511915635}
-  barFill: {fileID: 0}
-  trackingOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &107326365
 MonoBehaviour:
   m_ObjectHideFlags: 0
