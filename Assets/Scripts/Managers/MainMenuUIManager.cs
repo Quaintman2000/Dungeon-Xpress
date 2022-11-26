@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
-
+using System.Linq;
 public class MainMenuUIManager : MonoBehaviour
 {
     //Variables 
@@ -20,6 +20,8 @@ public class MainMenuUIManager : MonoBehaviour
     [SerializeField] Slider brightnessSlider;
     // Resolution dropdown TM UI.
     [SerializeField] TMP_Dropdown resolutionDropdown;
+    [SerializeField] private bool isFullScreen;
+    
 
     //Gets the name of the paramter to change the volume 
     const string Mixer_Music = "MusicVolume";
@@ -30,19 +32,31 @@ public class MainMenuUIManager : MonoBehaviour
     float brightness;
     // Graphics current index.
     int graphicsIndex;
+    
+    private List<Resolution> filteredResolutions;
     // Resolution current index;
-    int resolutionIndex;
-
-    bool isFullScreen = false;
-
+    int currentResolutionIndex = 0;
+    float currentRefreshRate;
     Resolution[] resolutions;
 
     [SerializeField] SceneLoader sceneLoader;
 
-    
     private void Awake()
     {
-    
+        resolutionDropdown.value = currentResolutionIndex;
+
+        if (PlayerPrefs.GetInt("FullScreenSetting") == 1)
+        {
+            fullScreenToggle.isOn = true;
+            SetFullscreen(true);
+        }
+        else
+        {
+            fullScreenToggle.isOn = false;
+            SetFullscreen(false);
+        }
+        
+        
     }
     private void Start()
     {
@@ -61,7 +75,7 @@ public class MainMenuUIManager : MonoBehaviour
         PlayerPrefs.GetInt("ResolutionsSetting");
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
-        isFullScreen = (PlayerPrefs.GetInt("FullScreenSetting") != 0);
+        
         
 
     }
@@ -70,23 +84,34 @@ public class MainMenuUIManager : MonoBehaviour
     {
         // Grab the available screen resolutions.
         resolutions = Screen.resolutions;
+        filteredResolutions = new List<Resolution>();
         resolutionDropdown.ClearOptions();
-        // Make a string list of options.
-        List<string> options = new List<string>();
-        // Make a current reslotion index variable.
-        int currentResolutionIndex = 0;
+        currentRefreshRate = Screen.currentResolution.refreshRate;
+
         // For each resolution type...
         for (int i = 0; i < resolutions.Length; i++)
         {
-            // Add the option to the option list.
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
+            if (resolutions[i].refreshRate == currentRefreshRate)
+            {
+                filteredResolutions.Add(resolutions[i]);
+            }
+        }
+        // Make a string list of options.
+        List<string> options = new List<string>();
+
+        for(int i = 0; i < filteredResolutions.Count; i++)
+        {
+         // Add the option to the option list.
+         string resolutionOption = filteredResolutions[i].width + " x " + filteredResolutions[i].height + " " + filteredResolutions[i].refreshRate + " Hz ";
+            options.Add(resolutionOption);
+            
             // If the option is our current resolution setting...
-            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (filteredResolutions[i].width == Screen.width && filteredResolutions[i].height == Screen.height)
             {
                 // Set the index to that.
                 currentResolutionIndex = i;
             }
+
         }
         // Add the options to the dropdown and display the current set value.
         resolutionDropdown.AddOptions(options);
@@ -126,21 +151,23 @@ public class MainMenuUIManager : MonoBehaviour
     }
 
     // Adjust and save the resolution level.
-    public void OnResolutionDropdownValueChanged()
+    public void OnResolutionDropdownValueChanged(int resolutionIndex)
     {
-        resolutionIndex = resolutionDropdown.value;
-        Resolution resolution = resolutions[resolutionDropdown.value];
+        Resolution resolution = filteredResolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetInt("ResolutionsSetting", resolutionIndex);
+        PlayerPrefs.SetInt("ResolutionsSetting", currentResolutionIndex);
+      
+       
     }
 
     // Use a boolean to set the screen to fullscreen
-    public void SetFullscreen()
+    public void SetFullscreen(bool shouldFullScreen)
     {
-        isFullScreen = Screen.fullScreen;
-        Screen.fullScreen = !Screen.fullScreen;
-        PlayerPrefs.SetInt("FullScreenSetting", (isFullScreen ? 1 : 0));
-        
+        isFullScreen = shouldFullScreen;
+        Screen.fullScreen = shouldFullScreen;
+        PlayerPrefs.SetInt("FullScreenSetting", shouldFullScreen ? 1 : 0);
+       
+
     }
 
     public void OnMatchMakeButtonClicked()
