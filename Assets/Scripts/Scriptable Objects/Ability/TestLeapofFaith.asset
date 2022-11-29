@@ -20,7 +20,7 @@ MonoBehaviour:
   range: 10
   cost: 1
   soundData: {fileID: 0}
-  animationClip: {fileID: -203655887218126122, guid: 36bdfdda9a504cf45aefa782cf111054, type: 3}
+  animationClip: {fileID: -203655887218126122, guid: 3b2a11ce679187b4db6d1e300853315e, type: 3}
   damage: 20
   maxHeight: 0.5
   minHeight: -0.5

@@ -110,13 +110,12 @@ public class CombatController : MonoBehaviour
     // This is called during the ability animation to signal the ability functionality as they can start at different times.
     void Activate()
     {
-        Debug.Log("Activated Ability");
         selectedAbilityData.Activate(this);
         selectedAbilityData = null;
     }
 
 
-
+    #region Damage Healing and Death
     /// <summary>
     /// Moves the player into range of the target and deals damage to the target.
     /// </summary>
@@ -272,12 +271,13 @@ public class CombatController : MonoBehaviour
         OnCombatantDeath?.Invoke(this);
 
     }
-
+    #endregion
     void DestroyThis()
     {
         Destroy(this.gameObject);
     }
 
+    #region Turn
     // Starts the player's turn with their starting action points.
     public void StartTurn()
     {
@@ -300,7 +300,6 @@ public class CombatController : MonoBehaviour
             BattleManager.Instance.ChangeTurn();
         }
     }
-
     /// <summary>
     /// Debug function to the combatant's turn.
     /// </summary>
@@ -310,6 +309,8 @@ public class CombatController : MonoBehaviour
         actionPoints = 0;
         CheckEndTurn();
     }
+    #endregion
+    #region Movement
     /// <summary>
     /// Moves to the raycast point and subtracts action points. unless the current selected ability 
     /// is a movement ability then it should run that instead
@@ -317,8 +318,8 @@ public class CombatController : MonoBehaviour
     /// <param name="raycastPoint"> The designated point.</param>
     public void MoveToPoint(Vector3 raycastPoint)
     {
-        //If the ability selected isnt a movement type then just move normally
-        if (selectedAbilityData.Type != AbilityData.AbilityType.Movement)
+        //If the player is just moving or using a non movement ability then if passes
+        if (selectedAbilityData == null || selectedAbilityData.Type != AbilityData.AbilityType.Movement)
         {
             // Calculate length of the path.
             float distance = navMesh.GetDistance(raycastPoint);
@@ -335,14 +336,14 @@ public class CombatController : MonoBehaviour
                 // Move to the position.
                 navMesh.AttackMove(raycastPoint, 1f);
             }
-        } else
+        } else //Used for Movement Abilites in which the player moves around the map
         {
             MovementSpot = raycastPoint;
 
             //Conditions for if statement
             bool hasActionPoints = actionPoints >= selectedAbilityData.Cost;
             bool isClose = Vector3.Distance(raycastPoint, transform.position) <= selectedAbilityData.Range;
-            Debug.Log(hasActionPoints + " && " + isClose);
+
             //if has enough action points and is within range
             if (hasActionPoints && isClose)
             {
@@ -362,10 +363,53 @@ public class CombatController : MonoBehaviour
                 // Tell those who are listening for the ability to end that the ability is over.
                 OnAbilityUsedEndAction?.Invoke();
             }
-            Debug.Log("Player did movement ability");
         }
         // Check for end turn.
         CheckEndTurn();
+    }
+    //Used to start the leap
+    public void StartLeap(Transform player, Vector3 start, Vector3 stop, float time)
+    {
+        Vector3 lookDirection = new Vector3(stop.x, start.y, stop.z);
+        player.transform.LookAt(lookDirection);//Looks where they are going to jump to
+        StartCoroutine(Leap(player, start, stop, time));
+    }
+    /// <summary>
+    /// The dynamic leap used for the player to leap from one position to another using a
+    /// trajectory curve
+    /// Uses three points with the mid point being the 3rd point to calc the curve for
+    /// https://youtu.be/RF04Fi9OCPc
+    /// First Half of the Video helps understand how the calculation is done
+    /// </summary>
+    /// <param name="player">what is being moved between the point</param>
+    /// <param name="start">The start point of the leap</param>
+    /// <param name="stop">The stop point of the leap</param>
+    /// <param name="time">The time to leap</param>
+    /// <returns></returns>
+    IEnumerator Leap(Transform player, Vector3 start, Vector3 stop, float time)
+    {
+        float counter = 0;
+
+        // The mid point between the start and stop
+        Vector3 midpoint = start + ((start - stop) / 2f);
+        //The taller of both points and adds 10f to make the point slightly higher for the curve
+        float highestY = Mathf.Max(start.y, stop.y) + 10f;
+
+        //The height of the curve in which they jump to get to which is also in the middle of both
+        Vector3 highestSpot = new Vector3(midpoint.x, highestY, midpoint.z);
+
+        //Calculates where it is on the curve
+        while (counter <= time)
+        {
+            counter += Time.deltaTime;//Runs each frame
+            float percent = counter / time;//How far in the animation from 0-1
+
+            Vector3 p0 = Vector3.Lerp(start, stop, percent);
+            Vector3 p1 = Vector3.Lerp(highestSpot, stop, percent);
+
+            player.position = Vector3.Lerp(p0, p1, percent);
+            yield return null;
+        }
     }
     /// <summary>
     /// Used to instantly move the player to the raycast point
@@ -374,7 +418,8 @@ public class CombatController : MonoBehaviour
     {
         navMesh.Teleport(raycastPoint);
     }
-
+    #endregion
+    #region Status Effects
     void ApplyEffect(ItemData item)
     {
         item.Activate(this);
@@ -402,6 +447,7 @@ public class CombatController : MonoBehaviour
         // Stop listening for when the effect ends.
         effect.OnEffectEnd -= RemoveStatusEffect;
     }
+    #endregion
 }
 
 

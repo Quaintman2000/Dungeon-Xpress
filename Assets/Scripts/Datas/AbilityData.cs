@@ -64,7 +64,6 @@ public class AbilityData : ScriptableObject
 
         await Task.Yield();
     }
-
 }
 
 
