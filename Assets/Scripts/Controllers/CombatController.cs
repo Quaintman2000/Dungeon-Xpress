@@ -325,11 +325,7 @@ public class CombatController : MonoBehaviour
         //If the player is just moving or using a non movement ability then if passes
         if (selectedAbilityData == null || selectedAbilityData.Type != AbilityData.AbilityType.Movement)
         {
-            // Subtract the points.
-            actionPoints -= movementCost;
-            // Move to the position.
-            navMesh.AttackMove(raycastPoint, 1f);
-            UIManager.Instance.UpdateActionPoints(actionPoints );
+            UIManager.Instance.UpdateActionPoints(actionPoints);
             // Calculate length of the path.
             float distance = navMesh.GetDistance(raycastPoint);
             // Calculate the movement cost.
