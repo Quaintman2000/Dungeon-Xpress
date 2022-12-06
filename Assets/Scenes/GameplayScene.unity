@@ -16841,7 +16841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1021381665112887711, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 8.35
       objectReference: {fileID: 0}
     - target: {fileID: 1021381665112887711, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16902,7 +16902,7 @@ PrefabInstance:
     - target: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
       propertyPath: selectedAbilityData
       value: 
-      objectReference: {fileID: 11400000, guid: c13026db1e644534986040dfb5129173, type: 2}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91a59c8d1e3905442b47113427407742, type: 3}
 --- !u!114 &659099456908468160 stripped
@@ -17081,7 +17081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7627991373300920912, guid: 5ca8043319172e845b5f747a306d510d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.25
+      value: 8.6
       objectReference: {fileID: 0}
     - target: {fileID: 7627991373300920912, guid: 5ca8043319172e845b5f747a306d510d, type: 3}
       propertyPath: m_LocalPosition.y

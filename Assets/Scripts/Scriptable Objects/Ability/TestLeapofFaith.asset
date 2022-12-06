@@ -25,3 +25,4 @@ MonoBehaviour:
   maxHeight: 0.5
   minHeight: -0.5
   AOERadius: 2
+  leapTime: 0.93
