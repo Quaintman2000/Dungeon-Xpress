@@ -30,11 +30,7 @@ public class CombatController : MonoBehaviour
     public Action<CombatController> OnCombatantDeath, OnStartTurn, OnAbilityUsedAction;
     public Action<float> OnHealthChange;
 
-
-
     public CombatController currentTarget { get; private set; }
-
-
 
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
@@ -61,7 +57,6 @@ public class CombatController : MonoBehaviour
         CharacterController characterController;
         if (TryGetComponent<CharacterController>(out characterController))
         {
-
             // Subscribe to the combat related events.
             characterController.CombatMoveToPointAction += MoveToPoint;
             characterController.UseAbilityAction += CheckCanUseAbility;
@@ -69,9 +64,6 @@ public class CombatController : MonoBehaviour
 
         OnAbilityUsedEndAction += CheckEndTurn;
     }
-
-
-
 
     async void CheckCanUseAbility(CombatController other)
     {
