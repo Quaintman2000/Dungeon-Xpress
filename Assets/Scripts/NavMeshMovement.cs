@@ -105,4 +105,13 @@ public class NavMeshMovement : MonoBehaviour
         Debug.Log("Teleported");
         navMeshAgent.Warp(newPosition);
     }
+
+    public void Warp()
+    {
+        if(WarpPosition != null)
+        {
+            navMeshAgent.Warp(WarpPosition);
+            WarpPosition = transform.position;
+        }
+    }
 }
