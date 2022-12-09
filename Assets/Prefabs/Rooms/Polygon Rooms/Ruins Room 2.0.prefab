@@ -48,6 +48,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6968924884632841935}
+  - component: {fileID: 5524672125342720804}
   m_Layer: 0
   m_Name: Ruins Room 2.0
   m_TagString: Untagged
@@ -79,6 +80,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5524672125342720804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2688529452996094282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffb104bede133d45a7a7a3518334179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RoomDoors:
+  - faceDirection: 0
+    isConnectToAnotherRoom: 0
+    doorBlockOff: {fileID: 5524672123833855487}
+  - faceDirection: 2
+    isConnectToAnotherRoom: 0
+    doorBlockOff: {fileID: 5524672124489771340}
+  - faceDirection: 3
+    isConnectToAnotherRoom: 0
+    doorBlockOff: {fileID: 5524672123808228130}
+  roomPosition: {x: 0, y: 0}
 --- !u!1 &3415908377298291085
 GameObject:
   m_ObjectHideFlags: 0
