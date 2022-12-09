@@ -30,10 +30,10 @@ public class BattleUIManager : MonoBehaviour
         //For loop to iterate through the list of combatant images
         for (int i = 0; i < BattleManager.Instance.Combatants.Count; i++)
         {
-            Debug.Log("Begin Image For Loop.");
+            //Debug.Log("Begin Image For Loop.");
             //Instantiate the prefab template for the images and set the parent
             Image newImage = Instantiate(combatantImagePrefab.GetComponent<Image>(), turnOrderImagesParent);
-            Debug.Log("Image Instantiated and Parent Set.");
+            //Debug.Log("Image Instantiated and Parent Set.");
 
             //Set the image sprites to the correct image
             newImage.GetComponent<Image>().sprite = BattleManager.Instance.Combatants[i].CharacterData.CharacterImage; //.classData.CharacterImage

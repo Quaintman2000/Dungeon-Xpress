@@ -30,16 +30,6 @@ public class NavMeshMovement : MonoBehaviour
         }
     }
 
-    public virtual void Warp()
-    {
-        if (WarpPosition != null)
-        {
-            navMeshAgent.Warp(WarpPosition);
-            WarpPosition = transform.position;
-        }
-    }
-
-
     //We make a new path because most times the navMeshAgent has no path yet
     public virtual float GetDistance(Vector3 raycastPoint)
     {
@@ -109,5 +99,10 @@ public class NavMeshMovement : MonoBehaviour
     {
         WalkingAction?.Invoke(false);
         isMoving = false;
+    }
+    public void Teleport(Vector3 newPosition)
+    {
+        Debug.Log("Teleported");
+        navMeshAgent.Warp(newPosition);
     }
 }
