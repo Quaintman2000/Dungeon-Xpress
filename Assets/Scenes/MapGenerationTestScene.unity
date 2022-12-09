@@ -814,37 +814,28 @@ MonoBehaviour:
   range: 
   ap: 
   description: You can press 7 key or click on the button to use it
---- !u!1 &107326354 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 389417993632140069, guid: 91a59c8d1e3905442b47113427407742, type: 3}
-  m_PrefabInstance: {fileID: 63449183}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &107326355 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 979230311791587864, guid: 91a59c8d1e3905442b47113427407742, type: 3}
   m_PrefabInstance: {fileID: 63449183}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107326354}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &107326356
+--- !u!114 &107326357 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7653943422242788778, guid: 91a59c8d1e3905442b47113427407742, type: 3}
+  m_PrefabInstance: {fileID: 63449183}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107326354}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd7d400e4820c3448d97370987645fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 61192bc79e68cf74290047604d61a928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthToTrack: {fileID: 1902037883}
-  barFill: {fileID: 164868430}
-  trackingOffset: {x: 0, y: 0, z: 0}
 --- !u!43 &115547903
 Mesh:
   m_ObjectHideFlags: 0
@@ -4223,6 +4214,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 107326355}
     - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
+      propertyPath: circleController
+      value: 
+      objectReference: {fileID: 107326357}
+    - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: defualtButtonIcon
       value: 
       objectReference: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
@@ -6352,7 +6347,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8693437862511915635, guid: 91a59c8d1e3905442b47113427407742, type: 3}
   m_PrefabInstance: {fileID: 63449183}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107326354}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50fbbb8cc22f2fc439da8a28deada630, type: 3}
