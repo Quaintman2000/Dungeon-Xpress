@@ -28,7 +28,7 @@ public class PlayerSoundController : MonoBehaviour
     }
     public virtual void WalkSound()
     {
-        AudioManager.instance.PlaySound(audioData.Walking, transform.position);
+        //AudioManager.instance.PlaySound(audioData.Walking, transform.position);
     }
     public virtual void AttackSound()
     {
