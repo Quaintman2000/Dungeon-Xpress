@@ -30,11 +30,7 @@ public class CombatController : MonoBehaviour
     public Action<CombatController> OnCombatantDeath, OnStartTurn, OnAbilityUsedAction;
     public Action<float> OnHealthChange;
 
-
-
     public CombatController currentTarget { get; private set; }
-
-
 
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
@@ -61,7 +57,6 @@ public class CombatController : MonoBehaviour
         CharacterController characterController;
         if (TryGetComponent<CharacterController>(out characterController))
         {
-
             // Subscribe to the combat related events.
             characterController.CombatMoveToPointAction += MoveToPoint;
             characterController.UseAbilityAction += CheckCanUseAbility;
@@ -69,9 +64,6 @@ public class CombatController : MonoBehaviour
 
         OnAbilityUsedEndAction += CheckEndTurn;
     }
-
-
-
 
     async void CheckCanUseAbility(CombatController other)
     {
@@ -93,11 +85,12 @@ public class CombatController : MonoBehaviour
         {
             // Subtract the action points by the cost.
             actionPoints -= selectedAbilityData.Cost;
-            
+
             // Call the event for those who need to know that we just used an ability.
             OnAbilityUsedStartAction?.Invoke();
             OnAbilityUsedAction?.Invoke(this);
-            UIManager.Instance.UpdateActionPoints(actionPoints );
+            UIManager.Instance.UpdateActionPoints(actionPoints);
+        
             // Grab the ability animation length and convert it to milleseconds.
             var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
 
@@ -343,6 +336,7 @@ public class CombatController : MonoBehaviour
             }
         } else //Used for Movement Abilites in which the player moves around the map
         {
+          
             MovementSpot = raycastPoint;
 
             //Conditions for if statement

@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI actionPointsText;
    
+    [SerializeField] MagicCircleController circleController;
 
     //assign the bars to player accordingly
     void Start()
@@ -36,6 +37,8 @@ public class UIManager : MonoBehaviour
         abilities[1] = combatCtrl.CharacterData.Abilities[1];
         abilities[2] = combatCtrl.CharacterData.Abilities[2];
         abilities[3] = combatCtrl.CharacterData.Abilities[3];
+
+        combatCtrl.OnAbilityUsedEndAction += circleController.HideMagicCircle;
 
         pausePanel.SetActive(false);
         // Subscribe to the player controller events.
@@ -63,8 +66,6 @@ public class UIManager : MonoBehaviour
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
             skillBar.SetActive(false);
-            
-
         }
         
     }
@@ -76,15 +77,29 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Let's the combatcontroller know which ability was selected.
+    /// Let's the combatcontroller know which ability was selected and activates the magic circle.
     /// </summary>
     /// <param name="index"></param>
     public void SelectAbility(int index)
     {
         if (combatCtrl)
         {
-            combatCtrl.abilityIndex = index + 1;
-            combatCtrl.selectedAbilityData = abilities[index];
+            if (combatCtrl.selectedAbilityData == null)
+            {
+                if (circleController)
+                {
+                    var _circleScale = Vector3.one * abilities[index].Range * 2;
+                    circleController.ActivateMagicCircle(newScale: _circleScale);
+                }
+                combatCtrl.abilityIndex = index + 1;
+                combatCtrl.selectedAbilityData = abilities[index];
+            }
+            else
+            {
+                combatCtrl.selectedAbilityData = null;
+                if (circleController)
+                    circleController.HideMagicCircle();
+            }
         }
     }
     /// <summary>

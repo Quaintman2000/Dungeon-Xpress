@@ -18,7 +18,7 @@ public class LeapOfFaithData : AbilityData
     float AOERadius = 1f;
     [Header("Leap Animation Length")]
     [SerializeField] //How long the player jumps for
-    float leapTime = 0.75f;
+    float leapTime = 0.93f;
     //The player uses the combat controller to move
     public override async Task Activate(CombatController jumper)
     {
@@ -26,10 +26,10 @@ public class LeapOfFaithData : AbilityData
 
         jumper.StartLeap(jumper.transform, jumper.transform.position, jumper.MovementSpot, leapTime);
 
-        await Task.Delay(930); //Current delay for current animation land on Sword Attack 1
-        //Find way to calculate how long jump should be POSSIBLY be a parameter to pass or variable
-        Land(jumper.transform); //Player lands and does damage
+        await Task.Delay((int)(leapTime * 1000f)); //Current delay for current animation land on Sword Attack 1
+
         jumper.InstantMove(jumper.MovementSpot); //Current solution to landing in place and not moving back
+        Land(jumper.transform); //Player lands and does damage
     }
     //The stuff that happens when the player has landed
     public void Land(Transform player)
