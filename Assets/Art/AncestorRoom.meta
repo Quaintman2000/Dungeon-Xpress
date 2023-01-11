@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Art/AncestorRoom.meta
 guid: f22cce3d7a2b5094d9915289ad96650d
 folderAsset: yes
+========
+guid: f146f55a42e380c40a819b170af151fa
+>>>>>>>> Kaitlyn's-Branch:Assets/Scenes/Kaitlyn-SetDesigns.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -662,7 +662,7 @@ public class MapGenerator : MonoBehaviour
                                     else if (hasWest == true)
                                     {
                                         // Rotate the room in a random way between 1 -2 rotations.
-                                        newRoom.RotateRoom(Random.Range(1,2));
+                                        newRoom.RotateRoom(Random.Range(-2, -1));
                                     }
                                     // If we just have the south door...
                                     else
