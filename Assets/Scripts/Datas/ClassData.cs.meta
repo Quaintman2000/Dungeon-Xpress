@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4462afd8978b64447a681789c80464e3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - CharacterModel: {instanceID: 0}
+  - CharacterImage: {instanceID: 0}
+  - animatorOverrideController: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
