@@ -35,6 +35,9 @@ public class CombatController : MonoBehaviour
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     public Vector3 MovementSpot;
+    CharacterController characterController;
+
+    Coroutine abilityRoutine;
     // Start is called before the first frame update
     void Awake()
     {
@@ -54,7 +57,6 @@ public class CombatController : MonoBehaviour
             inventoryManager.OnUseItem += ApplyEffect;
         }
         // Try to grab the character controller if we have one.
-        CharacterController characterController;
         if (TryGetComponent<CharacterController>(out characterController))
         {
             // Subscribe to the combat related events.
@@ -62,7 +64,143 @@ public class CombatController : MonoBehaviour
             characterController.UseAbilityAction += CheckCanUseAbility;
         }
 
+        if(TryGetComponent<PlayerController>(out PlayerController player))
+        {
+            player.OnCombatRightClickAction += ValidateInput;
+        }
+
         OnAbilityUsedEndAction += CheckEndTurn;
+    }
+
+    public void ValidateInput(RaycastData raycastData)
+    {
+       // If this combatant is casting an ability...
+       if(characterController.currentState == CharacterController.PlayerState.Casting)
+        {
+            if (actionPoints >= selectedAbilityData.Cost)
+            {
+                // Check if the type for the selected ability matches the hit result.
+                // If the target require is self...
+                if (selectedAbilityData.TargetStyle == AbilityData.TargetType.Self)
+                {
+                    if (raycastData.Result == HitResult.Self)
+                    {
+                        abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                // If the target requirement is ground...
+                else if (selectedAbilityData.TargetStyle == AbilityData.TargetType.Ground)
+                {
+                    if (raycastData.Result == HitResult.Ground)
+                    {
+                        if (Vector3.Distance(transform.position, raycastData.ImpactPoint) <= selectedAbilityData.Range) 
+                        {
+                            abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                // If the target requirement is others...
+                else if (selectedAbilityData.TargetStyle == AbilityData.TargetType.Others)
+                {
+                    if (raycastData.Result == HitResult.Other)
+                    {
+                        if (Vector3.Distance(transform.position, raycastData.ImpactPoint) <= selectedAbilityData.Range) 
+                        {
+                            abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                // If the target requirement is self and/or others...
+                else if (selectedAbilityData.TargetStyle == AbilityData.TargetType.SelfAndOthers)
+                {
+                    if (raycastData.Result == HitResult.Self)
+                    {
+                        abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                    }
+                    else if (raycastData.Result == HitResult.Other)
+                    {
+                        if (Vector3.Distance(transform.position, raycastData.ImpactPoint) <= selectedAbilityData.Range) 
+                        {
+                            abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                // If there is not target requirement...
+                else if (selectedAbilityData.TargetStyle == AbilityData.TargetType.Nothing)
+                {
+                    abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                }
+                else
+                {
+                    return;
+                }
+
+                // Spend the action points for the ability.
+                SpendActionPoints(selectedAbilityData.Cost);
+            }
+            else
+            {
+                Debug.LogError("Can't afford to use the ability!");
+                return;
+            }
+        }
+        // If this combatant is not casting an ability...
+       else
+        {
+            if(raycastData.Result == HitResult.Ground)
+            {
+                // Movement
+                float distance = navMesh.GetDistance(raycastData.ImpactPoint);
+                // Calculate the movement cost.
+                int movementCost = Mathf.RoundToInt(distance);
+                // Clamp it so we get no logic errors.
+                movementCost = (int)Mathf.Clamp(movementCost, 0, Mathf.Infinity);
+                // If we have enough action points to cover the cost...
+
+                if (movementCost <= actionPoints)
+                {
+                    // Subtract the points.
+                    SpendActionPoints(movementCost);
+                    // Move to the position.
+                    navMesh.AttackMove(raycastData.ImpactPoint, 1f);
+                }
+            }
+            else if(raycastData.Result == HitResult.Other)
+            {
+                throw new NotImplementedException();
+            }
+        }
+    }
+
+
+    public void SpendActionPoints(int spentPoints)
+    {
+        actionPoints -= spentPoints;
+        UIManager.Instance.UpdateActionPoints(actionPoints);
     }
 
     async void CheckCanUseAbility(CombatController other)
@@ -100,6 +238,25 @@ public class CombatController : MonoBehaviour
             // Tell those who are listening for the ability to end that the ability is over.
             OnAbilityUsedEndAction?.Invoke();
         }
+    }
+
+    IEnumerator UseAbilityRoutine()
+    {
+        // Call the event for those who need to know that we just used an ability.
+        OnAbilityUsedStartAction?.Invoke();
+        OnAbilityUsedAction?.Invoke(this);
+
+        // Grab the ability animation length and convert it to milleseconds.
+        var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
+        // Set the time to end the busy state.
+        var timeToEnd = Time.time + animationLength;
+        // Do nothing until we reach that time.
+        do
+        {
+            yield return null;
+        } while (Time.time < timeToEnd);
+        // Let everyone know we're done.
+        OnAbilityUsedEndAction?.Invoke();
     }
 
     // This is called during the ability animation to signal the ability functionality as they can start at different times.

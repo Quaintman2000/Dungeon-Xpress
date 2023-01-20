@@ -142,5 +142,23 @@ public class AIController : CharacterController
         performingAction = false;
     }
 
+    protected override IEnumerator HandleFreeRoamState()
+    {
+        throw new System.NotImplementedException();
+    }
 
+    protected override IEnumerator HandleInCombatState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override IEnumerator HandleCastingState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    protected override IEnumerator HandleBusyState()
+    {
+        throw new System.NotImplementedException();
+    }
 }

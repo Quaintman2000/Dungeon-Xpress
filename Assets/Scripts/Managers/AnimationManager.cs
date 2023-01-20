@@ -22,6 +22,7 @@ public abstract class AnimationManager : MonoBehaviour
     protected readonly int movingState = Animator.StringToHash("Moving State");
     protected readonly int hitState = Animator.StringToHash("Hit State");
     protected readonly int dieState = Animator.StringToHash("Die State");
+    
 
     protected int currentState;
     protected int previousState;

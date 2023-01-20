@@ -39,7 +39,7 @@ public class AbilityData : ScriptableObject
 
     public enum AbilityType { MeleeAttack, RangeAttack, Movement, Healing, ActionPoints , Neither };
     public enum BuffOrDebuff { Buff, Debuff, None}
-    public enum TargetType { Self, Others, Ground, SelfAndOthers }
+    public enum TargetType { Self, Others, Ground, SelfAndOthers, Nothing }
 
     public virtual bool IsValidTarget(CombatController self, CombatController target)
     {

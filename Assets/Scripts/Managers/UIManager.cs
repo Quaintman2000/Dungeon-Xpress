@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
 public class UIManager : MonoBehaviour
 {
-    public delegate void ItemButtonPressed(int index);
-    public event ItemButtonPressed OnItemButtonPressed;
+   public Action<int> OnItemButtonPressed;
+    public Action OnAbilityButtonPressed;
 
     public static UIManager Instance;
     //References for Bars
@@ -63,8 +65,6 @@ public class UIManager : MonoBehaviour
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
             skillBar.SetActive(false);
-            
-
         }
         
     }
@@ -83,6 +83,7 @@ public class UIManager : MonoBehaviour
     {
         if (combatCtrl)
         {
+            OnAbilityButtonPressed?.Invoke();
             combatCtrl.abilityIndex = index + 1;
             combatCtrl.selectedAbilityData = abilities[index];
         }
@@ -188,10 +189,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateActionPoints(float actionPoints)
     {
-
         actionPointsText.text = "Action Points " + actionPoints.ToString();
-     
-
     }
 
 }

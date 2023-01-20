@@ -9,11 +9,15 @@ public class PlayerAnimationManager : AnimationManager
     readonly int parryStanceIdleState = Animator.StringToHash("Parry Stance Idle State");
     readonly int parryState = Animator.StringToHash("Parry State");
     readonly int enterDoorState = Animator.StringToHash("Enter Door");
+    readonly int castingState = Animator.StringToHash("Casting State");
 
     protected override void Start()
     {
         base.Start();
-      
+        if (TryGetComponent<CharacterController>(out CharacterController character))
+        {
+            character.OnCastingStateEnter += EnterCastingState;
+        }
     }
 
     public void SetIsParryStance(bool shouldParryStace)
@@ -21,6 +25,10 @@ public class PlayerAnimationManager : AnimationManager
         isParryStance = shouldParryStace;
     }
 
+    void EnterCastingState()
+    {
+        ChangeAnimationState(castingState);
+    }
     protected override void ToggleWalkAnimation(bool isWalking)
     {
         // Change our animation state to walking if "isWalking" is true.

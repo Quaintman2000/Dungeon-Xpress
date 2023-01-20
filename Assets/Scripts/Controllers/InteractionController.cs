@@ -20,7 +20,7 @@ public class InteractionController : MonoBehaviour
     {
         if(TryGetComponent<PlayerController>(out PlayerController player))
         {
-            player.AttemptPickupAction += InteractWithInteractable;
+            player.AttemptInteractAction += InteractWithInteractable;
         }
 
         // Sets the trigger radius.
