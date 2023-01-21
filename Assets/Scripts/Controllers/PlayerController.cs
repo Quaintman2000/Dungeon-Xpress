@@ -34,9 +34,11 @@ public class PlayerController : CharacterController
             UIManager.OnAbilityButtonPressed += EnterCastingState;
         }
     }
-    private void Start()
+    protected override void Start()
     {
-        currentStateRoutine = StartCoroutine(HandleFreeRoamState());
+        base.Start();
+
+        //currentStateRoutine = StartCoroutine(HandleFreeRoamState());
     }
     // Update is called once per frame
     void Update()
@@ -204,32 +206,6 @@ public class PlayerController : CharacterController
 
                 OnCombatRightClickAction?.Invoke(newRayCastData);
 
-                //if (Physics.Raycast(cameraRay, out hit, Mathf.Infinity))
-                //{
-
-                //    selectedCharacter = this;
-
-                //    // If we hit a combatant...
-                //    if (hit.collider.TryGetComponent<CombatController>(out CombatController other))
-                //    {
-                //        // If the combatant isnt us...
-                //        UseAbilityAction?.Invoke(other);
-                //        //combatController.UseAbility(other);
-                //    }
-                //    else
-                //    {
-                //        //Cast a ray from our camera toward the plane, through our mouse cursor
-                //        float distance;
-                //        // Grab the distance of the position we hit to get the point along the ray.
-                //        distance = hit.distance;
-
-                //        //Find where that ray hits the plane
-                //        Vector3 raycastPoint = cameraRay.GetPoint(distance);
-
-                //        CombatMoveToPointAction?.Invoke(raycastPoint);
-                //    }
-
-                //}
             }
             //Floats to keep track of the player's movement on the directional input
             float verticalInput = Input.GetAxis("Vertical");

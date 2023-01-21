@@ -191,7 +191,7 @@ public class CombatController : MonoBehaviour
             }
             else if(raycastData.Result == HitResult.Other)
             {
-                throw new NotImplementedException();
+                //throw new NotImplementedException();
             }
         }
     }
@@ -247,7 +247,7 @@ public class CombatController : MonoBehaviour
         OnAbilityUsedAction?.Invoke(this);
 
         // Grab the ability animation length and convert it to milleseconds.
-        var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
+        var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length);
         // Set the time to end the busy state.
         var timeToEnd = Time.time + animationLength;
         // Do nothing until we reach that time.
