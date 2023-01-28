@@ -16,6 +16,7 @@ public class PlayerController : CharacterController
     public Action<float> RotateCameraAction;
     public Action<bool> OnCombatStartedAction;
     public Action<RaycastData> OnCombatRightClickAction;
+    public Action OnCastingStateCancelAction;
 
     // TEMPORARY! Testing purposes only.
     public Action<CameraController.CameraStyle> SwitchCameraStyle;
@@ -157,6 +158,7 @@ public class PlayerController : CharacterController
             Debug.Log("Free Roam Coroutine works.");
             yield return null;
         }
+        OnFreeRoamStateExit?.Invoke();
     }
     protected override IEnumerator HandleInCombatState()
     {
@@ -246,6 +248,7 @@ public class PlayerController : CharacterController
             }
             yield return null;
         }
+        OnCombatStateExit?.Invoke();
     }
 
     protected override IEnumerator HandleCastingState()
@@ -259,6 +262,7 @@ public class PlayerController : CharacterController
             if (Input.GetMouseButtonDown(0))
             {
                 shouldCancel = true;
+                OnCastingStateCancelAction?.Invoke();
             }
 
             // If right click down.
@@ -335,7 +339,7 @@ public class PlayerController : CharacterController
             }
             yield return null;
         }
-
+        OnCastingStateExit?.Invoke();
         ReturnToPreviousState();
     }
 
@@ -372,164 +376,165 @@ public class PlayerController : CharacterController
 
             yield return null;
         }
+        OnBusyStateExit?.Invoke();
     }
     // OLD METHOD. Kept for reference.
     // Keep track of all the different input options of the player
-    private void GetInputs()
-    {
-        //Floats to keep track of the player's movement on the directional input
-        float verticalInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");
+    //private void GetInputs()
+    //{
+    //    //Floats to keep track of the player's movement on the directional input
+    //    float verticalInput = Input.GetAxis("Vertical");
+    //    float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            // Hit info from the raycast.
-            RaycastHit hit;
-            // Makes the raycast from our mouseposition to the ground.
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // Sends the raycast of to infinity until hits something.
-            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        // Hit info from the raycast.
+    //        RaycastHit hit;
+    //        // Makes the raycast from our mouseposition to the ground.
+    //        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //        // Sends the raycast of to infinity until hits something.
+    //        Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
-            // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
-            CharacterController characterController;
-            if (hit.collider.TryGetComponent<CharacterController>(out characterController))
-                SelectCharacter(characterController);
-            else
-                SelectCharacter(this);
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            // Sets the start position for the rotate start position.
-            OnRightClickDownAction?.Invoke();
-            //camControl.rotateStartPosition = Input.mousePosition;
-            // Set the right click hold time to zero.
-            rightClickHoldTime = 0;
-        }
-        if (Input.GetMouseButton(1))
-        {
-            // As we're holding right click, add onto the time hold.
-            rightClickHoldTime += Time.deltaTime;
-            // If we're holding it longer the hold gap time...
-            if (rightClickHoldTime > rightClickHoldGap)
-            {
-                // Rotate the camera
-                OnRightClickHeldDownAction?.Invoke();
-            }
-        }
+    //        // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
+    //        CharacterController characterController;
+    //        if (hit.collider.TryGetComponent<CharacterController>(out characterController))
+    //            SelectCharacter(characterController);
+    //        else
+    //            SelectCharacter(this);
+    //    }
+    //    if (Input.GetMouseButtonDown(1))
+    //    {
+    //        // Sets the start position for the rotate start position.
+    //        OnRightClickDownAction?.Invoke();
+    //        //camControl.rotateStartPosition = Input.mousePosition;
+    //        // Set the right click hold time to zero.
+    //        rightClickHoldTime = 0;
+    //    }
+    //    if (Input.GetMouseButton(1))
+    //    {
+    //        // As we're holding right click, add onto the time hold.
+    //        rightClickHoldTime += Time.deltaTime;
+    //        // If we're holding it longer the hold gap time...
+    //        if (rightClickHoldTime > rightClickHoldGap)
+    //        {
+    //            // Rotate the camera
+    //            OnRightClickHeldDownAction?.Invoke();
+    //        }
+    //    }
 
-        if (Input.GetMouseButtonUp(1) && rightClickHoldTime < rightClickHoldGap)
-        {
-            // Hit info from the raycast.
-            RaycastHit hit;
-            // Makes the raycast from our mouseposition to the ground.
-            Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            // Sends the raycast of to infinity until hits something.
-            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
+    //    if (Input.GetMouseButtonUp(1) && rightClickHoldTime < rightClickHoldGap)
+    //    {
+    //        // Hit info from the raycast.
+    //        RaycastHit hit;
+    //        // Makes the raycast from our mouseposition to the ground.
+    //        Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //        // Sends the raycast of to infinity until hits something.
+    //        Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
 
 
 
-            if (selectedCharacter == this)
-            {
-                //Cast a ray from our camera toward the plane, through our mouse cursor
-                float distance;
-                // Grab the distance of the position we hit to get the point along the ray.
-                distance = hit.distance;
+    //        if (selectedCharacter == this)
+    //        {
+    //            //Cast a ray from our camera toward the plane, through our mouse cursor
+    //            float distance;
+    //            // Grab the distance of the position we hit to get the point along the ray.
+    //            distance = hit.distance;
 
-                //Find where that ray hits the plane
-                Vector3 raycastPoint = cameraRay.GetPoint(distance);
+    //            //Find where that ray hits the plane
+    //            Vector3 raycastPoint = cameraRay.GetPoint(distance);
 
-                // If we right click...
-                if (currentState == PlayerState.FreeRoam)
-                {
-                    if (!hit.collider.GetComponent<CombatController>())
-                    {
-                        // Set the pathing to start.
-                        FreeMoveToPointAction?.Invoke(raycastPoint);
+    //            // If we right click...
+    //            if (currentState == PlayerState.FreeRoam)
+    //            {
+    //                if (!hit.collider.GetComponent<CombatController>())
+    //                {
+    //                    // Set the pathing to start.
+    //                    FreeMoveToPointAction?.Invoke(raycastPoint);
 
-                    }
-                    else
-                    {
+    //                }
+    //                else
+    //                {
 
-                        if (hit.collider.GetComponent<CombatController>() != this.combatController)
-                        {
-                            MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
-                            OnCombatStartedAction?.Invoke(true);
-                        }
-                    }
-                }
-                else if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
-                {
+    //                    if (hit.collider.GetComponent<CombatController>() != this.combatController)
+    //                    {
+    //                        MatchManager.Instance.StartCombat(this, hit.collider.GetComponent<CharacterController>());
+    //                        OnCombatStartedAction?.Invoke(true);
+    //                    }
+    //                }
+    //            }
+    //            else if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
+    //            {
 
-                    // If we hit a combatant...
-                    if (hit.collider.TryGetComponent<CombatController>(out CombatController other))
-                    {
-                        // If the combatant isnt us...
-                        UseAbilityAction?.Invoke(other);
-                        //combatController.UseAbility(other);
-                    }
-                    else
-                    {
-                        CombatMoveToPointAction?.Invoke(raycastPoint);
-                    }
-                }
-            }
-        }
+    //                // If we hit a combatant...
+    //                if (hit.collider.TryGetComponent<CombatController>(out CombatController other))
+    //                {
+    //                    // If the combatant isnt us...
+    //                    UseAbilityAction?.Invoke(other);
+    //                    //combatController.UseAbility(other);
+    //                }
+    //                else
+    //                {
+    //                    CombatMoveToPointAction?.Invoke(raycastPoint);
+    //                }
+    //            }
+    //        }
+    //    }
 
-        //If inputs a direction input...
-        if (verticalInput != 0 || horizontalInput != 0)
-        {
-            //Move on the desired input
-            MoveCameraAction?.Invoke(verticalInput, horizontalInput);
+    //    //If inputs a direction input...
+    //    if (verticalInput != 0 || horizontalInput != 0)
+    //    {
+    //        //Move on the desired input
+    //        MoveCameraAction?.Invoke(verticalInput, horizontalInput);
 
-        }
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("works");
-            // Rotate the camera to the right.
-            RotateCameraAction?.Invoke(-1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log("doesnt work");
-            // Rotate the camera to the left.
-            RotateCameraAction?.Invoke(1);
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //Attempts to pickup an item if there is one on the floor
-            AttemptInteractAction?.Invoke();
-        }
+    //    if (Input.GetKeyDown(KeyCode.E))
+    //    {
+    //        Debug.Log("works");
+    //        // Rotate the camera to the right.
+    //        RotateCameraAction?.Invoke(-1);
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.Q))
+    //    {
+    //        Debug.Log("doesnt work");
+    //        // Rotate the camera to the left.
+    //        RotateCameraAction?.Invoke(1);
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        //Attempts to pickup an item if there is one on the floor
+    //        AttemptInteractAction?.Invoke();
+    //    }
         
-        // If we press P.
-        if (Input.GetKey(KeyCode.P))
-        {
-            // Invoke the pause action event.
-            OnPauseAction?.Invoke();
-        }
+    //    // If we press P.
+    //    if (Input.GetKey(KeyCode.P))
+    //    {
+    //        // Invoke the pause action event.
+    //        OnPauseAction?.Invoke();
+    //    }
 
-        //When scrolling the mouse wheel...
-        if (Input.mouseScrollDelta != Vector2.zero)
-        {
-            //Zoom in or out based on input
-            camControl.Zoom(Input.mouseScrollDelta.y);
-        }
+    //    //When scrolling the mouse wheel...
+    //    if (Input.mouseScrollDelta != Vector2.zero)
+    //    {
+    //        //Zoom in or out based on input
+    //        camControl.Zoom(Input.mouseScrollDelta.y);
+    //    }
 
-        //If pressed 1...
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            //Set camera style to player focused.
-            SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
-        }
+    //    //If pressed 1...
+    //    if (Input.GetKeyDown(KeyCode.Alpha1))
+    //    {
+    //        //Set camera style to player focused.
+    //        SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
+    //    }
 
-        // If pressed 3...
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            //Set camera style to room locked.
-            SwitchCameraStyle?.Invoke(CameraController.CameraStyle.RoomLocked);
-        }
+    //    // If pressed 3...
+    //    else if (Input.GetKeyDown(KeyCode.Alpha3))
+    //    {
+    //        //Set camera style to room locked.
+    //        SwitchCameraStyle?.Invoke(CameraController.CameraStyle.RoomLocked);
+    //    }
 
-    }
+    //}
     void SelectCharacter(CharacterController character)
     {
         if (selectedCharacter != null)

@@ -61,7 +61,6 @@ public class CombatController : MonoBehaviour
         {
             // Subscribe to the combat related events.
             characterController.CombatMoveToPointAction += MoveToPoint;
-            characterController.UseAbilityAction += CheckCanUseAbility;
         }
 
         if(TryGetComponent<PlayerController>(out PlayerController player))
@@ -69,7 +68,7 @@ public class CombatController : MonoBehaviour
             player.OnCombatRightClickAction += ValidateInput;
         }
 
-        OnAbilityUsedEndAction += CheckEndTurn;
+        
     }
 
     public void ValidateInput(RaycastData raycastData)
@@ -203,42 +202,6 @@ public class CombatController : MonoBehaviour
         UIManager.Instance.UpdateActionPoints(actionPoints);
     }
 
-    async void CheckCanUseAbility(CombatController other)
-    {
-        currentTarget = other;
-        // We need to check to see if we can use this ability.
-        // If the target is the activator and the target style is NOT self or Self and others, don't hit activator.
-        if (currentTarget == this && (selectedAbilityData.TargetStyle != AbilityData.TargetType.Self && selectedAbilityData.TargetStyle != AbilityData.TargetType.SelfAndOthers))
-            return;
-
-        //When an enemy is selected with a ground ability it should try and sample the ground around to find a spot to land on.
-        if (selectedAbilityData.TargetStyle == AbilityData.TargetType.Ground)
-            //Player will land in front of where the enemy is facing 
-            MovementSpot = other.transform.position + (other.transform.forward * 0.5f);
-
-
-        Debug.Log("Distance between the player and target: " + Vector3.Distance(a: currentTarget.transform.position, b: transform.position) + " Units.");
-        // If we have enough AP to use the ability and if we are in range...
-        if (actionPoints >= selectedAbilityData.Cost && Vector3.Distance(a: currentTarget.transform.position, b: transform.position) <= selectedAbilityData.Range)
-        {
-            // Subtract the action points by the cost.
-            actionPoints -= selectedAbilityData.Cost;
-
-            // Call the event for those who need to know that we just used an ability.
-            OnAbilityUsedStartAction?.Invoke();
-            OnAbilityUsedAction?.Invoke(this);
-            UIManager.Instance.UpdateActionPoints(actionPoints);
-        
-            // Grab the ability animation length and convert it to milleseconds.
-            var animationLength = Mathf.RoundToInt(selectedAbilityData.AnimationClip.length * 1000);
-
-            // Delay this function by the animation length.
-            await Task.Delay(animationLength);
-
-            // Tell those who are listening for the ability to end that the ability is over.
-            OnAbilityUsedEndAction?.Invoke();
-        }
-    }
 
     IEnumerator UseAbilityRoutine()
     {
@@ -441,19 +404,7 @@ public class CombatController : MonoBehaviour
         actionPoints = CharacterData.StartingActionPoints;
         
     }
-    // Checks if our turn is over.
-    private void CheckEndTurn()
-    {
-        // If action poinst is less than or equal to 0.
-        if (actionPoints <= 0)
-        {
-            // Set isTurn to false.
-            IsTurn = false;
-
-            // Call the battlemanager to change turns.
-            BattleManager.Instance.ChangeTurn();
-        }
-    }
+   
     /// <summary>
     /// Debug function to the combatant's turn.
     /// </summary>
@@ -461,7 +412,7 @@ public class CombatController : MonoBehaviour
     private void EndTurn()
     {
         actionPoints = 0;
-        CheckEndTurn();
+        OnAbilityUsedEndAction?.Invoke();
     }
     #endregion
     #region Movement
@@ -520,8 +471,6 @@ public class CombatController : MonoBehaviour
                 OnAbilityUsedEndAction?.Invoke();
             }
         }
-        // Check for end turn.
-        CheckEndTurn();
     }
     //Used to start the leap
     public void StartLeap(Transform player, Vector3 start, Vector3 stop, float time)

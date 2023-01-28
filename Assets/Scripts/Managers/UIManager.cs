@@ -27,7 +27,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] InventoryButton[] inventoryButtons = new InventoryButton[3];
 
     [SerializeField] TextMeshProUGUI actionPointsText;
-   
+
+    [SerializeField] MagicCircleController circleController;
 
     //assign the bars to player accordingly
     void Start()
@@ -86,6 +87,7 @@ public class UIManager : MonoBehaviour
             OnAbilityButtonPressed?.Invoke();
             combatCtrl.abilityIndex = index + 1;
             combatCtrl.selectedAbilityData = abilities[index];
+            circleController.ActivateMagicCircle(Vector3.one * abilities[index].Range * 2);
         }
     }
     /// <summary>

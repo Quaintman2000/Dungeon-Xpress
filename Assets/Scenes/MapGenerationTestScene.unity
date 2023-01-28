@@ -2141,6 +2141,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &645949616 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8532505299839473270, guid: c27701f8271daba449f6275930b985ac, type: 3}
+  m_PrefabInstance: {fileID: 2101696416060031920}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61192bc79e68cf74290047604d61a928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &654802724
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,7 +4075,7 @@ PrefabInstance:
     - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: circleController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 645949616}
     - target: {fileID: 3689875196876255333, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: defualtButtonIcon
       value: 

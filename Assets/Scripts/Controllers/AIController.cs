@@ -35,8 +35,9 @@ public class AIController : CharacterController
         navMeshMovement = gameObject.GetComponent<NavMeshMovement>();
     }
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         combatController = GetComponent<CombatController>();
 
         performingAction = false;
@@ -144,21 +145,33 @@ public class AIController : CharacterController
 
     protected override IEnumerator HandleFreeRoamState()
     {
-        throw new System.NotImplementedException();
+        while(currentState == PlayerState.FreeRoam)
+        {
+            yield return null;
+        }
     }
 
     protected override IEnumerator HandleInCombatState()
     {
-        throw new System.NotImplementedException();
+        while (currentState == PlayerState.InCombat)
+        {
+            yield return null;
+        }
     }
 
     protected override IEnumerator HandleCastingState()
     {
-        throw new System.NotImplementedException();
+        while (currentState == PlayerState.Casting)
+        {
+            yield return null;
+        }
     }
 
     protected override IEnumerator HandleBusyState()
     {
-        throw new System.NotImplementedException();
+        while (currentState == PlayerState.Busy)
+        {
+            yield return null;
+        }
     }
 }

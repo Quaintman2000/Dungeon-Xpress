@@ -394,7 +394,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7627991373300920912}
   - component: {fileID: 7950727735929017797}
-  - component: {fileID: 7625229894363098563}
   - component: {fileID: 7625229894363098556}
   - component: {fileID: 7950727735929017799}
   - component: {fileID: 7950727735929017796}
@@ -441,20 +440,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &7625229894363098563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104359218675198186}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d083d70f37481b0469a9747b6e0eb97f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds: []
-  audioData: {fileID: 11400000, guid: d4d0fcb6fd34f6a4bb32fa609bfef45d, type: 2}
 --- !u!114 &7625229894363098556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,12 +493,12 @@ MonoBehaviour:
   navMesh: {fileID: 0}
   closeEnough: 0.1
   CharacterData: {fileID: 11400000, guid: 651249bf98156ef41b978da67343cc2d, type: 2}
-  Health: 0
+  Health: 100
   IsTurn: 0
   currentCombatState: 0
   abilityIndex: 0
   selectedAbilityData: {fileID: 11400000, guid: 4a993cb3c3f63964aaf7e912a6032c3e, type: 2}
-  animationManager: {fileID: 0}
+  MovementSpot: {x: 0, y: 0, z: 0}
 --- !u!114 &-1992880566794851244
 MonoBehaviour:
   m_ObjectHideFlags: 0
