@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PlayerController playerCtrl;
     [SerializeField] private CombatController combatCtrl;
     [SerializeField] private GameObject skillBar;
-     public GameObject pausePanel;
+    public GameObject pausePanel;
 
     [SerializeField] Sprite defualtButtonIcon;
 
@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] InventoryButton[] inventoryButtons = new InventoryButton[3];
 
     [SerializeField] TextMeshProUGUI actionPointsText;
-   
+
 
     //assign the bars to player accordingly
     void Start()
@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
         playerCtrl.OnCombatStartedAction += ToggleSkillBar;
         playerCtrl.OnPauseAction += PauseGame;
         // If the player controller has an inventory manager...
-        if(playerCtrl.TryGetComponent<InventoryManager>(out InventoryManager inventoryManager))
+        if (playerCtrl.TryGetComponent<InventoryManager>(out InventoryManager inventoryManager))
         {
             // Subscribe to the inventory manager events.
             inventoryManager.OnItemPickUpSucess += SetInventoryIcon;
@@ -57,16 +57,16 @@ public class UIManager : MonoBehaviour
         if (playerCtrl.currentState == CharacterController.PlayerState.InCombat)
         {
             skillBar.SetActive(true);
-            
+
         }
         //if player is not in combat mode then hide it
         else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
         {
             skillBar.SetActive(false);
-            
+
 
         }
-        
+
     }
 
     // Toggles the skill bar off and on.
@@ -94,10 +94,10 @@ public class UIManager : MonoBehaviour
     void SetInventoryIcon(ItemData itemData)
     {
         // For each of our inventory slots...
-        for(int i = 0; i < inventoryButtons.Length; i++)
+        for (int i = 0; i < inventoryButtons.Length; i++)
         {
             // If this inventory slot does not have an item...
-            if(inventoryButtons[i].hasItem == false)
+            if (inventoryButtons[i].hasItem == false)
             {
                 // Set the button image to be our icon and set the has item to true.
                 inventoryButtons[i].button.image.sprite = itemData.Icon;
@@ -110,10 +110,10 @@ public class UIManager : MonoBehaviour
     void RemoveInventoryIcon(ItemData itemData)
     {
         // Go through the list of buttons.
-        for(int i = 0; i < inventoryButtons.Length; i++)
+        for (int i = 0; i < inventoryButtons.Length; i++)
         {
             // If this button has the same icon as the item being removed...
-            if(inventoryButtons[i].button.image.sprite == itemData.Icon)
+            if (inventoryButtons[i].button.image.sprite == itemData.Icon)
             {
                 // Set the icon back to defualt and set hast item to false.
                 inventoryButtons[i].button.image.sprite = defualtButtonIcon;
@@ -123,10 +123,10 @@ public class UIManager : MonoBehaviour
         }
 
         // Sort the icons out so they are nice and neat.
-        for (int i = 0; i < inventoryButtons.Length-1; i++)
+        for (int i = 0; i < inventoryButtons.Length - 1; i++)
         {
             // If the inventory button upfront has no icon but the next one does, switch them around.
-            if(inventoryButtons[i].hasItem == false && inventoryButtons[i+1].hasItem == true)
+            if (inventoryButtons[i].hasItem == false && inventoryButtons[i + 1].hasItem == true)
             {
                 inventoryButtons[i].button.image.sprite = inventoryButtons[i + 1].button.image.sprite;
                 inventoryButtons[i].hasItem = true;
@@ -190,8 +190,7 @@ public class UIManager : MonoBehaviour
     {
 
         actionPointsText.text = "Action Points " + actionPoints.ToString();
-     
+
 
     }
-
 }
