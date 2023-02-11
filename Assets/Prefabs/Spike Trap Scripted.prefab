@@ -118,11 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bf22446b8507a64d9b83c08d6a10eb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ListControllers: []
-  ListSpikeVictims: []
-  ListSpikes:
-  - {fileID: 2023322183127493693}
-  SpikeDamage: 7.5
+  spikeDamage: 7.5
 --- !u!1001 &2592791185578408689
 PrefabInstance:
   m_ObjectHideFlags: 0
