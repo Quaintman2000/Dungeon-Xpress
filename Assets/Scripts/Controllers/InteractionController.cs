@@ -49,9 +49,9 @@ public class InteractionController : MonoBehaviour
             if (IsWithinFocus(other.transform.position))
             {
                 // If the other is a inventory item, set it to be our focused item.
-                other.TryGetComponent<IInteractable>(out focusedInteractable);
-                // Set the UI to activate.
-                focusedInteractable.SetFocused(true);
+                if(other.TryGetComponent<IInteractable>(out focusedInteractable))
+                    // Set the UI to activate.
+                    focusedInteractable.SetFocused(true);
             }
         }
     }

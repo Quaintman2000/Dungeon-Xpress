@@ -35,10 +35,7 @@ public class TrapSpikes : MonoBehaviour
             // adds any extra spikes to its own list
             listSpikes.Add(s);
         }
-
-
     }
-
 
     IEnumerator TriggerSpikes()
     {
@@ -49,8 +46,6 @@ public class TrapSpikes : MonoBehaviour
         {
             s.Shoot();
         }
-
-
 
         //waits one second
         yield return new WaitForSeconds(1f);
@@ -68,13 +63,6 @@ public class TrapSpikes : MonoBehaviour
         //reloads the spikes
         spikesReloaded = true;
 
-        //removes player from control list
-        //which stops the spikes from shooting up multiple times if the player is still standing on the spikes
-        foreach (CombatController control in listControllers)
-            listControllers.Remove(control);
-
-
-
     }
 
 
@@ -90,40 +78,32 @@ public class TrapSpikes : MonoBehaviour
             if (!listControllers.Contains(control))
             {
                 listControllers.Add(control);
-
-
             }
 
             //if the listControllers is not 0 then and the health of the person is not 0 then it will trigger the spikes to rise.
             if (listControllers.Count != 0)
             {
-
+                if (control.Health != 0)
                 {
-                    if (control.Health != 0)
+                    //if the spikes aren't already triggered and they are reloaded then it will shoot
+                    if (SpikeTriggerRoutine == null && spikesReloaded)
                     {
-                        //if the spikes aren't already triggered and they are reloaded then it will shoot
-                        if (SpikeTriggerRoutine == null && spikesReloaded)
-                        {
-                            SpikeTriggerRoutine = StartCoroutine(TriggerSpikes());
-                            //damages player everytime spikes are triggered.
-                            control.TakeDamage(spikeDamage);
-
-
-
-
-                        }
-
+                        SpikeTriggerRoutine = StartCoroutine(TriggerSpikes());
+                        //damages player everytime spikes are triggered.
+                        control.TakeDamage(spikeDamage);
                     }
                 }
             }
-
-
         }
-
-
-
-
-
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        // If the thing that left the trigger box has a combat controller...
+        if (other.TryGetComponent<CombatController>(out CombatController controller))
+        {
+            // Remove them from the list.
+            listControllers.Remove(controller);
+        }
+    }
 }
