@@ -190,6 +190,12 @@ public class CombatController : MonoBehaviour
             }
             else if(raycastData.Result == HitResult.Other)
             {
+                selectedAbilityData = CharacterData.DefualtAttack;
+                currentTarget = raycastData.HitCombatant;
+                if (Vector3.Distance(transform.position, currentTarget.transform.position) < selectedAbilityData.Range)
+                {
+                    abilityRoutine = StartCoroutine(UseAbilityRoutine());
+                }
                 //throw new NotImplementedException();
             }
         }

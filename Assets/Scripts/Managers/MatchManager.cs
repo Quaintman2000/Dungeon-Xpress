@@ -42,11 +42,11 @@ public class MatchManager : MonoBehaviour
         BattleManager newBattleManager = Instantiate<BattleManager>(battleManagerPrefab);
 
         //Set the initiator to the InCombat state and add them to the list of Combatants
-        initiator.ChangeState(CharacterController.PlayerState.InCombat);
+        StartCoroutine(initiator.ChangeState(CharacterController.PlayerState.InCombat));
         newBattleManager.Combatants.Add(initiator.combatController);
 
         //Set the other combatant to the InCombat state and add them to the list of Combatants
-        other.ChangeState(CharacterController.PlayerState.InCombat);
+        StartCoroutine(other.ChangeState(CharacterController.PlayerState.InCombat));
         newBattleManager.Combatants.Add(other.combatController);
     }
 }

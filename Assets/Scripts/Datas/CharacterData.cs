@@ -26,6 +26,9 @@ public class CharacterData : ScriptableObject
 
     public AbilityData[] Abilities = new AbilityData[4];
 
+    [SerializeField] AbilityData defualtAttack;
+    public AbilityData DefualtAttack => defualtAttack;
+
     public AnimatorOverrideController ClassAnimatorOverride => animatorOverrideController;
     [SerializeField]
     protected AnimatorOverrideController animatorOverrideController;

@@ -104,7 +104,7 @@ private void OnCombatantDeath(CombatController combatController)
         {
             //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. 
             Combatants[0].IsTurn = false;
-            Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam);
+            StartCoroutine(Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam));
 
             //Look for the combat controller in the list of combatants
             foreach (CombatController combatant in Combatants)

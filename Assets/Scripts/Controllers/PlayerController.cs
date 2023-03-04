@@ -49,7 +49,7 @@ public class PlayerController : CharacterController
 
     void EnterCastingState()
     {
-        ChangeState(PlayerState.Casting);
+        StartCoroutine(ChangeState(PlayerState.Casting));
     }
 
     protected override IEnumerator HandleFreeRoamState()

@@ -30,51 +30,55 @@ public abstract class CharacterController : MonoBehaviour
     }
 
     //get the current state of the player and then switch it to either combat or freeroam.
-    public void ChangeState(PlayerState newState)
+    public IEnumerator ChangeState(PlayerState newState)
     {
         // If the new state is the current, just stop it because we don't need to do anything.
-        if (currentState == newState)
-            return;
+        if (currentState != newState)
+        {
 
-        // Switch out the current state for the new and keep track of the old.
-        if(currentState == PlayerState.InCombat || currentState == PlayerState.FreeRoam)
-            previousState = currentState;
-        currentState = newState;
-        // Stop the current state routine.
-        StopCoroutine(currentStateRoutine);
-        // Start the new state routine.
-        if (newState == PlayerState.FreeRoam)
-        {
-            OnFreeRoamStateEnter?.Invoke();
-            currentStateRoutine = StartCoroutine(HandleFreeRoamState());
+            // Switch out the current state for the new and keep track of the old.
+            if (currentState == PlayerState.InCombat || currentState == PlayerState.FreeRoam)
+                previousState = currentState;
+            currentState = newState;
+            // Stop the current state routine.
+            StopCoroutine(currentStateRoutine);
+
+            yield return 0;
+
+            // Start the new state routine.
+            if (newState == PlayerState.FreeRoam)
+            {
+                OnFreeRoamStateEnter?.Invoke();
+                currentStateRoutine = StartCoroutine(HandleFreeRoamState());
+            }
+            else if (newState == PlayerState.InCombat)
+            {
+                OnCombatStateEnter?.Invoke();
+                currentStateRoutine = StartCoroutine(HandleInCombatState());
+            }
+            else if (newState == PlayerState.Busy)
+            {
+                OnBusyStateEnter?.Invoke();
+                currentStateRoutine = StartCoroutine(HandleBusyState());
+            }
+            else if (newState == PlayerState.Casting)
+            {
+                OnCastingStateEnter?.Invoke();
+                currentStateRoutine = StartCoroutine(HandleCastingState());
+            }
+            else
+                Debug.LogError(this.gameObject.name + " has attempted to change into an invalid Player state. State name:" + newState.ToString());
         }
-        else if (newState == PlayerState.InCombat)
-        {
-            OnCombatStateEnter?.Invoke();
-            currentStateRoutine = StartCoroutine(HandleInCombatState());
-        }
-        else if (newState == PlayerState.Busy)
-        {
-            OnBusyStateEnter?.Invoke();
-            currentStateRoutine = StartCoroutine(HandleBusyState());
-        }
-        else if (newState == PlayerState.Casting)
-        {
-            OnCastingStateEnter?.Invoke();
-            currentStateRoutine = StartCoroutine(HandleCastingState());
-        }
-        else
-            Debug.LogError(this.gameObject.name + " has attempted to change into an invalid Player state. State name:" + newState.ToString());
     }
 
     public void ReturnToPreviousState()
     {
-        ChangeState(previousState);
+        StartCoroutine(ChangeState(previousState));
     }
 
     protected virtual void EnterBusyState()
     {
-        ChangeState(PlayerState.Busy);
+        StartCoroutine(ChangeState(PlayerState.Busy));
     }
 
     protected abstract IEnumerator HandleFreeRoamState();
