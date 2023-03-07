@@ -73,6 +73,8 @@ public class CombatController : MonoBehaviour
 
     public void ValidateInput(RaycastData raycastData)
     {
+        if (IsTurn == false)
+            return;
        // If this combatant is casting an ability...
        if(characterController.currentState == CharacterController.PlayerState.Casting)
         {
@@ -191,11 +193,14 @@ public class CombatController : MonoBehaviour
             else if(raycastData.Result == HitResult.Other)
             {
                 selectedAbilityData = CharacterData.DefualtAttack;
+                abilityIndex = 0;
                 currentTarget = raycastData.HitCombatant;
                 if (Vector3.Distance(transform.position, currentTarget.transform.position) < selectedAbilityData.Range)
                 {
                     abilityRoutine = StartCoroutine(UseAbilityRoutine());
                 }
+                // Spend the action points for the ability.
+                SpendActionPoints(selectedAbilityData.Cost);
                 //throw new NotImplementedException();
             }
         }

@@ -22,7 +22,7 @@ public abstract class AnimationManager : MonoBehaviour
     protected readonly int movingState = Animator.StringToHash("Moving State");
     protected readonly int hitState = Animator.StringToHash("Hit State");
     protected readonly int dieState = Animator.StringToHash("Die State");
-    
+    protected readonly int defualtAttackState = Animator.StringToHash("Defualt Attack State");
 
     protected int currentState;
     protected int previousState;
@@ -141,11 +141,13 @@ public abstract class AnimationManager : MonoBehaviour
     protected int GetTriggerName(int index)
     {
         // Clamp the index.
-        index = Mathf.Clamp(index, 1, 4);
+        index = Mathf.Clamp(index, 0, 4);
       
         // Get the trigger name based on the index given.
         switch(index)
         {
+            case 0:
+                return defualtAttackState;
             case 1:
                 return skillOneState;
 
