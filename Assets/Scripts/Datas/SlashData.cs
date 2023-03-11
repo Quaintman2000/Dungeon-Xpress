@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class SlashData : AbilityData
 {
     [SerializeField] float damage;
-    public virtual async Task Activate(CombatController combatController)
+    public override async Task Activate(CombatController combatController)
     {
 
         combatController.currentTarget.TakeDamage(damage);

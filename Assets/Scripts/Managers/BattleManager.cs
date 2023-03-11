@@ -78,7 +78,8 @@ private void OnCombatantDeath(CombatController combatController)
         Combatants.Remove(combatController);
         
         combatController.OnCombatantDeath -= OnCombatantDeath;
-            Destroy(this.gameObject);
+
+        CheckForEndBattle();
     }
 
     // Checks if our turn is over.
@@ -102,9 +103,11 @@ private void OnCombatantDeath(CombatController combatController)
         //If there is only one combatant left...
         if (Combatants.Count < 2)
         {
+            CombatController survivingCombatant = Combatants[0];
             //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. 
-            Combatants[0].IsTurn = false;
-            StartCoroutine(Combatants[0].GetComponent<CharacterController>().ChangeState(CharacterController.PlayerState.FreeRoam));
+            survivingCombatant.IsTurn = false;
+            CharacterController survivorCharacterController = survivingCombatant.GetComponent<CharacterController>();
+            survivorCharacterController.StartChangeState(CharacterController.PlayerState.FreeRoam);
 
             //Look for the combat controller in the list of combatants
             foreach (CombatController combatant in Combatants)
@@ -116,6 +119,7 @@ private void OnCombatantDeath(CombatController combatController)
                     player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
                 }
             }
+            Destroy(this.gameObject);
         }
     }
 

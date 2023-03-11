@@ -37,6 +37,8 @@ public class CombatController : MonoBehaviour
     public Vector3 MovementSpot;
     CharacterController characterController;
 
+    [SerializeField] DamageNumberPopUp damageUIPopUp;
+
     Coroutine abilityRoutine;
     // Start is called before the first frame update
     void Awake()
@@ -242,44 +244,6 @@ public class CombatController : MonoBehaviour
 
 
     #region Damage Healing and Death
-    /// <summary>
-    /// Moves the player into range of the target and deals damage to the target.
-    /// </summary>
-    /// <param name="other">The target.</param>
-    /// <returns></returns>
-    //public IEnumerator AttackMove(CombatController other)
-    //{
-    //    Debug.Log("ATTACK!");
-
-    //    // If the player is not within close enough range and the player isnt already moving...
-    //    if (Vector3.Distance(transform.position, other.transform.position) > selectedAbilityData.Range && (currentCombatState == CombatState.Idle || currentCombatState == CombatState.Attacking))
-    //    {
-    //        // Set the player to moving and move the player.
-    //        currentCombatState = CombatState.Moving;
-    //        navMesh.AttackMove(other.transform.position, selectedAbilityData.Range);
-
-    //    }
-    //    // While the player is still not within range...
-    //    while (Vector3.Distance(transform.position, other.transform.position) > selectedAbilityData.Range)
-    //    {
-    //        // Keep moving.
-    //        yield return null;
-    //    }
-    //    // Once we are in range of the target. Stop moving.
-    //    navMesh.StopAllCoroutines();
-    //    Debug.Log("Hiya!");
-    //    // Set them to attacking and deal damage to the other combatant.
-    //    currentCombatState = CombatState.Attacking;
-    //    //other.TakeDamage(selectedAbilityData.PhysDamage);
-    //    Debug.Log("Player took damage");
-    //    if (animationManager != null)
-    //        animationManager.SetAbilityTrigger(abilityIndex);
-
-    //    AudioManager.instance.PlaySound(selectedAbilityData.AbilitySound, transform.position);
-
-    //    // Set the combat state back to idle.
-    //    currentCombatState = CombatState.Idle;
-    //}
 
     /// <summary>
     /// Reduces the player's health based on damage inputted.
@@ -293,6 +257,13 @@ public class CombatController : MonoBehaviour
         //updates the health bar
         OnHealthChange?.Invoke(Health);
         OnHurtAction?.Invoke();
+
+        // Have the pop up occure if we have any.
+        if(damageUIPopUp != null)
+        {
+            damageUIPopUp.ActivatePopUp(damage);
+        }
+
         // If health is less than or equal to 0...
         if (Health <= 0)
         {
@@ -315,18 +286,8 @@ public class CombatController : MonoBehaviour
             }
         }
 
-        // Subtract health by damage.
-        Health -= damage;
-
-        //updates the health bar
-        OnHealthChange?.Invoke(Health);
-        OnHurtAction?.Invoke();
-        // If health is less than or equal to 0...
-        if (Health <= 0)
-        {
-            // Commit die.
-            Die();
-        }
+        // Take the damage.
+        TakeDamage(damage);
     }
     [ContextMenu("TakeDamage")]
     public void DebugTakeDamage()
@@ -334,22 +295,7 @@ public class CombatController : MonoBehaviour
         OnHurtAction?.Invoke();
     }
 
-    ///// <summary>
-    ///// Applies the buff or debuff effects on self.
-    ///// </summary>
-    ///// <param name="abilityData"> The ability to apply.</param>
-    //public void DebuffOrBuff(AbilityData abilityData)
-    //{
-    //    //Health += abilityData.PhysDamage;
-    //    if (Health <= 99)
-    //    {
-    //        if (OnHealthChange != null)
-    //        {
-    //            //updates the health bar
-    //            OnHealthChange.Invoke(Health);
-    //        }
-    //    }
-    //}
+   
     public void Heal(float hAmount)
     {
         Health += hAmount;
@@ -362,28 +308,7 @@ public class CombatController : MonoBehaviour
         }
 
     }
-    ///// <summary>
-    ///// Shoots the projectile towards the target.
-    ///// </summary>
-    ///// <param name="other">The target</param>
-    //void RangeAttack(CombatController other)
-    //{
-    //    // Need the direction from the player's position to the target position.
-    //    Vector3 targetDirection = other.transform.position - transform.position;
-    //    // Rotate the player to look at the target.
-    //    transform.rotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z));
-    //    // Spawns in the projectile at the firepoint position and direction towards the target.
-    //    Projectile newProjectile = Instantiate<Projectile>(selectedAbilityData.Projectile, firePoint.position, Quaternion.LookRotation(targetDirection));
-    //    // Set the projectile's target to our target.
-    //    newProjectile.Target = other;
-    //    // Set it's damage to be the ability's damage.
-    //    newProjectile.Damage = selectedAbilityData.MagicDamage;
-    //}
-    /// <summary>
-    /// Handles the movement ability like teleports and other special types of movement.
-    /// </summary>
-    /// <param name="other"> the Target</param>
-
+   
 
     [ContextMenu("Die")]
     // Handles the death procedure.

@@ -28,6 +28,11 @@ public abstract class CharacterController : MonoBehaviour
         combatController.OnAbilityUsedEndAction += ReturnToPreviousState;
         currentStateRoutine = StartCoroutine(HandleFreeRoamState());
     }
+    
+    public void StartChangeState(PlayerState newState)
+    {
+        StartCoroutine(ChangeState(newState));
+    }
 
     //get the current state of the player and then switch it to either combat or freeroam.
     public IEnumerator ChangeState(PlayerState newState)

@@ -155,7 +155,6 @@ public class PlayerController : CharacterController
                 camControl.Zoom(Input.mouseScrollDelta.y);
             }
 
-            Debug.Log("Free Roam Coroutine works.");
             yield return null;
         }
         OnFreeRoamStateExit?.Invoke();
