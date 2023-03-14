@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using System.Threading.Tasks;
 
 [RequireComponent(typeof(Animator))]
-public abstract class AnimationManager : MonoBehaviour
+public class AnimationManager : MonoBehaviour
 {
     [SerializeField]
     float animationTransitionTime;

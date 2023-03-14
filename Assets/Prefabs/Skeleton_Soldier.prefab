@@ -1374,6 +1374,7 @@ GameObject:
   - component: {fileID: 3644667674155852450}
   - component: {fileID: -5802272416423859790}
   - component: {fileID: 335438410167088382}
+  - component: {fileID: 4303951929401273278}
   m_Layer: 0
   m_Name: Skeleton_Soldier
   m_TagString: Untagged
@@ -1408,7 +1409,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1231843999056872666}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b69174d668ba02d44b14a084b217670a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 0e5e55fb7a41a5346ad6478551e603a3, type: 3}
   m_Controller: {fileID: 9100000, guid: c31b1f70b7bed8e47bd6fdf2214b52c7, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1514,6 +1515,19 @@ MonoBehaviour:
   PatrolPoint2: {x: 0, y: 0, z: 0}
   idleRadius: 2
   idleWait: 5
+--- !u!114 &4303951929401273278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231843999056872666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751f58b5ee694db48b6c88f4c5b6d065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTransitionTime: 0.15
 --- !u!1 &1231843999056875312
 GameObject:
   m_ObjectHideFlags: 0

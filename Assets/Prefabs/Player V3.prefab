@@ -2369,7 +2369,7 @@ MonoBehaviour:
   abilityIndex: 0
   selectedAbilityData: {fileID: 0}
   MovementSpot: {x: 0, y: 0, z: 0}
-  damageUIPopUp: {fileID: 0}
+  damageUIPopUp: {fileID: 679008801254192724}
 --- !u!136 &-6765280304847097517
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2410,7 +2410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1140dabf7499e7f49b8dff0b9501e186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationTransitionTime: 0.15
+  animationTransitionTime: 0.1
 --- !u!114 &556983501491277227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27976f3bfa44d8541a0a583ad0793f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focusConeRadius: 45
+  focusConeRadius: 44.86
   interactionRadius: 1
   radiusTriggerCollider: {fileID: -6765280304847097517}
 --- !u!1 &2211721787516581437

@@ -80,8 +80,15 @@ public class InteractionController : MonoBehaviour
         // Get the vector to the target.
         var vectorToTarget = otherPosition - transform.position;
         // Get the angle to the target.
-        var angleToTarget = Vector3.Angle(vectorToTarget, transform.forward);
+        var angleToTarget = Vector2.Angle(new Vector2(transform.forward.x,transform.forward.z), new Vector2(vectorToTarget.x, vectorToTarget.z));
 
         return (angleToTarget < focusConeRadius);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        
+        
     }
 }

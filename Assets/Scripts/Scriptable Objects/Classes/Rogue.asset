@@ -16,7 +16,6 @@ MonoBehaviour:
   CharacterModel: {fileID: 0}
   MaxHealth: 100
   MovementRange: 0
-  MagicDamage: 0
   AttackSpeed: 5
   StartingActionPoints: 6
   CharacterImage: {fileID: 21300000, guid: 77741afdf6780e5489c310ba280bd8a5, type: 3}
@@ -25,4 +24,5 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  ClassAnimatorOverride: {fileID: 0}
+  defualtAttack: {fileID: 0}
+  animatorOverrideController: {fileID: 22100000, guid: a2f8f813889dd50428f057ae3640de13, type: 2}
