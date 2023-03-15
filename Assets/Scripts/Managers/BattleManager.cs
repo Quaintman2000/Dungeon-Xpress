@@ -43,6 +43,8 @@ public class BattleManager : MonoBehaviour
         //Sort the list of combatants
         SortByAttackSpeed();
 
+        battleUIManager.StartStartMatchRoutine();
+
         //Call the function to fill out the turn order image wheel
         battleUIManager.CreateTurnImages();
 
@@ -103,24 +105,32 @@ private void OnCombatantDeath(CombatController combatController)
         //If there is only one combatant left...
         if (Combatants.Count < 2)
         {
-            CombatController survivingCombatant = Combatants[0];
-            //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. 
-            survivingCombatant.IsTurn = false;
-            CharacterController survivorCharacterController = survivingCombatant.GetComponent<CharacterController>();
-            survivorCharacterController.StartChangeState(CharacterController.PlayerState.FreeRoam);
-
-            //Look for the combat controller in the list of combatants
-            foreach (CombatController combatant in Combatants)
-            {
-                //Look for the player controller 
-                if (combatant.TryGetComponent<PlayerController>(out PlayerController player))
-                {
-                    //Switch the camera style to player focused when combat is over
-                    player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
-                }
-            }
-            Destroy(this.gameObject);
+            StartCoroutine(EndBattleRoutine());
         }
+    }
+
+    IEnumerator EndBattleRoutine()
+    {
+        CombatController survivingCombatant = Combatants[0];
+        //End combat by setting the remaining combatant to the free roam state and destroy the battle manager intstance. 
+        survivingCombatant.IsTurn = false;
+        CharacterController survivorCharacterController = survivingCombatant.GetComponent<CharacterController>();
+        survivorCharacterController.StartChangeState(CharacterController.PlayerState.FreeRoam);
+
+        //Look for the combat controller in the list of combatants
+        foreach (CombatController combatant in Combatants)
+        {
+            //Look for the player controller 
+            if (combatant.TryGetComponent<PlayerController>(out PlayerController player))
+            {
+                //Switch the camera style to player focused when combat is over
+                player.SwitchCameraStyle?.Invoke(CameraController.CameraStyle.PlayerFocused);
+            }
+        }
+
+        yield return battleUIManager.StartEndMatchRoutine();
+
+        Destroy(this.gameObject);
     }
 
     //Move through the list to determine the next combatant's turn
