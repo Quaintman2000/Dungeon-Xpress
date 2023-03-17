@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/MapGenerationTestScene.unity
     guid: 5fb14a9f2f7a41b47a53117b96db4d17
   - enabled: 0
-    path: Assets/Scenes/GameplayScene.unity
+    path: Assets/Scenes/Justin-TestScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: 
