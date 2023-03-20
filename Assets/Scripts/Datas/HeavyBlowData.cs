@@ -11,7 +11,7 @@ public class HeavyBlowData : AbilityData
     float healthToDamageRatio = 0.01f;
 
 
-    public override async Task Activate(CombatController activatorCombatController)
+    public override async Task Activate(CombatController activatorCombatController, RaycastData raycastData)
     {
         // Grab the current target.
         var target = activatorCombatController.currentTarget;

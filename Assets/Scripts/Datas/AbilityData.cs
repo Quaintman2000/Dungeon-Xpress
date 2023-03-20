@@ -56,7 +56,7 @@ public class AbilityData : ScriptableObject
         return true;
     }
 
-    public virtual async Task Activate(CombatController combatController) {
+    public virtual async Task Activate(CombatController combatController, RaycastData raycastData) {
 
         await Task.Yield();
     }

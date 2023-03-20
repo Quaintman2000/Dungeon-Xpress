@@ -114,4 +114,60 @@ public class NavMeshMovement : MonoBehaviour
             WarpPosition = transform.position;
         }
     }
+    //Used to start the leap
+    public void StartLeap(Vector3 stop, float time)
+    {
+        Vector3 lookDirection = new Vector3(stop.x, this.transform.position.y, stop.z);
+        this.transform.LookAt(lookDirection);//Looks where they are going to jump to
+        StartCoroutine(Leap(stop, time));
+    }
+    /// <summary>
+    /// The dynamic leap used for the player to leap from one position to another using a
+    /// trajectory curve
+    /// Uses three points with the mid point being the 3rd point to calc the curve for
+    /// https://youtu.be/RF04Fi9OCPc
+    /// First Half of the Video helps understand how the calculation is done
+    /// </summary>
+    /// <param name="stop">The stop point of the leap</param>
+    /// <param name="time">The time to leap</param>
+    /// <returns></returns>
+    IEnumerator Leap( Vector3 stop, float time)
+    {
+        float counter = 0;
+        Vector3 start = transform.position;
+
+
+        // The mid point between the start and stop
+        Vector3 midpoint = start + ((start - stop) / 2f);
+        //The taller of both points and adds 10f to make the point slightly higher for the curve
+        float highestY = Mathf.Max(start.y, stop.y) + 10f;
+
+        //The height of the curve in which they jump to get to which is also in the middle of both
+        Vector3 highestSpot = new Vector3(midpoint.x, highestY, midpoint.z);
+
+        Vector3 p0;
+        Vector3 p1;
+        float percent;
+        //Calculates where it is on the curve
+        while (counter <= time)
+        {
+            counter += Time.deltaTime;//Runs each frame
+            percent = counter / time;//How far in the animation from 0-1
+
+            p0 = Vector3.Lerp(start, stop, percent);
+            p1 = Vector3.Lerp(highestSpot, stop, percent);
+
+            transform.position = Vector3.Lerp(p0, p1, percent);
+            yield return null;
+        }
+
+        InstantMove(stop);
+    }
+    /// <summary>
+    /// Used to instantly move the player to the raycast point
+    /// </summary>
+    public void InstantMove(Vector3 raycastPoint)
+    {
+        Teleport(raycastPoint);
+    }
 }

@@ -20,16 +20,17 @@ public class LeapOfFaithData : AbilityData
     [SerializeField] //How long the player jumps for
     float leapTime = 0.93f;
     //The player uses the combat controller to move
-    public override async Task Activate(CombatController jumper)
+    public override async Task Activate(CombatController jumper, RaycastData raycastData)
     {
         Debug.Log("started leap of faith");
 
-        jumper.StartLeap(jumper.transform, jumper.transform.position, jumper.MovementSpot, leapTime);
+        if(jumper.TryGetComponent<NavMeshMovement>(out NavMeshMovement movement) && raycastData!=null)
+        {
+            movement.StartLeap(raycastData.ImpactPoint, leapTime);
+            await Task.Delay((int)(leapTime * 1000f)); //Current delay for current animation land on Sword Attack 1
 
-        await Task.Delay((int)(leapTime * 1000f)); //Current delay for current animation land on Sword Attack 1
-
-        jumper.InstantMove(jumper.MovementSpot); //Current solution to landing in place and not moving back
-        Land(jumper.transform); //Player lands and does damage
+            Land(jumper.transform); //Player lands and does damage
+        }
     }
     //The stuff that happens when the player has landed
     public void Land(Transform player)
@@ -69,18 +70,7 @@ public class LeapOfFaithData : AbilityData
         }
         else
             return false;
-        /*
-        //If the target is in height of the self and also in range then return true
-        Vector3 selfPosition = self.transform.position;
-        Vector3 targetPosition = target.transform.position;
-
-        float distance = Vector3.Distance(selfPosition, targetPosition);
-        if (targetPosition.y > minHeight && targetPosition.y < maxHeight && distance < range)
-        {
-            return true;
-        }
-        else
-            return false;*/
+       
     }
     
 }
