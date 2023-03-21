@@ -844,6 +844,17 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &317608078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 542337400453519094, guid: 8b666a82b61f47a408cfd890903732b5, type: 3}
+  m_PrefabInstance: {fileID: 895036598}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba9439eb80ec0e4bbefdb228ab78c7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &523233434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,10 +1435,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1994300594428766327, guid: 8b666a82b61f47a408cfd890903732b5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8658812682311543311, guid: 8b666a82b61f47a408cfd890903732b5, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4514,7 +4521,7 @@ PrefabInstance:
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: bossRoom
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 317608078}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4533,7 +4540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomSpacing
-      value: 24
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: teleportTarget
@@ -4593,7 +4600,7 @@ PrefabInstance:
       objectReference: {fileID: 3528403171523519020, guid: c3290d9e9da985040a0a588acc20c261, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[0].weight
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[1].weight
