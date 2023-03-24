@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: New Parry Data
   m_EditorClassIdentifier: 
   name: Parry
+  description: Apply the Parry buff to yourself so when you get attacked, you'll
+    block it and counter attack.
   abilityType: 5
   buffOrDebuff: 0
   targetStyle: 0
   icon: {fileID: 21300000, guid: c46d83f2b73aaa141bd5015819342d81, type: 3}
   range: 0
-  cost: 0
-  soundData: {fileID: 0}
+  cost: 5
   animationClip: {fileID: -203655887218126122, guid: 9bf1d67b7ac406e47ba5d801bd6678a3, type: 3}
   effectData: {fileID: 11400000, guid: 23947c97e45767743b675b8c44e43692, type: 2}

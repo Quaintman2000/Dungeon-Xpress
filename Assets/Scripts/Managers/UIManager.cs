@@ -30,9 +30,12 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] MagicCircleController circleController;
 
+    Transform skillBarTransform;
+
     //assign the bars to player accordingly
     void Start()
     {
+        skillBarTransform = skillBar.transform;
         combatCtrl.OnHealthChange += OnHealthChange;
 
         abilities[0] = combatCtrl.CharacterData.Abilities[0];
@@ -52,6 +55,23 @@ public class UIManager : MonoBehaviour
             inventoryManager.OnItemRemoved += RemoveInventoryIcon;
         }
         actionPointsText.text = "Action Points " + combatCtrl.actionPoints.ToString();
+
+        SetUpDescriptions();
+    }
+
+    void SetUpDescriptions()
+    {
+        for(int i = 0; i < skillBarTransform.childCount; i++)
+        {
+            if(skillBarTransform.GetChild(i).TryGetComponent<AbilityDescriptionTrigger>(out AbilityDescriptionTrigger trigger))
+            {
+                trigger.SetUpDescription(
+                    abilities[i].AbilityName,
+                    abilities[i].Range.ToString(),
+                    abilities[i].Cost.ToString(),
+                    abilities[i].Description);
+            }
+        }
     }
 
     void Update()

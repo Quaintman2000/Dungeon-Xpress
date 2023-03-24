@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: New Heavy Blow Data
   m_EditorClassIdentifier: 
   name: Heavy Blow
+  description: A close range, heavy attack that deals 50% of your Hp value.
   abilityType: 0
   buffOrDebuff: 2
   targetStyle: 1
   icon: {fileID: 21300000, guid: c890dd06d4a350946ab11e4778bf47d8, type: 3}
   range: 2.5
   cost: 2
-  soundData: {fileID: 11400000, guid: 1e7140b81ba5d544ba10dbceb0aabe6f, type: 2}
   animationClip: {fileID: -203655887218126122, guid: efa7de11e094f654884479703d46a090, type: 3}
   healthToDamageRatio: 0.5

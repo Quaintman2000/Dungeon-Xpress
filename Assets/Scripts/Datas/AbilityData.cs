@@ -9,6 +9,10 @@ public class AbilityData : ScriptableObject
     [SerializeField]
     protected new string name;
 
+    public string Description => description;
+    [SerializeField, TextArea]
+    protected string description;
+
     public AbilityType Type => abilityType;
     [SerializeField]
     protected AbilityType abilityType = AbilityType.MeleeAttack;
