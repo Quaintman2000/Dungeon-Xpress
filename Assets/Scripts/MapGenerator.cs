@@ -12,8 +12,7 @@ public class MapGenerator : MonoBehaviour
     float roomSpacing;
     [SerializeField]
     int maxNumRooms;
-    [SerializeField]
-    GameObject hallwayPrefab;
+   
     [SerializeField]
     Room startRoom;
     [SerializeField]
@@ -27,7 +26,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     EndRoom bossRoom;
 
-    List<GameObject> hallways;
     
     int roomsMade = 0;
 
@@ -39,7 +37,6 @@ public class MapGenerator : MonoBehaviour
     {
         SortRoomsByWeight();
         dungeonRooms = new Room[maxNumRooms];
-        hallways = new List<GameObject>();
     }
 
     private void OnValidate()
@@ -87,14 +84,13 @@ public class MapGenerator : MonoBehaviour
     {
         for(int i = 0; i < dungeonRooms.Length; i++)
         {
+            if (dungeonRooms[i] == null)
+                break;
+
             Destroy(dungeonRooms[i].gameObject);
             dungeonRooms[i] = null;
         }
-        foreach(GameObject hallway in hallways)
-        {
-            Destroy(hallway);
-        }
-            hallways.Clear();
+       
 
         dungeonMade = false;
     }
@@ -154,7 +150,6 @@ public class MapGenerator : MonoBehaviour
                     // Check to see if have any rooms at that position. 
                     Room roomToConnect = FindRoomAtLocation(newPosition);
 
-                    Vector3 hallwayPosition = (new Vector3(((newPosition.x + dungeonRooms[i].roomPosition.x)/2), 0, ((newPosition.y + dungeonRooms[i].roomPosition.y)/2)) * roomSpacing * 2);
                     // If we do have a room at that position
                     if (roomToConnect != null)
                     {
@@ -169,7 +164,6 @@ public class MapGenerator : MonoBehaviour
                                 Door doorToConnect = roomToConnect.GetDoor(Door.Direction.South);
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
-                                    hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 0, 0)));
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -185,7 +179,6 @@ public class MapGenerator : MonoBehaviour
                                 Door doorToConnect = roomToConnect.GetDoor(Door.Direction.West);
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
-                                    hallways.Add(Instantiate(hallwayPrefab,hallwayPosition, Quaternion.Euler(0, 90, 0)));
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -201,7 +194,6 @@ public class MapGenerator : MonoBehaviour
                                 Door doorToConnect = roomToConnect.GetDoor(Door.Direction.East);
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
-                                    hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0)));
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -218,7 +210,6 @@ public class MapGenerator : MonoBehaviour
                                 if (doorToConnect.isConnectToAnotherRoom == false)
                                 {
 
-                                    hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 0, 0)));
                                     doorToConnect.isConnectToAnotherRoom = true;
                                     currentDoor.isConnectToAnotherRoom = true;
                                 }
@@ -370,7 +361,6 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-                                hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity));
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.South).isConnectToAnotherRoom = true;
                             }
@@ -480,7 +470,6 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-                                hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0)));
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.West).isConnectToAnotherRoom = true;
                             }
@@ -590,7 +579,6 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-                                hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.identity));
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.North).isConnectToAnotherRoom = true;
                             }
@@ -700,7 +688,6 @@ public class MapGenerator : MonoBehaviour
                                     Debug.LogError("Error: " + newRoom.name + " has no doors to connect to.");
                                     break;
                                 }
-                                hallways.Add(Instantiate(hallwayPrefab, hallwayPosition, Quaternion.Euler(0, 90, 0)));
                                 currentDoor.isConnectToAnotherRoom = true;
                                 newRoom.GetDoor(Door.Direction.East).isConnectToAnotherRoom = true;
                             }
