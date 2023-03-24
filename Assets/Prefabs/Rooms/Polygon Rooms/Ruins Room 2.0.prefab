@@ -101,10 +101,10 @@ MonoBehaviour:
   - faceDirection: 0
     isConnectToAnotherRoom: 0
     doorBlockOff: {fileID: 5524672123833855487}
-  - faceDirection: 2
+  - faceDirection: 3
     isConnectToAnotherRoom: 0
     doorBlockOff: {fileID: 5524672124489771340}
-  - faceDirection: 3
+  - faceDirection: 2
     isConnectToAnotherRoom: 0
     doorBlockOff: {fileID: 5524672123808228130}
   roomPosition: {x: 0, y: 0}
