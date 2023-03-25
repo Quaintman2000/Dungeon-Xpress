@@ -20,7 +20,7 @@ public class InteractionController : MonoBehaviour
     {
         if(TryGetComponent<PlayerController>(out PlayerController player))
         {
-            player.AttemptPickupAction += InteractWithInteractable;
+            player.AttemptInteractAction += InteractWithInteractable;
         }
 
         // Sets the trigger radius.
@@ -49,9 +49,9 @@ public class InteractionController : MonoBehaviour
             if (IsWithinFocus(other.transform.position))
             {
                 // If the other is a inventory item, set it to be our focused item.
-                if(other.TryGetComponent<IInteractable>(out focusedInteractable))
-                    // Set the UI to activate.
-                    focusedInteractable.SetFocused(true);
+                other.TryGetComponent<IInteractable>(out focusedInteractable);
+                // Set the UI to activate.
+                focusedInteractable.SetFocused(true);
             }
         }
     }
@@ -80,8 +80,15 @@ public class InteractionController : MonoBehaviour
         // Get the vector to the target.
         var vectorToTarget = otherPosition - transform.position;
         // Get the angle to the target.
-        var angleToTarget = Vector3.Angle(vectorToTarget, transform.forward);
+        var angleToTarget = Vector2.Angle(new Vector2(transform.forward.x,transform.forward.z), new Vector2(vectorToTarget.x, vectorToTarget.z));
 
         return (angleToTarget < focusConeRadius);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        
+        
     }
 }

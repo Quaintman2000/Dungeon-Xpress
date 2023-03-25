@@ -9202,10 +9202,11 @@ MonoBehaviour:
   musicSlider: {fileID: 106182091}
   sfxSlider: {fileID: 1635244784}
   masterSlider: {fileID: 246368189}
-  fullScreenToggle: {fileID: 0}
+  fullScreenToggle: {fileID: 1965768394}
   graphicsDropdown: {fileID: 1822693607}
   brightnessSlider: {fileID: 1158212632}
   resolutionDropdown: {fileID: 505643946}
+  isFullScreen: 0
   sceneLoader: {fileID: 11400000, guid: 03a2b0ef9428a194e930ad889d2629a7, type: 2}
 --- !u!1 &1635244782
 GameObject:

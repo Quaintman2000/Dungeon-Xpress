@@ -9,6 +9,10 @@ public class AbilityData : ScriptableObject
     [SerializeField]
     protected new string name;
 
+    public string Description => description;
+    [SerializeField, TextArea]
+    protected string description;
+
     public AbilityType Type => abilityType;
     [SerializeField]
     protected AbilityType abilityType = AbilityType.MeleeAttack;
@@ -39,7 +43,7 @@ public class AbilityData : ScriptableObject
 
     public enum AbilityType { MeleeAttack, RangeAttack, Movement, Healing, ActionPoints , Neither };
     public enum BuffOrDebuff { Buff, Debuff, None}
-    public enum TargetType { Self, Others, Ground, SelfAndOthers }
+    public enum TargetType { Self, Others, Ground, SelfAndOthers, Nothing }
 
     public virtual bool IsValidTarget(CombatController self, CombatController target)
     {
@@ -56,7 +60,7 @@ public class AbilityData : ScriptableObject
         return true;
     }
 
-    public virtual async Task Activate(CombatController combatController) {
+    public virtual async Task Activate(CombatController combatController, RaycastData raycastData) {
 
         await Task.Yield();
     }

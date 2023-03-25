@@ -12,7 +12,7 @@ public class SpinningStrikeData : AbilityData
     float maxHeight = 0;
     [SerializeField]
     float minHeight = 0;
-    public override async Task Activate(CombatController activatorCombatController)
+    public override async Task Activate(CombatController activatorCombatController, RaycastData raycastData)
     {
         // Initialize a list of combatants the will be hit.
         List<CombatController> hitCombatants = new List<CombatController>();

@@ -206,7 +206,7 @@ public class CameraController : MonoBehaviour
             roomLockMaxValue = new Vector2(roomParent.position.x + roomSize.x, roomParent.position.z + roomSize.z);
             Debug.Log("Room Max Size: " + roomLockMaxValue);
 
-            transform.position = roomParent.position;
+            transform.position = playerTransform.position;
 
         }
     }

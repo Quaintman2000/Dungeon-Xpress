@@ -30,12 +30,12 @@ public class AbilityTester : MonoBehaviour
         Gizmos.DrawWireSphere(player.transform.position, abilityDataToTest.Range);
 
         Gizmos.color = abilityDataToTest.IsValidTarget(player, player) ? Color.green : Color.red;
-        Gizmos.DrawCube(player.transform.position + Vector3.up, new Vector3(1, 2, 1));
+        Gizmos.DrawCube(player.transform.position + Vector3.up, new Vector3(1, 1, 1));
 
         foreach (CombatController enemy in enemies)
         {
             Gizmos.color = abilityDataToTest.IsValidTarget(player,enemy) ? Color.green : Color.red;
-            Gizmos.DrawCube(enemy.transform.position + Vector3.up, new Vector3(1, 2, 1));
+            Gizmos.DrawCube(enemy.transform.position + Vector3.up, new Vector3(1, 1, 1));
         }
     }
 }

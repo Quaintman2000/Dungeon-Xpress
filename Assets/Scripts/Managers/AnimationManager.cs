@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using System.Threading.Tasks;
 
 [RequireComponent(typeof(Animator))]
-public abstract class AnimationManager : MonoBehaviour
+public class AnimationManager : MonoBehaviour
 {
     [SerializeField]
     float animationTransitionTime;
@@ -22,10 +22,13 @@ public abstract class AnimationManager : MonoBehaviour
     protected readonly int movingState = Animator.StringToHash("Moving State");
     protected readonly int hitState = Animator.StringToHash("Hit State");
     protected readonly int dieState = Animator.StringToHash("Die State");
+    protected readonly int defualtAttackState = Animator.StringToHash("Defualt Attack State");
 
     protected int currentState;
     protected int previousState;
     protected bool isLocked = false;
+
+    protected Coroutine currentAnimation;
 
     public System.Action<bool> AnimationLockAction;
     public System.Action DeathAnimationOverAction;
@@ -42,9 +45,9 @@ public abstract class AnimationManager : MonoBehaviour
         if(TryGetComponent<CombatController>(out combatController))
         {
             // Subscribe to it's combat event(s).
-            combatController.OnAbilityUsedAction += PlayAbilityAnimation;
-            combatController.OnHurtAction += PlayHitAnimation;
-            combatController.OnDeathAction += PlayDeathAnimation;
+            combatController.OnAbilityUsedAction += StartAbilityAnimation;
+            combatController.OnHurtAction += StartHitAnimation;
+            combatController.OnDeathAction += StartDeathAnimation;
            
             // Override the current animations with the new ones.
             animator.runtimeAnimatorController = combatController.CharacterData.ClassAnimatorOverride;
@@ -68,46 +71,65 @@ public abstract class AnimationManager : MonoBehaviour
     {
         // Change our animation state to walking if "isWalking" is true.
         // To idle if "isWalking" if false. 
-        ChangeAnimationState(isWalking ? movingState : idleState);
+        StartCoroutine(ChangeAnimationState(isWalking ? movingState : idleState));
     }
     
+    protected void StartAbilityAnimation(CombatController combatController)
+    {
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
+        currentAnimation = StartCoroutine(PlayAbilityAnimation(combatController));
+    }
+
     /// <summary>
     /// Plays the ability animation with the combatant's ability index.
     /// </summary>
     /// <param name="combatant">The combatant using the ability.</param>
-    protected virtual async void PlayAbilityAnimation(CombatController combatant)
+    protected virtual IEnumerator PlayAbilityAnimation(CombatController combatant)
     {
         // Get the state name from the ability index.
         var stateName = GetTriggerName(combatant.abilityIndex);
         // Change the animation state to that abilty state.
-        await ChangeAnimationState(stateName);
+        yield return StartCoroutine(ChangeAnimationState(stateName));
         // Lock us in this state
-        await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return StartCoroutine(LockState(animator.GetCurrentAnimatorStateInfo(0).length));
 
-        await ChangeAnimationState(idleState);
+        yield return StartCoroutine(ChangeAnimationState(idleState));
     }
-
+    protected void StartHitAnimation()
+    {
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
+        currentAnimation = StartCoroutine(PlayHitAnimation());
+    }
     /// <summary>
     /// Plays the hit animation and sets us back to the previous state.
     /// </summary>
-    protected virtual async void PlayHitAnimation()
+    protected virtual IEnumerator PlayHitAnimation()
     {
         // Change the state to the hit animation.
-        await ChangeAnimationState(hitState);
+        yield return StartCoroutine(ChangeAnimationState(hitState));
         // Set our lock state for the hit duration.
-        await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return StartCoroutine(LockState(animator.GetCurrentAnimatorStateInfo(0).length));
         // Change our animation back to our previous state.
-        await ChangeAnimationState(previousState);
+        yield return StartCoroutine(ChangeAnimationState(previousState));
+    }
+    protected void StartDeathAnimation()
+    {
+        
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
+        currentAnimation = StartCoroutine(PlayDeathAnimation());
     }
     /// <summary>
     /// Plays our death animation.
     /// </summary>
-    protected virtual async void PlayDeathAnimation()
+    protected virtual IEnumerator PlayDeathAnimation()
     {
         // Change the state to the hit animation.
-        await ChangeAnimationState(dieState);
+        yield return StartCoroutine(ChangeAnimationState(dieState));
         // Set our lock state for the hit duration.
-        await LockState(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return StartCoroutine(LockState(animator.GetCurrentAnimatorStateInfo(0).length));
 
         DeathAnimationOverAction?.Invoke();
     }
@@ -120,11 +142,13 @@ public abstract class AnimationManager : MonoBehaviour
     protected int GetTriggerName(int index)
     {
         // Clamp the index.
-        index = Mathf.Clamp(index, 1, 4);
+        index = Mathf.Clamp(index, 0, 4);
       
         // Get the trigger name based on the index given.
         switch(index)
         {
+            case 0:
+                return defualtAttackState;
             case 1:
                 return skillOneState;
 
@@ -142,21 +166,23 @@ public abstract class AnimationManager : MonoBehaviour
     }
 
 
-    protected async Task ChangeAnimationState(int stateHashCode)
+    protected IEnumerator ChangeAnimationState(int stateHashCode)
     {
         // Prevent us from repeating the same state unintentionally.
-        if (currentState == stateHashCode) return;
-        // Swap to our new state and keep track of our previous state.
-        previousState = currentState;
-        currentState = stateHashCode;
-        // Crossfade our state into the new state.
-        animator.CrossFade(stateHashCode, animationTransitionTime, 0);
-
-        var waitTime = Time.time + animationTransitionTime + .5f;
-
-        while (waitTime > Time.time)
+        if (currentState != stateHashCode)
         {
-            await Task.Yield();
+            // Swap to our new state and keep track of our previous state.
+            previousState = currentState;
+            currentState = stateHashCode;
+            // Crossfade our state into the new state.
+            animator.CrossFade(stateHashCode, animationTransitionTime, 0);
+
+            var waitTime = Time.time + animationTransitionTime + .5f;
+
+            do
+            {
+                yield return null;
+            } while (waitTime > Time.time) ;
         }
     }
 
@@ -165,7 +191,7 @@ public abstract class AnimationManager : MonoBehaviour
     /// </summary>
     /// <param name="lockTime"> The delay between calls.</param>
     /// <returns>Returns a task to await to.</returns>
-    protected async Task LockState(float lockTime)
+    protected IEnumerator LockState(float lockTime)
     {
         Debug.Log("LockTime: " + lockTime);
 
@@ -173,10 +199,10 @@ public abstract class AnimationManager : MonoBehaviour
 
         var waitTime = Time.time + lockTime;
 
-        while(waitTime > Time.time)
+        do
         {
-            await Task.Yield();
-        }
+            yield return null;
+        } while (waitTime > Time.time);
 
         AnimationLockAction?.Invoke(false);
     }

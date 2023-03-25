@@ -5,10 +5,10 @@ using UnityEngine.EventSystems;
 
 public class AbilityDescriptionTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public string title;
-    public string range;
-    public string ap;
-    public string description;
+    private string title;
+    private string range;
+    private string ap;
+    private string description;
     public void OnPointerEnter(PointerEventData eventData)
     {
 
@@ -18,7 +18,13 @@ public class AbilityDescriptionTrigger : MonoBehaviour, IPointerEnterHandler, IP
         
      
     }
-
+    public void SetUpDescription(string newTitle, string newRange, string newAp, string newDescription)
+    {
+        title = newTitle;
+        range = newRange;
+        ap = newAp;
+        description = newDescription;
+    }
     public void OnPointerExit(PointerEventData eventData)
     {
         AbilityDescriptionSystem.SuperHide();

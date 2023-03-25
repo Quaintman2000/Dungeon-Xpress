@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24e4b8058aecdf94ca084b9b436797f5, type: 3}
   m_Name: TestLeapofFaith
   m_EditorClassIdentifier: 
-  name: TestLeap
+  name: Leap of Faith
+  description: Click on the ground, within range, to leap towards the target location
+    and deal AOE damage when you land.
   abilityType: 2
   buffOrDebuff: 2
   targetStyle: 2
   icon: {fileID: 21300000, guid: efc4d7aeeca9e47cba52282a447e31bf, type: 3}
   range: 10
   cost: 1
-  soundData: {fileID: 0}
-  animationClip: {fileID: -203655887218126122, guid: 3b2a11ce679187b4db6d1e300853315e, type: 3}
+  animationClip: {fileID: -203655887218126122, guid: 2c88ee48af0c7284082c9801dd3d635c, type: 3}
   damage: 20
   maxHeight: 0.5
   minHeight: -0.5

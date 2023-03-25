@@ -9,7 +9,7 @@ public class ParryData : AbilityData
     [SerializeField]
     ParryStatusEffectData effectData;
 
-    public override async Task Activate(CombatController combatController)
+    public override async Task Activate(CombatController combatController, RaycastData raycastData)
     {
 
         combatController.AddStatusEffect(effectData.GetStatusEffect(combatController));
