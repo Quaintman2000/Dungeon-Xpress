@@ -68,6 +68,7 @@ public class TrapSpikes : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.isTrigger) return;
         //when the trigger is entered it will check to see if the item that stepped on it has a combat controller
         CombatController control = other.gameObject.transform.root.gameObject.GetComponent<CombatController>();
         // if there is no controller nothing happens
@@ -91,6 +92,8 @@ public class TrapSpikes : MonoBehaviour
                         SpikeTriggerRoutine = StartCoroutine(TriggerSpikes());
                         //damages player everytime spikes are triggered.
                         control.TakeDamage(spikeDamage);
+
+                        Debug.Log(control.name + "spiked!");
                     }
                 }
             }

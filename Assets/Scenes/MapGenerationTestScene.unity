@@ -2062,7 +2062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8593344075742496344, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.5290527
+      value: -1.5288086
       objectReference: {fileID: 0}
     - target: {fileID: 8593344075742496344, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2078,7 +2078,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 6c92199792cbe014f9d18f70075eac29, type: 3}
     - target: {fileID: 9162985787906760561, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -30.566284
+      value: -30.566406
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1245059245, guid: e9568fa0022ad734688b5509e30c328d, type: 3}
@@ -4531,7 +4531,7 @@ PrefabInstance:
       objectReference: {fileID: 3528403171523519020, guid: c3290d9e9da985040a0a588acc20c261, type: 3}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[0].weight
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[1].weight
@@ -4539,7 +4539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6644808528645123943, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}
       propertyPath: roomPrefabs.Array.data[2].weight
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c02a8e4001c6dfe4f860f78510d6c195, type: 3}

@@ -260,12 +260,13 @@ public class CombatController : MonoBehaviour
     /// <param name="damage"> The amount of damage to be dealt.</param>
     public void TakeDamage(float damage)
     {
+        if (Health <= 0) return;
         // Subtract health by damage.
         Health -= damage;
 
         //updates the health bar
         OnHealthChange?.Invoke(Health);
-        OnHurtAction?.Invoke();
+        
 
         // Have the pop up occure if we have any.
         if(damageUIPopUp != null)
@@ -278,6 +279,10 @@ public class CombatController : MonoBehaviour
         {
             // Commit die.
             Die();
+        }
+        else
+        {
+            OnHurtAction?.Invoke();
         }
     }
     public void TakeDamage(float damage, CombatController attacker)
@@ -325,6 +330,8 @@ public class CombatController : MonoBehaviour
     {
         Debug.Log("Dead!");
         //Plays the death sound
+
+        characterController.StartChangeState(CharacterController.PlayerState.Dead);
 
         OnDeathAction?.Invoke();
         // Call the death event with this.

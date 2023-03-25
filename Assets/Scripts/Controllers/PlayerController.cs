@@ -377,6 +377,41 @@ public class PlayerController : CharacterController
         }
         OnBusyStateExit?.Invoke();
     }
+    protected override IEnumerator HandleDeathState()
+    {
+        while (currentState == PlayerState.Dead)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("works");
+                // Rotate the camera to the right.
+                RotateCameraAction?.Invoke(-1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Debug.Log("doesnt work");
+                // Rotate the camera to the left.
+                RotateCameraAction?.Invoke(1);
+            }
+
+            // If we press P.
+            if (Input.GetKey(KeyCode.P))
+            {
+                // Invoke the pause action event.
+                OnPauseAction?.Invoke();
+            }
+
+            //When scrolling the mouse wheel...
+            if (Input.mouseScrollDelta != Vector2.zero)
+            {
+                //Zoom in or out based on input
+                camControl.Zoom(Input.mouseScrollDelta.y);
+            }
+
+            yield return null;
+        }
+        OnDeadStateExit?.Invoke();
+    }
     // OLD METHOD. Kept for reference.
     // Keep track of all the different input options of the player
     //private void GetInputs()

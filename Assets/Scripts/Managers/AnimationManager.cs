@@ -116,6 +116,7 @@ public class AnimationManager : MonoBehaviour
     }
     protected void StartDeathAnimation()
     {
+        
         if (currentAnimation != null)
             StopCoroutine(currentAnimation);
         currentAnimation = StartCoroutine(PlayDeathAnimation());

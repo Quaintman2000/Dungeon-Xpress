@@ -71,6 +71,11 @@ public abstract class CharacterController : MonoBehaviour
                 OnCastingStateEnter?.Invoke();
                 currentStateRoutine = StartCoroutine(HandleCastingState());
             }
+            else if(newState == PlayerState.Dead)
+            {
+                OnDeadStateEnter?.Invoke();
+                currentStateRoutine = StartCoroutine(HandleDeathState());
+            }
             else
                 Debug.LogError(this.gameObject.name + " has attempted to change into an invalid Player state. State name:" + newState.ToString());
         }
@@ -86,6 +91,7 @@ public abstract class CharacterController : MonoBehaviour
         StartCoroutine(ChangeState(PlayerState.Busy));
     }
 
+    protected abstract IEnumerator HandleDeathState();
     protected abstract IEnumerator HandleFreeRoamState();
     protected abstract IEnumerator HandleInCombatState();
     protected abstract IEnumerator HandleCastingState();

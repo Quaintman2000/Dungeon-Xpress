@@ -174,4 +174,9 @@ public class AIController : CharacterController
             yield return null;
         }
     }
+
+    protected override IEnumerator HandleDeathState()
+    {
+        throw new System.NotImplementedException();
+    }
 }

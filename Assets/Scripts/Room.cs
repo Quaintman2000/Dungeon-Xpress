@@ -10,8 +10,7 @@ public class Room : MonoBehaviour
 
     public Vector2 roomPosition;
 
-    
-
+    [SerializeField] List<CharacterSpawner> spawners;
     /// <summary>
     /// Returns a reference to the door facing in the specified direction.
     /// </summary>
@@ -102,6 +101,11 @@ public class Room : MonoBehaviour
                 }
             }
         }
+    }
+
+    public List<CharacterSpawner> GetCharacterSpawners()
+    {
+        return spawners;
     }
 }
 [System.Serializable]

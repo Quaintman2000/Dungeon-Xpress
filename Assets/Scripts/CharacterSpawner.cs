@@ -9,11 +9,9 @@ public class CharacterSpawner : MonoBehaviour
 
     private void Awake()
     {
-        if (characterData != null && charaterPrefab != null)
-            SpawnCharacter();
     }
 
-    void SpawnCharacter()
+    public void SpawnCharacter()
     {
         CombatController newCombatant = Instantiate<CombatController>(charaterPrefab, this.transform.position, this.transform.rotation);
         newCombatant.CharacterData = characterData;

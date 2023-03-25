@@ -156,6 +156,7 @@ public class PlayerNavMesh : NavMeshMovement
             // Return null.
             yield return null;
         }
+        WalkingAction?.Invoke(false);
         Stop();
     }
 
@@ -173,6 +174,7 @@ public class PlayerNavMesh : NavMeshMovement
             // Return null.
             yield return null;
         }
+        WalkingAction?.Invoke(false);
         Stop();
     }
     public override void Stop()

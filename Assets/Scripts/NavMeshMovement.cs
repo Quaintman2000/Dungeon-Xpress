@@ -23,6 +23,8 @@ public class NavMeshMovement : MonoBehaviour
         navMeshAgent = GetComponent<NavMeshAgent>();
         if(TryGetComponent<CharacterController>(out CharacterController characterController))
         {
+            // Stop the character from moving if we die.
+            characterController.OnDeadStateEnter += Stop;
             if(!(characterController is PlayerController))
             {
                 characterController.FreeMoveToPointAction = Move;
@@ -81,6 +83,7 @@ public class NavMeshMovement : MonoBehaviour
             // Return null.
             yield return null;
         }
+        WalkingAction?.Invoke(false);
         Stop();
     }
 
@@ -93,12 +96,14 @@ public class NavMeshMovement : MonoBehaviour
             // Return null.
             yield return null;
         }
+        WalkingAction?.Invoke(false);
         Stop();
     }
     public virtual void Stop()
     {
-        WalkingAction?.Invoke(false);
+       
         isMoving = false;
+        navMeshAgent.ResetPath();
     }
     public void Teleport(Vector3 newPosition)
     {
