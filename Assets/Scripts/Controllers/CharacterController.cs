@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
-public abstract class CharacterController : MonoBehaviour
+public abstract class CharacterController : NetworkBehaviour
 {
     
     [SerializeField] GameObject selectionCircle;
