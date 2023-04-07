@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private PlayerController playerCtrl;
     [SerializeField] private CombatController combatCtrl;
     [SerializeField] private GameObject skillBar;
+    [SerializeField] float errorMessageDisplayTime;
+    [SerializeField] Text errorMessageText;
      public GameObject pausePanel;
 
     [SerializeField] Sprite defualtButtonIcon;
@@ -59,6 +61,35 @@ public class UIManager : MonoBehaviour
         SetUpDescriptions();
     }
 
+    public void DisplayErrorMessage(string errorMessage)
+    {
+        StartCoroutine(DisplayErrorRoutine(errorMessage));
+    }
+    IEnumerator DisplayErrorRoutine(string errorMessage)
+    {
+        errorMessageText.gameObject.SetActive(true);
+
+        errorMessageText.text = errorMessage;
+
+        Color intialColor = errorMessageText.color;
+
+        float alphaDepletionRate = intialColor.a / errorMessageDisplayTime;
+
+        float timerEndTime = Time.time + errorMessageDisplayTime;
+
+        Color newColor = intialColor;
+        do
+        {
+            newColor = new Color(intialColor.r, intialColor.g, intialColor.b, intialColor.a - alphaDepletionRate);
+            errorMessageText.color = newColor;
+            yield return null;
+        } while (Time.time < timerEndTime);
+
+        errorMessageText.color = intialColor;
+        errorMessageText.gameObject.SetActive(false);
+
+        errorMessageText.text = string.Empty;
+    }
     void SetUpDescriptions()
     {
         for(int i = 0; i < skillBarTransform.childCount; i++)
@@ -77,13 +108,13 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         //if player enters combat mode then show it
-        if (playerCtrl.currentState == CharacterController.PlayerState.InCombat)
+        if (playerCtrl.currentState == PlayerState.InCombat)
         {
             skillBar.SetActive(true);
             
         }
         //if player is not in combat mode then hide it
-        else if (playerCtrl.currentState == CharacterController.PlayerState.FreeRoam)
+        else if (playerCtrl.currentState == PlayerState.FreeRoam)
         {
             skillBar.SetActive(false);
         }

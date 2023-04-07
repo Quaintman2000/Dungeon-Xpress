@@ -11,30 +11,28 @@ public class PlayerNavMesh : NavMeshMovement
 
     // Marker gameobject to represent where we are moving to.
     [SerializeField] GameObject moveToMarker;
-    [SerializeField] Text noGoText;
     [SerializeField] LineRenderer navPathLineRend;
 
     //LineRender to draw with
-    LineRenderer currentPathRenderer;
+    [SerializeField] LineRenderer currentPathRenderer;
     // NavMeshAgent for pathfind.
-    GameObject spawnedMarker;
+    [SerializeField] GameObject spawnedMarker;
     //Draws the line renderer path and sets the position of the marker to the destination
 
     protected override void Awake()
     {
         base.Awake();
-        // Try to get the character controller...
-        if(TryGetComponent<PlayerController>(out PlayerController playerController))
-        {
-            // Subscribe the player controller actions.
-            playerController.FreeMoveToPointAction += SetMoveToMarker;
-        }
+        
     }
     private void DrawPath(Vector3 target)
     {
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(target, path);
 
+        if (currentPathRenderer == null)
+            currentPathRenderer = Instantiate(navPathLineRend);
+        if (spawnedMarker == null)
+            spawnedMarker = Instantiate(moveToMarker);
         //Sets how many positions there are in the path rendering and sets the positions of the vertices
         currentPathRenderer.positionCount = navMeshAgent.path.corners.Length;
         currentPathRenderer.SetPositions(navMeshAgent.path.corners);
@@ -48,30 +46,24 @@ public class PlayerNavMesh : NavMeshMovement
         currentPathRenderer.gameObject.SetActive(true);
         spawnedMarker.gameObject.SetActive(true);
     }
-    public void SetMoveToMarker(Vector3 raycastPoint)
-    {
-        // If there is a spawn marker.
-        if (spawnedMarker != null)
-            Destroy(spawnedMarker);
-        if (currentPathRenderer != null)
-            Destroy(currentPathRenderer.gameObject);
-        currentPathRenderer = Instantiate(navPathLineRend);
-        spawnedMarker = Instantiate(moveToMarker);
-        // Move to clicked position.
-        MoveToClickPoint(raycastPoint);
-    }
-
-    public void MoveToClickPoint(Vector3 raycastPoint)
+   
+    public bool AttemptMove(Vector3 raycastPoint)
     {
         NavMeshHit navHit;
         if (!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
         {
-            StartCoroutine(NoGoTextDisplay());
-            return;
+            return false;
         }
         //Draws a path for the character
         DrawPath(navHit.position);
-        WalkingAction?.Invoke(true);
+
+        // Move to clicked position.
+        MoveToClickPoint(raycastPoint);
+
+        return true;
+    }
+    void MoveToClickPoint(Vector3 raycastPoint)
+    {
         //Tell the NavMesh to go to the raycast point
         navMeshAgent.destination = raycastPoint;
 
@@ -104,7 +96,6 @@ public class PlayerNavMesh : NavMeshMovement
 
     public override void AttackMove(Vector3 position, float closeEnough)
     {
-        SetMoveToMarker(position);
         WalkingAction?.Invoke(true);
         DrawPath(position);
         //Tell the NavMesh to go to the raycast point
@@ -116,29 +107,6 @@ public class PlayerNavMesh : NavMeshMovement
         }
         // Start moving coroutine to make sure we delete the marker when we're done.
         movingCoroutine = StartCoroutine(Moving(position, closeEnough));
-    }
-
-
-    IEnumerator NoGoTextDisplay()
-    {
-        // Set the timer for the text fade away.
-        float timer = 1.5f;
-        // Set the text to be active.
-        noGoText.gameObject.SetActive(true);
-        // Set the aplha to max.
-        Color textColor = new Color(noGoText.color.r, noGoText.color.g, noGoText.color.b, 1f);
-        noGoText.color = textColor;
-        // Timer...
-        while (timer > 0)
-        {
-            timer -= Time.deltaTime;
-            // Reduce the alpha of the text color over time.
-            textColor.a -= Time.deltaTime;
-            noGoText.color = textColor;
-            yield return null;
-        }
-        // Once the timer is over, deactivate the text.
-        noGoText.gameObject.SetActive(false);
     }
 
     IEnumerator Moving(Vector3 movePosition)

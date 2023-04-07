@@ -21,14 +21,11 @@ public class NavMeshMovement : MonoBehaviour
     protected virtual void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        if(TryGetComponent<CharacterController>(out CharacterController characterController))
+        if(TryGetComponent<Controller>(out Controller characterController))
         {
             // Stop the character from moving if we die.
             characterController.OnDeadStateEnter += Stop;
-            if(!(characterController is PlayerController))
-            {
-                characterController.FreeMoveToPointAction = Move;
-            }
+            
         }
     }
 
@@ -50,8 +47,14 @@ public class NavMeshMovement : MonoBehaviour
 
         return distance;
     }
-    public void Move(Vector3 movePosition)
+    public bool Move(Vector3 movePosition)
     {
+        NavMeshHit hit;
+        if(!NavMesh.SamplePosition(movePosition,out hit,Mathf.Infinity, NavMesh.GetAreaFromName("Walkable")))
+        {
+            return false;
+        }
+
         //Tell the NavMesh to go to the move position
         navMeshAgent.destination = movePosition;
         WalkingAction?.Invoke(true);
@@ -61,7 +64,10 @@ public class NavMeshMovement : MonoBehaviour
         }
         // Start moving courtine to make sure we reach the position
         movingCoroutine = StartCoroutine(Moving(movePosition));
+
+        return true;
     }
+
     public virtual void AttackMove(Vector3 position, float closeEnough)
     {
         //Tell the NavMesh to go to the raycast point
@@ -78,7 +84,7 @@ public class NavMeshMovement : MonoBehaviour
     {
         isMoving = true;
         // While we're not at the at the move position...
-        while (GetDistance(movePosition) > 0.2f)
+        while (GetDistance(movePosition) > navMeshAgent.stoppingDistance)
         {
             // Return null.
             yield return null;

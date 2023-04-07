@@ -35,7 +35,7 @@ public class CombatController : MonoBehaviour
     List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     public Vector3 MovementSpot;
-    CharacterController characterController;
+    Controller characterController;
 
     [SerializeField] DamageNumberPopUp damageUIPopUp;
 
@@ -61,7 +61,7 @@ public class CombatController : MonoBehaviour
             inventoryManager.OnUseItem += ApplyEffect;
         }
 
-        TryGetComponent<CharacterController>(out characterController);
+        TryGetComponent<Controller>(out characterController);
 
         if(TryGetComponent<PlayerController>(out PlayerController player))
         {
@@ -77,7 +77,7 @@ public class CombatController : MonoBehaviour
             return;
         inputData = raycastData;
         // If this combatant is casting an ability...
-        if (characterController.currentState == CharacterController.PlayerState.Casting)
+        if (characterController.currentState == PlayerState.Casting)
         {
             if (actionPoints >= selectedAbilityData.Cost)
             {
@@ -331,7 +331,7 @@ public class CombatController : MonoBehaviour
         Debug.Log("Dead!");
         //Plays the death sound
 
-        characterController.StartChangeState(CharacterController.PlayerState.Dead);
+        characterController.StartChangeState(PlayerState.Dead);
 
         OnDeathAction?.Invoke();
         // Call the death event with this.

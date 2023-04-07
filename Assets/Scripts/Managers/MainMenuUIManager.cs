@@ -8,6 +8,12 @@ using System.Linq;
 public class MainMenuUIManager : MonoBehaviour
 {
     //Variables 
+    [SerializeField] Button QuickJoinButton;
+    [SerializeField] Button HostGameButton;
+
+    [SerializeField] JoinedLobbyPanelUI lobbyPanel;
+    [SerializeField] GameObject mainMenuPanel;
+
     [SerializeField] AudioMixer masterMixer;
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
@@ -55,7 +61,11 @@ public class MainMenuUIManager : MonoBehaviour
             fullScreenToggle.isOn = false;
             SetFullscreen(false);
         }
-        
+
+        HostGameButton.onClick.AddListener(HostGameClicked);
+        QuickJoinButton.onClick.AddListener(QuickJoinedClicked);
+
+        LobbyManager.instance.OnLeaveLobby += HandleLobbyLeave;
         
     }
     private void Start()
@@ -75,9 +85,56 @@ public class MainMenuUIManager : MonoBehaviour
         PlayerPrefs.GetInt("ResolutionsSetting");
         // Set up the resolution dropbox.
         SetUpResolutionDropdown();
-        
-        
+    }
 
+    public void QuickJoinedClicked()
+    {
+        HandleQuickJoinClicked();
+    }
+
+    public void HostGameClicked()
+    {
+        HandleHostGameClicked();
+    }
+
+    void HandleLobbyLeave()
+    {
+        lobbyPanel.gameObject.SetActive(false);
+        mainMenuPanel.SetActive(true);
+    }
+
+    void HandleQuickJoinClicked()
+    {
+        try
+        {
+            LobbyManager.instance.QuickJoinLobby();
+
+            lobbyPanel.gameObject.SetActive(true);
+            mainMenuPanel.SetActive(false);
+        }
+        catch
+        {
+            Debug.LogError("Failed to quick join");
+            HandleLobbyLeave();
+
+
+        }
+    }
+    async void HandleHostGameClicked()
+    {
+        try
+        {
+            await LobbyManager.instance.CreateLobby();
+
+            lobbyPanel.gameObject.SetActive(true);
+            mainMenuPanel.SetActive(false);
+
+        }
+        catch
+        {
+            lobbyPanel.gameObject.SetActive(false);
+            mainMenuPanel.SetActive(true);
+        }
     }
 
     private void SetUpResolutionDropdown()

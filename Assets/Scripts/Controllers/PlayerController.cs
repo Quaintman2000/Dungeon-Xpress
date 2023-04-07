@@ -4,11 +4,13 @@ using UnityEngine;
 using System;
 
 
-public class PlayerController : CharacterController
+public class PlayerController : Controller
 {
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager UIManager;
+
+    [SerializeField] PlayerCharacter playerCharacter;
     // Action events
     public Action AttemptInteractAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
 
@@ -21,7 +23,7 @@ public class PlayerController : CharacterController
     // TEMPORARY! Testing purposes only.
     public Action<CameraController.CameraStyle> SwitchCameraStyle;
 
-    CharacterController selectedCharacter;
+    Character selectedCharacter;
     const float rightClickHoldGap = 0.15f;
     float rightClickHoldTime;
 
@@ -47,6 +49,13 @@ public class PlayerController : CharacterController
       
     }
 
+    public void SetPlayerCharacter(PlayerCharacter character)
+    {
+        playerCharacter = character;
+        combatController = playerCharacter.GetComponent<CombatController>();
+        currentStateRoutine = StartCoroutine(HandleFreeRoamState());
+    }
+
     void EnterCastingState()
     {
         StartCoroutine(ChangeState(PlayerState.Casting));
@@ -54,16 +63,18 @@ public class PlayerController : CharacterController
 
     protected override IEnumerator HandleFreeRoamState()
     {
+        
         while (currentState == PlayerState.FreeRoam)
         {
+            Debug.Log("Freeroam");
             // If left click.
             if (Input.GetMouseButtonDown(0))
             {
                 // Send out a raycast and if we hit a character with a character controller, set that as our selected character. If not, set it to the player character.
-                if (SendRaycast().collider.TryGetComponent<CharacterController>(out CharacterController characterController))
+                if (SendRaycast().collider.TryGetComponent<Character>(out Character characterController))
                     SelectCharacter(characterController);
                 else
-                    SelectCharacter(this);
+                    SelectCharacter(playerCharacter);
             }
 
             // If right click down.
@@ -98,13 +109,13 @@ public class PlayerController : CharacterController
                 if (Physics.Raycast(cameraRay, out hit, Mathf.Infinity))
                 {
 
-                    selectedCharacter = this;
+                    selectedCharacter = playerCharacter;
 
                     if (hit.collider.TryGetComponent<CombatController>(out CombatController combatant))
                     {
                         if (combatant != this.combatController)
                         {
-                            MatchManager.Instance.StartCombat(this, combatant.GetComponent<CharacterController>());
+                            MatchManager.Instance.StartCombat(this, combatant.GetComponent<Controller>());
                             OnCombatStartedAction?.Invoke(true);
                         }
                     }
@@ -118,7 +129,8 @@ public class PlayerController : CharacterController
                         //Find where that ray hits the plane
                         Vector3 raycastPoint = cameraRay.GetPoint(distance);
                         // Set the pathing to start.
-                        FreeMoveToPointAction?.Invoke(raycastPoint);
+                        playerCharacter.MoveCommand(raycastPoint);
+                        //FreeMoveToPointAction?.Invoke(raycastPoint);
                     }
                 }
             }
@@ -167,10 +179,10 @@ public class PlayerController : CharacterController
             if (Input.GetMouseButtonDown(0))
             {
                 // Send out a raycast and if we hit a character with a character controller, set that as our selected character. If not, set it to the player character.
-                if (SendRaycast().collider.TryGetComponent<CharacterController>(out CharacterController characterController))
+                if (SendRaycast().collider.TryGetComponent<Character>(out Character characterController))
                     SelectCharacter(characterController);
                 else
-                    SelectCharacter(this);
+                    SelectCharacter(playerCharacter);
             }
 
             // If right click down.
@@ -197,10 +209,6 @@ public class PlayerController : CharacterController
             // If right click up and we didn't hold if for very long...
             if (Input.GetMouseButtonUp(1) && rightClickHoldTime < rightClickHoldGap)
             {
-                // Hit info from the raycast.
-                RaycastHit hit;
-                // Makes the raycast from our mouseposition to the ground.
-                Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
                 // Sends the raycast of to infinity until hits something.
 
                 RaycastData newRayCastData = new RaycastData(SendRaycast(), combatController);
@@ -288,10 +296,7 @@ public class PlayerController : CharacterController
             // If right click up and we didn't hold if for very long...
             if (Input.GetMouseButtonUp(1) && rightClickHoldTime < rightClickHoldGap)
             {
-                // Hit info from the raycast.
-                RaycastHit hit;
-                // Makes the raycast from our mouseposition to the ground.
-                Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+                
                 // Sends the raycast of to infinity until hits something.
 
                 RaycastData newRayCastData = new RaycastData(SendRaycast(), combatController);
@@ -569,7 +574,7 @@ public class PlayerController : CharacterController
     //    }
 
     //}
-    void SelectCharacter(CharacterController character)
+    void SelectCharacter(Character character)
     {
         if (selectedCharacter != null)
             selectedCharacter.SelectionToggle(false);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIController : CharacterController
+public class AIController : Controller
 {
     // AI pathing variable.
     [SerializeField] public NavMeshMovement navMeshMovement;

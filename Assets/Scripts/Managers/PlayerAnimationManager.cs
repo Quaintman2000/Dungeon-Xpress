@@ -14,7 +14,7 @@ public class PlayerAnimationManager : AnimationManager
     protected override void Start()
     {
         base.Start();
-        if (TryGetComponent<CharacterController>(out CharacterController character))
+        if (TryGetComponent<Controller>(out Controller character))
         {
             character.OnCastingStateEnter += EnterCastingState;
            if(character is PlayerController player)

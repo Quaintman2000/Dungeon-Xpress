@@ -2,19 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.Netcode;
 
-public abstract class CharacterController : NetworkBehaviour
+public abstract class Controller : MonoBehaviour
 {
-    
-    [SerializeField] GameObject selectionCircle;
+   
 
     public Action<Vector3> CombatMoveToPointAction, FreeMoveToPointAction;
     public Action<CombatController> UseAbilityAction;
     public Action OnFreeRoamStateEnter, OnCombatStateEnter, OnCastingStateEnter, OnBusyStateEnter, OnDeadStateEnter;
     public Action OnFreeRoamStateExit, OnCombatStateExit, OnCastingStateExit, OnBusyStateExit, OnDeadStateExit;
     // Reference to the player state.
-    public enum PlayerState { InCombat, FreeRoam, Dead, Busy, Casting };
+    
     [SerializeField] 
     public PlayerState currentState = PlayerState.FreeRoam;
     protected PlayerState previousState;
@@ -25,9 +23,9 @@ public abstract class CharacterController : NetworkBehaviour
 
     protected virtual void Start()
     {
-        combatController.OnAbilityUsedStartAction += EnterBusyState;
-        combatController.OnAbilityUsedEndAction += ReturnToPreviousState;
-        currentStateRoutine = StartCoroutine(HandleFreeRoamState());
+       // combatController.OnAbilityUsedStartAction += EnterBusyState;
+       // combatController.OnAbilityUsedEndAction += ReturnToPreviousState;
+       // currentStateRoutine = StartCoroutine(HandleFreeRoamState());
     }
     
     public void StartChangeState(PlayerState newState)
@@ -36,7 +34,7 @@ public abstract class CharacterController : NetworkBehaviour
     }
 
     //get the current state of the player and then switch it to either combat or freeroam.
-    public IEnumerator ChangeState(PlayerState newState)
+    public virtual IEnumerator ChangeState(PlayerState newState)
     {
         // If the new state is the current, just stop it because we don't need to do anything.
         if (currentState != newState)
@@ -97,9 +95,13 @@ public abstract class CharacterController : NetworkBehaviour
     protected abstract IEnumerator HandleInCombatState();
     protected abstract IEnumerator HandleCastingState();
     protected abstract IEnumerator HandleBusyState();
-    public void SelectionToggle(bool isSelected)
-    {
-        selectionCircle.SetActive(isSelected);
-    }
+  
 
 }
+public enum PlayerState { 
+    InCombat,
+    FreeRoam, 
+    Dead, 
+    Busy, 
+    Casting 
+};

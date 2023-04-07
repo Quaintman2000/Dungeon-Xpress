@@ -252,7 +252,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.1}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 0.25, y: 0.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1568477748
 CanvasRenderer:
@@ -2296,7 +2296,6 @@ GameObject:
   - component: {fileID: 2211721787509143179}
   - component: {fileID: 2024389145489567997}
   - component: {fileID: -7961160650619682143}
-  - component: {fileID: 133526606015247264}
   - component: {fileID: -3202820174444439802}
   - component: {fileID: -6765280304847097517}
   - component: {fileID: -1821679198713150127}
@@ -2307,6 +2306,7 @@ GameObject:
   - component: {fileID: 3822594759872506645}
   - component: {fileID: 1258754952665166448}
   - component: {fileID: -3113909730756648678}
+  - component: {fileID: 4498139256328567704}
   m_Layer: 0
   m_Name: Player V3
   m_TagString: Untagged
@@ -2370,7 +2370,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 180
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -2394,26 +2394,9 @@ MonoBehaviour:
   navMeshAgent: {fileID: 2024389145489567997}
   corners: []
   moveToMarker: {fileID: 7577707135769045992, guid: 267b8ac2f83525f43bb5bee3f101406c, type: 3}
-  noGoText: {fileID: 0}
   navPathLineRend: {fileID: 4304462862110777249, guid: 6522e412f901d234fb275d4a7102ac81, type: 3}
---- !u!114 &133526606015247264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2211721787516580467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cb657721f86689429e737dd514b8d24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectionCircle: {fileID: 1336367805}
-  currentState: 1
-  combatController: {fileID: -3202820174444439802}
-  camControl: {fileID: 0}
-  UIManager: {fileID: 0}
-  isBusy: 0
+  currentPathRenderer: {fileID: 0}
+  spawnedMarker: {fileID: 0}
 --- !u!114 &-3202820174444439802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2578,6 +2561,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 2211721787509143179}
+--- !u!114 &4498139256328567704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2211721787516580467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607175be55403c14c998fd244b1b01c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionCircle: {fileID: 1568477745}
+  controller: {fileID: 0}
+  combatController: {fileID: 0}
 --- !u!1 &2211721787516581437
 GameObject:
   m_ObjectHideFlags: 0

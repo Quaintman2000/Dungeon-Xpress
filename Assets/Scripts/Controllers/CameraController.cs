@@ -177,7 +177,6 @@ public class CameraController : MonoBehaviour
         // Stop the camera following.
         ToggleCameraFollow(false);
 
-        Vector2 roomPosition;
 
         RaycastHit hit;
         Physics.Raycast(playerTransform.position, -transform.up, out hit, Mathf.Infinity);
