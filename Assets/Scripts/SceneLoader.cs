@@ -3,35 +3,83 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
-[CreateAssetMenu(fileName = "SceneLoader", menuName = "Scene Loader")]
-public class SceneLoader : ScriptableObject
+public class SceneLoader : MonoBehaviour
 {
-    // Stores our loading scene.
-    [SerializeField] string loadingSceneName;
-    public AsyncOperation operation { get; private set; }
+    public static SceneLoader Instance;
+    public System.Action OnLoadingSceneOpened, On;
+    public float totalSceneProgress { get; private set; }
 
-    /// <summary>
-    /// Begins the loading process to specified scene.
-    /// </summary>
-    /// <param name="sceneName">The name of the scene to load to.
-    /// WARNING: The scene MUST be in build settings to work.</param>
-    public void LoadScene(string sceneName)
+    List<AsyncOperation> asyncOperations = new List<AsyncOperation>();
+
+
+    private void Awake()
     {
-        // Load specified scene.
-        LoadAsync(sceneName);
+        if (Instance != null)
+            Destroy(Instance.gameObject);
+
+        Instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    /// <summary>
-    /// Asynchronously loads the scene in the background and loads up the loading screen. 
-    /// </summary>
-    /// <param name="sceneName">Name of the scene to load to.</param>
-    void LoadAsync(string sceneName)
+    public void LoadGame()
     {
-        // Load the loading screen.
-        SceneManager.LoadScene(loadingSceneName);
+        asyncOperations.Clear();
 
-        // Create the async operation variable.
-        operation = SceneManager.LoadSceneAsync(sceneName);
+        StartCoroutine(LoadGameRoutine());
+
+      
     }
+    IEnumerator LoadGameRoutine()
+    {
+       AsyncOperation loadingScreenOperation = SceneManager.LoadSceneAsync((int)SceneIndexes.LOADING_SCREEN, LoadSceneMode.Single);
+        bool IsLoadingScreenLoaded()
+        {
+            return loadingScreenOperation.isDone;
+        }
+        
+        while(!IsLoadingScreenLoaded())
+        {
+            yield return null;
+        }
+
+       // asyncOperations.Add(SceneManager.UnloadSceneAsync((int)SceneIndexes.MAIN_MENU_SCREEN));
+
+        asyncOperations.Add(SceneManager.LoadSceneAsync((int)SceneIndexes.GAMEPLAY_SCENE, LoadSceneMode.Additive));
+
+        StartCoroutine(SetSceneLoadProgress());
+    }
+
+    IEnumerator SetSceneLoadProgress()
+    {
+        for (int i = 0; i < asyncOperations.Count; i++)
+        {
+            while (!asyncOperations[i].isDone)
+            {
+                totalSceneProgress = 0;
+
+                foreach(AsyncOperation operation in asyncOperations)
+                {
+                    totalSceneProgress += operation.progress;
+                }
+
+                totalSceneProgress = (totalSceneProgress / asyncOperations.Count) * 100;
+
+                yield return null;
+            }
+        }
+        totalSceneProgress = 100;
+    }
+
+    public void UnloadLoadingScreen()
+    {
+        SceneManager.UnloadSceneAsync((int)SceneIndexes.LOADING_SCREEN);
+    }
+}
+public enum SceneIndexes
+{
+    MAIN_MENU_SCREEN,
+    LOADING_SCREEN,
+    GAMEPLAY_SCENE,
+    MAPGENERATION_SCENE
 }

@@ -11,6 +11,7 @@ public class MatchManager : NetworkBehaviour
     [SerializeField] PlayerController localPlayerController;
     [SerializeField] PlayerCharacter playerCharacterPrefab;
 
+    public float GameSetUpProgress { get; private set; }
 
     //Instance of the MatchManager
     public static MatchManager Instance;
@@ -31,10 +32,25 @@ public class MatchManager : NetworkBehaviour
 
     private void Start()
     {
-        if (mapGenerator != null)
+        StartCoroutine(SetupGameRoutine());
+    }
+
+    IEnumerator SetupGameRoutine()
+    {
+        if(mapGenerator != null)
+        {
             mapGenerator.Generate();
 
-
+            while(mapGenerator.progress < 100)
+            {
+                GameSetUpProgress = mapGenerator.progress;
+                yield return null;
+            }
+        }
+        else
+        {
+            GameSetUpProgress = 100;
+        }
     }
 
     public void StartHost()

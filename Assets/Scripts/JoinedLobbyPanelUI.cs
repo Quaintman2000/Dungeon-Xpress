@@ -70,11 +70,8 @@ public class JoinedLobbyPanelUI : MonoBehaviour
 
     void HandleStartClicked()
     {
-        if(LobbyManager.instance.IsLobbyHost() && LobbyManager.instance.IsLobbyReady())
-        {
-            Debug.Log("Game Start");
-            // TODO: Start the match.
-        }
+        Debug.Log("Start clicked");
+        LobbyManager.instance.StartMatch();
     }
 
     void HandleLeaveClicked()
@@ -113,5 +110,10 @@ public class JoinedLobbyPanelUI : MonoBehaviour
         }
 
         lobbyPlayerUIs.Clear();
+    }
+    private void OnDestroy()
+    {
+        LobbyManager.instance.OnJoinedLobby -= LoadLobby;
+        LobbyManager.instance.OnJoinedLobbyUpdate -= LoadLobby;
     }
 }

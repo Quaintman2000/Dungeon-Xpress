@@ -14,6 +14,7 @@ public class LobbyManager : MonoBehaviour
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_ICON = "PlayerIcon";
     public const string KEY_IS_READY = "IsReady";
+    public const string KEY_SHOULD_START = "ShouldStart";
 
     public System.Action OnJoinedLobby, OnJoinedLobbyUpdate, OnLeaveLobby;
 
@@ -31,6 +32,12 @@ public class LobbyManager : MonoBehaviour
         NotReady
     }
 
+    public enum ShouldStart
+    {
+        True,
+        False
+    }
+
     [SerializeField] float heartBeatTimerMax = 15;
     [SerializeField] float lobbyUpdateTimerMax = 1.1f;
     float heartBeatTimer = 0;
@@ -45,6 +52,8 @@ public class LobbyManager : MonoBehaviour
             Destroy(this.gameObject);
         else
             instance = this;
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Start is called before the first frame update
@@ -68,6 +77,7 @@ public class LobbyManager : MonoBehaviour
         HandleLobbyHeartbeat();
         HandleLobbyPollForUpdates();
     }
+
     /// <summary>
     /// Pings the lobby after a set seconds to keep the lobby active.
     /// </summary>
@@ -94,16 +104,21 @@ public class LobbyManager : MonoBehaviour
             lobbyUpdateTimer -= Time.deltaTime;
             if (lobbyUpdateTimer < 0)
             {
+                Debug.Log("Lobby Updated: Should start is " + joinedLobby.Data[KEY_SHOULD_START].Value + " " + ShouldStart.True.ToString());
                 lobbyUpdateTimer = lobbyUpdateTimerMax;
 
               Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
                 joinedLobby = lobby;
 
                 OnJoinedLobbyUpdate?.Invoke();
+
+                if(joinedLobby.Data[KEY_SHOULD_START].Value == ShouldStart.True.ToString() && GameManager.Instance.gameStarting == false)
+                {
+                    GameManager.Instance.StartMatch();
+                }
             }
         }
     }
-
 
     public async Task<Lobby> CreateLobby()
     {
@@ -115,7 +130,11 @@ public class LobbyManager : MonoBehaviour
             // Create lobby options so we can have our player in.
             CreateLobbyOptions createLobbyOptions = new CreateLobbyOptions
             {
-                Player = MakePlayer()
+                Player = MakePlayer(),
+                Data = new Dictionary<string, DataObject>()
+                {
+                    { KEY_SHOULD_START, new DataObject(DataObject.VisibilityOptions.Member, ShouldStart.False.ToString()) }
+                }
             };
             // Make the lobby with inputted parameters.
             Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, createLobbyOptions);
@@ -326,6 +345,30 @@ public class LobbyManager : MonoBehaviour
         if (joinedLobby != null)
         {
             LeaveLobby();
+        }
+    }
+
+    public async void StartMatch()
+    {
+        if (IsLobbyHost() && IsLobbyReady())
+        {
+            try
+            {
+                UpdateLobbyOptions updateLobbyOptions = new UpdateLobbyOptions
+                {
+                    Data = new Dictionary<string, DataObject>
+                {
+                    {KEY_SHOULD_START, new DataObject(DataObject.VisibilityOptions.Member, ShouldStart.True.ToString())}
+                }
+                };
+
+                joinedLobby = await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, updateLobbyOptions);
+                Debug.Log("Should start went through");
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.LogError(e);
+            }
         }
     }
 

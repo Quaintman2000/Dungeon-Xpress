@@ -26,15 +26,17 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     EndRoom bossRoom;
 
+    public float progress { get; private set; }
     
     int roomsMade = 0;
 
-    bool dungeonMade = false;
+    public bool dungeonMade { get; private set; }
 
     Coroutine mapGenCoroutine;
 
     private void Awake()
     {
+        dungeonMade = false;
         SortRoomsByWeight();
         dungeonRooms = new Room[maxNumRooms];
     }
@@ -44,22 +46,9 @@ public class MapGenerator : MonoBehaviour
         dungeonRooms = new Room[maxNumRooms];
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-      
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     /// <summary>
     /// Starts the dungeon generating process.
     /// </summary>
-    [ContextMenu("Generate Dungeon")]
     public void Generate()
     {
         if (mapGenCoroutine != null)
@@ -100,6 +89,8 @@ public class MapGenerator : MonoBehaviour
     /// </summary>
     private IEnumerator GenerateDungeon()
     {
+        float roomSpawningProgess;
+        progress = 0;
         // Creating the newEndRoom reference
         EndRoom _newEndRoom = null;
 
@@ -112,6 +103,10 @@ public class MapGenerator : MonoBehaviour
         // For each room while we haven't made the max number of rooms....
         for (int i = 0; (i < maxNumRooms && roomsMade < maxNumRooms); i++)
         {
+            // Get room spawning progress divided by the 3 bc it's a 2 step process..
+            roomSpawningProgess = (i / maxNumRooms) /2;
+            // Set the progress. 
+            progress = (roomSpawningProgess) * 100;
             Debug.Log("Making room: :" + i);
             // For each of the room's doors while we haven't made the max number of rooms...
             for (int j = 0; j < dungeonRooms[i].RoomDoors.Length && roomsMade < maxNumRooms; j++)
@@ -699,7 +694,7 @@ public class MapGenerator : MonoBehaviour
 
             }
             Debug.Log("Room " + i + " setup and made!");
-            yield return new WaitForSeconds(0);
+            yield return null;
         }
 
        foreach(Room room in dungeonRooms)
@@ -715,11 +710,20 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
+       
         surface.BuildNavMesh();
+
+        // Spawn the monsters.
+        foreach(Room room in dungeonRooms)
+        {
+            room.SpawnMonsters();
+        }
         // Set the newEndRoom interactable door equal to the boss room interactable door
         _newEndRoom.InteractableDoor.doorPair = bossRoom.InteractableDoor;
         // Set the boss room interactable door equal to the newEndRoom interactable door
         bossRoom.InteractableDoor.doorPair = _newEndRoom.InteractableDoor;
+        // Map generation complete.
+        progress = 100;
     }
 
     /// <summary>

@@ -230,17 +230,21 @@ public class MainMenuUIManager : MonoBehaviour
     public void OnMatchMakeButtonClicked()
     {
         // Have the sceneloader load the gameplay scene.
-        sceneLoader.LoadScene("MapGenerationTestScene");
+        
     }
 
    public void OnMainMenuButtonClicked()
     {
-        sceneLoader.LoadScene("MainMenu");
+        //sceneLoader.LoadScene("MainMenu");
         Time.timeScale = 1;
     }
     public void OnApplicationQuit()
     {
         Application.Quit();
         Debug.Log("Left Application");
+    }
+    private void OnDestroy()
+    {
+        LobbyManager.instance.OnLeaveLobby -= HandleLobbyLeave;
     }
 }

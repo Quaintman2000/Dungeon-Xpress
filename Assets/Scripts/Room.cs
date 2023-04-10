@@ -10,7 +10,7 @@ public class Room : MonoBehaviour
 
     public Vector2 roomPosition;
 
-    [SerializeField] List<CharacterSpawner> spawners;
+    [SerializeField] List<CharacterSpawner> monsterSpawners;
     /// <summary>
     /// Returns a reference to the door facing in the specified direction.
     /// </summary>
@@ -103,9 +103,17 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void SpawnMonsters()
+    {
+        foreach(CharacterSpawner spawner in monsterSpawners)
+        {
+            spawner.SpawnCharacter();
+        }
+    }
+
     public List<CharacterSpawner> GetCharacterSpawners()
     {
-        return spawners;
+        return monsterSpawners;
     }
 }
 [System.Serializable]
