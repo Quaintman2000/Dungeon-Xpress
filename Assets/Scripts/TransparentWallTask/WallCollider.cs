@@ -6,13 +6,15 @@ public class WallCollider : MonoBehaviour
 	//makes the reference to the Obstruction Detector script and gives a shorthand name
 	public ObstructionDetector obstructionDetec;
 
+
+
 	void OnTriggerEnter(Collider other)
 	{
 		//if the item under the player tag enters the collider
 		if (other.tag == "Player")
 		{
 			//console writes *enter*
-			Debug.Log("Enter");
+			Debug.Log("Entered Wall Collider");
 			//then calls from the obstruction script to start the raycast
 			obstructionDetec.StartRayCast();
 		}
@@ -24,7 +26,7 @@ public class WallCollider : MonoBehaviour
 		if (other.tag == "Player")
 		{
 			//console write exit 
-			Debug.Log("Exit");
+			Debug.Log("Exited Wall Collider");
 			//stops the raycast referneced in the obstruction script
 			obstructionDetec.StopRayCast();
 		}
