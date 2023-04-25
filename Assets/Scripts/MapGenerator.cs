@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
-public class MapGenerator : MonoBehaviour
+public class MapGenerator : NetworkBehaviour
 {
     [SerializeField]
     private NavMeshSurface surface;
@@ -26,17 +27,18 @@ public class MapGenerator : MonoBehaviour
     [SerializeField]
     EndRoom bossRoom;
 
-    public float progress { get; private set; }
+    public NetworkVariable<float> progress = new NetworkVariable<float>(0);
     
     int roomsMade = 0;
 
-    public bool dungeonMade { get; private set; }
+    public NetworkVariable<bool> dungeonMade = new NetworkVariable<bool>(false);
+
 
     Coroutine mapGenCoroutine;
 
     private void Awake()
     {
-        dungeonMade = false;
+        dungeonMade.Value = false;
         SortRoomsByWeight();
         dungeonRooms = new Room[maxNumRooms];
     }
@@ -54,7 +56,7 @@ public class MapGenerator : MonoBehaviour
         if (mapGenCoroutine != null)
             StopCoroutine(mapGenCoroutine);
 
-        if (dungeonMade == true)
+        if (dungeonMade.Value == true)
         {
             DestroyDungeon();
         }
@@ -66,7 +68,7 @@ public class MapGenerator : MonoBehaviour
         // Start the map generating coroutine.
         
         mapGenCoroutine = StartCoroutine(GenerateDungeon());
-        dungeonMade = true;
+        dungeonMade.Value = true;
     }
 
     private void DestroyDungeon()
@@ -81,7 +83,7 @@ public class MapGenerator : MonoBehaviour
         }
        
 
-        dungeonMade = false;
+        dungeonMade.Value = false;
     }
     
     /// <summary>
@@ -90,7 +92,7 @@ public class MapGenerator : MonoBehaviour
     private IEnumerator GenerateDungeon()
     {
         float roomSpawningProgess;
-        progress = 0;
+        progress.Value = 0;
         // Creating the newEndRoom reference
         EndRoom _newEndRoom = null;
 
@@ -106,7 +108,7 @@ public class MapGenerator : MonoBehaviour
             // Get room spawning progress divided by the 3 bc it's a 2 step process..
             roomSpawningProgess = (i / maxNumRooms) /2;
             // Set the progress. 
-            progress = (roomSpawningProgess) * 100;
+            progress.Value = (roomSpawningProgess) * 100;
             Debug.Log("Making room: :" + i);
             // For each of the room's doors while we haven't made the max number of rooms...
             for (int j = 0; j < dungeonRooms[i].RoomDoors.Length && roomsMade < maxNumRooms; j++)
@@ -723,7 +725,7 @@ public class MapGenerator : MonoBehaviour
         // Set the boss room interactable door equal to the newEndRoom interactable door
         bossRoom.InteractableDoor.doorPair = _newEndRoom.InteractableDoor;
         // Map generation complete.
-        progress = 100;
+        progress.Value = 100;
     }
 
     /// <summary>

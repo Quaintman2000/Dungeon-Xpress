@@ -8,13 +8,14 @@ public class MatchManager : NetworkBehaviour
     //Reference to the BattleManager prefab
     [SerializeField] BattleManager battleManagerPrefab;
     [SerializeField] MapGenerator mapGenerator;
-    [SerializeField] PlayerController localPlayerController;
     [SerializeField] PlayerCharacter playerCharacterPrefab;
 
-    public float GameSetUpProgress { get; private set; }
+    public NetworkVariable<float> GameSetUpProgress = new NetworkVariable<float>(0);
 
     //Instance of the MatchManager
     public static MatchManager Instance;
+
+    public List<CharacterSpawner> playerSpawners = new List<CharacterSpawner>();
 
     //Ensure there is only one instance of the Match Manager
     private void Awake()
@@ -28,11 +29,14 @@ public class MatchManager : NetworkBehaviour
             Destroy(Instance.gameObject);
             Instance = this;
         }
+
     }
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
-        StartCoroutine(SetupGameRoutine());
+        base.OnNetworkSpawn();
+        if(IsHost)
+            StartCoroutine(SetupGameRoutine());
     }
 
     IEnumerator SetupGameRoutine()
@@ -41,46 +45,41 @@ public class MatchManager : NetworkBehaviour
         {
             mapGenerator.Generate();
 
-            while(mapGenerator.progress < 100)
+            while(mapGenerator.progress.Value < 100)
             {
-                GameSetUpProgress = mapGenerator.progress;
+                GameSetUpProgress.Value = mapGenerator.progress.Value;
                 yield return null;
             }
         }
         else
         {
-            GameSetUpProgress = 100;
+            GameSetUpProgress.Value = 50;
         }
+        yield return null;
+        while (NetworkManager.Singleton.ConnectedClientsList.Count != LobbyManager.instance.GetLobby().Players.Count)
+        {
+            yield return null;
+        }
+
+        for(int i =0; i < LobbyManager.instance.GetLobby().Players.Count; i++)
+        {
+            LoadInPlayerServerRpc(i);
+        }
+        GameSetUpProgress.Value = 100;
     }
 
-    public void StartHost()
-    {
-        NetworkManager.Singleton.StartHost();
-        Debug.Log("Start Host!");
-        LoadInPlayerClientRpc(0);
-    }
 
-    public void StartClient()
-    {
-        NetworkManager.Singleton.StartClient();
-        Debug.Log("Start Client!");
-        LoadInPlayerClientRpc(1);
-    }
-
-    [ClientRpc]
-    public void LoadInPlayerClientRpc(int playerNum)
+    [ServerRpc]
+    public void LoadInPlayerServerRpc(int playerNum)
     {
         Debug.Log("Start RPC called!");
-        //if (playerNum == 0)
-        //    NetworkManager.Singleton.StartHost();
-        //else
-        //    NetworkManager.Singleton.StartClient();
 
-        PlayerCharacter player = Instantiate<PlayerCharacter>(playerCharacterPrefab);
-        player.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
+        //NetworkManager.SpawnManager.
 
-        player.SetController(localPlayerController);
-        localPlayerController.SetPlayerCharacter(player);
+
+       PlayerCharacter player = Instantiate<PlayerCharacter>(playerCharacterPrefab);
+       player.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId: NetworkManager.Singleton.ConnectedClientsList[playerNum].ClientId, destroyWithScene: true);
+        //player.GetComponent<NetworkObject>().Spawn(destroyWithScene: true);
     }
 
     /// <summary>

@@ -49,6 +49,8 @@ public class PlayerNavMesh : NavMeshMovement
    
     public bool AttemptMove(Vector3 raycastPoint)
     {
+        Debug.Log("This player is on a navmesh: " + navMeshAgent.isOnNavMesh);
+
         NavMeshHit navHit;
         if (!NavMesh.SamplePosition(raycastPoint, out navHit, 1f, NavMesh.AllAreas))
         {

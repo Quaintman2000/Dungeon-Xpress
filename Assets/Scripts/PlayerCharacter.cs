@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class PlayerCharacter : Character
 {
@@ -12,6 +13,17 @@ public class PlayerCharacter : Character
 
         playerNavMesh = GetComponent<PlayerNavMesh>();
     }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+
+        if (IsOwner)
+        {
+            controller = PlayerController.instance.SetPlayerCharacter(this);
+        }
+    }
+    
     public void MoveCommand(Vector3 moveToLocation)
     {
         if(!playerNavMesh.AttemptMove(moveToLocation))
@@ -19,6 +31,7 @@ public class PlayerCharacter : Character
             // TODO, can't move there error log
             UIManager.Instance.DisplayErrorMessage("Can't go there.");
         }
+
     }
 
 }

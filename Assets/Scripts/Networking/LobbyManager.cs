@@ -32,12 +32,6 @@ public class LobbyManager : MonoBehaviour
         NotReady
     }
 
-    public enum ShouldStart
-    {
-        True,
-        False
-    }
-
     [SerializeField] float heartBeatTimerMax = 15;
     [SerializeField] float lobbyUpdateTimerMax = 1.1f;
     float heartBeatTimer = 0;
@@ -104,7 +98,6 @@ public class LobbyManager : MonoBehaviour
             lobbyUpdateTimer -= Time.deltaTime;
             if (lobbyUpdateTimer < 0)
             {
-                Debug.Log("Lobby Updated: Should start is " + joinedLobby.Data[KEY_SHOULD_START].Value + " " + ShouldStart.True.ToString());
                 lobbyUpdateTimer = lobbyUpdateTimerMax;
 
               Lobby lobby = await LobbyService.Instance.GetLobbyAsync(joinedLobby.Id);
@@ -112,9 +105,13 @@ public class LobbyManager : MonoBehaviour
 
                 OnJoinedLobbyUpdate?.Invoke();
 
-                if(joinedLobby.Data[KEY_SHOULD_START].Value == ShouldStart.True.ToString() && GameManager.Instance.gameStarting == false)
+                if(joinedLobby.Data[KEY_SHOULD_START].Value != "0" && GameManager.Instance.gameStarting == false)
                 {
-                    GameManager.Instance.StartMatch();
+                    GameManager.Instance.StartMatch(lobby.Players.Count);
+                    if(!IsLobbyHost())
+                    {
+                        RelayManager.Instance.JoinRelay(joinedLobby.Data[KEY_SHOULD_START].Value);
+                    }
                 }
             }
         }
@@ -133,7 +130,7 @@ public class LobbyManager : MonoBehaviour
                 Player = MakePlayer(),
                 Data = new Dictionary<string, DataObject>()
                 {
-                    { KEY_SHOULD_START, new DataObject(DataObject.VisibilityOptions.Member, ShouldStart.False.ToString()) }
+                    { KEY_SHOULD_START, new DataObject(DataObject.VisibilityOptions.Member, "0") }
                 }
             };
             // Make the lobby with inputted parameters.
@@ -354,11 +351,12 @@ public class LobbyManager : MonoBehaviour
         {
             try
             {
+                string joinCode = await RelayManager.Instance.CreateRelay();
                 UpdateLobbyOptions updateLobbyOptions = new UpdateLobbyOptions
                 {
                     Data = new Dictionary<string, DataObject>
                 {
-                    {KEY_SHOULD_START, new DataObject(DataObject.VisibilityOptions.Member, ShouldStart.True.ToString())}
+                    {KEY_SHOULD_START, new DataObject(DataObject.VisibilityOptions.Member, joinCode)}
                 }
                 };
 

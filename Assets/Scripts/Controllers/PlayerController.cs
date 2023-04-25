@@ -6,6 +6,8 @@ using System;
 
 public class PlayerController : Controller
 {
+    public static PlayerController instance;
+
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
     [SerializeField] UIManager UIManager;
@@ -32,6 +34,11 @@ public class PlayerController : Controller
 
     private void Awake()
     {
+        if (instance != null)
+            Destroy(this.gameObject);
+        else
+            instance = this;
+
         if (UIManager)
         {
             UIManager.OnAbilityButtonPressed += EnterCastingState;
@@ -49,11 +56,13 @@ public class PlayerController : Controller
       
     }
 
-    public void SetPlayerCharacter(PlayerCharacter character)
+    public PlayerController SetPlayerCharacter(PlayerCharacter character)
     {
         playerCharacter = character;
         combatController = playerCharacter.GetComponent<CombatController>();
         currentStateRoutine = StartCoroutine(HandleFreeRoamState());
+
+        return this;
     }
 
     void EnterCastingState()
@@ -66,7 +75,7 @@ public class PlayerController : Controller
         
         while (currentState == PlayerState.FreeRoam)
         {
-            Debug.Log("Freeroam");
+         //   Debug.Log("Freeroam");
             // If left click.
             if (Input.GetMouseButtonDown(0))
             {

@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance;
     public bool gameStarting = false;
-   
+
+    [SerializeField] MatchManager matchManagerPrefab;
+    float totalLoadProgress;
+
+
     void Awake()
     {
         if (Instance != null)
@@ -17,22 +22,40 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
     }
-    public void StartMatch()
+    public void StartMatch(int numPlayers)
     {
         if (SceneLoader.Instance != null)
+        {
             SceneLoader.Instance.LoadGame();
 
-        StartCoroutine(LoadGameRoutine());
+            StartCoroutine(LoadGameRoutine());
 
-        gameStarting = true;
+            SceneLoader.Instance.OnGameplaySceneLoaded += SpawnMatchManager;
+
+            gameStarting = true;
+        }
     }
 
     IEnumerator LoadGameRoutine()
     {
-        while (GetTotalLoadProgress() < 100)
+        totalLoadProgress = GetTotalLoadProgress();
+        while (totalLoadProgress < 100)
+        {
             yield return null;
+            totalLoadProgress = GetTotalLoadProgress();
+        }
 
         SceneLoader.Instance.UnloadLoadingScreen();
+    }
+    
+    void SpawnMatchManager()
+    {
+        if (LobbyManager.instance.IsLobbyHost())
+        {
+            MatchManager matchManager = Instantiate<MatchManager>(matchManagerPrefab);
+            matchManager.NetworkObject.Spawn();
+        }
+        SceneLoader.Instance.OnGameplaySceneLoaded -= SpawnMatchManager;
     }
    
     public float GetTotalLoadProgress()
@@ -44,7 +67,7 @@ public class GameManager : MonoBehaviour
 
         if(MatchManager.Instance != null)
         {
-            totalLoadProgress += MatchManager.Instance.GameSetUpProgress/2;
+            totalLoadProgress += MatchManager.Instance.GameSetUpProgress.Value/2;
         }
 
         return totalLoadProgress;

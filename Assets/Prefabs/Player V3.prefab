@@ -2575,7 +2575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectionCircle: {fileID: 1568477745}
   controller: {fileID: 0}
-  combatController: {fileID: 0}
+  combatController: {fileID: -3202820174444439802}
 --- !u!1 &2211721787516581437
 GameObject:
   m_ObjectHideFlags: 0

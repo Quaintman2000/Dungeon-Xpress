@@ -4,17 +4,29 @@ using UnityEngine;
 
 public class CharacterSpawner : MonoBehaviour
 {
+    [SerializeField] bool IsPlayerSpawner;
     [SerializeField] CombatController charaterPrefab;
     [SerializeField] CharacterData characterData;
 
-    private void Awake()
+    private void Start()
     {
+        //if (IsPlayerSpawner)
+            //MatchManager.Instance.playerSpawners.Add(this);
+
     }
 
     public void SpawnCharacter()
     {
         CombatController newCombatant = Instantiate<CombatController>(charaterPrefab, this.transform.position, this.transform.rotation);
         newCombatant.CharacterData = characterData;
+    }
+
+    public void SpawnPlayer(CombatController playerPrefab, CharacterData data)
+    {
+        charaterPrefab = playerPrefab;
+        characterData = data;
+
+        SpawnCharacter();
     }
 
     private void OnDrawGizmos()
