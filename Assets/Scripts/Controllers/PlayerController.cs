@@ -6,15 +6,16 @@ using System;
 
 public class PlayerController : CharacterController
 {
-    
-    
+
+    [SerializeField] LayerMask raycastLayer;
+
     //Reference to the CameraController
     [SerializeField] CameraController camControl;
-  
+
     // Action events
     public Action AttemptPickupAction, OnRightClickDownAction, OnRightClickHeldDownAction, OnPauseAction;
-    
-    
+
+
     public Action<float, float> MoveCameraAction;
     public Action<float> RotateCameraAction;
     public Action<bool> OnCombatStartedAction;
@@ -67,14 +68,18 @@ public class PlayerController : CharacterController
             // Makes the raycast from our mouseposition to the ground.
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             // Sends the raycast of to infinity until hits something.
-            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
+            if (Physics.Raycast(cameraRay, out hit, Mathf.Infinity, raycastLayer))
+            {
 
-            // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
-            CharacterController characterController;
-            if (hit.collider.TryGetComponent<CharacterController>(out characterController))
-                SelectCharacter(characterController);
-            else
-                SelectCharacter(this);
+                // If we hit a character with a character controller, set that as our selected character. If not, set it to null.
+                CharacterController characterController;
+                if (hit.collider.TryGetComponent<CharacterController>(out characterController))
+                    SelectCharacter(characterController);
+                else
+                    SelectCharacter(this);
+            }
+
+
         }
         if (Input.GetMouseButtonDown(1))
         {
@@ -95,7 +100,7 @@ public class PlayerController : CharacterController
                 OnRightClickHeldDownAction?.Invoke();
                 //camControl.RotateCamera(Input.mousePosition);
 
-     
+
             }
         }
 
@@ -106,9 +111,9 @@ public class PlayerController : CharacterController
             // Makes the raycast from our mouseposition to the ground.
             Ray cameraRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             // Sends the raycast of to infinity until hits something.
-            Physics.Raycast(cameraRay, out hit, Mathf.Infinity);
+            Physics.Raycast(cameraRay, out hit, Mathf.Infinity, raycastLayer);
 
-           
+
 
             if (selectedCharacter == this)
             {
@@ -127,7 +132,7 @@ public class PlayerController : CharacterController
                     {
                         // Set the pathing to start.
                         FreeMoveToPointAction?.Invoke(raycastPoint);
-                      
+
                     }
                     else
                     {
@@ -141,7 +146,7 @@ public class PlayerController : CharacterController
                 }
                 else if (currentState == PlayerState.InCombat && combatController.IsTurn == true)
                 {
-                     
+
                     // If we hit a combatant...
                     if (hit.collider.TryGetComponent<CombatController>(out CombatController other))
                     {
@@ -162,7 +167,7 @@ public class PlayerController : CharacterController
         {
             //Move on the desired input
             MoveCameraAction?.Invoke(verticalInput, horizontalInput);
-            
+
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -197,12 +202,12 @@ public class PlayerController : CharacterController
             OnPauseAction?.Invoke();
         }
 
-            //When scrolling the mouse wheel...
-            if (Input.mouseScrollDelta != Vector2.zero)
-            {
-                //Zoom in or out based on input
-                camControl.Zoom(Input.mouseScrollDelta.y);
-            }
+        //When scrolling the mouse wheel...
+        if (Input.mouseScrollDelta != Vector2.zero)
+        {
+            //Zoom in or out based on input
+            camControl.Zoom(Input.mouseScrollDelta.y);
+        }
 
         //If pressed 1...
         if (Input.GetKeyDown(KeyCode.Alpha1))

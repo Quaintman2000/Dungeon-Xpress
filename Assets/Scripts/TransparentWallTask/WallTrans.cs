@@ -1,37 +1,62 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class WallTrans : MonoBehaviour
 {
-	//makes material variable for the initial object color
-	private Material m_initialMaterial;
-
-	[SerializeField]
-	//makes a private variable for the renderer
-	private Renderer renderer;
-	[SerializeField]
-	//makes a private variable for the new transparent material
-	private Material transparentMaterial;
-
-	void Start()
-	{
-		//sets the renderer to the component's(wall's) Renderer
-		renderer = GetComponent<Renderer>();
+    [SerializeField]
+    // Makes a private variable for transparent material
+    private Material transparentMaterial;
+    // List used to contain the orignal materials
+    private List<Material> originalMaterials = new List<Material>();
 
 
-		// On start this sets the item's material to its inital color
-		m_initialMaterial = GetComponent<Renderer>().material;
-	}
+    public void SetTransparent(Transform parentTransform)
+    {
+        // Counts the children of the parent object
+        int childCount = parentTransform.childCount;
+        
+        for (int i = 0; i < childCount; i++)
+        {
+            // Used to get the children/walls of the parent
+            Transform childTransform = parentTransform.GetChild(i);
+            // Gets the child/wall renderer
+            Renderer childRenderer = childTransform.GetComponent<Renderer>();
+            if (childRenderer != null)
+            {
+                // Store the original material of the wall/child
+                originalMaterials.Add(childRenderer.material);
 
-	public void SetTransparent()
-	{
-		//this is incharge of swapping the items material to a new tranparent material
-		GetComponent<Renderer>().material = transparentMaterial;
-	}
+                // Changes the material to transparent
+                childRenderer.material = transparentMaterial;
 
-	public void SetToNormal()
-	{
-		// this is in charge of swapping the items material back to the original.
-		GetComponent<Renderer>().material= m_initialMaterial;
-	}
+
+            }
+        }
+
+    }
+
+    public void SetToNormal(Transform parentTransform)
+    {
+        // Counts the children of the parent object
+        int childCount = parentTransform.childCount;
+
+        for (int i = 0; i < childCount; i++)
+        {
+
+            Transform childTransform = parentTransform.GetChild(i);
+            Renderer childRenderer = childTransform.GetComponent<Renderer>();
+            if (childRenderer != null)
+            {
+                // Restore the original material of the wall/child
+                childRenderer.material = originalMaterials[i];
+            }
+        }
+
+
+    }
 }
+
+
+
